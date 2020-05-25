@@ -30,11 +30,11 @@
  */
 
 enum ControlMode {
-    UNCONFIGURED = 0,
-    POSITION_CONTROL = 1,
-    VELOCITY_CONTROL = 2,
-    TORQUE_CONTROL = 3,
-    ERROR = -1
+    UNCONFIGURED = 0, /**< 0 */
+    POSITION_CONTROL = 1, /**< 1 */
+    VELOCITY_CONTROL = 2, /**< 2 */
+    TORQUE_CONTROL = 3, /**< 3 */
+    ERROR = -1 /**< -1 */
 };
 /**
  * An enum type.
