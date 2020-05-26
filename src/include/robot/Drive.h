@@ -25,9 +25,9 @@
 #include <vector>
 
 /**
- * An enum type.
- * Constants representing the control mode of the drive
- */
+ * \brief Enum type representing possible Drive control modes
+ *
+*/
 
 enum ControlMode {
     UNCONFIGURED = 0, /**< 0 */
@@ -37,9 +37,8 @@ enum ControlMode {
     ERROR = -1 /**< -1 */
 };
 /**
- * An enum type.
- * Constants representing the Drives State
- */
+ * \brief Enum type representing possible Drive states 
+*/
 enum DriveState {
     DISABLED = 0,
     READY_TO_SWITCH_ON = 1,
@@ -47,10 +46,8 @@ enum DriveState {
 };
 
 /**
- * An enum type
- * Commonly-used entries defined in the Object Dictionary for CiA402 Drives
- * 
- */
+ * @brief Enum type representing commonly-used entries defined in the Object Dictionary for CiA402 Drives
+*/
 enum OD_Entry_t {
     STATUS_WORD = 0,
     ACTUAL_POS = 1,
@@ -62,8 +59,14 @@ enum OD_Entry_t {
 };
 
 /**
- * \brief Map between the Commonly-used OD entries and their addresses - used to generate PDO Configurations
- *        NOTE: These are written in hexadecimal
+ * \brief Map between the commonly-used Object Dictionary (OD) entries and their respective addresses
+ *
+ *  Used to generate PDO Configurations
+ *  NOTE: These are written in hexadecimal
+ *  
+ *  OD Entry | OD Address
+ *  -------- | -----------
+ *  STATUS_WORD | 0x6041
  * 
  */
 static std::map<OD_Entry_t, int> OD_Addresses = {
