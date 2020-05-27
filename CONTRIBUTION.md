@@ -80,6 +80,7 @@ Common prefixes:
 - feat: A new feature
 - docs: Documentation changes
 - test: Correct existing tests or add new ones
+- misc: other addition
 
 #### Documentation
 
