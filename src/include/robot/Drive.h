@@ -40,22 +40,22 @@ enum ControlMode {
  * \brief Enum representing possible Drive states 
 */
 enum DriveState {
-    DISABLED = 0, /** < 0 */
-    READY_TO_SWITCH_ON = 1, /** < 1 */
-    ENABLED = 2, /** < 2 */
+    DISABLED = 0, /**< 0 */
+    READY_TO_SWITCH_ON = 1, /**< 1 */
+    ENABLED = 2, /**< 2 */
 };
 
 /**
  * @brief Enum representing commonly-used entries defined in the Object Dictionary for CiA402 Drives
 */
 enum OD_Entry_t {
-    STATUS_WORD = 0,    /** < 0 */
-    ACTUAL_POS = 1,     /** < 1 */
-    ACTUAL_VEL = 2,     /** < 2 */
-    ACTUAL_TOR = 3,     /** < 3 */
-    TARGET_POS = 11,    /** < 11 */
-    TARGET_VEL = 12,    /** < 12 */
-    TARGET_TOR = 13     /** < 13 */
+    STATUS_WORD = 0,    /**< 0 */
+    ACTUAL_POS = 1,     /**< 1 */
+    ACTUAL_VEL = 2,     /**< 2 */
+    ACTUAL_TOR = 3,     /**< 3 */
+    TARGET_POS = 11,    /**< 11 */
+    TARGET_VEL = 12,    /**< 12 */
+    TARGET_TOR = 13     /**< 13 */
 };
 
 /**
@@ -110,13 +110,13 @@ struct motorProfile {
 class Drive {
    protected:
     /**
-        * \brief The CAN Node ID used to address this particular drive on the CAN bus
+        * \brief The CAN Node ID used to address this drive on the CAN bus
         * 
         */
     int NodeID;
 
     /**
-        * \brief Generates the list of commands required to configure TPDOs on the drives
+        * \brief Generates the list of commands required to configure TPDOs on the drive
         * 
         * \param items A list of OD_Entry_t items which are to be configured with this TPDO
         * \param PDO_Num The number/index of this PDO
