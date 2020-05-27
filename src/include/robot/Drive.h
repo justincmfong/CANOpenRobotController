@@ -118,8 +118,8 @@ class Drive {
     /**
     * \brief Generates the list of SDO commands required to configure TPDOs on the drive
     * 
-    * Transmit Process Data Objects (TPDOs) require prior setup to be used to send data from a drive's object dictionary.
-    * This setup is performed using Service Data Object (SDO) commands
+    * Transmit Process Data Objects (TPDOs) require prior setup to be used to send data from a drive's object dictionary,
+    * this setup is performed using Service Data Object (SDO) commands
     *      
     * \param items A list of OD_Entry_t items which are to be configured with this TPDO
     * \param PDO_Num The number/index of this PDO
@@ -131,8 +131,8 @@ class Drive {
     /**
     * \brief Generates the list of SDO commands required to configure RPDOs on the drives
     * 
-    * Receive Process Data Objects (RPDOs) require prior setup to be used to receive data sent to a drive's object dictionary
-    * This setup is performed using Service Data Object (SDO) commands
+    * Receive Process Data Objects (RPDOs) require prior setup to be used to receive data sent to a drive's object dictionary,
+    * this setup is performed using Service Data Object (SDO) commands
     *
     * \param items A list of OD_Entry_t items which are to be configured with this RPDO
     * \param PDO_Num The number/index of this PDO
@@ -145,13 +145,20 @@ class Drive {
        * 
        * \brief  Generates the list of SDO commands required to configure Position control in CANopen motor drive
        * 
-       * \param positionProfile.profileVelocity Value used by position mode motor trajectory generator.   
-       * \param Profile Acceleration, value position mode motor trajectory generator will attempt to achieve.  
-       * \param Profile Deceleration, value position mode motor trajectory generator will use at end of trapezoidal profile. 
+       * \param positionProfile.profileVelocity Velocity value used by position mode motor trajectory generator.   
+       * \param positionProfile.profileAccelration Acceleration value Position Mode motor trajectory generator will attempt to achieve.  
+       * \param positionProfile.profileDeceleration Deceleration value Position Mode motor trajectory generator will use at the end of trapezoidal motion profile. 
        * 
        * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
        *           https://www.can-cia.org/can-knowledge/canopen/cia402/
        */
+
+    /**
+     * @brief Generates the list of SDO commands required to configure Position control in CANopen motor drive
+     * @param positionProfile 
+     * @return 
+    */
+
     std::vector<std::string> generatePosControlConfigSDO(motorProfile positionProfile);
 
     /**
@@ -168,6 +175,13 @@ class Drive {
        * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
        *           https://www.can-cia.org/can-knowledge/canopen/cia402/
        */
+
+
+    /**
+     * @brief 
+     * @param velocityProfile 
+     * @return 
+    */
     std::vector<std::string> generateVelControlConfigSDO(motorProfile velocityProfile);
 
     /**                                                                                                             
@@ -233,9 +247,12 @@ class Drive {
     /**
     * \brief Initialises a standard set of PDOs for the use of the drive. These are:
     * 
-    *   TPDO | Mapping Address
-    *   ---- | ----
-    *   TPDO1: COB-ID 180+{NODE-ID} | Status Word (0x6041)
+    *   TPDO | Mapping Address | Usage
+    *   ---- | ---- | ----
+    *   TPDO1: COB-ID 180+{NODE-ID} | Status Word (0x6041) | Send on Internal Event Trigger
+    *   TPDO2: COB-ID 280+{NODE-ID} | Actual Position (0x6064), Actual Velocity (0x606C) | Sent every SYNC Message
+    *   TPDO3: COB-ID 380+{NODE-ID} | Actual Torque (0x607C) | Sent every SYNC MEssage
+
 
     *   TPDO1: COB-ID 180+{NODE-ID}: Status Word (0x6041), Send on Internal Event Trigger
     *   TPDO2: COB-ID 280+{NODE-ID}: Actual Position (0x6064), Actual Velocity (0x606C), Sent every SYNC Message
