@@ -116,36 +116,39 @@ class Drive {
     int NodeID;
 
     /**
-        * \brief Generates the list of commands required to configure TPDOs on the drive
-        * 
-        * \param items A list of OD_Entry_t items which are to be configured with this TPDO
-        * \param PDO_Num The number/index of this PDO
-        * \param SyncRate The rate at which this PDO transmits (e.g. number of Sync Messages. 0xFF represents internal trigger event)
-        * \return std::string 
-        */
+    * \brief Generates the list of SDO commands required to configure TPDOs on the drive
+    * 
+    * Transmit Process Data Objects (TPDOs) require prior setup to be used to send data from a drive's object dictionary.
+    * This setup is performed using Service Data Object (SDO) commands
+    *      
+    * \param items A list of OD_Entry_t items which are to be configured with this TPDO
+    * \param PDO_Num The number/index of this PDO
+    * \param SyncRate The rate at which this PDO transmits (e.g. number of Sync Messages. 0xFF represents internal trigger event)
+    * \return std::string 
+    */
     std::vector<std::string> generateTPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int SyncRate);
 
     /**
-        * \brief Generates the list of commands required to configure RPDOs on the drives
-        * 
-        * \param items A list of OD_Entry_t items which are to be configured with this RPDO
-        * \param PDO_Num The number/index of this PDO
-        * \param UpdateTiming 0-240 represents hold until next sync message, 0xFF represents immediate update
-        * \return std::string 
-        */
+    * \brief Generates the list of SDO commands required to configure RPDOs on the drives
+    * 
+    * Receive Process Data Objects (RPDOs) require prior setup to be used to receive data sent to a drive's object dictionary
+    * This setup is performed using Service Data Object (SDO) commands
+    *
+    * \param items A list of OD_Entry_t items which are to be configured with this RPDO
+    * \param PDO_Num The number/index of this PDO
+    * \param UpdateTiming 0-240 represents hold until next sync message, 0xFF represents immediate update
+    * \return std::string 
+    */
     std::vector<std::string> generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int UpdateTiming);
 
     /**
        * 
-       * \brief  Generates the list of commands required to configure Position control in CANopen motor drive
+       * \brief  Generates the list of SDO commands required to configure Position control in CANopen motor drive
        * 
-       *     
-       * \param Profile Velocity, value used by position mode motor trajectory generator.
-       *     
-       * \param Profile Acceleration, value position mode motor trajectory generator will attempt to achieve.
-       *     
-       * \param Profile Deceleration, value position mode motor trajectory generator will use at end of trapezoidal profile.
-       *     
+       * \param positionProfile.profileVelocity Value used by position mode motor trajectory generator.   
+       * \param Profile Acceleration, value position mode motor trajectory generator will attempt to achieve.  
+       * \param Profile Deceleration, value position mode motor trajectory generator will use at end of trapezoidal profile. 
+       * 
        * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
        *           https://www.can-cia.org/can-knowledge/canopen/cia402/
        */
