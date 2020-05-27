@@ -25,7 +25,7 @@
 #include <vector>
 
 /**
- * \brief Enum type representing possible Drive control modes
+ * \brief Enum representing possible Drive control modes
  *
 */
 
@@ -37,36 +37,33 @@ enum ControlMode {
     ERROR = -1 /**< -1 */
 };
 /**
- * \brief Enum type representing possible Drive states 
+ * \brief Enum representing possible Drive states 
 */
 enum DriveState {
-    DISABLED = 0,
-    READY_TO_SWITCH_ON = 1,
-    ENABLED = 2,
+    DISABLED = 0, /** < 0 */
+    READY_TO_SWITCH_ON = 1, /** < 1 */
+    ENABLED = 2, /** < 2 */
 };
 
 /**
- * @brief Enum type representing commonly-used entries defined in the Object Dictionary for CiA402 Drives
+ * @brief Enum representing commonly-used entries defined in the Object Dictionary for CiA402 Drives
 */
 enum OD_Entry_t {
-    STATUS_WORD = 0,
-    ACTUAL_POS = 1,
-    ACTUAL_VEL = 2,
-    ACTUAL_TOR = 3,
-    TARGET_POS = 11,
-    TARGET_VEL = 12,
-    TARGET_TOR = 13
+    STATUS_WORD = 0,    /** < 0 */
+    ACTUAL_POS = 1,     /** < 1 */
+    ACTUAL_VEL = 2,     /** < 2 */
+    ACTUAL_TOR = 3,     /** < 3 */
+    TARGET_POS = 11,    /** < 11 */
+    TARGET_VEL = 12,    /** < 12 */
+    TARGET_TOR = 13     /** < 13 */
 };
 
 /**
- * \brief Map between the commonly-used Object Dictionary (OD) entries and their respective addresses
+ * \brief Map between commonly-used Object Dictionary (OD) entries and their respective memory addresses
  *
  *  Used to generate PDO Configurations
- *  NOTE: These are written in hexadecimal
+ *  NOTE: The addresses are written in hexadecimal
  *  
- *  OD Entry | OD Address
- *  -------- | -----------
- *  STATUS_WORD | 0x6041
  * 
  */
 static std::map<OD_Entry_t, int> OD_Addresses = {
@@ -79,8 +76,10 @@ static std::map<OD_Entry_t, int> OD_Addresses = {
     {TARGET_TOR, 0x6071}};
 
 /**
- * \brief Map between the Commonly-used OD entries and their data lengths - used to generate PDO Configurations
- *        NOTE: These are written in hexadecimal
+ * \brief Map between commonly-used Object Dictionary (OD) entries and their respective data lengths
+ *  
+ *  Used to generate PDO Configurations
+ *  NOTE: The addresses are written in hexadecimal
  * 
  */
 static std::map<OD_Entry_t, int> OD_Data_Size = {
@@ -93,8 +92,9 @@ static std::map<OD_Entry_t, int> OD_Data_Size = {
     {TARGET_TOR, 0x0010}};
 
 /**
- * \brief struct to hold desired velocity, acceleration and deceleration values for a 
- *     drives motor controller profile.
+ * \brief Struct for Drive motor controller motion profile
+ *
+ *  Stores desired velocity, acceleration and deceleration values for motor profile.
  */
 struct motorProfile {
     int profileVelocity;
