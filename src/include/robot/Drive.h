@@ -249,7 +249,7 @@ class Drive {
     * 
     *   TPDO | Mapping Address | Usage
     *   ---- | ---- | ----
-    *   TPDO1: COB-ID 180+{NODE-ID} | Status Word (0x6041) | Send on Internal Event Trigger
+    *   TPDO1: COB-ID 180+{NODE-ID} | Status Word (0x6041) | Send on Internal %Event Trigger
     *   TPDO2: COB-ID 280+{NODE-ID} | Actual Position (0x6064), Actual Velocity (0x606C) | Sent every SYNC Message
     *   TPDO3: COB-ID 380+{NODE-ID} | Actual Torque (0x607C) | Sent every SYNC MEssage
 
