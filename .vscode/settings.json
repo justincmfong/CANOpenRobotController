@@ -47,6 +47,8 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "co_pdo.h": "c",
-        "co_sync.h": "c"
+        "co_sync.h": "c",
+        "ctime": "cpp",
+        "iomanip": "cpp"
     }
 }
