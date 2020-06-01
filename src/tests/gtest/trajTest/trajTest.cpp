@@ -1,5 +1,6 @@
 /*Google test for trajectory generator class - change your specific type and add corner cases
-* Run: g++ -lgtest trajTest.cpp TrajectoryGenerator.cpp DummyTrajectoryGenerator.cpp -o  ./test -std=c++17 && ./test*/
+* Run: g++ -lgtest trajTest.cpp TrajectoryGenerator.cpp DummyTrajectoryGenerator.cpp -o  ./test -std=c++17 && ./test
+*/
 
 #include <gtest/gtest.h>
 

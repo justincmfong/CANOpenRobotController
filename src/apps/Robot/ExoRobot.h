@@ -22,9 +22,9 @@
 
 #include <map>
 
+#include "AlexTrajectoryGenerator.h"
 #include "CopleyDrive.h"
 #include "DummyActJoint.h"
-#include "DummyTrajectoryGenerator.h"
 #include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"

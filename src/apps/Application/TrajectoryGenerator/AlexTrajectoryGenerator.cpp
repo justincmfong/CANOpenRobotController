@@ -10,6 +10,8 @@
 
 #include "ALEXTrajectoryGenerator.h"
 
+/*Test hardcoded trajectory*/
+double sitting[6] = {90, 90, 90, 90, 0, 0};
 //using namespace std;
 /**
  * Initialisation Methods
@@ -23,6 +25,7 @@ bool ALEXTrajectoryGenerator::initialiseTrajectory() {
 
 bool ALEXTrajectoryGenerator::initialiseTrajectory(RobotMode mov, jointspace_state initialPose) {
     // Set the trajectory parameters
+
     setTrajectoryParameters(movementTrajMap[mov]);
     generateAndSaveSpline(initialPose);
     return true;
@@ -32,8 +35,12 @@ bool ALEXTrajectoryGenerator::initialiseTrajectory(RobotMode mov, jointspace_sta
  * Action Methods
  */
 std::vector<double> ALEXTrajectoryGenerator::getSetPoint(time_tt time) {
-    std::vector<double> setPoint = {0, 0};
-    return setPoint;
+    // TEST VERSION FOR COMPILATION w/ external libs (Eigen)
+    std::vector<double> angles;
+    for (int i = 0; i < NUM_JOINTS; i++) {
+        angles.push_back(sitting[i]);
+    }
+    return angles;
 }
 
 /***********************************************************************
@@ -1363,4 +1370,8 @@ void ALEXTrajectoryGenerator::setTrajectoryStanceLeft() {
 
 double ALEXTrajectoryGenerator::getStepDuration() {
     return trajectoryParameter.step_duration;
+}
+
+bool ALEXTrajectoryGenerator::isTrajectoryFinished() {
+    return true;
 }

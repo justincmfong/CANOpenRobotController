@@ -363,5 +363,14 @@ class ALEXTrajectoryGenerator : public TrajectoryGenerator {
     void setTrajectoryStanceLeft();
 
     double getStepDuration();
+    /**
+     * \brief Check if the trajectory has been completed based on last elapsed time
+     * 
+     * \return true if trajectory has been completed
+     * \return false if trajectory has not been completed
+     */
+    bool isTrajectoryFinished();
 };
+}
+;
 #endif
