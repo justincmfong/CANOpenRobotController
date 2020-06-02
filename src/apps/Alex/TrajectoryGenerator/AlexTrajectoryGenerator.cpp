@@ -8,7 +8,7 @@
  *
 */
 
-#include "ALEXTrajectoryGenerator.h"
+#include "AlexTrajectoryGenerator.h"
 
 /*Test hardcoded trajectory*/
 double sitting[6] = {90, 90, 90, 90, 0, 0};
@@ -16,14 +16,17 @@ double sitting[6] = {90, 90, 90, 90, 0, 0};
 /**
  * Initialisation Methods
  */
-ALEXTrajectoryGenerator::ALEXTrajectoryGenerator() {
+AlexTrajectoryGenerator::AlexTrajectoryGenerator() {
+}
+AlexTrajectoryGenerator::AlexTrajectoryGenerator(int NumOfJoints) {
+    numJoints = NumOfJoints;
 }
 
-bool ALEXTrajectoryGenerator::initialiseTrajectory() {
+bool AlexTrajectoryGenerator::initialiseTrajectory() {
     return true;
 }
 
-bool ALEXTrajectoryGenerator::initialiseTrajectory(RobotMode mov, jointspace_state initialPose) {
+bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mov, jointspace_state initialPose) {
     // Set the trajectory parameters
 
     setTrajectoryParameters(movementTrajMap[mov]);
@@ -34,7 +37,7 @@ bool ALEXTrajectoryGenerator::initialiseTrajectory(RobotMode mov, jointspace_sta
 /**
  * Action Methods
  */
-std::vector<double> ALEXTrajectoryGenerator::getSetPoint(time_tt time) {
+std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
     // TEST VERSION FOR COMPILATION w/ external libs (Eigen)
     std::vector<double> angles;
     for (int i = 0; i < NUM_JOINTS; i++) {
@@ -46,21 +49,21 @@ std::vector<double> ALEXTrajectoryGenerator::getSetPoint(time_tt time) {
 /***********************************************************************
 Methods to Set Trajectory and Pilot Parameters
 ***********************************************************************/
-void ALEXTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters trajectoryParameter) {
+void AlexTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters trajectoryParameter) {
     DEBUG_OUT("setTrajectoryParameters()")
     this->trajectoryParameter = trajectoryParameter;
 }
 
-void ALEXTrajectoryGenerator::setPilotParameters(PilotParameters pilotParameters) {
+void AlexTrajectoryGenerator::setPilotParameters(PilotParameters pilotParameters) {
     this->pilotParameters = pilotParameters;
 }
 
 /**
  * Debugging Methods
  */
-void ALEXTrajectoryGenerator::printTrajectoryParameters() {
-    //std::cout << "Step height:" << ((ALEXTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.step_height << std::endl;
-    //std::cout << "Slope angle: " << ((ALEXTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.slope_angle << std::endl;
+void AlexTrajectoryGenerator::printTrajectoryParameters() {
+    //std::cout << "Step height:" << ((AlexTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.step_height << std::endl;
+    //std::cout << "Slope angle: " << ((AlexTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.slope_angle << std::endl;
     std::string outstring;
 
     switch (trajectoryParameter.stepType) {
@@ -83,7 +86,7 @@ void ALEXTrajectoryGenerator::printTrajectoryParameters() {
     std::cout << "Step Type: " << outstring << std::endl;
 }
 /*
-void ALEXTrajectoryGenerator::setTrajectoryParameters(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
+void AlexTrajectoryGenerator::setTrajectoryParameters(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
                                                       Foot stance_foot, StepType movement, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt) {
     trajectoryParameter.step_duration = step_duration;
     trajectoryParameter.step_height = step_height;
@@ -100,7 +103,7 @@ void ALEXTrajectoryGenerator::setTrajectoryParameters(time_tt step_duration, dou
     trajectoryParameter.right_foot_on_tilt = right_foot_on_tilt;
 }
 
-void ALEXTrajectoryGenerator::setPilotParameters(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
+void AlexTrajectoryGenerator::setPilotParameters(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
                                                  double hip_width, double torso_length, double buttocks_height) {
     pilotParameters.lowerleg_length = lowerleg_length;
     pilotParameters.upperleg_length = upperleg_length;
@@ -116,7 +119,7 @@ void ALEXTrajectoryGenerator::setPilotParameters(double lowerleg_length, double 
 Functions for taskspace and joint space conversion
 
 **********************************************************************/
-std::vector<taskspace_state> ALEXTrajectoryGenerator::generate_key_taskspace_states(taskspace_state initialTaskspaceState,
+std::vector<taskspace_state> AlexTrajectoryGenerator::generate_key_taskspace_states(taskspace_state initialTaskspaceState,
                                                                                     const TrajectoryParameters &trajectoryParameters, const PilotParameters &pilotParameters) {
     std::vector<taskspace_state> keyTaskspaceStates;
     double deltaFootDistance = 0.05;
@@ -802,7 +805,7 @@ std::vector<taskspace_state> ALEXTrajectoryGenerator::generate_key_taskspace_sta
 }
 
 // Generates discrete trajectory from parameters to use in control system
-void ALEXTrajectoryGenerator::compute_discrete_trajectory(
+void AlexTrajectoryGenerator::compute_discrete_trajectory(
     const TrajectoryParameters &trajectoryParameters,
     const PilotParameters &pilotParameters,
     jointspace_state initialJointspaceState) {
@@ -889,7 +892,7 @@ void ALEXTrajectoryGenerator::compute_discrete_trajectory(
     }
 }
 
-taskspace_state ALEXTrajectoryGenerator::jointspace_state_to_taskspace_state(
+taskspace_state AlexTrajectoryGenerator::jointspace_state_to_taskspace_state(
     jointspace_state jointspaceState,
     TrajectoryParameters trajectoryParameters,
     PilotParameters pilotParameters) {
@@ -926,7 +929,7 @@ taskspace_state ALEXTrajectoryGenerator::jointspace_state_to_taskspace_state(
     return taskspaceState;
 }
 
-jointspace_state ALEXTrajectoryGenerator::taskspace_state_to_jointspace_state(
+jointspace_state AlexTrajectoryGenerator::taskspace_state_to_jointspace_state(
     taskspace_state taskspaceState,
     TrajectoryParameters trajectoryParameters,
     PilotParameters pilotParameters) {
@@ -971,7 +974,7 @@ jointspace_state ALEXTrajectoryGenerator::taskspace_state_to_jointspace_state(
     return jointspaceState;
 }
 
-std::vector<jointspace_state> ALEXTrajectoryGenerator::taskspace_states_to_jointspace_states(
+std::vector<jointspace_state> AlexTrajectoryGenerator::taskspace_states_to_jointspace_states(
     jointspace_state initialJointspaceState,
     const std::vector<taskspace_state> &taskspaceStates,
     TrajectoryParameters trajectoryParameters,
@@ -987,7 +990,7 @@ std::vector<jointspace_state> ALEXTrajectoryGenerator::taskspace_states_to_joint
     return jointspaceStates;
 }
 
-std::vector<double> ALEXTrajectoryGenerator::triangle_inverse_kinematics(
+std::vector<double> AlexTrajectoryGenerator::triangle_inverse_kinematics(
     const double xAnkle,
     const double zAnkle,
     const double xHip,
@@ -1020,7 +1023,7 @@ std::vector<double> ALEXTrajectoryGenerator::triangle_inverse_kinematics(
 Functions for Splines
 
 **********************************************************************/
-std::vector<CubicPolynomial> ALEXTrajectoryGenerator::cubic_spline(
+std::vector<CubicPolynomial> AlexTrajectoryGenerator::cubic_spline(
     double x[],
     time_tt t[],
     int numPoints) {
@@ -1097,7 +1100,7 @@ std::vector<CubicPolynomial> ALEXTrajectoryGenerator::cubic_spline(
     return cubicSplinePolynomials;
 }
 
-jointspace_spline ALEXTrajectoryGenerator::cubic_spline_jointspace_states(std::vector<jointspace_state> jointspaceStates) {
+jointspace_spline AlexTrajectoryGenerator::cubic_spline_jointspace_states(std::vector<jointspace_state> jointspaceStates) {
     jointspace_spline jointspaceSpline;
     // Get times
     for (auto &jointspaceState : jointspaceStates)
@@ -1115,18 +1118,18 @@ jointspace_spline ALEXTrajectoryGenerator::cubic_spline_jointspace_states(std::v
     return jointspaceSpline;
 }
 
-double ALEXTrajectoryGenerator::evaluate_cubic_polynomial(CubicPolynomial cubicPolynomial, time_tt time) {
+double AlexTrajectoryGenerator::evaluate_cubic_polynomial(CubicPolynomial cubicPolynomial, time_tt time) {
     return cubicPolynomial.coefficients[0] + cubicPolynomial.coefficients[1] * time + cubicPolynomial.coefficients[2] * time * time + cubicPolynomial.coefficients[3] * time * time * time;
 }
-double ALEXTrajectoryGenerator::evaluate_cubic_polynomial_first_derivative(CubicPolynomial cubicPolynomial, time_tt time) {
+double AlexTrajectoryGenerator::evaluate_cubic_polynomial_first_derivative(CubicPolynomial cubicPolynomial, time_tt time) {
     return cubicPolynomial.coefficients[1] + 2 * cubicPolynomial.coefficients[2] * time + 3 * cubicPolynomial.coefficients[3] * time * time;
 }
-double ALEXTrajectoryGenerator::evaluate_cubic_polynomial_second_derivative(CubicPolynomial cubicPolynomial, time_tt time) {
+double AlexTrajectoryGenerator::evaluate_cubic_polynomial_second_derivative(CubicPolynomial cubicPolynomial, time_tt time) {
     return 2 * cubicPolynomial.coefficients[2] + 6 * cubicPolynomial.coefficients[3] * time;
 }
 
 //Generate and store the trajectory spline into the trajectory object
-void ALEXTrajectoryGenerator::generateAndSaveSpline(jointspace_state initialJointspaceState) {
+void AlexTrajectoryGenerator::generateAndSaveSpline(jointspace_state initialJointspaceState) {
     trajectoryJointSpline = compute_trajectory_spline(trajectoryParameter, pilotParameters, initialJointspaceState);
 }
 
@@ -1145,7 +1148,7 @@ Functions for Controller
  */
 
 // Generates trajectory spline from parameters to use in control system
-jointspace_spline ALEXTrajectoryGenerator::compute_trajectory_spline(const TrajectoryParameters &trajectoryParameters,
+jointspace_spline AlexTrajectoryGenerator::compute_trajectory_spline(const TrajectoryParameters &trajectoryParameters,
                                                                      const PilotParameters &pilotParameters,
                                                                      jointspace_state initialJointspaceState) {
     Foot stanceFoot = trajectoryParameters.stance_foot;
@@ -1170,7 +1173,7 @@ jointspace_spline ALEXTrajectoryGenerator::compute_trajectory_spline(const Traje
 }
 
 //get the velocity at any given time
-/*void ALEXTrajectoryGenerator::calcVelocity(time_tt time, double *velocityArray) {
+/*void AlexTrajectoryGenerator::calcVelocity(time_tt time, double *velocityArray) {
     time_tt startTime = trajectoryJointSpline.times.front();
     time_tt endTime = trajectoryJointSpline.times.back();
     // Every sample time, compute the value of q1 to q6 based on the time segment / set of NUM_JOINTS polynomials
@@ -1202,7 +1205,7 @@ jointspace_spline ALEXTrajectoryGenerator::compute_trajectory_spline(const Traje
 }
 */
 //get the position at any given time
-void ALEXTrajectoryGenerator::calcPosition(time_tt time, double *positionArray) {
+void AlexTrajectoryGenerator::calcPosition(time_tt time, double *positionArray) {
     //cout << "[discretise_spline]: Discretised TrajectoryGenerator:" << std::endl;
 
     // Discretise/Sample the spline
@@ -1241,7 +1244,7 @@ void ALEXTrajectoryGenerator::calcPosition(time_tt time, double *positionArray) 
     }
 }
 
-jointspace_state ALEXTrajectoryGenerator::compute_position_trajectory_difference(
+jointspace_state AlexTrajectoryGenerator::compute_position_trajectory_difference(
     jointspace_spline jointspaceSpline,
     jointspace_state currentJointspaceStates) {
     jointspace_state position_diff;
@@ -1299,7 +1302,7 @@ jointspace_state ALEXTrajectoryGenerator::compute_position_trajectory_difference
 
 // Limiting the velocity control to not pushing against angle limit
 // use AFTER the current velocity is added to the control velocity
-void ALEXTrajectoryGenerator::limit_velocity_against_angle_boundary(
+void AlexTrajectoryGenerator::limit_velocity_against_angle_boundary(
     jointspace_state currentJointspaceStates,
     double *velocitySignal) {
     for (int i = 0; i < NUM_JOINTS; i++) {
@@ -1316,7 +1319,7 @@ void ALEXTrajectoryGenerator::limit_velocity_against_angle_boundary(
 }
 
 //limiting the position array in trajectory class
-void ALEXTrajectoryGenerator::limit_position_against_angle_boundary(double positionArray[]) {
+void AlexTrajectoryGenerator::limit_position_against_angle_boundary(double positionArray[]) {
     for (int i = 0; i < NUM_JOINTS; i++) {
         int minIndex = i * 2;
         int maxIndex = i * 2 + 1;
@@ -1336,7 +1339,7 @@ void ALEXTrajectoryGenerator::limit_position_against_angle_boundary(double posit
     }
 }
 
-/*void ALEXTrajectoryGenerator::getVelocityAfterPositionCorrection(
+/*void AlexTrajectoryGenerator::getVelocityAfterPositionCorrection(
     time_tt time, double *robotPositionArray, double *velocityArray) {
     double splinePositionArray[NUM_JOINTS];
     double positionDiff[NUM_JOINTS];
@@ -1361,17 +1364,17 @@ Getter and setter
 
 ***********************************************************************/
 
-void ALEXTrajectoryGenerator::setTrajectoryStanceRight() {
+void AlexTrajectoryGenerator::setTrajectoryStanceRight() {
     trajectoryParameter.stance_foot = Foot::Right;
 }
-void ALEXTrajectoryGenerator::setTrajectoryStanceLeft() {
+void AlexTrajectoryGenerator::setTrajectoryStanceLeft() {
     trajectoryParameter.stance_foot = Foot::Left;
 }
 
-double ALEXTrajectoryGenerator::getStepDuration() {
+double AlexTrajectoryGenerator::getStepDuration() {
     return trajectoryParameter.step_duration;
 }
 
-bool ALEXTrajectoryGenerator::isTrajectoryFinished() {
+bool AlexTrajectoryGenerator::isTrajectoryFinished() {
     return true;
 }

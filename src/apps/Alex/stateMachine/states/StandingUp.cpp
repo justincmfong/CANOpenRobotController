@@ -5,7 +5,7 @@ void StandingUp::entry(void) {
     std::cout << "===================" << endl
               << " GREEN -> STAND UP" << endl
               << "===================" << endl;
-    trajectoryGenerator->initialiseTrajectory(STAND, 1);
+    trajectoryGenerator->initialiseTrajectory();
     robot->startNewTraj();
 }
 

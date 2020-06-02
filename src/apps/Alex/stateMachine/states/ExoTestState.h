@@ -16,8 +16,8 @@
 
 #include <iostream>
 
+#include "AlexTrajectoryGenerator.h"
 #include "DebugMacro.h"
-#include "DummyTrajectoryGenerator.h"
 #include "ExoRobot.h"
 #include "State.h"
 
@@ -33,14 +33,14 @@ class ExoTestState : public State {
     *  \todo Might be good to make these Const
     * 
     */
-    ExoRobot *robot;                               /*<!Pointer to state machines robot object*/
-    DummyTrajectoryGenerator *trajectoryGenerator; /*<!Pointer to state machines trajectoryGenerator object*/
+    ExoRobot *robot;                              /*<!Pointer to state machines robot object*/
+    AlexTrajectoryGenerator *trajectoryGenerator; /*<!Pointer to state machines trajectoryGenerator object*/
 
    public:
     virtual void entry() = 0;
     virtual void during() = 0;
     virtual void exit() = 0;
-    ExoTestState(StateMachine *m, ExoRobot *exo, DummyTrajectoryGenerator *tg, const char *name = NULL);
+    ExoTestState(StateMachine *m, ExoRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL);
 };
 
 #endif

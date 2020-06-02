@@ -1,8 +1,8 @@
 /* Header file for calculating trajectory,
 */
 
-#ifndef ALEXTRAJECTORYGENERATOR_H_INCLUDED
-#define ALEXTRAJECTORYGENERATOR_H_INCLUDED
+#ifndef AlexTrajectoryGenerator_H_INCLUDED
+#define AlexTrajectoryGenerator_H_INCLUDED
 
 //using namespace std;
 #include <Eigen>
@@ -247,8 +247,9 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                          .left_foot_on_tilt = false,
                          .right_foot_on_tilt = false}}};
 
-class ALEXTrajectoryGenerator : public TrajectoryGenerator {
+class AlexTrajectoryGenerator : public TrajectoryGenerator {
    private:
+    int numJoints = 6;
     //setter for the parameters
     /*void setTrajectoryParameters(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
                                  Foot stance_foot, StepType stepType, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
@@ -333,6 +334,13 @@ class ALEXTrajectoryGenerator : public TrajectoryGenerator {
     //void calcVelocity(time_tt time, double *velocityArray);
 
    public:
+    // Hardware angle limiation in Radians
+    const double Q_MIN_MAX[12]{deg2rad(70), deg2rad(210),
+                               0, deg2rad(120),
+                               deg2rad(70), deg2rad(210),
+                               0, deg2rad(120),
+                               deg2rad(75), deg2rad(105),
+                               deg2rad(75), deg2rad(105)};
     //calculate the position at any given time
     void calcPosition(time_tt time, double *positionArray);
 
@@ -341,7 +349,8 @@ class ALEXTrajectoryGenerator : public TrajectoryGenerator {
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         * Function Declarations                                                                                             *
         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-    ALEXTrajectoryGenerator();
+    AlexTrajectoryGenerator();
+    AlexTrajectoryGenerator(int NumOfJoints);
 
     /**********************************************************************
 
@@ -371,6 +380,4 @@ class ALEXTrajectoryGenerator : public TrajectoryGenerator {
      */
     bool isTrajectoryFinished();
 };
-}
-;
 #endif

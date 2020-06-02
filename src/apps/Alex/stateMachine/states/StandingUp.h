@@ -33,7 +33,7 @@ class StandingUp : public ExoTestState {
      */
     void during(void);
     void exit(void);
-    StandingUp(StateMachine *m, ExoRobot *exo, DummyTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
+    StandingUp(StateMachine *m, ExoRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
 };
 
 #endif

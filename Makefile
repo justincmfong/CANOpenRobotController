@@ -17,8 +17,9 @@ LINKFLAGS := -static
 #Define header directories 
 MODULES   := core/CANopen/CANopenNode core/CANopen/CANopenNode/stack core/CANopen/CANopenNode/stack/socketCAN \
 			 core core/CANopen/CANcomms core/CANopen/objDict core/robot core/robot/joint core/stateMachine core/TrajectoryGenerator \
-			 hardware/drives hardware/IO hardware/platforms/example \
-			 apps/example apps/example/stateMachine apps/example/stateMachine/states apps/example/TrajectoryGenerator 
+			 hardware/drives hardware/IO hardware/platforms/Alex \
+			 apps/Alex apps/Alex/stateMachine apps/Alex/stateMachine/states apps/Alex/TrajectoryGenerator \
+			 libs/Eigen
 
 # automatically create list of module file paths NOT including executables
 SRC_DIR	  := $(addprefix src/,$(MODULES))
@@ -43,7 +44,9 @@ TESTOBJS := $(addsuffix .o, $(addprefix build/tests/,$(TESTS)))
 TESTEXE := $(addprefix build/,$(TESTS))
 
 # For main program
-MAIN 	:= build/apps/example/main.o
+# MAIN 	:= build/apps/example/main.o
+MAIN 	:= build/apps/Alex/main.o
+
 MAINEXE := build/EXO_APP_2020
 
 # Tell compiler where to find all source files
