@@ -19,6 +19,8 @@
  */
 #ifndef ROBOT_H_INCLUDED
 #define ROBOT_H_INCLUDED
+#include <assert.h>
+
 #include <vector>
 
 #include "InputDevice.h"

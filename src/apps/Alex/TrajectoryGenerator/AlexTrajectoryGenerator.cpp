@@ -1166,6 +1166,7 @@ double AlexTrajectoryGenerator::evaluate_cubic_polynomial_second_derivative(Cubi
 
 //Generate and store the trajectory spline into the trajectory object
 void AlexTrajectoryGenerator::generateAndSaveSpline(jointspace_state initialJointspaceState) {
+    std::cout << "ENTER";
     this->trajectoryJointSpline = compute_trajectory_spline(trajectoryParameter, pilotParameters, initialJointspaceState);
 }
 

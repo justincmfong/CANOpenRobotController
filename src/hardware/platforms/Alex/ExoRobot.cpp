@@ -80,7 +80,8 @@ void ExoRobot::startNewTraj() {
                                     deg2rad(85),   //robotJointspace[4],
                                     deg2rad(85)},  //robotJointspace[5]},
                               .time = 0};
-    ((AlexTrajectoryGenerator *)trajectoryGenerator)->generateAndSaveSpline(startNewTrajJointspace);
+    DEBUG_OUT("GOT ALL qs")
+    static_cast<AlexTrajectoryGenerator *>(trajectoryGenerator)->generateAndSaveSpline(startNewTrajJointspace);
     DEBUG_OUT("GENERATED SPLINE")
     // Index Resetting
     currTrajProgress = 0;
