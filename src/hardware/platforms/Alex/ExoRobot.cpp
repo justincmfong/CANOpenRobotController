@@ -71,7 +71,6 @@ void ExoRobot::startNewTraj() {
 
         robotJointspace[j - 1] = deg2rad(joint->getQ());
     }
-    DEBUG_OUT("GOT ALL qs")
     /*/todo: bellow should be a single function taking in the STATE of the robot*/
     startNewTrajJointspace = {.q = {robotJointspace[0],
                                     robotJointspace[1],
@@ -80,13 +79,15 @@ void ExoRobot::startNewTraj() {
                                     deg2rad(85),   //robotJointspace[4],
                                     deg2rad(85)},  //robotJointspace[5]},
                               .time = 0};
-    DEBUG_OUT("GOT ALL qs")
-    static_cast<AlexTrajectoryGenerator *>(trajectoryGenerator)->generateAndSaveSpline(startNewTrajJointspace);
+    DEBUG_OUT("GOT Jointspace params")
+    dynamic_cast<AlexTrajectoryGenerator *>(trajectoryGenerator)->generateAndSaveSpline(startNewTrajJointspace);
     DEBUG_OUT("GENERATED SPLINE")
     // Index Resetting
-    currTrajProgress = 0;
+    // this->currTrajProgress = 0;
     // initialize timer for moveThrough Traj first step
+    DEBUG_OUT("set var")
     clock_gettime(CLOCK_MONOTONIC, &prevTime);
+    DEBUG_OUT("FINSIHED")
 }
 
 bool ExoRobot::moveThroughTraj() {

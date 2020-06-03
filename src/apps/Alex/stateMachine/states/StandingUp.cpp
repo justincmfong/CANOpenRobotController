@@ -11,7 +11,7 @@ void StandingUp::entry(void) {
 
 void StandingUp::during(void) {
     // if the green button is pressed move. Or do nothing
-
+    DEBUG_OUT("ENTERDURRING")
     robot->moveThroughTraj();
 }
 void StandingUp::exit(void) {
