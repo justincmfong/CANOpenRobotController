@@ -40,22 +40,33 @@ class Robot {
  * any of their explicit implementations.
  * 
  */
-    vector<Joint *> joints;
+    vector<Joint*> joints;
 
-    vector<InputDevice *> inputs;
+    vector<InputDevice*> inputs;
     /**
  * \brief Trajectory Generator  
  * 
  */
-    TrajectoryGenerator *trajectoryGenerator;
+    TrajectoryGenerator* trajectoryGenerator;
 
    public:
     //Setup
     /**
  * \brief Default <code>Robot</code> constructor.
+ * // tj must be a pointer returned by new, it must not be NULL
  */
-    Robot(TrajectoryGenerator *tj);
-    ~Robot();
+    Robot(TrajectoryGenerator* tj) : trajectoryGenerator(tj) { assert(tj != NULL); }
+    ~Robot() { delete trajectoryGenerator; }
+    Robot(const Robot& r)
+        : trajectoryGenerator(r.trajectoryGenerator->clone()) {}
+    Robot& operator=(const Robot& r) {
+        if (this != &r) {                                               // Check for self-assignment
+            TrajectoryGenerator* tj2 = r.trajectoryGenerator->clone();  // Create the new one FIRST...
+            delete trajectoryGenerator;                                 // ...THEN delete the old one
+            trajectoryGenerator = tj2;
+        }
+        return *this;
+    }
     /**
      * \brief Initialize memory for the designed <code>Robot</code> classes specific
      * <code>Joint</code> objects + sensors (if available) using the pure virtual initialiseJoints()

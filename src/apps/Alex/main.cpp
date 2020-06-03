@@ -43,12 +43,12 @@ bool readyToStart = false;    /*!< Flag used by control thread to indicate CAN s
 uint32_t tmr1msPrev = 0;
 
 /*CAN msg processing thread variables*/
-static int rtPriority = 2; /*!< priority of rt CANmsg thread */
+static int rtPriority = 90; /*!< priority of rt CANmsg thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
 static int rt_thread_epoll_fd; /*!< epoll file descriptor for rt thread */
 /* Application Control loop thread */
-static int rtControlPriority = 80; /*!< priority of application thread */
+static int rtControlPriority = 70; /*!< priority of application thread */
 static void *rt_control_thread(void *arg);
 static pthread_t rt_control_thread_id;
 static int rt_control_thread_epoll_fd; /*!< epoll file descriptor for control thread */

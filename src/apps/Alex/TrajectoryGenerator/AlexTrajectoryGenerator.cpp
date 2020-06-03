@@ -26,26 +26,62 @@ bool AlexTrajectoryGenerator::initialiseTrajectory() {
     return true;
 }
 
-bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mov, jointspace_state initialPose) {
+bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, jointspace_state initialPose) {
     // Set the trajectory parameters
 
-    setTrajectoryParameters(movementTrajMap[mov]);
+    setTrajectoryParameters(movementTrajMap[mvmnt]);
     generateAndSaveSpline(initialPose);
     return true;
 }
 
+bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, double time) {
+    // Set the trajectory parameters
+
+    setTrajectoryParameters(movementTrajMap[mvmnt]);
+    /*\todo: have this happen getting fed in the intialPose from the robot*/
+
+    return true;
+}
 /**
  * Action Methods
  */
-std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
-    // TEST VERSION FOR COMPILATION w/ external libs (Eigen)
-    std::vector<double> angles;
-    for (int i = 0; i < NUM_JOINTS; i++) {
-        angles.push_back(sitting[i]);
-    }
-    return angles;
-}
 
+/*new getSetPoint: almost identical to old exo calcPosition*/
+//get the position at any given time
+std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
+    /*Intialize data*/
+    std::vector<double> angles;
+    // Discretise/Sample the spline
+    time_tt startTime = trajectoryJointSpline.times.front();
+    time_tt endTime = trajectoryJointSpline.times.back();
+    // Every sample time, compute the value of q1 to q6 based on the time segment / set of NO_JOINTS polynomials
+    int numPoints = trajectoryJointSpline.times.size();
+    int numPolynomials = numPoints - 1;
+    CubicPolynomial currentPolynomial[NUM_JOINTS];
+    //if the time point is inside range
+    for (int polynomial_index = 0; polynomial_index < numPolynomials; polynomial_index++) {
+        //cout << "[discretise_spline]: pt " << polynomial_index << ":" << endl;
+        //if the jointspaceState time is bounded by the section of spline
+        if (time >= trajectoryJointSpline.times.at(polynomial_index) &&
+            time <= trajectoryJointSpline.times.at(polynomial_index + 1)) {
+            //cout << "time " << time << "\t" << trajectoryJointSpline.times.at(polynomial_index)  << endl;
+            for (int i = 0; i < NUM_JOINTS; i++) {
+                currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
+                angles.push_back(evaluate_cubic_polynomial(currentPolynomial[i], time));
+            }
+            ////force ankles to be in the final position
+            //currentPolynomial[LEFT_ANKLE] = trajectoryJointSpline.polynomials[LEFT_ANKLE].at(numPolynomials - 1);
+            //positionArray[LEFT_ANKLE] = evaluate_cubic_polynomial(currentPolynomial[LEFT_ANKLE], endTime);
+            //currentPolynomial[RIGHT_ANKLE] = trajectoryJointSpline.polynomials[RIGHT_ANKLE].at(numPolynomials - 1);
+            //positionArray[RIGHT_ANKLE] = evaluate_cubic_polynomial(currentPolynomial[RIGHT_ANKLE], endTime);
+            //make sure the angles are within boundary
+            limit_position_against_angle_boundary(angles);
+            return angles;
+        }
+        //else do nothing?
+    }
+    // handle error if reached
+}
 /***********************************************************************
 Methods to Set Trajectory and Pilot Parameters
 ***********************************************************************/
@@ -1130,7 +1166,7 @@ double AlexTrajectoryGenerator::evaluate_cubic_polynomial_second_derivative(Cubi
 
 //Generate and store the trajectory spline into the trajectory object
 void AlexTrajectoryGenerator::generateAndSaveSpline(jointspace_state initialJointspaceState) {
-    trajectoryJointSpline = compute_trajectory_spline(trajectoryParameter, pilotParameters, initialJointspaceState);
+    this->trajectoryJointSpline = compute_trajectory_spline(trajectoryParameter, pilotParameters, initialJointspaceState);
 }
 
 /**********************************************************************
@@ -1204,45 +1240,6 @@ jointspace_spline AlexTrajectoryGenerator::compute_trajectory_spline(const Traje
     }
 }
 */
-//get the position at any given time
-void AlexTrajectoryGenerator::calcPosition(time_tt time, double *positionArray) {
-    //cout << "[discretise_spline]: Discretised TrajectoryGenerator:" << std::endl;
-
-    // Discretise/Sample the spline
-
-    time_tt startTime = trajectoryJointSpline.times.front();
-    time_tt endTime = trajectoryJointSpline.times.back();
-
-    // Every sample time, compute the value of q1 to q6 based on the time segment / set of NUM_JOINTS polynomials
-    int numPoints = trajectoryJointSpline.times.size();
-    int numPolynomials = numPoints - 1;
-    CubicPolynomial currentPolynomial[NUM_JOINTS];
-
-    //if the time point is inside range
-    for (int polynomial_index = 0; polynomial_index < numPolynomials; polynomial_index++) {
-        //cout << "[discretise_spline]: pt " << polynomial_index << ":" << endl;
-
-        //if the jointspaceState time is bounded by the section of spline
-        if (time >= trajectoryJointSpline.times.at(polynomial_index) &&
-            time <= trajectoryJointSpline.times.at(polynomial_index + 1)) {
-            //cout << "time " << time << "\t" << trajectoryJointSpline.times.at(polynomial_index)  << endl;
-            for (int i = 0; i < NUM_JOINTS; i++) {
-                {
-                    currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
-                    positionArray[i] = evaluate_cubic_polynomial(currentPolynomial[i], time);
-                }
-            }
-            ////force ankles to be in the final position
-            //currentPolynomial[LEFT_ANKLE] = trajectoryJointSpline.polynomials[LEFT_ANKLE].at(numPolynomials - 1);
-            //positionArray[LEFT_ANKLE] = evaluate_cubic_polynomial(currentPolynomial[LEFT_ANKLE], endTime);
-            //currentPolynomial[RIGHT_ANKLE] = trajectoryJointSpline.polynomials[RIGHT_ANKLE].at(numPolynomials - 1);
-            //positionArray[RIGHT_ANKLE] = evaluate_cubic_polynomial(currentPolynomial[RIGHT_ANKLE], endTime);
-            //make sure the angles are within boundary
-            limit_position_against_angle_boundary(positionArray);
-            return;
-        }
-    }
-}
 
 jointspace_state AlexTrajectoryGenerator::compute_position_trajectory_difference(
     jointspace_spline jointspaceSpline,
@@ -1319,22 +1316,22 @@ void AlexTrajectoryGenerator::limit_velocity_against_angle_boundary(
 }
 
 //limiting the position array in trajectory class
-void AlexTrajectoryGenerator::limit_position_against_angle_boundary(double positionArray[]) {
-    for (int i = 0; i < NUM_JOINTS; i++) {
+void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<double> positions) {
+    for (int i; i < positions.size(); i++) {
         int minIndex = i * 2;
         int maxIndex = i * 2 + 1;
         /*cout << "position is" << positionArray[i] << "Q MIN std::max ARE "
 			<< Q_MIN_MAX[minIndex] << " " << Q_MIN_MAX[maxIndex] << std::endl;*/
         //if we at the boundary
-        if (positionArray[i] < Q_MIN_MAX[minIndex]) {
-            positionArray[i] = Q_MIN_MAX[minIndex];
+        if (positions[i] < Q_MIN_MAX[minIndex]) {
+            positions[i] = Q_MIN_MAX[minIndex];
         }
-        if (positionArray[i] > Q_MIN_MAX[maxIndex]) {
-            positionArray[i] = Q_MIN_MAX[maxIndex];
+        if (positions[i] > Q_MIN_MAX[maxIndex]) {
+            positions[i] = Q_MIN_MAX[maxIndex];
         }
-        if (std::isnan(positionArray[i])) {
+        if (std::isnan(positions[i])) {
             std::cout << "ISNAN now " << std::endl;
-            positionArray[i] = Q_MIN_MAX[maxIndex] + 10000;
+            positions[i] = Q_MIN_MAX[maxIndex] + 10000;
         }
     }
 }
@@ -1377,4 +1374,8 @@ double AlexTrajectoryGenerator::getStepDuration() {
 
 bool AlexTrajectoryGenerator::isTrajectoryFinished() {
     return true;
+}
+
+AlexTrajectoryGenerator *AlexTrajectoryGenerator::clone() const {
+    return new AlexTrajectoryGenerator(*this);
 }

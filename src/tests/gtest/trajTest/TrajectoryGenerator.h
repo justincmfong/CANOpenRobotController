@@ -24,6 +24,8 @@ class TrajectoryGenerator {
    public:
     TrajectoryGenerator();
 
+    virtual TrajectoryGenerator* clone() const = 0;  // The Virtual (Copy) Constructor
+
     /**
      * \brief Pure Virtual Function which must be configured to configure the trajectory generator with the 
      *  appropriate parameters. Likely to be overloaded.
@@ -40,6 +42,8 @@ class TrajectoryGenerator {
      * \return vector<double> 
      */
     virtual std::vector<double> getSetPoint(double time) = 0;
+
+    virtual void generateAndSaveSpline() = 0;
 };
 
 #endif

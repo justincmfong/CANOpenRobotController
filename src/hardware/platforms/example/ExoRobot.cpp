@@ -36,7 +36,6 @@ bool ExoRobot::initPositionControl() {
 
 void ExoRobot::startNewTraj() {
     DEBUG_OUT("Start New Traj");
-
     // Index Resetting
     currTrajProgress = 0;
     clock_gettime(CLOCK_MONOTONIC, &prevTime);

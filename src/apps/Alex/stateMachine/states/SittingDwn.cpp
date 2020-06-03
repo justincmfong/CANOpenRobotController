@@ -7,8 +7,8 @@ void SittingDwn::entry(void) {
               << "===================" << endl
               << " GREEN -> SIT DOWN " << endl
               << "===================" << endl;
-    /*/todo */
-    trajectoryGenerator->initialiseTrajectory();
+    /*Better version takes in current robot pos, time and desired motion? instead of robot doing that*/
+    trajectoryGenerator->initialiseTrajectory(RobotMode::SITDWN, 2);
     robot->startNewTraj();
 }
 void SittingDwn::during(void) {

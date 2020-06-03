@@ -57,9 +57,34 @@ bool ExoRobot::initTorqueControl() {
 
 void ExoRobot::startNewTraj() {
     DEBUG_OUT("Start New Traj");
+    // FROM ORIGINAL: Set the bit flip state to zero
+    /*/todo: add once rest is addressed*/
+    /*generate new Trajectory in trajectory object*/
+    /*/todo: change to happen outside robot object after functional*/
+    jointspace_state startNewTrajJointspace;
+    double robotJointspace[NUM_JOINTS];
+    //store current joint angles in joint space objects
+    /*\todo: turn into a robot function for getting current STATE of robot*/
+    for (auto joint : joints) {
+        int j = joint->getId();
+        DEBUG_OUT("GOT ID num:" << j)
 
+        robotJointspace[j - 1] = deg2rad(joint->getQ());
+    }
+    DEBUG_OUT("GOT ALL qs")
+    /*/todo: bellow should be a single function taking in the STATE of the robot*/
+    startNewTrajJointspace = {.q = {robotJointspace[0],
+                                    robotJointspace[1],
+                                    robotJointspace[2],
+                                    robotJointspace[3],
+                                    deg2rad(85),   //robotJointspace[4],
+                                    deg2rad(85)},  //robotJointspace[5]},
+                              .time = 0};
+    ((AlexTrajectoryGenerator *)trajectoryGenerator)->generateAndSaveSpline(startNewTrajJointspace);
+    DEBUG_OUT("GENERATED SPLINE")
     // Index Resetting
     currTrajProgress = 0;
+    // initialize timer for moveThrough Traj first step
     clock_gettime(CLOCK_MONOTONIC, &prevTime);
 }
 
@@ -76,7 +101,7 @@ bool ExoRobot::moveThroughTraj() {
     if (true) {
         currTrajProgress += elapsedSec;
         DEBUG_OUT("Elapsed Time: " << currTrajProgress)
-
+        // calculate the current desired position trajectory for current time.
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
         int i = 0;
         for (auto p : joints) {

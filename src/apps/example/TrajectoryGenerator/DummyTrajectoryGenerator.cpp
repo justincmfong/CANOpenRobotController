@@ -72,3 +72,7 @@ bool DummyTrajectoryGenerator::isTrajectoryFinished() {
         return false;
     }
 }
+
+DummyTrajectoryGenerator *DummyTrajectoryGenerator::clone() const {
+    return new DummyTrajectoryGenerator(*this);
+}

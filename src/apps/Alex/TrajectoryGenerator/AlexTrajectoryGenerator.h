@@ -268,7 +268,12 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
      * 
      */
     TrajectoryParameters trajectoryParameter;
+    /**
+     * @brief Parameters related to joint space splines
+     * 
+     */
 
+    jointspace_spline trajectoryJointSpline;
     /** Methods which are used to generate the Trajectory from the parameters
      */
     // Generates key taskspace states from gait parameters
@@ -303,9 +308,6 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
     // Spline the jointspace states (the q's)
     jointspace_spline cubic_spline_jointspace_states(std::vector<jointspace_state> states);
 
-    //Generate and store the trajectory spline into the trajectory object
-    void generateAndSaveSpline(jointspace_state initialJointspaceState);
-
     /**********************************************************************
 	Functions for Controllers
 	***********************************************************************/
@@ -318,14 +320,14 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
     jointspace_state compute_position_trajectory_difference(jointspace_spline jointspaceSpline,
                                                             jointspace_state currentJointspaceStates);
 
-    // Limiting the velocity control to not pushing against angle limit
+    // ing the velocity control to not pushing against angle limit
     // use AFTER the current velocity is added to the control velocity
     void limit_velocity_against_angle_boundary(
         jointspace_state currentJointspaceStates,
         double *velocitySignal);
 
     //limiting the position array in trajectory class
-    void limit_position_against_angle_boundary(double positionArray[]);
+    void limit_position_against_angle_boundary(std::vector<double>);
 
     // gives a velocity array output
     //    void getVelocityAfterPositionCorrection(time_tt time, double *robotPositionArray, double *velocityArray);
@@ -341,17 +343,16 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
                                0, deg2rad(120),
                                deg2rad(75), deg2rad(105),
                                deg2rad(75), deg2rad(105)};
-    //calculate the position at any given time
-    void calcPosition(time_tt time, double *positionArray);
-
-    jointspace_spline trajectoryJointSpline;
-
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
         * Function Declarations                                                                                             *
         * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     AlexTrajectoryGenerator();
     AlexTrajectoryGenerator(int NumOfJoints);
+    /*derieved clone to provide ABC pointer reference to this class*/
+    virtual AlexTrajectoryGenerator *clone() const;
 
+    //Generate and store the trajectory spline into the trajectory object
+    virtual void generateAndSaveSpline(jointspace_state initialJointspaceState);
     /**********************************************************************
 
         Getter and setter
@@ -360,6 +361,7 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
     bool initialiseTrajectory();
     bool initialiseTrajectory(RobotMode mov);
     bool initialiseTrajectory(RobotMode mov, jointspace_state initialPose);
+    bool initialiseTrajectory(RobotMode mvmnt, double time);
 
     std::vector<double> getSetPoint(time_tt);
 
