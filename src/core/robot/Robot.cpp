@@ -17,10 +17,13 @@
 //     DEBUG_OUT("Robot object created")
 //     trajectoryGenerator = tj;
 // }
+Robot::Robot() {
+    DEBUG_OUT("Robot object created");
+}
 
-// Robot::~Robot() {
-//     DEBUG_OUT("Robot object deleted")
-// }
+Robot::~Robot() {
+    DEBUG_OUT("Robot object deleted")
+}
 bool Robot::initialise() {
     if (initialiseJoints()) {
         if (initialiseNetwork()) {

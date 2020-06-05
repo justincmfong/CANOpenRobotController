@@ -48,13 +48,15 @@ class ExoRobot : public Robot {
     motorProfile posControlMotorProfile{4000000, 240000, 240000};
 
    public:
+    ExoRobot();
     /**
       * \brief Default <code>ExoRobot</code> constructor.
       * Initialize memory for the Exoskelton <code>Joint</code> + sensors. 
       * Load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
       */
-    ExoRobot(TrajectoryGenerator *tj);
+    ExoRobot(AlexTrajectoryGenerator *tj);
     ~ExoRobot();
+    AlexTrajectoryGenerator *trajectoryGenerator;
     Keyboard keyboard;
     vector<CopleyDrive *> copleyDrives;
 
@@ -124,9 +126,16 @@ class ExoRobot : public Robot {
       */
     bool initialiseInputs();
     /**
+       * \brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
+       * Initialize each Robots trajectory generator object
+
+      */
+    bool initialiseTrajGen(AlexTrajectoryGenerator *tj);
+    /**
        * \brief Free robot objects vector pointer memory.
        */
-    void freeMemory();
+    void
+    freeMemory();
     /**
        * \brief update current state of the robot, including input and output devices. 
        * Overloaded Method from the Robot Class. 

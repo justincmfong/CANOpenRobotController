@@ -44,12 +44,12 @@
 #include "StateMachine.h"
 
 // State Classes
+#include "DebugMacro.h"
 #include "InitState.h"
 #include "Sitting.h"
 #include "SittingDwn.h"
 #include "Standing.h"
 #include "StandingUp.h"
-
 /**
  * @brief Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestState
  * 

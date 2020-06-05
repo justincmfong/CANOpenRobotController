@@ -25,7 +25,6 @@
 
 #include "InputDevice.h"
 #include "Joint.h"
-#include "TrajectoryGenerator.h"
 using namespace std;
 
 /**
@@ -45,11 +44,6 @@ class Robot {
     vector<Joint*> joints;
 
     vector<InputDevice*> inputs;
-    /**
- * \brief Trajectory Generator  
- * 
- */
-    TrajectoryGenerator* trajectoryGenerator;
 
    public:
     //Setup
@@ -57,18 +51,9 @@ class Robot {
  * \brief Default <code>Robot</code> constructor.
  * // tj must be a pointer returned by new, it must not be NULL
  */
-    Robot(TrajectoryGenerator* tj) : trajectoryGenerator(tj) { assert(tj != NULL); }
-    ~Robot() { delete trajectoryGenerator; }
-    Robot(const Robot& r)
-        : trajectoryGenerator(r.trajectoryGenerator->clone()) {}
-    Robot& operator=(const Robot& r) {
-        if (this != &r) {                                               // Check for self-assignment
-            TrajectoryGenerator* tj2 = r.trajectoryGenerator->clone();  // Create the new one FIRST...
-            delete trajectoryGenerator;                                 // ...THEN delete the old one
-            trajectoryGenerator = tj2;
-        }
-        return *this;
-    }
+    Robot();
+    ~Robot();
+
     /**
      * \brief Initialize memory for the designed <code>Robot</code> classes specific
      * <code>Joint</code> objects + sensors (if available) using the pure virtual initialiseJoints()

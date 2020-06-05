@@ -11,6 +11,8 @@ void InitState::entry(void) {
         << "========================" << endl;
 }
 void InitState::during(void) {
+    std::cout << trajectoryGenerator->getTestData() << std::endl;
+    trajectoryGenerator->changeTestdata(100);
 }
 void InitState::exit(void) {
     robot->initPositionControl();

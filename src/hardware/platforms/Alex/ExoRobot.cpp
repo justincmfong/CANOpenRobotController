@@ -2,8 +2,14 @@
 
 #include "DebugMacro.h"
 
-ExoRobot::ExoRobot(TrajectoryGenerator *tj) : Robot(tj) {
+ExoRobot::ExoRobot(AlexTrajectoryGenerator *tj) {
+    trajectoryGenerator = tj;
+    std::cout
+        << "EXO ROBOT CONSTRUCTOR"
+        << "address: " << &trajectoryGenerator << '\n';
 }
+ExoRobot::ExoRobot(){
+    DEBUG_OUT("EXO ROBOT CONSTRUCTOR")}
 
 ExoRobot::~ExoRobot() {
     DEBUG_OUT("Delete ExoRobot object begins")
@@ -80,6 +86,8 @@ void ExoRobot::startNewTraj() {
                                     deg2rad(85)},  //robotJointspace[5]},
                               .time = 0};
     DEBUG_OUT("GOT Jointspace params")
+    std::cout
+        << "address: " << &trajectoryGenerator << '\n';
     dynamic_cast<AlexTrajectoryGenerator *>(trajectoryGenerator)->generateAndSaveSpline(startNewTrajJointspace);
     DEBUG_OUT("GENERATED SPLINE")
     // Index Resetting
@@ -104,6 +112,8 @@ bool ExoRobot::moveThroughTraj() {
         currTrajProgress += elapsedSec;
         DEBUG_OUT("Elapsed Time: " << currTrajProgress)
         // calculate the current desired position trajectory for current time.
+        std::cout
+            << "address: " << &trajectoryGenerator << '\n';
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
         int i = 0;
         for (auto p : joints) {
@@ -123,6 +133,17 @@ bool ExoRobot::moveThroughTraj() {
     }
 
     return returnValue;
+}
+bool ExoRobot::initialiseTrajGen(AlexTrajectoryGenerator *tj) {
+    std::cout
+        << "Object passed in address"
+        << "address: " << &tj << '\n';
+    trajectoryGenerator = tj;
+    std::cout
+        << "Object set "
+        << "address: " << &trajectoryGenerator << '\n';
+
+    return true;
 }
 
 bool ExoRobot::initialiseJoints() {

@@ -12,13 +12,19 @@
 
 /*Test hardcoded trajectory*/
 double sitting[6] = {90, 90, 90, 90, 0, 0};
-//using namespace std;
+//** test function
+std::string AlexTrajectoryGenerator::printName() {
+    return "ALEX TG";
+}
 /**
  * Initialisation Methods
  */
-AlexTrajectoryGenerator::AlexTrajectoryGenerator() {
-}
+AlexTrajectoryGenerator::AlexTrajectoryGenerator(){
+    DEBUG_OUT("ALEX Trajectory Generator simple constructor")}
+
 AlexTrajectoryGenerator::AlexTrajectoryGenerator(int NumOfJoints) {
+    DEBUG_OUT("ALEX Trajectory Generator Num joints Constructor")
+
     numJoints = NumOfJoints;
 }
 
@@ -1380,3 +1386,10 @@ bool AlexTrajectoryGenerator::isTrajectoryFinished() {
 AlexTrajectoryGenerator *AlexTrajectoryGenerator::clone() const {
     return new AlexTrajectoryGenerator(*this);
 }
+
+void AlexTrajectoryGenerator::changeTestdata(int x) {
+    this->testData = x;
+};
+int AlexTrajectoryGenerator::getTestData() {
+    return testData;
+};
