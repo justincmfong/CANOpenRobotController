@@ -25,7 +25,6 @@
 class TrajectoryGenerator {
    public:
     TrajectoryGenerator();
-    virtual TrajectoryGenerator* clone() const = 0;  // The Virtual (Copy) Constructor
 
     /**
      * \brief Pure Virtual Function which must be configured to configure the trajectory generator with the 

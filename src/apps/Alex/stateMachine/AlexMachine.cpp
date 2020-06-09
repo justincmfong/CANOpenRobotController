@@ -51,7 +51,7 @@ void AlexMachine::init() {
      *
      */
 bool AlexMachine::EndTraj::check() {
-    return OWNER->trajectoryGenerator->isTrajectoryFinished();
+    return OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress());
 }
 bool AlexMachine::IsAPressed::check(void) {
     if (OWNER->robot->keyboard.getA() == true) {

@@ -73,7 +73,7 @@ void ExoRobot::startNewTraj() {
         int j = joint->getId();
         robotJointspace[j] = deg2rad(joint->getQ());
     }
-    /*/todo: bellow should be a single function taking in the STATE of the robot*/
+    /*/todo: bellow and above should be combineded to a single function taking in the STATE of the robot*/
     startNewTrajJointspace = {.q = {robotJointspace[0],
                                     robotJointspace[1],
                                     robotJointspace[2],
@@ -159,4 +159,7 @@ void ExoRobot::freeMemory() {
 void ExoRobot::updateRobot() {
     Robot::updateRobot();
     keyboard.updateInput();
+}
+double ExoRobot::getCurrTrajProgress() {
+    return currTrajProgress;
 }

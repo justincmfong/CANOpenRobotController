@@ -23,6 +23,4 @@ void InitState::exit(void) {
         .torso_length = 0.4,
         .buttocks_height = 0.05};
     trajectoryGenerator->setPilotParameters(Brad_parameters);
-    std::cout
-        << "Initialise State Exited" << endl;
 }

@@ -13,6 +13,4 @@ void Sitting::entry() {
 void Sitting::during() {
 }
 void Sitting::exit() {
-    std::cout
-        << "Sitting State Exited" << std::endl;
 }

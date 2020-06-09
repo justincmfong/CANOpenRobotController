@@ -62,7 +62,9 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
     time_tt endTime = trajectoryJointSpline.times.back();
     // Every sample time, compute the value of q1 to q6 based on the time segment / set of NO_JOINTS polynomials
     int numPoints = trajectoryJointSpline.times.size();
+    DEBUG_OUT("numPoints: " << numPoints)
     int numPolynomials = numPoints - 1;
+    DEBUG_OUT("numPolys: " << numPoints)
     CubicPolynomial currentPolynomial[NUM_JOINTS];
     //if the time point is inside range
     for (int polynomial_index = 0; polynomial_index < numPolynomials; polynomial_index++) {
@@ -98,6 +100,7 @@ void AlexTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters traje
 
 void AlexTrajectoryGenerator::setPilotParameters(PilotParameters pilotParameters) {
     this->pilotParameters = pilotParameters;
+    std::cout << "YEA!!!!!!!" << std::endl;
     DEBUG_OUT("Pilot Paramaters set")
 }
 
@@ -1173,7 +1176,6 @@ double AlexTrajectoryGenerator::evaluate_cubic_polynomial_second_derivative(Cubi
 
 //Generate and store the trajectory spline into the trajectory object
 void AlexTrajectoryGenerator::generateAndSaveSpline(jointspace_state initialJointspaceState) {
-    std::cout << "ENTER";
     this->trajectoryJointSpline = compute_trajectory_spline(trajectoryParameter, pilotParameters, initialJointspaceState);
 }
 
@@ -1380,10 +1382,14 @@ double AlexTrajectoryGenerator::getStepDuration() {
     return trajectoryParameter.step_duration;
 }
 
-bool AlexTrajectoryGenerator::isTrajectoryFinished() {
-    return true;
-}
-
-AlexTrajectoryGenerator *AlexTrajectoryGenerator::clone() const {
-    return new AlexTrajectoryGenerator(*this);
+bool AlexTrajectoryGenerator::isTrajectoryFinished(double trajProgress) {
+    double fracProgress = trajProgress / (double)trajectoryParameter.step_duration;
+    DEBUG_OUT("total traj time:" << trajectoryParameter.step_duration)
+    DEBUG_OUT("trajProgress:" << trajProgress)
+    DEBUG_OUT("frac Progress:" << fracProgress)
+    if (fracProgress > 1.02) {
+        return true;
+    } else {
+        return false;
+    }
 }

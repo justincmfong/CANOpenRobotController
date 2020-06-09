@@ -40,6 +40,7 @@ class ExoRobot : public Robot {
    private:
     /** Parameters associated with Trajectory Progression */
     double currTrajProgress = 0;
+    double currTrajTime; /*currently loaded trajectories total time of execution, must be set before begining a trajectory*/
     timespec prevTime;
     /**
      * \brief motor drive position control profile paramaters, user defined.
@@ -100,12 +101,6 @@ class ExoRobot : public Robot {
       */
     void startNewTraj();
 
-    /** 
-   * Determine if the currently generated trajectory is complete.
-   *\return bool 
-   */
-    bool isTrajFinished();
-
     /**
        * \brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
        * Create designed <code>Joint</code> and <code>Driver</code> objects and load into 
@@ -138,11 +133,11 @@ class ExoRobot : public Robot {
        */
     void updateRobot();
     /**
-       * \brief Joint Limit Map between Joint value and min Degrees possible
-       * \param int Joint value
-       * \return double minDeg 
+       * \brief getter method for currentTrajectory progress variable.
+       *
+       * \return double currentTrajProgress
        */
-
+    double getCurrTrajProgress();
     /**
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h
     * 
