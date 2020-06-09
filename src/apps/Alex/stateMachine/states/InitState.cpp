@@ -11,10 +11,18 @@ void InitState::entry(void) {
         << "========================" << endl;
 }
 void InitState::during(void) {
-    std::cout << trajectoryGenerator->getTestData() << std::endl;
-    trajectoryGenerator->changeTestdata(100);
 }
 void InitState::exit(void) {
     robot->initPositionControl();
-    std::cout << "Initialise State Exited" << endl;
+    PilotParameters Brad_parameters = {
+        .lowerleg_length = 0.44,
+        .upperleg_length = 0.44,
+        .ankle_height = 0.12,
+        .foot_length = 0.30,
+        .hip_width = 0.43,
+        .torso_length = 0.4,
+        .buttocks_height = 0.05};
+    trajectoryGenerator->setPilotParameters(Brad_parameters);
+    std::cout
+        << "Initialise State Exited" << endl;
 }

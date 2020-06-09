@@ -98,6 +98,7 @@ void AlexTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters traje
 
 void AlexTrajectoryGenerator::setPilotParameters(PilotParameters pilotParameters) {
     this->pilotParameters = pilotParameters;
+    DEBUG_OUT("Pilot Paramaters set")
 }
 
 /**
@@ -1386,10 +1387,3 @@ bool AlexTrajectoryGenerator::isTrajectoryFinished() {
 AlexTrajectoryGenerator *AlexTrajectoryGenerator::clone() const {
     return new AlexTrajectoryGenerator(*this);
 }
-
-void AlexTrajectoryGenerator::changeTestdata(int x) {
-    this->testData = x;
-};
-int AlexTrajectoryGenerator::getTestData() {
-    return testData;
-};

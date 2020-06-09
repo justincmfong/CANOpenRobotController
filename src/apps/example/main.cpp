@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
         CO_errExit("Program init - SIGINIT handler creation failed");
     if (signal(SIGTERM, sigHandler) == SIG_ERR)
         CO_errExit("Program init - SIGTERM handler creation failed");
-    printf("starting CANopen device with Node ID %d(0x%02X)", nodeId, nodeId);
+    printf("starting CANopen master device with Node ID %d(0x%02X)\n", nodeId, nodeId);
 
     while (reset != CO_RESET_APP && reset != CO_RESET_QUIT && CO_endProgram == 0) {
         /* CANopen communication reset || first run of app- initialize CANopen objects *******************/

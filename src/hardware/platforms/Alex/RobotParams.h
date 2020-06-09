@@ -8,6 +8,7 @@
  * \version 0.1
  * \copyright Copyright (c) 2020
  */
+#include "TrajectoryGenerator.h"
 #ifndef ROBOT_PARAMS_H
 #define ROBOT_PARAMS_H
 

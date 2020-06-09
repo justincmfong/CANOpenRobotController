@@ -125,12 +125,7 @@ class ExoRobot : public Robot {
 
       */
     bool initialiseInputs();
-    /**
-       * \brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
-       * Initialize each Robots trajectory generator object
 
-      */
-    bool initialiseTrajGen(AlexTrajectoryGenerator *tj);
     /**
        * \brief Free robot objects vector pointer memory.
        */

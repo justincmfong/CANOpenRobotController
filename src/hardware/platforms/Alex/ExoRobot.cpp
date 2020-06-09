@@ -4,9 +4,6 @@
 
 ExoRobot::ExoRobot(AlexTrajectoryGenerator *tj) {
     trajectoryGenerator = tj;
-    std::cout
-        << "EXO ROBOT CONSTRUCTOR"
-        << "address: " << &trajectoryGenerator << '\n';
 }
 ExoRobot::ExoRobot(){
     DEBUG_OUT("EXO ROBOT CONSTRUCTOR")}
@@ -63,7 +60,8 @@ bool ExoRobot::initTorqueControl() {
 
 void ExoRobot::startNewTraj() {
     DEBUG_OUT("Start New Traj");
-    // FROM ORIGINAL: Set the bit flip state to zero
+    // FROM ORIGINAL: Set the bit flip state to zero here...
+
     /*/todo: add once rest is addressed*/
     /*generate new Trajectory in trajectory object*/
     /*/todo: change to happen outside robot object after functional*/
@@ -73,9 +71,7 @@ void ExoRobot::startNewTraj() {
     /*\todo: turn into a robot function for getting current STATE of robot*/
     for (auto joint : joints) {
         int j = joint->getId();
-        DEBUG_OUT("GOT ID num:" << j)
-
-        robotJointspace[j - 1] = deg2rad(joint->getQ());
+        robotJointspace[j] = deg2rad(joint->getQ());
     }
     /*/todo: bellow should be a single function taking in the STATE of the robot*/
     startNewTrajJointspace = {.q = {robotJointspace[0],
@@ -85,22 +81,15 @@ void ExoRobot::startNewTraj() {
                                     deg2rad(85),   //robotJointspace[4],
                                     deg2rad(85)},  //robotJointspace[5]},
                               .time = 0};
-    DEBUG_OUT("GOT Jointspace params")
-    std::cout
-        << "address: " << &trajectoryGenerator << '\n';
-    dynamic_cast<AlexTrajectoryGenerator *>(trajectoryGenerator)->generateAndSaveSpline(startNewTrajJointspace);
-    DEBUG_OUT("GENERATED SPLINE")
+    this->trajectoryGenerator->generateAndSaveSpline(startNewTrajJointspace);
     // Index Resetting
-    // this->currTrajProgress = 0;
+    this->currTrajProgress = 0;
     // initialize timer for moveThrough Traj first step
-    DEBUG_OUT("set var")
     clock_gettime(CLOCK_MONOTONIC, &prevTime);
-    DEBUG_OUT("FINSIHED")
 }
 
 bool ExoRobot::moveThroughTraj() {
     bool returnValue = true;
-
     timespec currTime;
     clock_gettime(CLOCK_MONOTONIC, &currTime);
 
@@ -112,8 +101,6 @@ bool ExoRobot::moveThroughTraj() {
         currTrajProgress += elapsedSec;
         DEBUG_OUT("Elapsed Time: " << currTrajProgress)
         // calculate the current desired position trajectory for current time.
-        std::cout
-            << "address: " << &trajectoryGenerator << '\n';
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
         int i = 0;
         for (auto p : joints) {
@@ -134,18 +121,6 @@ bool ExoRobot::moveThroughTraj() {
 
     return returnValue;
 }
-bool ExoRobot::initialiseTrajGen(AlexTrajectoryGenerator *tj) {
-    std::cout
-        << "Object passed in address"
-        << "address: " << &tj << '\n';
-    trajectoryGenerator = tj;
-    std::cout
-        << "Object set "
-        << "address: " << &trajectoryGenerator << '\n';
-
-    return true;
-}
-
 bool ExoRobot::initialiseJoints() {
     for (int id = 0; id < NUM_JOINTS; id++) {
         copleyDrives.push_back(new CopleyDrive(id + 1));

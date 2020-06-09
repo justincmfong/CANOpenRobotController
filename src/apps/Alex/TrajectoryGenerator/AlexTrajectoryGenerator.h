@@ -249,8 +249,6 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
 
 class AlexTrajectoryGenerator : public TrajectoryGenerator {
    private:
-    int testData = 10;
-    int numJoints = 6;
     //setter for the parameters
     /*void setTrajectoryParameters(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
                                  Foot stance_foot, StepType stepType, double seat_height, double step_end_height, double slope_angle, bool left_foot_on_tilt, bool right_foot_on_tilt);
@@ -337,11 +335,10 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
     //void calcVelocity(time_tt time, double *velocityArray);
 
    public:
-    // FOR MEMORY LEAK DEBUG
-    void changeTestdata(int x);
-    int getTestData();
+    int numJoints = 6;
     //TEST FUNCTION
-    std::string printName();
+    std::string
+    printName();
     // Hardware angle limiation in Radians
     const double Q_MIN_MAX[12]{deg2rad(70), deg2rad(210),
                                0, deg2rad(120),

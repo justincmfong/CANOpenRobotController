@@ -5,12 +5,7 @@
 
 AlexMachine::AlexMachine() {
     trajectoryGenerator = new AlexTrajectoryGenerator(6);
-    std::cout
-        << "CREATE ALEX MACHINE"
-        << "address: " << &trajectoryGenerator << '\n';
-    // robot = new ExoRobot(trajectoryGenerator);
-    robot = new ExoRobot;
-    robot->initialiseTrajGen(trajectoryGenerator);
+    robot = new ExoRobot(trajectoryGenerator);
     // Create PRE-DESIGNED State Machine events and state objects.
     isAPressed = new IsAPressed(this);
     endTraj = new EndTraj(this);
@@ -21,9 +16,7 @@ AlexMachine::AlexMachine() {
     initState = new InitState(this, robot, trajectoryGenerator);
     standing = new Standing(this, robot, trajectoryGenerator);
     sitting = new Sitting(this, robot, trajectoryGenerator);
-    DEBUG_OUT("STANDING UP OBJ!")
     standingUp = new StandingUp(this, robot, trajectoryGenerator);
-    DEBUG_OUT("SITTING DOWN OBJ!")
     sittingDwn = new SittingDwn(this, robot, trajectoryGenerator);
 
     /**
@@ -46,7 +39,6 @@ AlexMachine::AlexMachine() {
  * 
  */
 void AlexMachine::init() {
-    DEBUG_OUT("AlexMachine::init()")
     robot->initialise();
     running = true;
 }
