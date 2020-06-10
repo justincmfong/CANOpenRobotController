@@ -14,7 +14,8 @@
 
 #include "DebugMacro.h"
 
-AlexJoint::AlexJoint(int jointID, double jointMin, double jointMax, Drive *drive) : ActuatedJoint(jointID, jointMin, jointMax, drive) {
+AlexJoint::AlexJoint(int jointID, double jointMin, double jointMax, Drive *drive, JointKnownPos jointParams) : ActuatedJoint(jointID, jointMin, jointMax, drive) {
+    jointParamaters = jointParams;
     DEBUG_OUT("MY JOINT ID: " << this->id)
     // Do nothing else
 }
@@ -47,25 +48,24 @@ double AlexJoint::getQ() {
 double AlexJoint::fromDriveUnits(int driveValue) {
     if (A == 0) {
         //is first run -> calculate + set A and B
-        linearInterpolate();
+        linearInterpolatePreCalc();
     }
-    retrun(double)(driveValue - B) / A;
-}
-double AlexJoint::fromDriveUnits(int driveValue) {
-    if (A == 0) {
-        //is first run -> calculate + set A and B
-        linearInterpolate();
-    }
-    retrun(double)(driveValue - B) / A;
+    return (double)(driveValue - B) / A;
 }
 int AlexJoint::toDriveUnits(double jointValue) {
+    DEBUG_OUT("joint value:" << jointValue)
+
     if (A == 0) {
         //is first run -> calculate + store A and B
-        linearInterpolate();
+        linearInterpolatePreCalc();
     }
-    retrun(int)(A * jointValue + B);
+    int output = (int)(A * jointValue + B);
+    DEBUG_OUT("Counts value:" << output)
+    return output;
 }
 void AlexJoint::linearInterpolatePreCalc() {
+    DEBUG_OUT("LinearInterploatePreCalc()")
+
     long y1 = jointParamaters.motorCountA;
     long y2 = jointParamaters.motorCountB;
     long x1 = jointParamaters.motorDegPosA;

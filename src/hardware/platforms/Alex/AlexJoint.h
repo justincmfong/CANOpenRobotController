@@ -12,7 +12,12 @@
 #define AlexJoint_H_INCLUDED
 
 #include "ActuatedJoint.h"
-
+typedef struct JointKnownPos {
+    int motorCountA;
+    int motorCountB;
+    int motorDegPosA;
+    int motorDegPosB;
+} JointKnownPos;
 /**
  * \brief Example implementation of the ActuatedJoints class. 
  * 
@@ -20,13 +25,6 @@
  * 
  */
 class AlexJoint : public ActuatedJoint {
-    struct JointKnownPos {
-        int motorCountA;
-        int motorCountB;
-        int motorDegPosA;
-        int motorDegPosB;
-    };
-
    private:
     JointKnownPos jointParamaters;
     double lastQCommand = 0;
@@ -50,7 +48,7 @@ class AlexJoint : public ActuatedJoint {
     void linearInterpolatePreCalc();
 
    public:
-    AlexJoint(int jointID, double jointMin, double jointMax, Drive *drive);
+    AlexJoint(int jointID, double jointMin, double jointMax, Drive *drive, JointKnownPos jointParams);
     bool updateValue();
     setMovementReturnCode_t setPosition(double desQ);
     bool initNetwork();

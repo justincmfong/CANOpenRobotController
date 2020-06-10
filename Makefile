@@ -36,8 +36,7 @@ OBJ_C       := $(patsubst src/%.c,build/%.o,$(SRC_C))
 BUILD_DIR := $(addprefix build/,$(MODULES)) build/tests
 
 # List of Test Programs (Executables)
-# TESTS	:= testDrives testJoints testOD testRobot testSM testTraj 
-TESTS	:= tests/testDrives 
+TESTS	:= testAlex
 
 # Test Program Objects and executables
 TESTOBJS := $(addsuffix .o, $(addprefix build/tests/,$(TESTS))) 

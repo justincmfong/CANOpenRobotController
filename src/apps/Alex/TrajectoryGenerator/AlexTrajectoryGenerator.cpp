@@ -85,8 +85,13 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
             //make sure the angles are within boundary
             limit_position_against_angle_boundary(angles);
             return angles;
+        } else {
+            for (int i = 0; i < NUM_JOINTS; i++) {
+                currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
+                angles.push_back(evaluate_cubic_polynomial(currentPolynomial[i], time));
+            }
         }
-        //else do nothing?
+        //else return previous poly
     }
     // handle error if reached
 }

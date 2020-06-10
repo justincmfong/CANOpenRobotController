@@ -122,9 +122,10 @@ bool ExoRobot::moveThroughTraj() {
     return returnValue;
 }
 bool ExoRobot::initialiseJoints() {
+    JointKnownPos jParam{250880, 0, 90, 180};
     for (int id = 0; id < NUM_JOINTS; id++) {
         copleyDrives.push_back(new CopleyDrive(id + 1));
-        joints.push_back(new DummyActJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id]));
+        joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], jParam));
     }
     return true;
 }

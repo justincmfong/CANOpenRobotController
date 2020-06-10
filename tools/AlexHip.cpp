@@ -14,7 +14,7 @@
 
 #include "DebugMacro.h"
 
-AlexHip::AlexHip(int jointID, double jointMin, double jointMax, Drive *drive) : ActuatedJoint(jointID, jointMin, jointMax, drive) {
+AlexHip::AlexHip(int jointID, double jointMin, double jointMax, Drive *drive, JointKnownPos jointParams) : AlexJoint(jointID, jointMin, jointMax, drive, jointParams) {
     DEBUG_OUT("MY JOINT ID: " << this->id)
     // Do nothing else
 }
