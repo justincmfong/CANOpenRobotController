@@ -4,7 +4,7 @@
 #define OWNER ((AlexMachine *)owner)
 
 AlexMachine::AlexMachine() {
-    trajectoryGenerator = new DummyTrajectoryGenerator(6);
+    trajectoryGenerator = new AlexTrajectoryGenerator(6);
     robot = new AlexRobot(trajectoryGenerator);
     // Create PRE-DESIGNED State Machine events and state objects.
     isAPressed = new IsAPressed(this);
@@ -51,8 +51,7 @@ void AlexMachine::init() {
      *
      */
 bool AlexMachine::EndTraj::check() {
-    // return OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress());
-    return OWNER->trajectoryGenerator->isTrajectoryFinished();
+    return OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress());
 }
 bool AlexMachine::IsAPressed::check(void) {
     if (OWNER->robot->keyboard.getA() == true) {

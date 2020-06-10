@@ -25,7 +25,7 @@ class InitState : public ExoTestState {
     void entry(void);
     void during(void);
     void exit(void);
-    InitState(StateMachine *m, AlexRobot *exo, DummyTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
+    InitState(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
 };
 
 #endif

@@ -23,14 +23,12 @@ ControlMode ActuatedJoint::setMode(ControlMode driveMode_, motorProfile profile)
             driveMode = driveMode_;
             return POSITION_CONTROL;
         }
-    }
-    else if (driveMode_ == VELOCITY_CONTROL) {
+    } else if (driveMode_ == VELOCITY_CONTROL) {
         if (drive->initVelControl(profile)) {
             driveMode = driveMode_;
             return VELOCITY_CONTROL;
         }
-    }
-    else if (driveMode_ == TORQUE_CONTROL) {
+    } else if (driveMode_ == TORQUE_CONTROL) {
         if (drive->initTorqueControl()) {
             driveMode = driveMode_;
             return TORQUE_CONTROL;

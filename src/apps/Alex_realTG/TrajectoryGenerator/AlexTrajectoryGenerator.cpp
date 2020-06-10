@@ -11,7 +11,6 @@
 #include "AlexTrajectoryGenerator.h"
 
 /*Test hardcoded trajectory*/
-double sitting[6] = {90, 90, 90, 90, 0, 0};
 //** test function
 std::string AlexTrajectoryGenerator::printName() {
     return "ALEX TG";

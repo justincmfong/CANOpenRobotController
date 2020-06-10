@@ -2,7 +2,7 @@
 
 #include "DebugMacro.h"
 
-AlexRobot::AlexRobot(AlexTrajectoryGenerator *tj) {
+AlexRobot::AlexRobot(DummyTrajectoryGenerator *tj) {
     trajectoryGenerator = tj;
 }
 AlexRobot::AlexRobot(){
@@ -57,39 +57,16 @@ bool AlexRobot::initTorqueControl() {
     }
     return returnValue;
 }
-
 void AlexRobot::startNewTraj() {
     DEBUG_OUT("Start New Traj");
-    // FROM ORIGINAL: Set the bit flip state to zero here...
-
-    /*/todo: add once rest is addressed*/
-    /*generate new Trajectory in trajectory object*/
-    /*/todo: change to happen outside robot object after functional*/
-    jointspace_state startNewTrajJointspace;
-    double robotJointspace[NUM_JOINTS];
-    //store current joint angles in joint space objects
-    /*\todo: turn into a robot function for getting current STATE of robot*/
-    for (auto joint : joints) {
-        int j = joint->getId();
-        robotJointspace[j] = deg2rad(joint->getQ());
-    }
-    /*/todo: bellow and above should be combineded to a single function taking in the STATE of the robot*/
-    startNewTrajJointspace = {.q = {robotJointspace[0],
-                                    robotJointspace[1],
-                                    robotJointspace[2],
-                                    robotJointspace[3],
-                                    deg2rad(85),   //robotJointspace[4],
-                                    deg2rad(85)},  //robotJointspace[5]},
-                              .time = 0};
-    this->trajectoryGenerator->generateAndSaveSpline(startNewTrajJointspace);
     // Index Resetting
-    this->currTrajProgress = 0;
-    // initialize timer for moveThrough Traj first step
+    currTrajProgress = 0;
     clock_gettime(CLOCK_MONOTONIC, &prevTime);
 }
 
 bool AlexRobot::moveThroughTraj() {
     bool returnValue = true;
+
     timespec currTime;
     clock_gettime(CLOCK_MONOTONIC, &currTime);
 
@@ -100,7 +77,7 @@ bool AlexRobot::moveThroughTraj() {
     if (true) {
         currTrajProgress += elapsedSec;
         DEBUG_OUT("Elapsed Time: " << currTrajProgress)
-        // calculate the current desired position trajectory for current time.
+
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
         int i = 0;
         for (auto p : joints) {
@@ -121,6 +98,69 @@ bool AlexRobot::moveThroughTraj() {
 
     return returnValue;
 }
+// void AlexRobot::startNewTraj() {
+//     DEBUG_OUT("Start New Traj");
+//     // FROM ORIGINAL: Set the bit flip state to zero here...
+
+//     /*/todo: add once rest is addressed*/
+//     /*generate new Trajectory in trajectory object*/
+//     /*/todo: change to happen outside robot object after functional*/
+//     jointspace_state startNewTrajJointspace;
+//     double robotJointspace[NUM_JOINTS];
+//     //store current joint angles in joint space objects
+//     /*\todo: turn into a robot function for getting current STATE of robot*/
+//     for (auto joint : joints) {
+//         int j = joint->getId();
+//         robotJointspace[j] = deg2rad(joint->getQ());
+//     }
+//     /*/todo: bellow and above should be combineded to a single function taking in the STATE of the robot*/
+//     startNewTrajJointspace = {.q = {robotJointspace[0],
+//                                     robotJointspace[1],
+//                                     robotJointspace[2],
+//                                     robotJointspace[3],
+//                                     deg2rad(85),   //robotJointspace[4],
+//                                     deg2rad(85)},  //robotJointspace[5]},
+//                               .time = 0};
+//     this->trajectoryGenerator->generateAndSaveSpline(startNewTrajJointspace);
+//     // Index Resetting
+//     this->currTrajProgress = 0;
+//     // initialize timer for moveThrough Traj first step
+//     clock_gettime(CLOCK_MONOTONIC, &prevTime);
+// }
+
+// bool AlexRobot::moveThroughTraj() {
+//     bool returnValue = true;
+//     timespec currTime;
+//     clock_gettime(CLOCK_MONOTONIC, &currTime);
+
+//     double elapsedSec = currTime.tv_sec - prevTime.tv_sec + (currTime.tv_nsec - prevTime.tv_nsec) / 1e9;
+//     prevTime = currTime;
+
+//     // This should check to make sure that the "GO" button is pressed.
+//     if (true) {
+//         currTrajProgress += elapsedSec;
+//         DEBUG_OUT("Elapsed Time: " << currTrajProgress)
+//         // calculate the current desired position trajectory for current time.
+//         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
+//         int i = 0;
+//         for (auto p : joints) {
+//             setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(setPoints[i]);
+//             if (setPosCode == INCORRECT_MODE) {
+//                 std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
+//                 returnValue = false;
+//             } else if (setPosCode != SUCCESS) {
+//                 // Something bad happened
+//                 std::cout << "Joint " << p->getId() << ": Unknown Error " << std::endl;
+//                 returnValue = false;
+//             }
+//             i++;
+//         }
+//     } else {
+//         DEBUG_OUT("Not moving")
+//     }
+
+//     return returnValue;
+// }
 /*/todo, remove if statements and construct using singular  - chnage id numbering to names(less confusion)*/
 bool AlexRobot::initialiseJoints() {
     JointKnownPos hipParam{250880, 0, 90, 180};

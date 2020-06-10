@@ -23,7 +23,7 @@ AlexJoint::AlexJoint(int jointID, double jointMin, double jointMax, Drive *drive
 bool AlexJoint::updateValue() {
     q = fromDriveUnits(drive->getPos());
     // FOR TESTING w/o real robot -> set current pos to last setPosition
-    q = lastQCommand;
+    //q = lastQCommand;
 
     return true;
 }
@@ -31,8 +31,12 @@ bool AlexJoint::updateValue() {
 setMovementReturnCode_t AlexJoint::setPosition(double desQ) {
     // for testing w/o Robot
     lastQCommand = desQ;
-    if (desQ > qMax || desQ < qMin) {
-        return OUTSIDE_LIMITS;
+    /*\todo make this work!!!-> MAKE MOTION OF EACH JOINT BETWEEN JOINT LIMITS!*/
+    // atm handle by setting as end range desQ
+    if (desQ > qMax) {
+        desQ = qMax;
+    } else if (desQ < qMin) {
+        desQ = qMin;
     }
     return ActuatedJoint::setPosition(desQ);
 }
@@ -63,13 +67,10 @@ int AlexJoint::toDriveUnits(double jointValue) {
         linearInterpolatePreCalc();
     }
     int output = (int)(A * jointValue + B);
-    DEBUG_OUT("A:" << A << "B:" << B)
     DEBUG_OUT("Motor Counts value:" << output)
     return output;
 }
 void AlexJoint::linearInterpolatePreCalc() {
-    DEBUG_OUT("LinearInterploatePreCalc()")
-
     long y1 = jointParamaters.motorCountA;
     long y2 = jointParamaters.motorCountB;
     long x1 = jointParamaters.motorDegPosA;

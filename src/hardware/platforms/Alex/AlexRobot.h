@@ -23,8 +23,8 @@
 #include <map>
 
 #include "AlexJoint.h"
-#include "AlexTrajectoryGenerator.h"
 #include "CopleyDrive.h"
+#include "DummyTrajectoryGenerator.h"
 #include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
@@ -56,9 +56,9 @@ class AlexRobot : public Robot {
       * Initialize memory for the Exoskelton <code>Joint</code> + sensors. 
       * Load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
       */
-    AlexRobot(AlexTrajectoryGenerator *tj);
+    AlexRobot(DummyTrajectoryGenerator *tj);
     ~AlexRobot();
-    AlexTrajectoryGenerator *trajectoryGenerator;
+    DummyTrajectoryGenerator *trajectoryGenerator;
     Keyboard keyboard;
     vector<CopleyDrive *> copleyDrives;
 
