@@ -149,8 +149,8 @@ class AlexRobot : public Robot {
        * \return int maxDeg 
        */
     std::map<int, double> jointMinMap = {{LEFT_HIP, 70},
-                                         {RIGHT_HIP, 70},
                                          {LEFT_KNEE, 0},
+                                         {RIGHT_HIP, 70},
                                          {RIGHT_KNEE, 0},
                                          {LEFT_ANKLE, 75},
                                          {RIGHT_ANKLE, 75}};
@@ -160,8 +160,8 @@ class AlexRobot : public Robot {
        * \return int maxDeg 
        */
     std::map<int, double> jointMaxMap = {{LEFT_HIP, 210},
-                                         {RIGHT_HIP, 210},
                                          {LEFT_KNEE, 120},
+                                         {RIGHT_HIP, 210},
                                          {RIGHT_KNEE, 120},
                                          {LEFT_ANKLE, 105},
                                          {RIGHT_ANKLE, 105}};

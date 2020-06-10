@@ -1,4 +1,5 @@
 #include "AlexRobot.h"
+
 #include "DebugMacro.h"
 
 AlexRobot::AlexRobot(AlexTrajectoryGenerator *tj) {
@@ -42,7 +43,7 @@ bool AlexRobot::initTorqueControl() {
     for (auto p : joints) {
         if (((ActuatedJoint *)p)->setMode(TORQUE_CONTROL) != TORQUE_CONTROL) {
             // Something back happened if were are here
-            DEBUG_OUT("Something bad happened")
+            DEBUG_OUT("Failed to initialize Torque Control")
             returnValue = false;
         }
         // Put into ReadyToSwitchOn()

@@ -31,6 +31,9 @@ bool AlexJoint::updateValue() {
 setMovementReturnCode_t AlexJoint::setPosition(double desQ) {
     // for testing w/o Robot
     lastQCommand = desQ;
+    if (desQ > qMax || desQ < qMin) {
+        return OUTSIDE_LIMITS;
+    }
     return ActuatedJoint::setPosition(desQ);
 }
 
