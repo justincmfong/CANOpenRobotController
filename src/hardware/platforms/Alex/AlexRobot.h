@@ -1,13 +1,13 @@
 
 /**
  * 
- * \file ExoRobot.h
+ * \file AlexRobot.h
  * \author William Campbell 
  * \version 0.1
- * \date 2019-09-24
+ * \date 2020-06-10
  * \copyright Copyright (c) 2019
  * 
- * \breif  The<code> ExoRobot</ code> class represents an ExoSkeleton Robot in terms of its
+ * \breif  The<code> AlexRobot</ code> class represents an ExoSkeleton Robot in terms of its
  * representation of the Alex exoskeleton hardware whose memory is managed in this class.
  *
  *
@@ -15,8 +15,8 @@
  * Date: 07/04/2020
  */
 
-#ifndef EXOROBOT_H_INCLUDED
-#define EXOROBOT_H_INCLUDED
+#ifndef AlexRobot_H_INCLUDED
+#define AlexRobot_H_INCLUDED
 
 #include <time.h>
 
@@ -37,7 +37,7 @@
  * \brief Example implementation of the Robot class, representing an X2 Exoskeleton, using DummyActuatedJoint and DummyTrajectoryGenerator.
  * 
  */
-class ExoRobot : public Robot {
+class AlexRobot : public Robot {
    private:
     /** Parameters associated with Trajectory Progression */
     double currTrajProgress = 0;
@@ -50,14 +50,14 @@ class ExoRobot : public Robot {
     motorProfile posControlMotorProfile{4000000, 240000, 240000};
 
    public:
-    ExoRobot();
+    AlexRobot();
     /**
-      * \brief Default <code>ExoRobot</code> constructor.
+      * \brief Default <code>AlexRobot</code> constructor.
       * Initialize memory for the Exoskelton <code>Joint</code> + sensors. 
       * Load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
       */
-    ExoRobot(AlexTrajectoryGenerator *tj);
-    ~ExoRobot();
+    AlexRobot(AlexTrajectoryGenerator *tj);
+    ~AlexRobot();
     AlexTrajectoryGenerator *trajectoryGenerator;
     Keyboard keyboard;
     vector<CopleyDrive *> copleyDrives;
@@ -95,7 +95,7 @@ class ExoRobot : public Robot {
 
     /** 
       *  \brief Begin a new trajectory with the currently loaded trajectory paramaters. 
-      * Using the <code>ExoRobot</code> current configuration (read in from joint objects) 
+      * Using the <code>AlexRobot</code> current configuration (read in from joint objects) 
       * and the trajecotry generator object, generate and save a spline to move from current 
       * to desired position.
       * 
@@ -166,4 +166,4 @@ class ExoRobot : public Robot {
                                          {LEFT_ANKLE, 105},
                                          {RIGHT_ANKLE, 105}};
 };
-#endif /*EXOROBOT_H*/
+#endif /*AlexRobot_H*/

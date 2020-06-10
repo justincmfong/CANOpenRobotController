@@ -47,12 +47,12 @@
 // Simple logging
 
 #include "AlexMachine.h"
+#include "AlexRobot.h"
 #include "CANopen.h"
 #include "CO_Linux_tasks.h"
 #include "CO_OD_storage.h"
 #include "CO_command.h"
 #include "CO_time.h"
-#include "ExoRobot.h"
 #include "stdio.h"
 
 #ifndef CO_APPLICATION_H

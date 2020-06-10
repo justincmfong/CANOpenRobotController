@@ -39,7 +39,7 @@
 #include <iostream>
 #include <string>
 
-#include "ExoRobot.h"
+#include "AlexRobot.h"
 #include "ExoTestState.h"
 #include "StateMachine.h"
 
@@ -68,7 +68,7 @@ class AlexMachine : public StateMachine {
 
     void hwStateUpdate();
     State *gettCurState();
-    void initRobot(ExoRobot *rb);
+    void initRobot(AlexRobot *rb);
     bool trajComplete;
     AlexTrajectoryGenerator *trajectoryGenerator;
 
@@ -83,7 +83,7 @@ class AlexMachine : public StateMachine {
     Standing *standing;
 
    protected:
-    ExoRobot *robot; /*<!Pointer to the Robot*/
+    AlexRobot *robot; /*<!Pointer to the Robot*/
 
    private:
     /**

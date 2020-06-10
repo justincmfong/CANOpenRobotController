@@ -1,10 +1,9 @@
 /**
  * \file AlexJoint.h
- * \author Justin Fong
- * \brief A dummy class to test whether the actuated joint inheritence stuff works
+ * \author William Campbell 
  * \version 0.1
- * \date 2020-04-09
- * 
+ * \date 2020-06-10
+ * \brief A dummy class to test whether the actuated joint inheritence stuff works
  * \copyright Copyright (c) 2020
  * 
  */

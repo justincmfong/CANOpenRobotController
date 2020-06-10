@@ -1,22 +1,21 @@
-#include "ExoRobot.h"
-
+#include "AlexRobot.h"
 #include "DebugMacro.h"
 
-ExoRobot::ExoRobot(AlexTrajectoryGenerator *tj) {
+AlexRobot::AlexRobot(AlexTrajectoryGenerator *tj) {
     trajectoryGenerator = tj;
 }
-ExoRobot::ExoRobot(){
+AlexRobot::AlexRobot(){
     DEBUG_OUT("EXO ROBOT CONSTRUCTOR")}
 
-ExoRobot::~ExoRobot() {
-    DEBUG_OUT("Delete ExoRobot object begins")
+AlexRobot::~AlexRobot() {
+    DEBUG_OUT("Delete AlexRobot object begins")
     freeMemory();
     joints.clear();
     copleyDrives.clear();
-    DEBUG_OUT("ExoRobot deleted")
+    DEBUG_OUT("AlexRobot deleted")
 }
 
-bool ExoRobot::initPositionControl() {
+bool AlexRobot::initPositionControl() {
     DEBUG_OUT("Initialising Position Control on all joints ")
     bool returnValue = true;
     for (auto p : joints) {
@@ -37,7 +36,7 @@ bool ExoRobot::initPositionControl() {
     return returnValue;
 }
 
-bool ExoRobot::initTorqueControl() {
+bool AlexRobot::initTorqueControl() {
     DEBUG_OUT("Initialising Torque Control on all joints ")
     bool returnValue = true;
     for (auto p : joints) {
@@ -58,7 +57,7 @@ bool ExoRobot::initTorqueControl() {
     return returnValue;
 }
 
-void ExoRobot::startNewTraj() {
+void AlexRobot::startNewTraj() {
     DEBUG_OUT("Start New Traj");
     // FROM ORIGINAL: Set the bit flip state to zero here...
 
@@ -88,7 +87,7 @@ void ExoRobot::startNewTraj() {
     clock_gettime(CLOCK_MONOTONIC, &prevTime);
 }
 
-bool ExoRobot::moveThroughTraj() {
+bool AlexRobot::moveThroughTraj() {
     bool returnValue = true;
     timespec currTime;
     clock_gettime(CLOCK_MONOTONIC, &currTime);
@@ -122,7 +121,7 @@ bool ExoRobot::moveThroughTraj() {
     return returnValue;
 }
 /*/todo, remove if statements and construct using singular  - chnage id numbering to names(less confusion)*/
-bool ExoRobot::initialiseJoints() {
+bool AlexRobot::initialiseJoints() {
     JointKnownPos hipParam{250880, 0, 90, 180};
     JointKnownPos kneeParam{250880, 0, 90, 0};
     JointKnownPos ankleParam{0, -800000, 90, 115};
@@ -140,8 +139,8 @@ bool ExoRobot::initialiseJoints() {
     return true;
 }
 
-bool ExoRobot::initialiseNetwork() {
-    DEBUG_OUT("ExoRobot::initialiseNetwork()");
+bool AlexRobot::initialiseNetwork() {
+    DEBUG_OUT("AlexRobot::initialiseNetwork()");
 
     bool status;
     for (auto joint : joints) {
@@ -152,11 +151,11 @@ bool ExoRobot::initialiseNetwork() {
 
     return true;
 }
-bool ExoRobot::initialiseInputs() {
+bool AlexRobot::initialiseInputs() {
     inputs.push_back(new Keyboard());
     return true;
 }
-void ExoRobot::freeMemory() {
+void AlexRobot::freeMemory() {
     keyboard.~Keyboard();
     for (auto p : joints) {
         DEBUG_OUT("Delete Joint ID: " << p->getId())
@@ -167,10 +166,10 @@ void ExoRobot::freeMemory() {
         delete p;
     }
 }
-void ExoRobot::updateRobot() {
+void AlexRobot::updateRobot() {
     Robot::updateRobot();
     keyboard.updateInput();
 }
-double ExoRobot::getCurrTrajProgress() {
+double AlexRobot::getCurrTrajProgress() {
     return currTrajProgress;
 }

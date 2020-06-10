@@ -5,7 +5,7 @@
 
 AlexMachine::AlexMachine() {
     trajectoryGenerator = new AlexTrajectoryGenerator(6);
-    robot = new ExoRobot(trajectoryGenerator);
+    robot = new AlexRobot(trajectoryGenerator);
     // Create PRE-DESIGNED State Machine events and state objects.
     isAPressed = new IsAPressed(this);
     endTraj = new EndTraj(this);
