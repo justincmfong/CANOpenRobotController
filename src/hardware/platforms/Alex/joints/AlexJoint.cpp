@@ -60,7 +60,8 @@ int AlexJoint::toDriveUnits(double jointValue) {
         linearInterpolatePreCalc();
     }
     int output = (int)(A * jointValue + B);
-    DEBUG_OUT("Counts value:" << output)
+    DEBUG_OUT("A:" << A << "B:" << B)
+    DEBUG_OUT("Motor Counts value:" << output)
     return output;
 }
 void AlexJoint::linearInterpolatePreCalc() {

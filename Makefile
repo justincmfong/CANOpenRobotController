@@ -17,7 +17,7 @@ LINKFLAGS := -static
 #Define header directories 
 MODULES   := core/CANopen/CANopenNode core/CANopen/CANopenNode/stack core/CANopen/CANopenNode/stack/socketCAN \
 			 core core/CANopen/CANcomms core/CANopen/objDict core/robot core/robot/joint core/stateMachine core/TrajectoryGenerator \
-			 hardware/drives hardware/IO hardware/platforms/Alex \
+			 hardware/drives hardware/IO hardware/platforms/Alex hardware/platforms/Alex/joints \
 			 apps/Alex apps/Alex/stateMachine apps/Alex/stateMachine/states apps/Alex/TrajectoryGenerator \
 			 libs/Eigen
 

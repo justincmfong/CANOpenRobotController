@@ -121,11 +121,21 @@ bool ExoRobot::moveThroughTraj() {
 
     return returnValue;
 }
+/*/todo, remove if statements and construct using singular  - chnage id numbering to names(less confusion)*/
 bool ExoRobot::initialiseJoints() {
-    JointKnownPos jParam{250880, 0, 90, 180};
+    JointKnownPos hipParam{250880, 0, 90, 180};
+    JointKnownPos kneeParam{250880, 0, 90, 0};
+    JointKnownPos ankleParam{0, -800000, 90, 115};
+
     for (int id = 0; id < NUM_JOINTS; id++) {
         copleyDrives.push_back(new CopleyDrive(id + 1));
-        joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], jParam));
+        if (id == LEFT_HIP || id == RIGHT_HIP) {
+            joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], hipParam));
+        } else if (id == LEFT_HIP || id == RIGHT_HIP) {
+            joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], kneeParam));
+        } else {  // is an ankle
+            joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], ankleParam));
+        }
     }
     return true;
 }

@@ -19,9 +19,9 @@ typedef struct JointKnownPos {
     int motorDegPosB;
 } JointKnownPos;
 /**
- * \brief Example implementation of the ActuatedJoints class. 
+ * \brief implementation of the ActuatedJoints class for the Alex Exoskeleton. 
  * 
- * Important to note the simple implementation between the driveValue and jointValue
+ * 
  * 
  */
 class AlexJoint : public ActuatedJoint {
@@ -32,11 +32,18 @@ class AlexJoint : public ActuatedJoint {
     long B = 0; /* For use in drive and motor unit conversion, differs for each joints implementation*/
 
     /**
-     * \brief  These functions are defined here for example
-    *   In this implementation they do essentially nothing 
-    * - it's a straight 1:1 relation between drive and motor units
+     * \brief converter drive motor count value to joint values (angles)
+     * 
+     * \params driveValue read from a joints drive object
+     * \return double joint angle
     */
     double fromDriveUnits(int driveValue);
+    /**
+     * \brief converts joint angles to driver motor count values
+     * 
+     * @param jointValue angle from a robot object
+     * \return int driver Value for use by this joints Drive object
+     */
     int toDriveUnits(double jointValue);
     /**
      * \brief precalulate A and B values for faster linear interpolating calculation of y and x in y = Ax+B
