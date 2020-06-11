@@ -72,14 +72,13 @@ bool AlexRobot::moveThroughTraj() {
 
     double elapsedSec = currTime.tv_sec - prevTime.tv_sec + (currTime.tv_nsec - prevTime.tv_nsec) / 1e9;
     prevTime = currTime;
-
     // This should check to make sure that the "GO" button is pressed.
     if (true) {
         currTrajProgress += elapsedSec;
         DEBUG_OUT("Elapsed Time: " << currTrajProgress)
-
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
         int i = 0;
+        printStatus();
         for (auto p : joints) {
             setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(setPoints[i]);
             if (setPosCode == INCORRECT_MODE) {
@@ -171,9 +170,9 @@ bool AlexRobot::initialiseJoints() {
         copleyDrives.push_back(new CopleyDrive(id + 1));
         if (id == LEFT_HIP || id == RIGHT_HIP) {
             joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], hipParam));
-        } else if (id == LEFT_HIP || id == RIGHT_HIP) {
+        } else if (id == LEFT_KNEE || id == RIGHT_KNEE) {
             joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], kneeParam));
-        } else {  // is an ankle
+        } else {  // is an ankle  ->  CHANGE DRIVE
             joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], ankleParam));
         }
     }

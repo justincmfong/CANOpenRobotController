@@ -43,12 +43,12 @@ bool readyToStart = false;    /*!< Flag used by control thread to indicate CAN s
 uint32_t tmr1msPrev = 0;
 
 /*CAN msg processing thread variables*/
-static int rtPriority = 90; /*!< priority of rt CANmsg thread */
+static int rtPriority = 80; /*!< priority of rt CANmsg thread */
 static void *rt_thread(void *arg);
 static pthread_t rt_thread_id;
 static int rt_thread_epoll_fd; /*!< epoll file descriptor for rt thread */
 /* Application Control loop thread */
-static int rtControlPriority = 70; /*!< priority of application thread */
+static int rtControlPriority = 20; /*!< priority of application thread */
 static void *rt_control_thread(void *arg);
 static pthread_t rt_control_thread_id;
 static int rt_control_thread_epoll_fd; /*!< epoll file descriptor for control thread */
@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
     CO_NMT_reset_cmd_t reset = CO_RESET_NOT;
     bool_t firstRun = true;
     bool_t rebootEnable = false; /*!< Configurable by use case */  // TODO: DO WE EVER RESET? OR NEED TO?
-    char CANdevice[10] = "vcan0";                                  /*!< linux CAN device interface for app to bind to: change to can1 for bbb vcan0 for virtual can*/
+    char CANdevice[10] = "can1";                                   /*!< linux CAN device interface for app to bind to: change to can1 for bbb vcan0 for virtual can*/
     int nodeId = NODEID;                                           /*!< CAN Network NODEID */
     /*map linux CAN interface to corresponding int index return zero if no interface exists.*/
     int CANdevice0Index = if_nametoindex(CANdevice);

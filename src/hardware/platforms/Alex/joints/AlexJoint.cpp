@@ -35,8 +35,10 @@ setMovementReturnCode_t AlexJoint::setPosition(double desQ) {
     // atm handle by setting as end range desQ
     if (desQ > qMax) {
         desQ = qMax;
+        DEBUG_OUT("COMMAND OUTSIDE OF MAXQ")
     } else if (desQ < qMin) {
         desQ = qMin;
+        DEBUG_OUT("COMMAND OUTSIDE OF MINQ")
     }
     return ActuatedJoint::setPosition(desQ);
 }
@@ -60,14 +62,14 @@ double AlexJoint::fromDriveUnits(int driveValue) {
     return (double)(driveValue - B) / A;
 }
 int AlexJoint::toDriveUnits(double jointValue) {
-    DEBUG_OUT("joint value:" << jointValue)
+    DEBUG_OUT("joint id" << this->id << "joint value:" << jointValue)
 
     if (A == 0) {
         //is first run -> calculate + store A and B
         linearInterpolatePreCalc();
     }
     int output = (int)(A * jointValue + B);
-    DEBUG_OUT("Motor Counts value:" << output)
+    DEBUG_OUT("joint id" << this->id << "Motor Counts value:" << output)
     return output;
 }
 void AlexJoint::linearInterpolatePreCalc() {

@@ -9,7 +9,7 @@ void SittingDwn::entry(void) {
               << "===================" << endl;
     /*Better version takes in current robot pos, time and desired motion? instead of robot doing that*/
     // trajectoryGenerator->initialiseTrajectory(RobotMode::SITDWN, 2);
-    trajectoryGenerator->initialiseTrajectory(Trajectory::SIT, 2);
+    trajectoryGenerator->initialiseTrajectory(Trajectory::SIT, 10);
     robot->startNewTraj();
 }
 void SittingDwn::during(void) {

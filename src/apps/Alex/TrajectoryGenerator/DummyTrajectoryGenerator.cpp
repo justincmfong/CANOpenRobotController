@@ -12,7 +12,7 @@
 #include "DummyTrajectoryGenerator.h"
 
 double sitting[6] = {90, 90, 90, 90, 0, 0};
-double standing[6] = {180, 180, 0, 0, 0, 0};
+double standing[6] = {180, 0, 180, 0, 0, 0};
 
 DummyTrajectoryGenerator::DummyTrajectoryGenerator(int NumOfJoints) {
     numJoints = NumOfJoints;

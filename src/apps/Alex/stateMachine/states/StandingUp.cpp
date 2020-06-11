@@ -6,7 +6,7 @@ void StandingUp::entry(void) {
               << " GREEN -> STAND UP" << endl
               << "===================" << endl;
     // trajectoryGenerator->initialiseTrajectory(RobotMode::STNDUP, 2);
-    trajectoryGenerator->initialiseTrajectory(Trajectory::STAND, 2);
+    trajectoryGenerator->initialiseTrajectory(Trajectory::STAND, 10);
     robot->startNewTraj();
 }
 
