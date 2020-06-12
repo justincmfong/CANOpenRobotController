@@ -45,11 +45,13 @@ setMovementReturnCode_t AlexJoint::setPosition(double desQ) {
 
 bool AlexJoint::initNetwork() {
     DEBUG_OUT("Joint::initNetwork()")
-    if (drive->initPDOs()) {
-        return true;
-    } else {
-        return false;
-    }
+    // if (drive->initPDOs()) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
+    // For testing
+    return true;
 }
 double AlexJoint::getQ() {
     return q;

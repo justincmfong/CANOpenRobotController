@@ -135,34 +135,47 @@ std::vector<std::string> Drive::generateTPDOConfigSDO(std::vector<OD_Entry_t> it
     std::stringstream sstream;
 
     // Disable PDO
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1800 + PDO_Num - 1 << " 1 u32 0x" << std::hex << 0x800000000 + COB_ID;
+    sstream
+        << "[1] " << NodeID << " write 0x" << std::hex
+        << 0x1800 + PDO_Num - 1 << " 1 u32 0x" << std::hex << 0x800000000 + COB_ID;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     // Set so that there no PDO items, enable mapping change
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1A00 + PDO_Num - 1 << " 0 u8 0";
+    sstream
+        << "[1] " << NodeID << " write 0x"
+        << std::hex << 0x1A00 + PDO_Num - 1 << " 0 u8 0";
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     // Set the PDO so that it triggers every SYNC Message
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1800 + PDO_Num - 1 << " 2 u8 0x" << SyncRate;
+    sstream
+        << "[1] " << NodeID << " write 0x" << std::hex
+        << 0x1800 + PDO_Num - 1 << " 2 u8 0x" << SyncRate;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     for (int i = 1; i <= items.size(); i++) {
         // Set transmit parameters
-        sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1A00 + PDO_Num - 1 << " " << i << " u32 0x" << std::hex << OD_Addresses[items[i - 1]] * 0x10000 + OD_Data_Size[items[i - 1]];
+        sstream
+            << "[1] " << NodeID << " write 0x" << std::hex
+            << 0x1A00 + PDO_Num - 1 << " " << i << " u32 0x" << std::hex
+            << OD_Addresses[items[i - 1]] * 0x10000 + OD_Data_Size[items[i - 1]];
         CANCommands.push_back(sstream.str());
         sstream.str(std::string());
     }
 
     // Sets Number of PDO items to reenable
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1A00 + PDO_Num - 1 << " 0 u8 " << items.size();
+    sstream
+        << "[1] " << NodeID << " write 0x" << std::hex
+        << 0x1A00 + PDO_Num - 1 << " 0 u8 " << std::dec << items.size();
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     // Enable  PDO
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1800 + PDO_Num - 1 << " 1 u32 0x" << std::hex << COB_ID;
+    sstream
+        << "[1] " << NodeID << " write 0x" << std::hex
+        << 0x1800 + PDO_Num - 1 << " 1 u32 0x" << std::hex << COB_ID;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
@@ -185,34 +198,47 @@ std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> it
 
     std::stringstream sstream;
     // Disable PDO
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1400 + PDO_Num - 1 << " 1 u32 0x" << std::hex << 0x800000000 + COB_ID;
+    sstream
+        << "[1] " << NodeID << " write 0x" << std::hex
+        << 0x1400 + PDO_Num - 1 << " 1 u32 0x" << std::hex << 0x800000000 + COB_ID;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     // Set so that there no PDO items, enable mapping change
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1600 + PDO_Num - 1 << " 0 u8 0";
+    sstream
+        << "[1] " << NodeID << " write 0x" << std::hex
+        << 0x1600 + PDO_Num - 1 << " 0 u8 0";
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     // Set the PDO so that it triggers every SYNC Message
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1400 + PDO_Num - 1 << " 2 u8 0x" << UpdateTiming;
+    sstream
+        << "[1] " << NodeID << " write 0x" << std::hex
+        << 0x1400 + PDO_Num - 1 << " 2 u8 0x" << std::dec << UpdateTiming;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     for (int i = 1; i <= items.size(); i++) {
         // Set transmit parameters
-        sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1600 + PDO_Num - 1 << " " << i << " u32 0x" << std::hex << OD_Addresses[items[i - 1]] * 0x10000 + OD_Data_Size[items[i - 1]];
+        sstream
+            << "[1] " << NodeID << " write 0x" << std::hex
+            << 0x1600 + PDO_Num - 1 << " " << i << " u32 0x"
+            << std::hex << OD_Addresses[items[i - 1]] * 0x10000 + OD_Data_Size[items[i - 1]];
         CANCommands.push_back(sstream.str());
         sstream.str(std::string());
     }
 
     // Sets Number of PDO items to reenable
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1600 + PDO_Num - 1 << " 0 u8 " << items.size();
+    sstream
+        << "[1] " << NodeID << " write 0x" << std::hex
+        << 0x1600 + PDO_Num - 1 << " 0 u8 " << std::dec << items.size();
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     // Enable  PDO
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x1400 + PDO_Num - 1 << " 1 u32 0x" << std::hex << COB_ID;
+    sstream
+        << "[1] " << NodeID << " write 0x" << std::hex
+        << 0x1400 + PDO_Num - 1 << " 1 u32 0x" << std::hex << COB_ID;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
@@ -221,30 +247,44 @@ std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> it
 
 std::vector<std::string> Drive::generatePosControlConfigSDO(motorProfile positionProfile) {
     // Define Vector to be returned as part of this method
-    std::vector<std::string> CANCommands;
+    std::vector<std::string>
+        CANCommands;
     // Define stringstream for ease of constructing hex strings
     std::stringstream sstream;
     // start drive
-    sstream << "[1] " << NodeID << " start";
+    sstream
+        << "[1] " << NodeID << " start";
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
     //enable profile position mode
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6060 << " 0 i8 1";
+    sstream
+        << "[1] " << NodeID << " write 0x"
+        << "0x6060"
+        << " 0 i8 1";
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     //Set velocity profile
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6081 << " 0 i32 " << positionProfile.profileVelocity;
+    sstream
+        << "[1] " << NodeID << " write 0x"
+        << std::hex << 0x6081 << " 0 i32 "
+        << std::dec << positionProfile.profileVelocity;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     //Set acceleration profile
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6083 << " 0 i32 " << positionProfile.profileAccelration;
+    sstream
+        << "[1] " << NodeID << " write 0x"
+        << std::hex << 0x6083 << " 0 i32 "
+        << std::dec << positionProfile.profileAccelration;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     //Set deceleration profile
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6084 << " 0 i32 " << positionProfile.profileDeceleration;
+    sstream
+        << "[1] " << NodeID << " write 0x"
+        << std::hex << 0x6084 << " 0 i32 "
+        << std::dec << positionProfile.profileDeceleration;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
@@ -265,17 +305,17 @@ std::vector<std::string> Drive::generateVelControlConfigSDO(motorProfile velocit
     sstream.str(std::string());
 
     //Set velocity profile
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6081 << " 0 i32 " << velocityProfile.profileVelocity;
+    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6081 << " 0 i32 " << std::dec << velocityProfile.profileVelocity;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     //Set acceleration profile
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6083 << " 0 i32 " << velocityProfile.profileAccelration;
+    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6083 << " 0 i32 " << std::dec << velocityProfile.profileAccelration;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
     //Set deceleration profile
-    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6084 << " 0 i32 " << velocityProfile.profileDeceleration;
+    sstream << "[1] " << NodeID << " write 0x" << std::hex << 0x6084 << " 0 i32 " << std::dec << velocityProfile.profileDeceleration;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
@@ -310,10 +350,12 @@ int Drive::sendSDOMessages(std::vector<std::string> messages) {
     for (auto strCommand : messages) {
         // explicitly cast c++ string to from const char* to char* for use by cancomm function
         char *SDO_Message = (char *)(strCommand.c_str());
+        //DEBUG_OUT("SDO MESSAGE:" << SDO_Message)
 
 #ifndef NOROBOT
         cancomm_socketFree(SDO_Message, &returnMessage);
         std::string retMsg = returnMessage;
+        //wDEBUG_OUT("Return message: " << returnMessage)
 
         // Because returnMessage includes sequence it is possible value is "[1] OK".
         // Therefore it is checked if return message includes the string "OK".
