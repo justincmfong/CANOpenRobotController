@@ -30,32 +30,32 @@
 */
 
 enum ControlMode {
-    UNCONFIGURED = 0, /**< 0 */
+    UNCONFIGURED = 0,     /**< 0 */
     POSITION_CONTROL = 1, /**< 1 */
     VELOCITY_CONTROL = 2, /**< 2 */
-    TORQUE_CONTROL = 3, /**< 3 */
-    ERROR = -1 /**< -1 */
+    TORQUE_CONTROL = 3,   /**< 3 */
+    ERROR = -1            /**< -1 */
 };
 /**
  * \brief Enum representing possible Drive states 
 */
 enum DriveState {
-    DISABLED = 0, /**< 0 */
+    DISABLED = 0,           /**< 0 */
     READY_TO_SWITCH_ON = 1, /**< 1 */
-    ENABLED = 2, /**< 2 */
+    ENABLED = 2,            /**< 2 */
 };
 
 /**
  * @brief Enum representing commonly-used entries defined in the Object Dictionary for CiA402 Drives
 */
 enum OD_Entry_t {
-    STATUS_WORD = 0,    /**< 0 */
-    ACTUAL_POS = 1,     /**< 1 */
-    ACTUAL_VEL = 2,     /**< 2 */
-    ACTUAL_TOR = 3,     /**< 3 */
-    TARGET_POS = 11,    /**< 11 */
-    TARGET_VEL = 12,    /**< 12 */
-    TARGET_TOR = 13     /**< 13 */
+    STATUS_WORD = 0, /**< 0 */
+    ACTUAL_POS = 1,  /**< 1 */
+    ACTUAL_VEL = 2,  /**< 2 */
+    ACTUAL_TOR = 3,  /**< 3 */
+    TARGET_POS = 11, /**< 11 */
+    TARGET_VEL = 12, /**< 12 */
+    TARGET_TOR = 13  /**< 13 */
 };
 
 /**
@@ -100,6 +100,15 @@ struct motorProfile {
     int profileVelocity;
     int profileAccelration;
     int profileDeceleration;
+};
+
+/**
+ * The sdoReturnCode_t is used to determine whether the correct number of SDO messages
+ * were recieved succesfully by nodes on the network.  
+ */
+enum sdoReturnCode_t {
+    SUCCESS = 1,
+    INCORRECT_CONFIRMATION = -1,
 };
 
 /**
@@ -175,7 +184,6 @@ class Drive {
        * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
        *           https://www.can-cia.org/can-knowledge/canopen/cia402/
        */
-
 
     /**
      * @brief 
