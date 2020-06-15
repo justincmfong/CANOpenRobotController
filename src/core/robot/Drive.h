@@ -98,10 +98,9 @@ static std::map<OD_Entry_t, int> OD_Data_Size = {
  */
 struct motorProfile {
     int profileVelocity;
-    int profileAccelration;
+    int profileAcceleration;
     int profileDeceleration;
 };
-
 /**
  * The sdoReturnCode_t is used to determine whether the correct number of SDO messages
  * were recieved succesfully by nodes on the network.  
