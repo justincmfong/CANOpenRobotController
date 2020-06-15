@@ -365,7 +365,7 @@ sdoReturnCode_t Drive::sendSDOMessages(std::vector<std::string> messages) {
 #ifndef NOROBOT
         cancomm_socketFree(SDO_Message, &returnMessage);
         std::string retMsg = returnMessage;
-        //wDEBUG_OUT("Return message: " << returnMessage)
+        //DEBUG_OUT("Return message: " << returnMessage)
 
         // Because returnMessage includes sequence it is possible value is "[1] OK".
         // Therefore it is checked if return message includes the string "OK".
