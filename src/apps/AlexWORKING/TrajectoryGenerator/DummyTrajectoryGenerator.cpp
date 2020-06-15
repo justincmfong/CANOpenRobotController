@@ -12,7 +12,7 @@
 #include "DummyTrajectoryGenerator.h"
 
 double sitting[6] = {90, 90, 90, 90, 0, 0};
-double standing[6] = {180, 180, 0, 0, 0, 0};
+double standing[6] = {110, 45, 110, 45, 0, 0};
 
 DummyTrajectoryGenerator::DummyTrajectoryGenerator(int NumOfJoints) {
     numJoints = NumOfJoints;
@@ -46,6 +46,7 @@ std::vector<double> DummyTrajectoryGenerator::getSetPoint(double time) {
 
     if (currTraj == SIT) {
         for (int i = 0; i < numJoints; i++) {
+            // angles.push_back(sitting[i]);
             if (progress > 1) {
                 angles.push_back(sitting[i]);
             } else {
@@ -54,6 +55,7 @@ std::vector<double> DummyTrajectoryGenerator::getSetPoint(double time) {
         }
     } else {
         for (int i = 0; i < numJoints; i++) {
+            // angles.push_back(standing[i]);
             if (progress > 1) {
                 angles.push_back(standing[i]);
             } else {
@@ -71,8 +73,4 @@ bool DummyTrajectoryGenerator::isTrajectoryFinished() {
     } else {
         return false;
     }
-}
-
-DummyTrajectoryGenerator *DummyTrajectoryGenerator::clone() const {
-    return new DummyTrajectoryGenerator(*this);
 }

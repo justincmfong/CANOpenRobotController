@@ -361,7 +361,7 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
 
     bool initialiseTrajectory();
     bool initialiseTrajectory(RobotMode mov);
-    bool initialiseTrajectory(RobotMode mov, jointspace_state initialPose);
+    bool initialiseTrajectory(RobotMode mvmnt, std::vector<double> qdeg);
     bool initialiseTrajectory(RobotMode mvmnt, double time);
 
     std::vector<double> getSetPoint(time_tt);

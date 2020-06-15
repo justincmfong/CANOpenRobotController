@@ -23,7 +23,6 @@ AlexTrajectoryGenerator::AlexTrajectoryGenerator(){
 
 AlexTrajectoryGenerator::AlexTrajectoryGenerator(int NumOfJoints) {
     DEBUG_OUT("ALEX Trajectory Generator Num joints Constructor")
-
     numJoints = NumOfJoints;
 }
 
@@ -31,11 +30,18 @@ bool AlexTrajectoryGenerator::initialiseTrajectory() {
     return true;
 }
 
-bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, jointspace_state initialPose) {
+bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, std::vector<double> qdeg) {
     // Set the trajectory parameters
-
+    jointspace_state jointSpaceState;
+    jointSpaceState.q[0] = deg2rad(qdeg[0]);
+    jointSpaceState.q[1] = deg2rad(qdeg[1]);
+    jointSpaceState.q[2] = deg2rad(qdeg[2]);
+    jointSpaceState.q[3] = deg2rad(qdeg[3]);
+    jointSpaceState.q[4] = deg2rad(85);
+    jointSpaceState.q[5] = deg2rad(85);
+    jointSpaceState.time = 0;
     setTrajectoryParameters(movementTrajMap[mvmnt]);
-    generateAndSaveSpline(initialPose);
+    generateAndSaveSpline(jointSpaceState);
     return true;
 }
 
@@ -65,7 +71,6 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
     int numPolynomials = numPoints - 1;
     DEBUG_OUT("numPolys: " << numPoints)
     CubicPolynomial currentPolynomial[NUM_JOINTS];
-    //if the time point is inside range
     for (int polynomial_index = 0; polynomial_index < numPolynomials; polynomial_index++) {
         //cout << "[discretise_spline]: pt " << polynomial_index << ":" << endl;
         //if the jointspaceState time is bounded by the section of spline
@@ -104,7 +109,6 @@ void AlexTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters traje
 
 void AlexTrajectoryGenerator::setPilotParameters(PilotParameters pilotParameters) {
     this->pilotParameters = pilotParameters;
-    std::cout << "YEA!!!!!!!" << std::endl;
     DEBUG_OUT("Pilot Paramaters set")
 }
 
@@ -1181,6 +1185,7 @@ double AlexTrajectoryGenerator::evaluate_cubic_polynomial_second_derivative(Cubi
 //Generate and store the trajectory spline into the trajectory object
 void AlexTrajectoryGenerator::generateAndSaveSpline(jointspace_state initialJointspaceState) {
     this->trajectoryJointSpline = compute_trajectory_spline(trajectoryParameter, pilotParameters, initialJointspaceState);
+    std::cout << "trajectory Spline is set!" << std::endl;
 }
 
 /**********************************************************************

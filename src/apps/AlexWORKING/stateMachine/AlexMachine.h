@@ -70,7 +70,7 @@ class AlexMachine : public StateMachine {
     State *gettCurState();
     void initRobot(AlexRobot *rb);
     bool trajComplete;
-    AlexTrajectoryGenerator *trajectoryGenerator;
+    DummyTrajectoryGenerator *trajectoryGenerator;
 
     /**
      * Pointers to the relevant states - initialised in init 

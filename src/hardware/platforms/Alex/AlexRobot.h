@@ -23,8 +23,8 @@
 #include <map>
 
 #include "AlexJoint.h"
+#include "AlexTrajectoryGenerator.h"
 #include "CopleyDrive.h"
-#include "DummyTrajectoryGenerator.h"
 #include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
@@ -34,7 +34,7 @@
      * 
      */
 /**
- * \brief Example implementation of the Robot class, representing an X2 Exoskeleton, using DummyActuatedJoint and DummyTrajectoryGenerator.
+ * \brief Example implementation of the Robot class, representing an X2 Exoskeleton, using DummyActuatedJoint and AlexTrajectoryGenerator.
  * 
  */
 class AlexRobot : public Robot {
@@ -57,9 +57,9 @@ class AlexRobot : public Robot {
       * Initialize memory for the Exoskelton <code>Joint</code> + sensors. 
       * Load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
       */
-    AlexRobot(DummyTrajectoryGenerator *tj);
+    AlexRobot(AlexTrajectoryGenerator *tj);
     ~AlexRobot();
-    DummyTrajectoryGenerator *trajectoryGenerator;
+    AlexTrajectoryGenerator *trajectoryGenerator;
     Keyboard keyboard;
     vector<CopleyDrive *> copleyDrives;
 
@@ -140,6 +140,8 @@ class AlexRobot : public Robot {
        * \return double currentTrajProgress
        */
     double getCurrTrajProgress();
+
+    std::vector<double> getJointStates();
     /**
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h
     * 
@@ -149,12 +151,13 @@ class AlexRobot : public Robot {
        * \param int Joint value
        * \return int maxDeg 
        */
-    std::map<int, double> jointMinMap = {{LEFT_HIP, 70},
-                                         {LEFT_KNEE, 0},
-                                         {RIGHT_HIP, 70},
-                                         {RIGHT_KNEE, 0},
-                                         {LEFT_ANKLE, 75},
-                                         {RIGHT_ANKLE, 75}};
+    std::map<int, double>
+        jointMinMap = {{LEFT_HIP, 70},
+                       {LEFT_KNEE, 0},
+                       {RIGHT_HIP, 70},
+                       {RIGHT_KNEE, 0},
+                       {LEFT_ANKLE, 75},
+                       {RIGHT_ANKLE, 75}};
     /**
        * \brief Joint Limit Map between Joint value and max Degrees possible
        * \param int Joint value

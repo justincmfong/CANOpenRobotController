@@ -32,7 +32,7 @@ class SittingDwn : public ExoTestState {
      */
     void during(void);
     void exit(void);
-    SittingDwn(StateMachine *m, AlexRobot *exo, DummyTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
+    SittingDwn(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
 };
 
 #endif

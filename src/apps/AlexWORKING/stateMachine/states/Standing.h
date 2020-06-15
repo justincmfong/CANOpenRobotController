@@ -23,7 +23,7 @@ class Standing : public ExoTestState {
     void entry(void);
     void during(void);
     void exit(void);
-    Standing(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
+    Standing(StateMachine *m, AlexRobot *exo, DummyTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
 };
 
 #endif

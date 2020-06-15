@@ -348,7 +348,7 @@ sdoReturnCode_t Drive::sendSDOMessages(std::vector<std::string> messages) {
 #endif
     }
     if (successfulMessages == messages.size())
-        return SUCCESS;
+        return CORRECT_NUM_CONFIRMATION;
     else
-        return INCORRECT_CONFIRMATION;
+        return INCORRECT_NUM_CONFIRMATION;
 }

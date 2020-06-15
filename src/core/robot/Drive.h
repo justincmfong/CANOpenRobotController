@@ -106,8 +106,8 @@ struct motorProfile {
  * were recieved succesfully by nodes on the network.  
  */
 enum sdoReturnCode_t {
-    SUCCESS = 1,
-    INCORRECT_CONFIRMATION = -1,
+    CORRECT_NUM_CONFIRMATION = 1,
+    INCORRECT_NUM_CONFIRMATION = -1,
 };
 
 /**
@@ -205,8 +205,8 @@ class Drive {
         * 
         * \return int number of messages successfully processed(return OK) 
               */
-    int
-    sendSDOMessages(std::vector<std::string> messages);
+
+    sdoReturnCode_t sendSDOMessages(std::vector<std::string> messages);
 
    private:
     /**
