@@ -16,6 +16,9 @@ void SittingDwn::during(void) {
     robot->moveThroughTraj();
 }
 void SittingDwn::exit(void) {
+    /*no idea if that really does anything! cool*/
+    robot->bitFlip();
     std::cout
         << "Sitting Down State Exited " << endl;
+    robot->printStatus();
 }

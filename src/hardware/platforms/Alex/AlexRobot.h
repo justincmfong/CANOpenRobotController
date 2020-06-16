@@ -47,8 +47,8 @@ class AlexRobot : public Robot {
      * \brief motor drive position control profile paramaters, user defined.
      * 
      */
-    motorProfile posControlMotorProfile{4000000, 240000, 240000};
-    //motorProfile posControlMotorProfile{2000000, 14000, 14000};
+    //motorProfile posControlMotorProfile{7500000, 34000, 34000};
+    motorProfile posControlMotorProfile{1500000, 14000, 14000};
 
    public:
     AlexRobot();
@@ -140,6 +140,9 @@ class AlexRobot : public Robot {
        * \return double currentTrajProgress
        */
     double getCurrTrajProgress();
+
+    /*testing*/
+    void bitFlip();
 
     std::vector<double> getJointStates();
     /**

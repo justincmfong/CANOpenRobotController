@@ -45,13 +45,13 @@ setMovementReturnCode_t AlexJoint::setPosition(double desQ) {
 
 bool AlexJoint::initNetwork() {
     DEBUG_OUT("Joint::initNetwork()")
-    // if (drive->initPDOs()) {
-    //     return true;
-    // } else {
-    //     return false;
-    // }
+    if (drive->initPDOs()) {
+        return true;
+    } else {
+        return false;
+    }
     // For testing
-    return true;
+    // return true;
 }
 double AlexJoint::getQ() {
     return q;
@@ -81,4 +81,8 @@ void AlexJoint::linearInterpolatePreCalc() {
     long x2 = jointParamaters.motorDegPosB;
     A = 1.0 * (y2 - y1) / (x2 - x1);
     B = 1.0 * (y1 * x2 - y2 * x1) / (x2 - x1);
+}
+
+void AlexJoint::bitFlip() {
+    drive->posControlConfirmSP();
 }

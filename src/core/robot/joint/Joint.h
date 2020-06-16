@@ -123,6 +123,9 @@ class Joint {
      * @return false if unsuccessful
      */
     virtual bool initNetwork() = 0;
+
+    /*testing*/
+    void bitFlip();
 };
 
 #endif

@@ -4,15 +4,15 @@
 
 AlexRobot::AlexRobot(AlexTrajectoryGenerator *tj) {
     trajectoryGenerator = tj;
-    PilotParameters Brad_parameters = {
-        .lowerleg_length = 0.44,
-        .upperleg_length = 0.44,
-        .ankle_height = 0.12,
-        .foot_length = 0.30,
-        .hip_width = 0.43,
-        .torso_length = 0.4,
-        .buttocks_height = 0.05};
-    trajectoryGenerator->setPilotParameters(Brad_parameters);
+    // PilotParameters Brad_parameters = {
+    //     .lowerleg_length = 0.44,
+    //     .upperleg_length = 0.44,
+    //     .ankle_height = 0.12,
+    //     .foot_length = 0.30,
+    //     .hip_width = 0.43,
+    //     .torso_length = 0.4,
+    //     .buttocks_height = 0.05};
+    // trajectoryGenerator->setPilotParameters(Brad_parameters);
 }
 AlexRobot::AlexRobot(){
     DEBUG_OUT("EXO ROBOT CONSTRUCTOR")}
@@ -76,8 +76,6 @@ void AlexRobot::startNewTraj() {
 
 bool AlexRobot::moveThroughTraj() {
     bool returnValue = true;
-    DEBUG_OUT("MOVETHROUGH TRAJ");
-
     timespec currTime;
     clock_gettime(CLOCK_MONOTONIC, &currTime);
 
@@ -169,4 +167,9 @@ std::vector<double> AlexRobot::getJointStates() {
         i++;
     }
     return robotJointspace;
+}
+void AlexRobot::bitFlip() {
+    for (auto joint : joints) {
+        joint->bitFlip();
+    }
 }

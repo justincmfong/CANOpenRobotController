@@ -34,3 +34,5 @@ double Joint::getQ() {
 void Joint::getStatus() {
     std::cout << "Joint ID " << id << " @ pos " << getQ() << " deg" << std::endl;
 }
+void Joint::bitFlip() {
+}

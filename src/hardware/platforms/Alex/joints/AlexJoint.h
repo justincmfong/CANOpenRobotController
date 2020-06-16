@@ -59,6 +59,8 @@ class AlexJoint : public ActuatedJoint {
     setMovementReturnCode_t setPosition(double desQ);
     bool initNetwork();
     double getQ();
+    /*testing*/
+    void bitFlip();
 };
 
 #endif
