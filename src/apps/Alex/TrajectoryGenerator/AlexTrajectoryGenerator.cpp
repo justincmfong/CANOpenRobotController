@@ -33,6 +33,7 @@ bool AlexTrajectoryGenerator::initialiseTrajectory() {
 bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, std::vector<double> qdeg) {
     // Set the trajectory parameters
     jointspace_state jointSpaceState;
+    DEBUG_OUT("INITALSE TRAJ W/ Joint 0:" << qdeg[0] << "Joint 1:" << qdeg[1])
     jointSpaceState.q[0] = deg2rad(qdeg[0]);
     jointSpaceState.q[1] = deg2rad(qdeg[1]);
     jointSpaceState.q[2] = deg2rad(qdeg[2]);
@@ -67,9 +68,7 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
     time_tt endTime = trajectoryJointSpline.times.back();
     // Every sample time, compute the value of q1 to q6 based on the time segment / set of NO_JOINTS polynomials
     int numPoints = trajectoryJointSpline.times.size();
-    DEBUG_OUT("numPoints: " << numPoints)
     int numPolynomials = numPoints - 1;
-    DEBUG_OUT("numPolys: " << numPoints)
     CubicPolynomial currentPolynomial[NUM_JOINTS];
     for (int polynomial_index = 0; polynomial_index < numPolynomials; polynomial_index++) {
         //cout << "[discretise_spline]: pt " << polynomial_index << ":" << endl;
@@ -1393,10 +1392,10 @@ double AlexTrajectoryGenerator::getStepDuration() {
 
 bool AlexTrajectoryGenerator::isTrajectoryFinished(double trajProgress) {
     double fracProgress = trajProgress / (double)trajectoryParameter.step_duration;
-    DEBUG_OUT("total traj time:" << trajectoryParameter.step_duration)
-    DEBUG_OUT("trajProgress:" << trajProgress)
-    DEBUG_OUT("frac Progress:" << fracProgress)
-    if (fracProgress > 1.02) {
+    // DEBUG_OUT("total traj time:" << trajectoryParameter.step_duration)
+    // DEBUG_OUT("trajProgress:" << trajProgress)
+    // DEBUG_OUT("frac Progress:" << fracProgress)
+    if (fracProgress > 1.01) {
         return true;
     } else {
         return false;

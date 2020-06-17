@@ -143,7 +143,8 @@ class AlexRobot : public Robot {
 
     /*testing*/
     void bitFlip();
-
+    // Set Robot objects joint position to initial pos for test motion
+    void setPos(RobotMode mode);
     std::vector<double> getJointStates();
     /**
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h

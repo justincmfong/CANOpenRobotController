@@ -91,7 +91,7 @@ bool AlexRobot::moveThroughTraj() {
         for (auto p : joints) {
             setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(setPoints[i]);
             if (setPosCode == INCORRECT_MODE) {
-                std::cout << "Joint ID " << p->getId() << ": is not in Position Control " << std::endl;
+                std::cout << "Joint ID: " << p->getId() << ": is not in Position Control " << std::endl;
                 returnValue = false;
             } else if (setPosCode != SUCCESS) {
                 // Something bad happened
@@ -128,12 +128,12 @@ bool AlexRobot::initialiseJoints() {
 bool AlexRobot::initialiseNetwork() {
     DEBUG_OUT("AlexRobot::initialiseNetwork()");
 
-    bool status;
-    for (auto joint : joints) {
-        status = joint->initNetwork();
-        if (!status)
-            return false;
-    }
+    // bool status;
+    // for (auto joint : joints) {
+    //     status = joint->initNetwork();
+    //     if (!status)
+    //         return false;
+    // }
 
     return true;
 }
@@ -171,5 +171,30 @@ std::vector<double> AlexRobot::getJointStates() {
 void AlexRobot::bitFlip() {
     for (auto joint : joints) {
         joint->bitFlip();
+    }
+}
+
+void AlexRobot::setPos(RobotMode mode) {
+    std::vector<double> initialPoints;
+    if (mode == RobotMode::SITDWN) {
+        initialPoints = {180,
+                         0,
+                         180,
+                         0,
+                         0,
+                         0};
+    } else if (mode == RobotMode::STNDUP) {
+        initialPoints = {90,
+                         90,
+                         90,
+                         90,
+                         0,
+                         0};
+    }
+    int i = 0;
+    for (auto p : joints) {
+        DEBUG_OUT("SETTING JOINT:" << p->getId() << "TO DEG: " << initialPoints[i]);
+        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(initialPoints[i]);
+        i++;
     }
 }

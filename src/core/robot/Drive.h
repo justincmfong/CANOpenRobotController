@@ -107,7 +107,7 @@ struct motorProfile {
  */
 enum sdoReturnCode_t {
     CORRECT_NUM_CONFIRMATION = 1,
-    INCORRECT_NUM_CONFIRMATION = -1,
+    INCORRECT_NUM_CONFIRMATION = 0,
 };
 
 /**
