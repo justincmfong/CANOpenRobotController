@@ -88,16 +88,20 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
             //make sure the angles are within boundary
             limit_position_against_angle_boundary(angles);
             return angles;
-        } else {
-            for (int i = 0; i < NUM_JOINTS; i++) {
-                currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
-                angles.push_back(evaluate_cubic_polynomial(currentPolynomial[i], time));
-            }
         }
-        //else return previous poly
     }
-    // handle error if reached
+    //cout << "[discretise_spline]:\t" << temp.time << "\t";
+    //if the time point is outside range
+    for (int i = 0; i < NUM_JOINTS; i++) {
+        currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
+        angles.push_back(evaluate_cubic_polynomial(currentPolynomial[i], endTime));
+    }
+    //make sure the angles are within boundary
+    limit_position_against_angle_boundary(angles);
+    //else return previous poly
+    return angles;
 }
+// handle error if reached
 /***********************************************************************
 Methods to Set Trajectory and Pilot Parameters
 ***********************************************************************/

@@ -126,6 +126,7 @@ class Joint {
 
     /*testing*/
     void bitFlip();
+    void setQ(double _q) { q = _q; };
 };
 
 #endif

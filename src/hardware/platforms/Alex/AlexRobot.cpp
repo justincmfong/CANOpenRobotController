@@ -89,7 +89,7 @@ bool AlexRobot::moveThroughTraj() {
         int i = 0;
         printStatus();
         for (auto p : joints) {
-            setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(setPoints[i]);
+            setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(rad2deg(setPoints[i]));
             if (setPosCode == INCORRECT_MODE) {
                 std::cout << "Joint ID: " << p->getId() << ": is not in Position Control " << std::endl;
                 returnValue = false;
@@ -195,6 +195,8 @@ void AlexRobot::setPos(RobotMode mode) {
     for (auto p : joints) {
         DEBUG_OUT("SETTING JOINT:" << p->getId() << "TO DEG: " << initialPoints[i]);
         setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(initialPoints[i]);
+        p->setQ(initialPoints[i]);
         i++;
     }
+    // Above needs a cycle of updateJoints to run for the values to register in q therfore hard setting q values in joints here.
 }
