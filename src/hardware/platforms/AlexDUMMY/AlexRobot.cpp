@@ -2,17 +2,8 @@
 
 #include "DebugMacro.h"
 
-AlexRobot::AlexRobot(AlexTrajectoryGenerator *tj) {
+AlexRobot::AlexRobot(DummyTrajectoryGenerator *tj) {
     trajectoryGenerator = tj;
-    // PilotParameters Brad_parameters = {
-    //     .lowerleg_length = 0.44,
-    //     .upperleg_length = 0.44,
-    //     .ankle_height = 0.12,
-    //     .foot_length = 0.30,
-    //     .hip_width = 0.43,
-    //     .torso_length = 0.4,
-    //     .buttocks_height = 0.05};
-    // trajectoryGenerator->setPilotParameters(Brad_parameters);
 }
 AlexRobot::AlexRobot(){
     DEBUG_OUT("EXO ROBOT CONSTRUCTOR")}
@@ -89,7 +80,7 @@ bool AlexRobot::moveThroughTraj() {
         int i = 0;
         printStatus();
         for (auto p : joints) {
-            setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(rad2deg(setPoints[i]));
+            setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(setPoints[i]);
             if (setPosCode == INCORRECT_MODE) {
                 std::cout << "Joint ID: " << p->getId() << ": is not in Position Control " << std::endl;
                 returnValue = false;
@@ -134,7 +125,8 @@ bool AlexRobot::initialiseNetwork() {
         if (!status)
             return false;
     }
-    return true;
+
+    // return true;
 }
 bool AlexRobot::initialiseInputs() {
     inputs.push_back(new Keyboard());
@@ -171,31 +163,4 @@ void AlexRobot::bitFlip() {
     for (auto joint : joints) {
         joint->bitFlip();
     }
-}
-
-void AlexRobot::setPos(RobotMode mode) {
-    std::vector<double> initialPoints;
-    if (mode == RobotMode::SITDWN) {
-        initialPoints = {180,
-                         0,
-                         180,
-                         0,
-                         0,
-                         0};
-    } else if (mode == RobotMode::STNDUP) {
-        initialPoints = {90,
-                         90,
-                         90,
-                         90,
-                         0,
-                         0};
-    }
-    int i = 0;
-    for (auto p : joints) {
-        DEBUG_OUT("SETTING JOINT:" << p->getId() << "TO DEG: " << initialPoints[i]);
-        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(initialPoints[i]);
-        p->setQ(initialPoints[i]);
-        i++;
-    }
-    // Above needs a cycle of updateJoints to run for the values to register in q therfore hard setting q values in joints here.
 }

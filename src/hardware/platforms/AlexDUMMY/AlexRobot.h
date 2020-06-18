@@ -23,8 +23,8 @@
 #include <map>
 
 #include "AlexJoint.h"
-#include "AlexTrajectoryGenerator.h"
 #include "CopleyDrive.h"
+#include "DummyTrajectoryGenerator.h"
 #include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
@@ -34,7 +34,7 @@
      * 
      */
 /**
- * \brief Example implementation of the Robot class, representing an X2 Exoskeleton, using DummyActuatedJoint and AlexTrajectoryGenerator.
+ * \brief Example implementation of the Robot class, representing an X2 Exoskeleton, using DummyActuatedJoint and DummyTrajectoryGenerator.
  * 
  */
 class AlexRobot : public Robot {
@@ -48,8 +48,8 @@ class AlexRobot : public Robot {
      * 
      */
     //motorProfile posControlMotorProfile{7500000, 34000, 34000};
-    //motorProfile posControlMotorProfile{1500000, 14000, 14000};
-    motorProfile posControlMotorProfile{3000000, 150000, 150000};
+    //  motorProfile posControlMotorProfile{1500000, 14000, 14000};
+    motorProfile posControlMotorProfile{3500000, 200000, 200000};
 
    public:
     AlexRobot();
@@ -58,9 +58,9 @@ class AlexRobot : public Robot {
       * Initialize memory for the Exoskelton <code>Joint</code> + sensors. 
       * Load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
       */
-    AlexRobot(AlexTrajectoryGenerator *tj);
+    AlexRobot(DummyTrajectoryGenerator *tj);
     ~AlexRobot();
-    AlexTrajectoryGenerator *trajectoryGenerator;
+    DummyTrajectoryGenerator *trajectoryGenerator;
     Keyboard keyboard;
     vector<CopleyDrive *> copleyDrives;
 
@@ -144,8 +144,6 @@ class AlexRobot : public Robot {
 
     /*testing*/
     void bitFlip();
-    // Set Robot objects joint position to initial pos for test motion
-    void setPos(RobotMode mode);
     std::vector<double> getJointStates();
     /**
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h

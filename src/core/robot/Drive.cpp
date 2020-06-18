@@ -46,8 +46,8 @@ int Drive::getPos() {
     *
     */
     /*VIRTUAL*/
-    int q = *(&CO_OD_RAM.targetMotorPositions.motor1 + ((this->NodeID - 1)));
-    //int q = *(&CO_OD_RAM.actualMotorPositions.motor1 + ((this->NodeID - 1)));
+    //int q = *(&CO_OD_RAM.targetMotorPositions.motor1 + ((this->NodeID - 1)));
+    int q = *(&CO_OD_RAM.actualMotorPositions.motor1 + ((this->NodeID - 1)));
 
     return q;
 }
@@ -139,7 +139,7 @@ std::vector<std::string> Drive::generateTPDOConfigSDO(std::vector<OD_Entry_t> it
     // Disable PDO
     sstream
         << "[1] " << NodeID << " write 0x" << std::hex
-        << 0x1800 + PDO_Num - 1 << " 1 u32 0x" << std::hex << 0x800000000 + COB_ID;
+        << 0x1800 + PDO_Num - 1 << " 1 u32 0x" << std::hex << 0x80000000 + COB_ID;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
@@ -202,7 +202,7 @@ std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> it
     // Disable PDO
     sstream
         << "[1] " << NodeID << " write 0x" << std::hex
-        << 0x1400 + PDO_Num - 1 << " 1 u32 0x" << std::hex << 0x800000000 + COB_ID;
+        << 0x1400 + PDO_Num - 1 << " 1 u32 0x" << std::hex << 0x80000000 + COB_ID;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
@@ -216,7 +216,7 @@ std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> it
     // Set the PDO so that it triggers every SYNC Message
     sstream
         << "[1] " << NodeID << " write 0x" << std::hex
-        << 0x1400 + PDO_Num - 1 << " 2 u8 0x" << std::dec << UpdateTiming;
+        << 0x1400 + PDO_Num - 1 << " 2 u8 0x" << std::hex << UpdateTiming;
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
@@ -249,6 +249,7 @@ std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> it
 
 std::vector<std::string> Drive::generatePosControlConfigSDO(motorProfile positionProfile) {
     // Define Vector to be returned as part of this method
+    DEBUG_OUT("generating Pos Control config SDO")
     std::vector<std::string> CANCommands;
     // Define stringstream for ease of constructing hex strings
     std::stringstream sstream;
@@ -334,12 +335,12 @@ sdoReturnCode_t Drive::sendSDOMessages(std::vector<std::string> messages) {
     for (auto strCommand : messages) {
         // explicitly cast c++ string to from const char* to char* for use by cancomm function
         char *SDO_Message = (char *)(strCommand.c_str());
-        //DEBUG_OUT("SDO MESSAGE:" << SDO_Message)
+        DEBUG_OUT("SDO MESSAGE:" << SDO_Message)
 
 #ifndef NOROBOT
         cancomm_socketFree(SDO_Message, &returnMessage);
         std::string retMsg = returnMessage;
-        //DEBUG_OUT("Return message: " << returnMessage)
+        DEBUG_OUT("Return message: " << returnMessage)
 
         // Because returnMessage includes sequence it is possible value is "[1] OK".
         // Therefore it is checked if return message includes the string "OK".
