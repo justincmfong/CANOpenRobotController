@@ -50,7 +50,10 @@ enum class RobotMode {
     BKSTEP,
     FTTG,
     UNEVEN,
-    INITIAL
+    INITIAL,
+    ERROR,
+    STANDING,
+    SITTING
 };
 /**
  * 

@@ -86,12 +86,8 @@ bool AlexRobot::moveThroughTraj() {
     if (true) {
         currTrajProgress += elapsedSec;
         double fracTrajProgress = currTrajProgress / trajTimeUS;
-        // DEBUG_OUT("Elapsed Time: " << currTrajProgress)
-        // DEBUG_OUT("TrajTIME US: " << trajTimeUS)
-        // DEBUG_OUT("Fract Traj Progress:" << fracTrajProgress)
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
         int i = 0;
-        //printStatus();
         std::cout << currTrajProgress << " , ";
         for (auto p : joints) {
             std::cout << rad2deg(setPoints[i]) << ",";

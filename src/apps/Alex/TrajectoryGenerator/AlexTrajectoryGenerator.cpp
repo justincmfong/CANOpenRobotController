@@ -33,7 +33,6 @@ bool AlexTrajectoryGenerator::initialiseTrajectory() {
 bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, std::vector<double> qdeg) {
     // Set the trajectory parameters
     jointspace_state jointSpaceState;
-    DEBUG_OUT("INITALSE TRAJ W/ Joint 0:" << qdeg[0] << "Joint 1:" << qdeg[1])
     jointSpaceState.q[0] = deg2rad(qdeg[0]);
     jointSpaceState.q[1] = deg2rad(qdeg[1]);
     jointSpaceState.q[2] = deg2rad(qdeg[2]);
@@ -51,7 +50,7 @@ bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, double time)
 
     setTrajectoryParameters(movementTrajMap[mvmnt]);
     /*\todo: have this happen getting fed in the intialPose from the robot*/
-
+    DEBUG_OUT("Finsihed setting Traj pram to:" << (int)this->trajectoryParameter.stepType)
     return true;
 }
 /**
@@ -108,6 +107,7 @@ Methods to Set Trajectory and Pilot Parameters
 void AlexTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters trajectoryParameter) {
     DEBUG_OUT("setTrajectoryParameters()")
     this->trajectoryParameter = trajectoryParameter;
+    DEBUG_OUT("SET traj to :" << (int)this->trajectoryParameter.stepType)
 }
 
 void AlexTrajectoryGenerator::setPilotParameters(PilotParameters pilotParameters) {
@@ -1214,7 +1214,6 @@ jointspace_spline AlexTrajectoryGenerator::compute_trajectory_spline(const Traje
     std::vector<taskspace_state> taskspaceStates;
     std::vector<jointspace_state> jointspaceStates;
     jointspace_spline jointspaceSpline;
-
     initialTaskspaceState = jointspace_state_to_taskspace_state(initialJointspaceState, trajectoryParameters, pilotParameters);
 
     // Obtain key taskspace states
@@ -1338,18 +1337,19 @@ void AlexTrajectoryGenerator::limit_velocity_against_angle_boundary(
 }
 
 //limiting the position array in trajectory class
-void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<double> positions) {
-    for (int i; i < positions.size(); i++) {
+void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<double> &positions) {
+    for (int i = 0; i < positions.size(); i++) {
         int minIndex = i * 2;
         int maxIndex = i * 2 + 1;
-        /*cout << "position is" << positionArray[i] << "Q MIN std::max ARE "
-			<< Q_MIN_MAX[minIndex] << " " << Q_MIN_MAX[maxIndex] << std::endl;*/
-        //if we at the boundary
+        // DEBUG_OUT("position is" << positions[i] << "Q MIN:MAX "<< Q_MIN_MAX[minIndex] << ":" << Q_MIN_MAX[maxIndex])
+        //if at the boundary
         if (positions[i] < Q_MIN_MAX[minIndex]) {
             positions[i] = Q_MIN_MAX[minIndex];
+            //DEBUG_OUT("SET AS MIN:" << positions[i])
         }
         if (positions[i] > Q_MIN_MAX[maxIndex]) {
             positions[i] = Q_MIN_MAX[maxIndex];
+            //DEBUG_OUT("SET AS MAX:" << positions[i])
         }
         if (std::isnan(positions[i])) {
             std::cout << "ISNAN now " << std::endl;

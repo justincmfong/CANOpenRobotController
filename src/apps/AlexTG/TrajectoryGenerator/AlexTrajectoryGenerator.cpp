@@ -1214,6 +1214,7 @@ jointspace_spline AlexTrajectoryGenerator::compute_trajectory_spline(const Traje
     std::vector<taskspace_state> taskspaceStates;
     std::vector<jointspace_state> jointspaceStates;
     jointspace_spline jointspaceSpline;
+    DEBUG_OUT("traj Param inside compute:" << (int)trajectoryParameters.stepType)
 
     initialTaskspaceState = jointspace_state_to_taskspace_state(initialJointspaceState, trajectoryParameters, pilotParameters);
 
