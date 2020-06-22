@@ -80,15 +80,21 @@ bool AlexRobot::moveThroughTraj() {
     clock_gettime(CLOCK_MONOTONIC, &currTime);
 
     double elapsedSec = currTime.tv_sec - prevTime.tv_sec + (currTime.tv_nsec - prevTime.tv_nsec) / 1e9;
+    double trajTimeUS = trajectoryGenerator->getStepDuration();
     prevTime = currTime;
     // This should check to make sure that the "GO" button is pressed.
     if (true) {
         currTrajProgress += elapsedSec;
-        DEBUG_OUT("Elapsed Time: " << currTrajProgress)
-        std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
+        double fracTrajProgress = currTrajProgress / trajTimeUS;
+        // DEBUG_OUT("Elapsed Time: " << currTrajProgress)
+        // DEBUG_OUT("TrajTIME US: " << trajTimeUS)
+        // DEBUG_OUT("Fract Traj Progress:" << fracTrajProgress)
+        std::vector<double> setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
         int i = 0;
-        printStatus();
+        //printStatus();
+        std::cout << currTrajProgress << " , ";
         for (auto p : joints) {
+            std::cout << rad2deg(setPoints[i]) << ",";
             setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(rad2deg(setPoints[i]));
             if (setPosCode == INCORRECT_MODE) {
                 std::cout << "Joint ID: " << p->getId() << ": is not in Position Control " << std::endl;
@@ -100,6 +106,7 @@ bool AlexRobot::moveThroughTraj() {
             }
             i++;
         }
+        std::cout << std::endl;
     } else {
         DEBUG_OUT("Not moving")
     }
@@ -128,12 +135,13 @@ bool AlexRobot::initialiseJoints() {
 bool AlexRobot::initialiseNetwork() {
     DEBUG_OUT("AlexRobot::initialiseNetwork()");
 
-    bool status;
-    for (auto joint : joints) {
-        status = joint->initNetwork();
-        if (!status)
-            return false;
-    }
+    // bool status;
+    // for (auto joint : joints) {
+    //     status = joint->initNetwork();
+    //     if (!status)
+    //         return false;
+    // }
+
     return true;
 }
 bool AlexRobot::initialiseInputs() {

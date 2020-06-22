@@ -33,13 +33,13 @@ setMovementReturnCode_t AlexJoint::setPosition(double desQ) {
     lastQCommand = desQ;
     /*\todo make this work!!!-> MAKE MOTION OF EACH JOINT BETWEEN JOINT LIMITS!*/
     // atm handle by setting as end range desQ
-    if (desQ > qMax) {
-        DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MAXQ")
-        desQ = qMax;
-    } else if (desQ < qMin) {
-        DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MINQ")
-        desQ = qMin;
-    }
+    // if (desQ > qMax) {
+    //     DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MAXQ")
+    //     desQ = qMax;
+    // } else if (desQ < qMin) {
+    //     DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MINQ")
+    //     desQ = qMin;
+    // }
     return ActuatedJoint::setPosition(desQ);
 }
 

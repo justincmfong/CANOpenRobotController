@@ -7,7 +7,7 @@ void SittingDwn::entry(void) {
               << "===================" << endl
               << " GREEN -> SIT DOWN " << endl
               << "===================" << endl;
-    robot->setPos(RobotMode::SITDWN); /*Testing Virtual*/
+    // robot->setPos(RobotMode::SITDWN); /*Testing Virtual*/
     trajectoryGenerator->initialiseTrajectory(RobotMode::SITDWN, robot->getJointStates());
     robot->startNewTraj();
     DEBUG_OUT("INITIAL SITTING DOWN POS:")

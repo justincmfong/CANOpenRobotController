@@ -45,9 +45,9 @@ int Drive::getPos() {
     * \todo change to actual motor Position when running on real robot
     *
     */
+    // int q = *(&CO_OD_RAM.actualMotorPositions.motor1 + ((this->NodeID - 1)));
     /*VIRTUAL*/
-    //int q = *(&CO_OD_RAM.targetMotorPositions.motor1 + ((this->NodeID - 1)));
-    int q = *(&CO_OD_RAM.actualMotorPositions.motor1 + ((this->NodeID - 1)));
+    int q = *(&CO_OD_RAM.targetMotorPositions.motor1 + ((this->NodeID - 1)));
 
     return q;
 }

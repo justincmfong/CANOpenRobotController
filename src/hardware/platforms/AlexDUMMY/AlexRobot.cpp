@@ -75,11 +75,12 @@ bool AlexRobot::moveThroughTraj() {
     // This should check to make sure that the "GO" button is pressed.
     if (true) {
         currTrajProgress += elapsedSec;
-        DEBUG_OUT("Elapsed Time: " << currTrajProgress)
+        //DEBUG_OUT("Elapsed Time: " << currTrajProgress)
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(currTrajProgress);
         int i = 0;
-        printStatus();
+        //printStatus();
         for (auto p : joints) {
+            std::cout << setPoints[i] << ",";
             setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(setPoints[i]);
             if (setPosCode == INCORRECT_MODE) {
                 std::cout << "Joint ID: " << p->getId() << ": is not in Position Control " << std::endl;
@@ -91,6 +92,7 @@ bool AlexRobot::moveThroughTraj() {
             }
             i++;
         }
+        std::endl;
     } else {
         DEBUG_OUT("Not moving")
     }
