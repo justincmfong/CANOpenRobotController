@@ -1,15 +1,15 @@
 /**
- * /file InitState.h
- * /author Justin Fong
+ * /file LeftForward.h
+ * /author William Campbell
  * /brief Concrete implementation of ExoTestState
  * /version 0.1
- * /date 2020-05-07
+ * /date 2020-06-23
  * 
  * @copyright Copyright (c) 2020
  * 
  */
-#ifndef INITSTATE_H_INCLUDED
-#define INITSTATE_H_INCLUDED
+#ifndef LeftForward_H_INCLUDED
+#define LeftForward_H_INCLUDED
 
 #include "ExoTestState.h"
 
@@ -20,12 +20,12 @@
  * Control of transition is independent of this class and is defined in ExoTestMachine.
  * 
  */
-class InitState : public ExoTestState {
+class LeftForward : public ExoTestState {
    public:
     void entry(void);
     void during(void);
     void exit(void);
-    InitState(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
+    LeftForward(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
 };
 
 #endif

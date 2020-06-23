@@ -49,10 +49,9 @@
 #include "Sitting.h"
 #include "SittingDwn.h"
 #include "Standing.h"
-#include "StandingUp.h
-
+#include "StandingUp.h"
 /**
- * @brief implementation of a StateMachine for the ExoRobot class. States implement ExoTestState
+ * @brief Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestState
  * 
  */
 class AlexMachine : public StateMachine {

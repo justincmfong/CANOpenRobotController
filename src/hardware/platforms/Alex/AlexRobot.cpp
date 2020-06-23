@@ -4,15 +4,6 @@
 
 AlexRobot::AlexRobot(AlexTrajectoryGenerator *tj) {
     trajectoryGenerator = tj;
-    // PilotParameters Brad_parameters = {
-    //     .lowerleg_length = 0.44,
-    //     .upperleg_length = 0.44,
-    //     .ankle_height = 0.12,
-    //     .foot_length = 0.30,
-    //     .hip_width = 0.43,
-    //     .torso_length = 0.4,
-    //     .buttocks_height = 0.05};
-    // trajectoryGenerator->setPilotParameters(Brad_parameters);
 }
 AlexRobot::AlexRobot(){
     DEBUG_OUT("EXO ROBOT CONSTRUCTOR")}

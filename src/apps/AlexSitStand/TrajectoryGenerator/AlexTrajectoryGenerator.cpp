@@ -50,7 +50,7 @@ bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, double time)
 
     setTrajectoryParameters(movementTrajMap[mvmnt]);
     /*\todo: have this happen getting fed in the intialPose from the robot*/
-
+    DEBUG_OUT("Finsihed setting Traj pram to:" << (int)this->trajectoryParameter.stepType)
     return true;
 }
 /**
@@ -67,9 +67,7 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
     time_tt endTime = trajectoryJointSpline.times.back();
     // Every sample time, compute the value of q1 to q6 based on the time segment / set of NO_JOINTS polynomials
     int numPoints = trajectoryJointSpline.times.size();
-    DEBUG_OUT("numPoints: " << numPoints)
     int numPolynomials = numPoints - 1;
-    DEBUG_OUT("numPolys: " << numPoints)
     CubicPolynomial currentPolynomial[NUM_JOINTS];
     for (int polynomial_index = 0; polynomial_index < numPolynomials; polynomial_index++) {
         //cout << "[discretise_spline]: pt " << polynomial_index << ":" << endl;
@@ -89,16 +87,20 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
             //make sure the angles are within boundary
             limit_position_against_angle_boundary(angles);
             return angles;
-        } else {
-            for (int i = 0; i < NUM_JOINTS; i++) {
-                currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(polynomial_index);
-                angles.push_back(evaluate_cubic_polynomial(currentPolynomial[i], time));
-            }
         }
-        //else return previous poly
     }
-    // handle error if reached
+    //cout << "[discretise_spline]:\t" << temp.time << "\t";
+    //if the time point is outside range
+    for (int i = 0; i < NUM_JOINTS; i++) {
+        currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
+        angles.push_back(evaluate_cubic_polynomial(currentPolynomial[i], endTime));
+    }
+    //make sure the angles are within boundary
+    limit_position_against_angle_boundary(angles);
+    //else return previous poly
+    return angles;
 }
+// handle error if reached
 /***********************************************************************
 Methods to Set Trajectory and Pilot Parameters
 ***********************************************************************/
@@ -1014,6 +1016,7 @@ jointspace_state AlexTrajectoryGenerator::taskspace_state_to_jointspace_state(
     } else {
         jointspaceState.q[LEFT_ANKLE] = M_PI_2 + LeftTempAngles.at(2);
     }
+
     jointspaceState.q[LEFT_ANKLE] = M_PI_2 + LeftTempAngles.at(2);
     jointspaceState.q[LEFT_KNEE] = LeftTempAngles.at(1);
     jointspaceState.q[LEFT_HIP] = M_PI - LeftTempAngles.at(0) - taskspaceState.torso_forward_angle;
@@ -1024,7 +1027,6 @@ jointspace_state AlexTrajectoryGenerator::taskspace_state_to_jointspace_state(
     } else {
         jointspaceState.q[RIGHT_ANKLE] = M_PI_2 + RightTempAngles.at(2);
     }
-
     return jointspaceState;
 }
 
@@ -1083,9 +1085,9 @@ std::vector<CubicPolynomial> AlexTrajectoryGenerator::cubic_spline(
     int numPoints) {
     std::vector<CubicPolynomial> cubicSplinePolynomials;
 
-    std::cout << "[cubic_spline]: x's: ";
-    for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
-    std::cout << std::endl;
+    //std::cout << "[cubic_spline]: x's: ";
+    //for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
+    //std::cout << std::endl;
 
     // Cubic spline
     // Assume boundary vel and acc are zero.
@@ -1211,7 +1213,6 @@ jointspace_spline AlexTrajectoryGenerator::compute_trajectory_spline(const Traje
     std::vector<taskspace_state> taskspaceStates;
     std::vector<jointspace_state> jointspaceStates;
     jointspace_spline jointspaceSpline;
-
     initialTaskspaceState = jointspace_state_to_taskspace_state(initialJointspaceState, trajectoryParameters, pilotParameters);
 
     // Obtain key taskspace states
@@ -1220,7 +1221,15 @@ jointspace_spline AlexTrajectoryGenerator::compute_trajectory_spline(const Traje
 
     // Convert key states to jointspace (prepend known initial jointspace state)
     jointspaceStates = taskspace_states_to_jointspace_states(initialJointspaceState, taskspaceStates, trajectoryParameters, pilotParameters);
-
+    //Print out all joint space states
+    // DEBUG_OUT("---- Joint space via points 'states'-----")
+    // for (auto states : jointspaceStates) {
+    //     DEBUG_OUT("TIME: " << states.time)
+    //     for (auto q : states.q) {
+    //         std::cout << rad2deg(q) << ", ";
+    //     }
+    //     std::cout << std::endl;
+    // }
     // Calculate the spline for the given jointspacestates
     jointspaceSpline = cubic_spline_jointspace_states(jointspaceStates);
 
@@ -1335,13 +1344,11 @@ void AlexTrajectoryGenerator::limit_velocity_against_angle_boundary(
 }
 
 //limiting the position array in trajectory class
-void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<double> positions) {
-    for (int i; i < positions.size(); i++) {
+void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<double> &positions) {
+    for (int i = 0; i < positions.size(); i++) {
         int minIndex = i * 2;
         int maxIndex = i * 2 + 1;
-        /*cout << "position is" << positionArray[i] << "Q MIN std::max ARE "
-			<< Q_MIN_MAX[minIndex] << " " << Q_MIN_MAX[maxIndex] << std::endl;*/
-        //if we at the boundary
+        //if at the boundary
         if (positions[i] < Q_MIN_MAX[minIndex]) {
             positions[i] = Q_MIN_MAX[minIndex];
         }
@@ -1393,10 +1400,7 @@ double AlexTrajectoryGenerator::getStepDuration() {
 
 bool AlexTrajectoryGenerator::isTrajectoryFinished(double trajProgress) {
     double fracProgress = trajProgress / (double)trajectoryParameter.step_duration;
-    DEBUG_OUT("total traj time:" << trajectoryParameter.step_duration)
-    DEBUG_OUT("trajProgress:" << trajProgress)
-    DEBUG_OUT("frac Progress:" << fracProgress)
-    if (fracProgress > 1.01) {
+    if (fracProgress > 1) {
         return true;
     } else {
         return false;

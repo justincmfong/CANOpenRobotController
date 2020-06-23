@@ -53,7 +53,9 @@ enum class RobotMode {
     INITIAL,
     ERROR,
     STANDING,
-    SITTING
+    SITTING,
+    LFWD,
+    RFWD
 };
 /**
  * 
