@@ -1010,13 +1010,16 @@ jointspace_state AlexTrajectoryGenerator::taskspace_state_to_jointspace_state(
     //[0] angleAtHip,  // CCW angle of upper leg from vertical down
     //[1] angleAtKnee, // CCW angle of upper leg from straight leg config
     //[2] angleAtAnkle //  CW angle of lower leg from vertical up
+    DEBUG_OUT("Task space time is " << taskspaceState.time)
 
     jointspaceState.time = taskspaceState.time;
+    DEBUG_OUT("Joint space time is " << jointspaceState.time)
     if (trajectoryParameters.left_foot_on_tilt) {
         jointspaceState.q[LEFT_ANKLE] = M_PI_2 + LeftTempAngles.at(2) - trajectoryParameters.slope_angle;
     } else {
         jointspaceState.q[LEFT_ANKLE] = M_PI_2 + LeftTempAngles.at(2);
     }
+
     jointspaceState.q[LEFT_ANKLE] = M_PI_2 + LeftTempAngles.at(2);
     jointspaceState.q[LEFT_KNEE] = LeftTempAngles.at(1);
     jointspaceState.q[LEFT_HIP] = M_PI - LeftTempAngles.at(0) - taskspaceState.torso_forward_angle;
@@ -1027,7 +1030,8 @@ jointspace_state AlexTrajectoryGenerator::taskspace_state_to_jointspace_state(
     } else {
         jointspaceState.q[RIGHT_ANKLE] = M_PI_2 + RightTempAngles.at(2);
     }
-
+    DEBUG_OUT("-----------------------------")
+    DEBUG_OUT("SET joint space time to " << jointspaceState.time)
     return jointspaceState;
 }
 
@@ -1086,9 +1090,9 @@ std::vector<CubicPolynomial> AlexTrajectoryGenerator::cubic_spline(
     int numPoints) {
     std::vector<CubicPolynomial> cubicSplinePolynomials;
 
-    std::cout << "[cubic_spline]: x's: ";
-    for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
-    std::cout << std::endl;
+    //std::cout << "[cubic_spline]: x's: ";
+    //for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
+    //std::cout << std::endl;
 
     // Cubic spline
     // Assume boundary vel and acc are zero.
@@ -1222,7 +1226,15 @@ jointspace_spline AlexTrajectoryGenerator::compute_trajectory_spline(const Traje
 
     // Convert key states to jointspace (prepend known initial jointspace state)
     jointspaceStates = taskspace_states_to_jointspace_states(initialJointspaceState, taskspaceStates, trajectoryParameters, pilotParameters);
-
+    //Print out all joint space states
+    DEBUG_OUT("---- Joint space via points 'states'-----")
+    for (auto states : jointspaceStates) {
+        DEBUG_OUT("TIME: " << states.time)
+        for (auto q : states.q) {
+            std::cout << rad2deg(q) << ", ";
+        }
+        std::cout << std::endl;
+    }
     // Calculate the spline for the given jointspacestates
     jointspaceSpline = cubic_spline_jointspace_states(jointspaceStates);
 
