@@ -91,7 +91,7 @@ typedef struct CubicPolynomial {
 } CubicPolynomial;
 
 typedef struct jointspace_spline {
-    std::vector<CubicPolynomial> polynomials[NUM_JOINTS];  // polynomial[0] is a vector of cubic polynomialsTrajectoryParameterstor<time_tt> times;                            // Start/end times of the polynomials (#times = #polynomials+1)
+    std::vector<CubicPolynomial> polynomials[NUM_JOINTS];  // polynomial[0] is a vector of cubic polynomials TrajectoryParameterstor<time_tt> times;                            // Start/end times of the polynomials (#times = #polynomials+1)
     std::vector<time_tt> times;
 } jointspace_spline;
 
@@ -326,7 +326,8 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
         double *velocitySignal);
 
     //limiting the position array in trajectory class
-    void limit_position_against_angle_boundary(std::vector<double>);
+    //void limit_position_against_angle_boundary(std::vector<double>);
+    void limit_position_against_angle_boundary(std::vector<double> &positions);
 
     // gives a velocity array output
     //    void getVelocityAfterPositionCorrection(time_tt time, double *robotPositionArray, double *velocityArray);

@@ -9,6 +9,7 @@ void InitState::entry(void) {
         << "========================" << endl
         << " PRESS S to start program" << endl
         << "========================" << endl;
+    robot->setPos(RobotMode::STNDUP); /*Testing Virtual*/
 }
 void InitState::during(void) {
 }

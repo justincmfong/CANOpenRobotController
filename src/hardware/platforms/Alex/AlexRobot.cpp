@@ -43,6 +43,10 @@ bool AlexRobot::initPositionControl() {
     for (auto p : joints) {
         ((ActuatedJoint *)p)->enable();
     }
+    usleep(2000);
+    for (auto p : joints) {
+        ((AlexJoint *)p)->enableContinuousProfile();
+    }
     return returnValue;
 }
 
@@ -131,12 +135,12 @@ bool AlexRobot::initialiseJoints() {
 bool AlexRobot::initialiseNetwork() {
     DEBUG_OUT("AlexRobot::initialiseNetwork()");
 
-    // bool status;
-    // for (auto joint : joints) {
-    //     status = joint->initNetwork();
-    //     if (!status)
-    //         return false;
-    // }
+    bool status;
+    for (auto joint : joints) {
+        status = joint->initNetwork();
+        if (!status)
+            return false;
+    }
 
     return true;
 }

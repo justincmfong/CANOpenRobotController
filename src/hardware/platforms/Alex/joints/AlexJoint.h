@@ -61,6 +61,7 @@ class AlexJoint : public ActuatedJoint {
     double getQ();
     /*testing*/
     void bitFlip();
+    bool enableContinuousProfile();
 };
 
 #endif

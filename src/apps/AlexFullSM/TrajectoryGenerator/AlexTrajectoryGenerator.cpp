@@ -1396,7 +1396,7 @@ bool AlexTrajectoryGenerator::isTrajectoryFinished(double trajProgress) {
     DEBUG_OUT("total traj time:" << trajectoryParameter.step_duration)
     DEBUG_OUT("trajProgress:" << trajProgress)
     DEBUG_OUT("frac Progress:" << fracProgress)
-    if (fracProgress > 1.02) {
+    if (fracProgress > 1.01) {
         return true;
     } else {
         return false;

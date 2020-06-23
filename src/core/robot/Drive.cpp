@@ -42,12 +42,12 @@ bool Drive::setTorque(int torque) {
 
 int Drive::getPos() {
     /**
-    * \todo change to actual motor Position when running on real robot
+    * \todo change to accomodate Virtual and real robots - or add virtual Drive class
     *
     */
-    // int q = *(&CO_OD_RAM.actualMotorPositions.motor1 + ((this->NodeID - 1)));
+    int q = *(&CO_OD_RAM.actualMotorPositions.motor1 + ((this->NodeID - 1)));
     /*VIRTUAL*/
-    int q = *(&CO_OD_RAM.targetMotorPositions.motor1 + ((this->NodeID - 1)));
+    //int q = *(&CO_OD_RAM.targetMotorPositions.motor1 + ((this->NodeID - 1)));
 
     return q;
 }
@@ -354,4 +354,17 @@ sdoReturnCode_t Drive::sendSDOMessages(std::vector<std::string> messages) {
         return CORRECT_NUM_CONFIRMATION;
     else
         return INCORRECT_NUM_CONFIRMATION;
+}
+bool Drive::changeSetPointImmediately(bool immediate) {
+    if (driveState == ENABLED) {
+        int controlWord = *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1)));
+        if (immediate) {
+            *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1))) = controlWord | 0x20;
+        } else {
+            *(&CO_OD_RAM.controlWords.motor1 + ((this->NodeID - 1))) = controlWord & ~0x20;
+        }
+        return true;
+    } else {
+        return false;
+    }
 }

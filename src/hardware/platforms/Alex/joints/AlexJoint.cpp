@@ -31,13 +31,13 @@ bool AlexJoint::updateValue() {
 setMovementReturnCode_t AlexJoint::setPosition(double desQ) {
     // for testing w/o Robot
     lastQCommand = desQ;
-    // if (desQ > qMax) {
-    //     DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MAXQ")
-    //     desQ = qMax;
-    // } else if (desQ < qMin) {
-    //     DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MINQ")
-    //     desQ = qMin;
-    // }
+    if (desQ > qMax) {
+        DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MAXQ")
+        desQ = qMax;
+    } else if (desQ < qMin) {
+        DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MINQ")
+        desQ = qMin;
+    }
     return ActuatedJoint::setPosition(desQ);
 }
 
@@ -80,4 +80,11 @@ void AlexJoint::linearInterpolatePreCalc() {
 
 void AlexJoint::bitFlip() {
     drive->posControlConfirmSP();
+}
+bool AlexJoint::enableContinuousProfile() {
+    if (drive->getDriveState() == ENABLED) {
+        drive->changeSetPointImmediately(true);
+        return true;
+    }
+    return false;
 }

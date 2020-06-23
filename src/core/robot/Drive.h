@@ -420,6 +420,14 @@ class Drive {
            * \return int the Node ID 
            */
     int getNodeID();
+    /**
+        * \brief changes whether the set point is immediate changed, or the drive waits for the last set point to complete.
+        *     Drive must be in the ENABLED state. 
+        * 
+        *  \return true if successful
+        *  \return false if unsuccessful (drive not in the ENABLED State)
+        */
+    virtual bool changeSetPointImmediately(bool immediate);
 };
 
 #endif
