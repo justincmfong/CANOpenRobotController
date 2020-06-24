@@ -15,6 +15,7 @@
 #ifndef COPLEYDRIVE_H_INCLUDED
 #define COPLEYDRIVE_H_INCLUDED
 #include "Drive.h"
+#include "RobotParams.h"
 
 /**
  * \brief An implementation of the Drive Object, specifically for Copley-branded devices (currently used on the X2 Exoskeleton)
@@ -119,6 +120,12 @@ class CopleyDrive : public Drive {
           *
           */
     std::vector<std::string> generateTorqueControlConfigSDO();
+    /*ALEX SPECIFIC - CRUTCH METHODS*/
+    /**
+     * \brief sets nextMotion object dictionary entry to send out to crutch
+     * 
+     */
+    void setNextMotion(RobotMode mode);
 };
 
 #endif

@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2020
  * 
  */
-#ifndef INITSTATE_H_INCLUDED
-#define INITSTATE_H_INCLUDED
+#ifndef STEPLASTR_H_INCLUDED
+#define STEPLASTR_H_INCLUDED
 
 #include "ExoTestState.h"
 

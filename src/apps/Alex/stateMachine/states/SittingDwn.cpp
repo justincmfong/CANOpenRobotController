@@ -10,6 +10,7 @@ void SittingDwn::entry(void) {
     //robot->setPos(RobotMode::SITDWN); /*Testing Virtual*/
     trajectoryGenerator->initialiseTrajectory(RobotMode::SITDWN, robot->getJointStates());
     robot->startNewTraj();
+    robot->copleyDrives[0]->setNextMotion(RobotMode::SITDWN);
 }
 void SittingDwn::during(void) {
     robot->moveThroughTraj();

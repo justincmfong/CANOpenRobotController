@@ -1,4 +1,4 @@
-SteppingFirstLeft /**
+/**
  * /file SteppingFirstLeft.h
  * /author William Campbell
  * /brief Concrete implementation of ExoTestState
@@ -13,14 +13,14 @@ SteppingFirstLeft /**
 
 #include "ExoTestState.h"
 
-    /**
+/**
  * \brief Initialisation State for the ExoTestMachine (implementing ExoTestState)
  * 
  * State holds until event triggers its exit, and runs initPositionControl on exit 
  * Control of transition is independent of this class and is defined in ExoTestMachine.
  * 
  */
-    class SteppingFirstLeft : public ExoTestState {
+class SteppingFirstLeft : public ExoTestState {
    public:
     void entry(void);
     void during(void);

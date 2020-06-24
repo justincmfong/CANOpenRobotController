@@ -2,12 +2,12 @@
 
 void LeftForward::entry(void) {
     std::cout
-        << "LeftForward State Entered at Time:: " << OWNER->mark << endl
-        << "=========================" << endl
-        << " GREEN  -> KEEP STEPPING" << endl
-        << " YELLOW -> FEET TOGETHER" << endl
-        << "=========================" << endl;
-    CO_OD_RAM.currentState = (int)RobotMode::LFWD;
+        << "========================" << endl
+        << " Left FORWARD STATE " << endl
+        << " S ->> WALK " << endl
+        << " A ->> FEET TOGETHER " << endl
+        << "========================n" << endl;
+    robot->copleyDrives[0]->setNextMotion(RobotMode::LFWD);
 }
 void LeftForward::during(void) {
 }

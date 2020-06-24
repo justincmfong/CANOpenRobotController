@@ -31,7 +31,7 @@ bool CopleyDrive::initPosControl(motorProfile posControlMotorProfile) {
     //  * \todo Move jointMinMap and jointMaxMap to set additional parameters (bit 5 in 0x6041 makes updates happen immediately)
     //  *
     //  */
-    sendSDOMessages(generatePosControlConfigSDO(posControlMotorProfile));
+    //sendSDOMessages(generatePosControlConfigSDO(posControlMotorProfile));
     /**
      * \todo Move jointMinMap and jointMaxMap to set additional parameters (bit 5 in 0x6041 makes updates happen immediately)
      * 
@@ -66,4 +66,7 @@ std::vector<std::string> CopleyDrive::generateVelControlConfigSDO(motorProfile v
 
 std::vector<std::string> CopleyDrive::generateTorqueControlConfigSDO() {
     return Drive::generateTorqueControlConfigSDO(); /*<!execute base class function*/
+}
+void CopleyDrive::setNextMotion(RobotMode mode) {
+    *(&CO_OD_RAM.currentState) = (int)mode;
 }

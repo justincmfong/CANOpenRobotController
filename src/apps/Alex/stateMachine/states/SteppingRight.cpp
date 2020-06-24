@@ -1,20 +1,19 @@
-#include "SteppingLeft.h"
+#include "SteppingRight.h"
 
-void SteppingLeft::entry(void) {
+void SteppingRight::entry(void) {
     std::cout
         << "==================" << endl
-        << " Stepping Last Left" << endl
+        << " Stepping RIGHT" << endl
         << "==================" << endl;
     /*/TODO CHANGE to selecting NORMALwALK to be from OD.mode traj param map equivalent*/
     /*ATM is just normal walk - choose from crutch*/
-    trajectoryGenerator->initialiseTrajectory(RobotMode::NORMALWALK, robot->getJointStates());
-    trajectoryGenerator->setTrajectoryStanceRight();
+    trajectoryGenerator->initialiseTrajectory(RobotMode::NORMALWALK, Foot::Left, robot->getJointStates());
     robot->startNewTraj();
-    CO_OD_RAM.currentState = (int)RobotMode::NORMALWALK;
+    robot->copleyDrives[0]->setNextMotion(RobotMode::NORMALWALK);
 }
-void SteppingLeft::during(void) {
+void SteppingRight::during(void) {
     robot->moveThroughTraj();
 }
-void SteppingLeft::exit(void) {
-    DEBUG_OUT("EXITING STEPPING LAST LEFT")
+void SteppingRight::exit(void) {
+    DEBUG_OUT("EXITING STEPPING RIGHT")
 }

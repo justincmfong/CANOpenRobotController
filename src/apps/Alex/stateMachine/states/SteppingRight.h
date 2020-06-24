@@ -1,5 +1,5 @@
 /**
- * /file SteppingLeft.h
+ * /file SteppingRight.h
  * /author William Campbell
  * /brief Concrete implementation of ExoTestState
  * /version 0.1
@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2020
  * 
  */
-#ifndef SteppingLeft_H_INCLUDED
-#define SteppingLeft_H_INCLUDED
+#ifndef SteppingRight_H_INCLUDED
+#define SteppingRight_H_INCLUDED
 
 #include "ExoTestState.h"
 
@@ -20,12 +20,12 @@
  * Control of transition is independent of this class and is defined in ExoTestMachine.
  * 
  */
-class SteppingLeft : public ExoTestState {
+class SteppingRight : public ExoTestState {
    public:
     void entry(void);
     void during(void);
     void exit(void);
-    SteppingLeft(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
+    SteppingRight(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL) : ExoTestState(m, exo, tg, name){};
 };
 
 #endif

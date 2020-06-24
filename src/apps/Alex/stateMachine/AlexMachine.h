@@ -88,6 +88,14 @@ class AlexMachine : public StateMachine {
     StandingUp *standingUp;
     Sitting *sitting;
     Standing *standing;
+    SteppingFirstLeft *steppingFirstLeft;
+    LeftForward *leftForward;
+    SteppingRight *steppingRight;
+    RightForward *rightForward;
+    SteppingLeft *steppingLeft;
+    SteppingLastRight *steppingLastRight;
+    SteppingLastLeft *steppingLastLeft;
+    ErrorState *errorState;
 
    protected:
     AlexRobot *robot; /*<!Pointer to the Robot*/
@@ -105,6 +113,10 @@ class AlexMachine : public StateMachine {
     EventObject(StartExo) * startExo;
     EventObject(StartSit) * startSit;
     EventObject(StartStand) * startStand;
+    EventObject(StartWalk) * startWalk;
+    EventObject(FeetTogether) * feetTogether;
+    EventObject(IsRPressed) * isRPressed;
+    EventObject(ResetButtons) * resetButtonsPressed;
 };
 
 #endif /*EXO_SM_H*/

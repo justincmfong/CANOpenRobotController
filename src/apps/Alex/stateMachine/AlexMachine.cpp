@@ -6,26 +6,30 @@
 AlexMachine::AlexMachine() {
     trajectoryGenerator = new AlexTrajectoryGenerator(6);
     robot = new AlexRobot(trajectoryGenerator);
-    // Create PRE-DESIGNED State Machine events and state objects.
+    // Events
     isAPressed = new IsAPressed(this);
     endTraj = new EndTraj(this);
     startButtonsPressed = new StartButtonsPressed(this);
     startExo = new StartExo(this);
     startSit = new StartSit(this);
     startStand = new StartStand(this);
+    startWalk = new StartWalk(this);
+    feetTogether = new FeetTogether(this);
+    resetButtonsPressed = new ResetButtons(this);
+    //States
     initState = new InitState(this, robot, trajectoryGenerator);
     standing = new Standing(this, robot, trajectoryGenerator);
     sitting = new Sitting(this, robot, trajectoryGenerator);
     standingUp = new StandingUp(this, robot, trajectoryGenerator);
     sittingDwn = new SittingDwn(this, robot, trajectoryGenerator);
-    steppingFirstLeft = new SteppingFirstLeft(this);
-    leftForward = new LeftForward(this);
-    steppingRight = new SteppingRight(this);
-    rightForward = new RightForward(this);
-    steppingLeft = new SteppingLeft(this);
-    steppingLastRight = new SteppingLastRight(this);
-    steppingLastLeft = new SteppingLastLeft(this);
-    errorState = new ErrorState(this);
+    steppingFirstLeft = new SteppingFirstLeft(this, robot, trajectoryGenerator);
+    leftForward = new LeftForward(this, robot, trajectoryGenerator);
+    steppingRight = new SteppingRight(this, robot, trajectoryGenerator);
+    rightForward = new RightForward(this, robot, trajectoryGenerator);
+    steppingLeft = new SteppingLeft(this, robot, trajectoryGenerator);
+    steppingLastRight = new SteppingLastRight(this, robot, trajectoryGenerator);
+    steppingLastLeft = new SteppingLastLeft(this, robot, trajectoryGenerator);
+    errorState = new ErrorState(this, robot, trajectoryGenerator);
 
     /**
      * \brief Moving Trajectory Transitions
@@ -56,18 +60,18 @@ AlexMachine::AlexMachine() {
      * \brief  Error State Transitions
      *
      */
-    NewTransition(errorState, resetButtonsPressed, initState);
-    NewTransition(sitting, isRPressed, errorState);
-    NewTransition(standing, isRPressed, errorState);
-    NewTransition(standingUp, isRPressed, errorState);
-    NewTransition(sittingDwn, isRPressed, errorState);
-    NewTransition(steppingFirstLeft, isRPressed, errorState);
-    NewTransition(leftForward, isRPressed, errorState);
-    NewTransition(steppingRight, isRPressed, errorState);
-    NewTransition(rightForward, isRPressed, errorState);
-    NewTransition(steppingLeft, isRPressed, errorState);
-    NewTransition(steppingLastRight, isRPressed, errorState);
-    NewTransition(steppingLastLeft, isRPressed, errorState);
+    // NewTransition(errorState, resetButtonsPressed, initState);
+    // NewTransition(sitting, isRPressed, errorState);
+    // NewTransition(standing, isRPressed, errorState);
+    // NewTransition(standingUp, isRPressed, errorState);
+    // NewTransition(sittingDwn, isRPressed, errorState);
+    // NewTransition(steppingFirstLeft, isRPressed, errorState);
+    // NewTransition(leftForward, isRPressed, errorState);
+    // NewTransition(steppingRight, isRPressed, errorState);
+    // NewTransition(rightForward, isRPressed, errorState);
+    // NewTransition(steppingLeft, isRPressed, errorState);
+    // NewTransition(steppingLastRight, isRPressed, errorState);
+    // NewTransition(steppingLastLeft, isRPressed, errorState);
     //Initialize the state machine with first state of the designed state machine, using baseclass function.
     StateMachine::initialize(initState);
 }
@@ -113,29 +117,46 @@ bool AlexMachine::StartExo::check(void) {
 }
 bool AlexMachine::StartStand::check(void) {
     if (OWNER->robot->keyboard.getW() == true) {
+        DEBUG_OUT("START STAND PRESSED")
         return true;
     }
     return false;
 }
 
 bool AlexMachine::StartSit::check(void) {
-    if (OWNER->robot->keyboard.getW()) {
+    if (OWNER->robot->keyboard.getW() == true) {
+        DEBUG_OUT("START SIT PRESSED")
         return true;
     }
     return false;
 }
-bool AlexMachine::startWalk::check(void) {
-    if (OWNER->robot->keyboard.getW()) {
+bool AlexMachine::StartWalk::check(void) {
+    if (OWNER->robot->keyboard.getS() == true) {
+        DEBUG_OUT("START WALK PRESSED")
         return true;
     }
     return false;
 }
-bool AlexMachine::feetTogether::check(void) {
-    if (OWNER->robot->keyboard.getS()) {
+bool AlexMachine::FeetTogether::check(void) {
+    if (OWNER->robot->keyboard.getA()) {
         return true;
     }
     return false;
 }
+
+bool AlexMachine::IsRPressed::check(void) {
+    if (OWNER->robot->keyboard.getX() == true) {
+        return true;
+    }
+    return false;
+}
+bool AlexMachine::ResetButtons::check(void) {
+    if (OWNER->robot->keyboard.getS() == true) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * \brief Statemachine to hardware interface method. Run any hardware update methods
  * that need to run every program loop update cycle.

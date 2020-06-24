@@ -8,9 +8,8 @@ void SteppingFirstLeft::entry(void) {
     /*/TODO CHANGE to selecting NORMALwALK to be from OD.mode traj param map equivalent*/
     /*ATM is just normal walk - choose from crutch*/
     trajectoryGenerator->initialiseTrajectory(RobotMode::NORMALWALK, robot->getJointStates());
-    trajectoryGenerator->setTrajectoryStanceRight();
     robot->startNewTraj();
-    CO_OD_RAM.currentState = (int)RobotMode::NORMALWALK;
+    robot->copleyDrives[0]->setNextMotion(RobotMode::NORMALWALK);
 }
 void SteppingFirstLeft::during(void) {
     robot->moveThroughTraj();

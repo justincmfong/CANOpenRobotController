@@ -3,10 +3,11 @@
 void RightForward::entry(void) {
     std::cout
         << "========================" << endl
-        << " GREEN  -> KEEP STEPPING " << endl
-        << " YELLOW -> FEET TOGETHER" << endl
+        << " RIGHT FORWARD STATE " << endl
+        << " S ->> WALK " << endl
+        << " A ->> FEET TOGETHER " << endl
         << "========================n" << endl;
-    CO_OD_RAM.currentState = (int)RobotMode::RFWD;
+    robot->copleyDrives[0]->setNextMotion(RobotMode::RFWD);
 }
 void RightForward::during(void) {
 }
