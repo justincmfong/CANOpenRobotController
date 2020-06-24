@@ -106,7 +106,7 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
             return angles;
         }
     }
-    //cout << "[discretise_spline]:\t" << temp.time << "\t";
+    DEBUG_OUT("Time point outside range")
     //if the time point is outside range
     for (int i = 0; i < NUM_JOINTS; i++) {
         currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
@@ -1102,9 +1102,9 @@ std::vector<CubicPolynomial> AlexTrajectoryGenerator::cubic_spline(
     int numPoints) {
     std::vector<CubicPolynomial> cubicSplinePolynomials;
 
-    //std::cout << "[cubic_spline]: x's: ";
-    //for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
-    //std::cout << std::endl;
+    std::cout << "[cubic_spline]: x's: ";
+    for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
+    std::cout << std::endl;
 
     // Cubic spline
     // Assume boundary vel and acc are zero.
