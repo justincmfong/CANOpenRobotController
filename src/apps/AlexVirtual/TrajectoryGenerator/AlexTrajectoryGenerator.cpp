@@ -29,7 +29,6 @@ AlexTrajectoryGenerator::AlexTrajectoryGenerator(int NumOfJoints) {
 bool AlexTrajectoryGenerator::initialiseTrajectory() {
     return true;
 }
-
 bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, std::vector<double> qdeg) {
     // Set the trajectory parameters
     jointspace_state jointSpaceState;
@@ -41,6 +40,24 @@ bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, std::vector<
     jointSpaceState.q[5] = deg2rad(85);
     jointSpaceState.time = 0;
     setTrajectoryParameters(movementTrajMap[mvmnt]);
+    generateAndSaveSpline(jointSpaceState);
+    return true;
+}
+bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, Foot stanceFoot, std::vector<double> qdeg) {
+    // Set the trajectory parameters
+    jointspace_state jointSpaceState;
+    jointSpaceState.q[0] = deg2rad(qdeg[0]);
+    jointSpaceState.q[1] = deg2rad(qdeg[1]);
+    jointSpaceState.q[2] = deg2rad(qdeg[2]);
+    jointSpaceState.q[3] = deg2rad(qdeg[3]);
+    jointSpaceState.q[4] = deg2rad(85);
+    jointSpaceState.q[5] = deg2rad(85);
+    jointSpaceState.time = 0;
+    setTrajectoryParameters(movementTrajMap[mvmnt]);
+    // by default foot stance is right in movementTrajMap, set to left when needed.ß
+    if (stanceFoot == Foot::Left) {
+        setTrajectoryStanceLeft();
+    }
     generateAndSaveSpline(jointSpaceState);
     return true;
 }
@@ -107,7 +124,6 @@ Methods to Set Trajectory and Pilot Parameters
 void AlexTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters trajectoryParameter) {
     DEBUG_OUT("setTrajectoryParameters()")
     this->trajectoryParameter = trajectoryParameter;
-    DEBUG_OUT("SET traj to :" << (int)this->trajectoryParameter.stepType)
 }
 
 void AlexTrajectoryGenerator::setPilotParameters(PilotParameters pilotParameters) {
@@ -1010,10 +1026,8 @@ jointspace_state AlexTrajectoryGenerator::taskspace_state_to_jointspace_state(
     //[0] angleAtHip,  // CCW angle of upper leg from vertical down
     //[1] angleAtKnee, // CCW angle of upper leg from straight leg config
     //[2] angleAtAnkle //  CW angle of lower leg from vertical up
-    DEBUG_OUT("Task space time is " << taskspaceState.time)
 
     jointspaceState.time = taskspaceState.time;
-    DEBUG_OUT("Joint space time is " << jointspaceState.time)
     if (trajectoryParameters.left_foot_on_tilt) {
         jointspaceState.q[LEFT_ANKLE] = M_PI_2 + LeftTempAngles.at(2) - trajectoryParameters.slope_angle;
     } else {
@@ -1030,8 +1044,6 @@ jointspace_state AlexTrajectoryGenerator::taskspace_state_to_jointspace_state(
     } else {
         jointspaceState.q[RIGHT_ANKLE] = M_PI_2 + RightTempAngles.at(2);
     }
-    DEBUG_OUT("-----------------------------")
-    DEBUG_OUT("SET joint space time to " << jointspaceState.time)
     return jointspaceState;
 }
 
@@ -1353,15 +1365,12 @@ void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<
     for (int i = 0; i < positions.size(); i++) {
         int minIndex = i * 2;
         int maxIndex = i * 2 + 1;
-        // DEBUG_OUT("position is" << positions[i] << "Q MIN:MAX "<< Q_MIN_MAX[minIndex] << ":" << Q_MIN_MAX[maxIndex])
         //if at the boundary
         if (positions[i] < Q_MIN_MAX[minIndex]) {
             positions[i] = Q_MIN_MAX[minIndex];
-            //DEBUG_OUT("SET AS MIN:" << positions[i])
         }
         if (positions[i] > Q_MIN_MAX[maxIndex]) {
             positions[i] = Q_MIN_MAX[maxIndex];
-            //DEBUG_OUT("SET AS MAX:" << positions[i])
         }
         if (std::isnan(positions[i])) {
             std::cout << "ISNAN now " << std::endl;
@@ -1399,6 +1408,7 @@ void AlexTrajectoryGenerator::setTrajectoryStanceRight() {
     trajectoryParameter.stance_foot = Foot::Right;
 }
 void AlexTrajectoryGenerator::setTrajectoryStanceLeft() {
+    DEBUG_OUT("Stance foot set to left")
     trajectoryParameter.stance_foot = Foot::Left;
 }
 
@@ -1408,9 +1418,6 @@ double AlexTrajectoryGenerator::getStepDuration() {
 
 bool AlexTrajectoryGenerator::isTrajectoryFinished(double trajProgress) {
     double fracProgress = trajProgress / (double)trajectoryParameter.step_duration;
-    // DEBUG_OUT("total traj time:" << trajectoryParameter.step_duration)
-    // DEBUG_OUT("trajProgress:" << trajProgress)
-    // DEBUG_OUT("frac Progress:" << fracProgress)
     if (fracProgress > 1) {
         return true;
     } else {

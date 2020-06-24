@@ -1239,14 +1239,14 @@ jointspace_spline AlexTrajectoryGenerator::compute_trajectory_spline(const Traje
     // Convert key states to jointspace (prepend known initial jointspace state)
     jointspaceStates = taskspace_states_to_jointspace_states(initialJointspaceState, taskspaceStates, trajectoryParameters, pilotParameters);
     //Print out all joint space states
-    // DEBUG_OUT("---- Joint space via points 'states'-----")
-    // for (auto states : jointspaceStates) {
-    //     DEBUG_OUT("TIME: " << states.time)
-    //     for (auto q : states.q) {
-    //         std::cout << rad2deg(q) << ", ";
-    //     }
-    //     std::cout << std::endl;
-    // }
+    DEBUG_OUT("---- Joint space via points 'states'-----")
+    for (auto states : jointspaceStates) {
+        DEBUG_OUT("TIME: " << states.time)
+        for (auto q : states.q) {
+            std::cout << rad2deg(q) << ", ";
+        }
+        std::cout << std::endl;
+    }
     // Calculate the spline for the given jointspacestates
     jointspaceSpline = cubic_spline_jointspace_states(jointspaceStates);
 
@@ -1373,8 +1373,9 @@ void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<
             positions[i] = Q_MIN_MAX[maxIndex];
         }
         if (std::isnan(positions[i])) {
-            std::cout << "ISNAN now " << std::endl;
-            positions[i] = Q_MIN_MAX[maxIndex] + 10000;
+            std::cout << "Joint " << i << "ISNAN now " << std::endl;
+            positions[i] = Q_MIN_MAX[maxIndex];
+            // positions[i] = Q_MIN_MAX[maxIndex] + 10000; why is this +1000 (from old code)
         }
     }
 }
@@ -1408,6 +1409,7 @@ void AlexTrajectoryGenerator::setTrajectoryStanceRight() {
     trajectoryParameter.stance_foot = Foot::Right;
 }
 void AlexTrajectoryGenerator::setTrajectoryStanceLeft() {
+    DEBUG_OUT("LEFT FOOT STANCE IS SET")
     trajectoryParameter.stance_foot = Foot::Left;
 }
 

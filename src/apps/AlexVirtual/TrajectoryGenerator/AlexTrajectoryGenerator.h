@@ -162,7 +162,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                            .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                            .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                            .swing_ankle_down_angle = 0,
-                           .stance_foot = Foot::Left,
+                           .stance_foot = Foot::Right,
                            .stepType = StepType::Back,
                            .seat_height = 0.42,     // sit-stand
                            .step_end_height = 0.0,  // stairs
@@ -173,7 +173,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                          .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                          .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                          .swing_ankle_down_angle = 0,
-                         .stance_foot = Foot::Left,
+                         .stance_foot = Foot::Right,
                          .stepType = StepType::Back,
                          .seat_height = 0.42,     // sit-stand
                          .step_end_height = 0.0,  // stairs
@@ -184,7 +184,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                           .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                           .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                           .swing_ankle_down_angle = 0,
-                          .stance_foot = Foot::Left,
+                          .stance_foot = Foot::Right,
                           .stepType = StepType::Back,
                           .seat_height = 0.42,     // sit-stand
                           .step_end_height = 0.0,  // stairs
@@ -195,7 +195,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                        .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                        .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                        .swing_ankle_down_angle = 0,
-                       .stance_foot = Foot::Left,
+                       .stance_foot = Foot::Right,
                        .stepType = StepType::Back,
                        .seat_height = 0.42,     // sit-stand
                        .step_end_height = 0.0,  // stairs
@@ -206,7 +206,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                          .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                          .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                          .swing_ankle_down_angle = 0,
-                         .stance_foot = Foot::Left,
+                         .stance_foot = Foot::Right,
                          .stepType = StepType::Back,
                          .seat_height = 0.42,     // sit-stand
                          .step_end_height = 0.0,  // stairs
@@ -357,12 +357,22 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
     virtual void generateAndSaveSpline(jointspace_state initialJointspaceState);
     /**********************************************************************
 
-        Getter and setter
-        **********************************************************************/
+    Getter and setter
+    **********************************************************************/
 
     bool initialiseTrajectory();
     bool initialiseTrajectory(RobotMode mov);
+    /**
+     * \brief 
+     *      initialize the trajectory generators paramaters and generate a spline given current pos
+     *      Function overloaded for walking stance leg input or w/o
+     * @param mvmnt type
+     * @param vector of robot joints qdeg
+     * \return true 
+     * \return false 
+     */
     bool initialiseTrajectory(RobotMode mvmnt, std::vector<double> qdeg);
+    bool initialiseTrajectory(RobotMode mvmnt, Foot stanceFoot, std::vector<double> qdeg);
     bool initialiseTrajectory(RobotMode mvmnt, double time);
 
     std::vector<double> getSetPoint(time_tt);
@@ -373,6 +383,10 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
     void printTrajectoryParameters();
 
     void setTrajectoryStanceRight();
+    /**
+     * \brief Set the Trajectory Objects paramaters Foot stance to Left 
+     * 
+     */
     void setTrajectoryStanceLeft();
 
     double getStepDuration();

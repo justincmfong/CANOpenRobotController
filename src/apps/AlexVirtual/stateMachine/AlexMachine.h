@@ -44,12 +44,19 @@
 #include "StateMachine.h"
 
 // State Classes
-#include "DebugMacro.h"
+#include "ErrorState.h"
 #include "InitState.h"
+#include "LeftForward.h"
+#include "RightForward.h"
 #include "Sitting.h"
 #include "SittingDwn.h"
 #include "Standing.h"
 #include "StandingUp.h"
+#include "SteppingFirstLeft.h"
+#include "SteppingLastLeft.h"
+#include "SteppingLastRight.h"
+#include "SteppingLeft.h"
+#include "SteppingRight.h"
 /**
  * @brief Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestState
  * 
@@ -81,6 +88,14 @@ class AlexMachine : public StateMachine {
     StandingUp *standingUp;
     Sitting *sitting;
     Standing *standing;
+    SteppingFirstLeft *steppingFirstLeft;
+    LeftForward *leftForward;
+    SteppingRight *steppingRight;
+    RightForward *rightForward;
+    SteppingLeft *steppingLeft;
+    SteppingLastRight *steppingLastRight;
+    SteppingLastLeft *steppingLastLeft;
+    ErrorState *errorState;
 
    protected:
     AlexRobot *robot; /*<!Pointer to the Robot*/
@@ -98,6 +113,10 @@ class AlexMachine : public StateMachine {
     EventObject(StartExo) * startExo;
     EventObject(StartSit) * startSit;
     EventObject(StartStand) * startStand;
+    EventObject(StartWalk) * startWalk;
+    EventObject(FeetTogether) * feetTogether;
+    EventObject(IsRPressed) * isRPressed;
+    EventObject(ResetButtons) * resetButtonsPressed;
 };
 
 #endif /*EXO_SM_H*/
