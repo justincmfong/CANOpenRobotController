@@ -126,12 +126,12 @@ bool AlexRobot::initialiseJoints() {
 bool AlexRobot::initialiseNetwork() {
     DEBUG_OUT("AlexRobot::initialiseNetwork()");
 
-    // bool status;
-    // for (auto joint : joints) {
-    //     status = joint->initNetwork();
-    //     if (!status)
-    //         return false;
-    // }
+    bool status;
+    for (auto joint : joints) {
+        status = joint->initNetwork();
+        if (!status)
+            return false;
+    }
 
     return true;
 }
@@ -170,62 +170,4 @@ void AlexRobot::bitFlip() {
     for (auto joint : joints) {
         joint->bitFlip();
     }
-}
-void AlexRobot::setPos(RobotMode mode) {
-    std::vector<double> initialPoints;
-    if (mode == RobotMode::SITDWN) {
-        initialPoints = {180,
-                         0,
-                         180,
-                         0,
-                         0,
-                         0};
-    } else if (mode == RobotMode::STNDUP) {
-        initialPoints = {90,
-                         90,
-                         90,
-                         90,
-                         0,
-                         0};
-    }
-    int i = 0;
-    for (auto p : joints) {
-        DEBUG_OUT("SETTING JOINT:" << p->getId() << "TO DEG: " << initialPoints[i]);
-        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(initialPoints[i]);
-        p->setQ(initialPoints[i]);
-        i++;
-    }
-}
-void AlexRobot::setPos(RobotMode mode, Foot standingLeg) {
-    std::vector<double> initialPoints;
-    if (mode == RobotMode::NORMALWALK && standingLeg == Foot::Left) {
-        initialPoints = {140.421,
-                         30.4901,
-                         177.933,
-                         5.74668,
-                         85,
-                         85};
-        /* these initial positions shoul causeanerror*/
-    } else if (mode == RobotMode::NORMALWALK && standingLeg == Foot::Right) {
-        // initialPoints = {178.896,
-        //                  5.31037,
-        //                  169.214,
-        //                  17.5468,
-        //                  85,
-        //                  85};
-        initialPoints = {178.896,
-                         5.31037,
-                         140.421,
-                         30.4901,
-                         85,
-                         85};
-    }
-    int i = 0;
-    for (auto p : joints) {
-        DEBUG_OUT("SETTING JOINT:" << p->getId() << "TO DEG: " << initialPoints[i]);
-        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(initialPoints[i]);
-        p->setQ(initialPoints[i]);
-        i++;
-    }
-    // Above needs a cycle of updateJoints to run for the values to register in q therfore hard setting q values in joints here.
 }

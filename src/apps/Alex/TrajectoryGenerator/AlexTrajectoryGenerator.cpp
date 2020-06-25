@@ -18,11 +18,10 @@ std::string AlexTrajectoryGenerator::printName() {
 /**
  * Initialisation Methods
  */
-AlexTrajectoryGenerator::AlexTrajectoryGenerator(){
-    DEBUG_OUT("ALEX Trajectory Generator simple constructor")}
+AlexTrajectoryGenerator::AlexTrajectoryGenerator() {
+}
 
 AlexTrajectoryGenerator::AlexTrajectoryGenerator(int NumOfJoints) {
-    DEBUG_OUT("ALEX Trajectory Generator Num joints Constructor")
     numJoints = NumOfJoints;
 }
 
@@ -67,7 +66,6 @@ bool AlexTrajectoryGenerator::initialiseTrajectory(RobotMode mvmnt, double time)
 
     setTrajectoryParameters(movementTrajMap[mvmnt]);
     /*\todo: have this happen getting fed in the intialPose from the robot*/
-    DEBUG_OUT("Finsihed setting Traj pram to:" << (int)this->trajectoryParameter.stepType)
     return true;
 }
 /**
@@ -1007,7 +1005,6 @@ jointspace_state AlexTrajectoryGenerator::taskspace_state_to_jointspace_state(
     TrajectoryParameters trajectoryParameters,
     PilotParameters pilotParameters) {
     jointspace_state jointspaceState{};
-    DEBUG_OUT("----TASKSPACE STATE---")
     // Do the bulk of the computations based on each leg
     std::vector<double> LeftTempAngles = triangle_inverse_kinematics(
         taskspaceState.left_ankle_position.x,
@@ -1037,22 +1034,13 @@ jointspace_state AlexTrajectoryGenerator::taskspace_state_to_jointspace_state(
     jointspaceState.q[LEFT_ANKLE] = M_PI_2 + LeftTempAngles.at(2);
     jointspaceState.q[LEFT_KNEE] = LeftTempAngles.at(1);
     jointspaceState.q[LEFT_HIP] = M_PI - LeftTempAngles.at(0) - taskspaceState.torso_forward_angle;
-    DEBUG_OUT("Right TEMP angles 0:" << RightTempAngles.at(0))
-    DEBUG_OUT("torso ANGLE:" << taskspaceState.torso_forward_angle)
     jointspaceState.q[RIGHT_HIP] = M_PI - RightTempAngles.at(0) - taskspaceState.torso_forward_angle;
-    DEBUG_OUT("RIGHT HIP: " << jointspaceState.q[RIGHT_HIP])
-    DEBUG_OUT("Right TEMP angles 1:" << RightTempAngles.at(1))
     jointspaceState.q[RIGHT_KNEE] = RightTempAngles.at(1);
-    DEBUG_OUT("RIGHT KNEE: " << jointspaceState.q[RIGHT_KNEE])
 
     if (trajectoryParameters.right_foot_on_tilt) {
         jointspaceState.q[RIGHT_ANKLE] = M_PI_2 + RightTempAngles.at(2) - trajectoryParameters.slope_angle;
-        DEBUG_OUT("RIGHT FOOT on tilt ANKLE: " << jointspaceState.q[RIGHT_ANKLE])
-
     } else {
-        DEBUG_OUT("Right TEMP angles 2:" << RightTempAngles.at(2))
         jointspaceState.q[RIGHT_ANKLE] = M_PI_2 + RightTempAngles.at(2);
-        DEBUG_OUT("RIGHT ANKLE: " << jointspaceState.q[RIGHT_ANKLE])
     }
     return jointspaceState;
 }
@@ -1085,8 +1073,8 @@ std::vector<double> AlexTrajectoryGenerator::triangle_inverse_kinematics(
     const double L = sqrtf((xAnkle - xHip) * (xAnkle - xHip) + (zAnkle - zHip) * (zAnkle - zHip));
     const double angleLAcuteFromVertical = atan2f((xAnkle - xHip), (zHip - zAnkle));
     const double angleInternalHip = acos((Lupper * Lupper + L * L - Llower * Llower) / (2.0 * Lupper * L));
-    if (angleInternalHip == nan) {
-        DEBUG_OUT("acos outside of domain")
+    if (std::isnan(angleInternalHip)) {
+        DEBUG_OUT("acos outside of domain: do not move!")
         /*\todo throw and catch an error from this is calling function*/
     }
     //const double angleInternalAnkle = asin(sin(angleInternalHip)*Lupper/Llower);
@@ -1388,7 +1376,7 @@ void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<
         }
         if (std::isnan(positions[i])) {
             std::cout << "Joint " << i << "ISNAN now " << std::endl;
-            positions[i] = Q_MIN_MAX[maxIndex];
+            positions[i] = Q_MIN_MAX[minIndex]; /*move to smallest joint angle*/
             // positions[i] = Q_MIN_MAX[maxIndex] + 10000; why is this +1000 (from old code)
         }
     }
@@ -1423,7 +1411,6 @@ void AlexTrajectoryGenerator::setTrajectoryStanceRight() {
     trajectoryParameter.stance_foot = Foot::Right;
 }
 void AlexTrajectoryGenerator::setTrajectoryStanceLeft() {
-    DEBUG_OUT("LEFT FOOT STANCE IS SET")
     trajectoryParameter.stance_foot = Foot::Left;
 }
 
