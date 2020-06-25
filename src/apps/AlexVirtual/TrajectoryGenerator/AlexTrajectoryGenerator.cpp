@@ -102,7 +102,11 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
             //currentPolynomial[RIGHT_ANKLE] = trajectoryJointSpline.polynomials[RIGHT_ANKLE].at(numPolynomials - 1);
             //positionArray[RIGHT_ANKLE] = evaluate_cubic_polynomial(currentPolynomial[RIGHT_ANKLE], endTime);
             //make sure the angles are within boundary
-            limit_position_against_angle_boundary(angles);
+            try {
+                limit_position_against_angle_boundary(angles);
+            } catch (std::domain_error) {
+                throw domain_error("arcos calculation outside domain");
+            }
             return angles;
         }
     }
@@ -1388,6 +1392,7 @@ void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<
         }
         if (std::isnan(positions[i])) {
             std::cout << "Joint " << i << "ISNAN now " << std::endl;
+            throw domain_error("arcos calculation outside domain");
             positions[i] = Q_MIN_MAX[maxIndex];
             // positions[i] = Q_MIN_MAX[maxIndex] + 10000; why is this +1000 (from old code)
         }

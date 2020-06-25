@@ -27,7 +27,7 @@
 //step parameters
 #define STANDTIME 3
 #define SITTIME 3
-#define STEPTIME 2.0
+#define STEPTIME 2
 #define STAIRTIME 3
 #define UNEVENSTEPTIME 4
 #define UNEVENTORSO deg2rad(10)
@@ -138,7 +138,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                           .slope_angle = 0.0,      // tilted path
                           .left_foot_on_tilt = false,
                           .right_foot_on_tilt = false}},
-    {RobotMode::NORMALWALK, {.step_duration = UNEVENSTEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
+    {RobotMode::NORMALWALK, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                              .hip_height_slack = LEGSLACK,  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                              //.torso_forward_angle = TORSOANGLE,
                              .torso_forward_angle = UNEVENTORSO,

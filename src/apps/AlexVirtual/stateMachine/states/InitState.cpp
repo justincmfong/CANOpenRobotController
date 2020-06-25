@@ -3,7 +3,7 @@
 void InitState::entry(void) {
     std::cout
         << "==================================" << endl
-        << " WELCOME TO THE TEST STATE MACHINE" << endl
+        << " WELCOME USER" << endl
         << "==================================" << endl
         << endl
         << "========================" << endl

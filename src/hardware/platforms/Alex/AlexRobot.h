@@ -48,7 +48,7 @@ class AlexRobot : public Robot {
      * 
      */
 
-    motorProfile posControlMotorProfile{3000000, 140000, 140000};
+    motorProfile posControlMotorProfile{4000000, 190000, 190000};
 
    public:
     AlexRobot();

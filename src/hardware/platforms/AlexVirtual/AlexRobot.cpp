@@ -81,7 +81,12 @@ bool AlexRobot::moveThroughTraj() {
     if (true) {
         currTrajProgress += elapsedSec;
         double fracTrajProgress = currTrajProgress / trajTimeUS;
-        std::vector<double> setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
+        std::vector<double> setPoints;
+        try {
+            setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
+        } catch (std::domain_error) {
+            //run alex -> trigger feet together movemnt (safety position)
+        }
         int i = 0;
         std::cout << currTrajProgress << " , ";
         for (auto p : joints) {

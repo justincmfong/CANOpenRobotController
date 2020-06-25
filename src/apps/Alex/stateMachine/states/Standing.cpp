@@ -4,7 +4,7 @@
 #include "Standing.h"
 
 void Standing::entry(void) {
-    std::cout << "Sitting State Entered " << std::endl
+    std::cout << "Standing State Entered " << std::endl
               << "=======================" << std::endl
               << " W ->> sit down" << std::endl
               << " S ->> start Walk" << std::endl
