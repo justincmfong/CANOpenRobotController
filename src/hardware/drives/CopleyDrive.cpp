@@ -31,7 +31,7 @@ bool CopleyDrive::initPosControl(motorProfile posControlMotorProfile) {
     //  * \todo Move jointMinMap and jointMaxMap to set additional parameters (bit 5 in 0x6041 makes updates happen immediately)
     //  *
     //  */
-    sendSDOMessages(generatePosControlConfigSDO(posControlMotorProfile));
+    //sendSDOMessages(generatePosControlConfigSDO(posControlMotorProfile));
     /**
      * \todo Move jointMinMap and jointMaxMap to set additional parameters (bit 5 in 0x6041 makes updates happen immediately)
      * 

@@ -80,7 +80,7 @@ bool AlexRobot::moveThroughTraj() {
     // This should check to make sure that the "GO" button is pressed.
     if (true) {
         currTrajProgress += elapsedSec;
-        double fracTrajProgress = currTrajProgress / trajTimeUS;
+        time_tt fracTrajProgress = currTrajProgress / trajTimeUS;
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
         int i = 0;
         std::cout << currTrajProgress << " , ";
@@ -126,12 +126,18 @@ bool AlexRobot::initialiseJoints() {
 bool AlexRobot::initialiseNetwork() {
     DEBUG_OUT("AlexRobot::initialiseNetwork()");
 
-    // bool status;
+    bool status;
+    // FOR all 6 joints
     // for (auto joint : joints) {
     //     status = joint->initNetwork();
     //     if (!status)
     //         return false;
     // }
+    for (int i = 0; i < 4; i++) {
+        status = joints[i]->initNetwork();
+        if (!status)
+            return false;
+    }
 
     return true;
 }

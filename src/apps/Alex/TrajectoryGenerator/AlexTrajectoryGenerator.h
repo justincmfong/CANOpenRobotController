@@ -73,6 +73,10 @@ typedef struct taskspace_state {
     Foot stance_foot;               // Foot::Left or Foot::Right
     time_tt time;
 } taskspace_state;
+// void printTaskState(taskspace_state state) {
+//     DEBUG_OUT("---points---")
+//     DEBUG_OUT("LANK" << state.left_ankle_position.x << "," << state.left_ankle_position.y "," << state.left_ankle_position.z)
+// }
 
 typedef struct jointspace_state {
     double q[NUM_JOINTS];

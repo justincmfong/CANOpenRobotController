@@ -38,6 +38,12 @@ setMovementReturnCode_t AlexJoint::setPosition(double desQ) {
         DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MINQ")
         desQ = qMin;
     }
+    // extra safety no massive motions
+    // double diff = desQ - q;
+    // if (abs(diff) > 30) {
+    //     DEBUG_OUT("MOTION TOO LARGE NOT MOVING !")
+    //     desQ = q;
+    // }
     return ActuatedJoint::setPosition(desQ);
 }
 

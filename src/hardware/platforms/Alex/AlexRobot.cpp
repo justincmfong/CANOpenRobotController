@@ -80,7 +80,7 @@ bool AlexRobot::moveThroughTraj() {
     // This should check to make sure that the "GO" button is pressed.
     if (true) {
         currTrajProgress += elapsedSec;
-        time_tt fracTrajProgress = currTrajProgress / trajTimeUS;
+        double fracTrajProgress = currTrajProgress / trajTimeUS;
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
         int i = 0;
         std::cout << currTrajProgress << " , ";
@@ -126,18 +126,12 @@ bool AlexRobot::initialiseJoints() {
 bool AlexRobot::initialiseNetwork() {
     DEBUG_OUT("AlexRobot::initialiseNetwork()");
 
-    bool status;
-    // FOR all 6 joints
+    // bool status;
     // for (auto joint : joints) {
     //     status = joint->initNetwork();
     //     if (!status)
     //         return false;
     // }
-    for (int i = 0; i < 4; i++) {
-        status = joints[i]->initNetwork();
-        if (!status)
-            return false;
-    }
 
     return true;
 }
@@ -177,7 +171,6 @@ void AlexRobot::bitFlip() {
         joint->bitFlip();
     }
 }
-
 void AlexRobot::setPos(RobotMode mode) {
     std::vector<double> initialPoints;
     if (mode == RobotMode::SITDWN) {
@@ -194,6 +187,38 @@ void AlexRobot::setPos(RobotMode mode) {
                          90,
                          0,
                          0};
+    }
+    int i = 0;
+    for (auto p : joints) {
+        DEBUG_OUT("SETTING JOINT:" << p->getId() << "TO DEG: " << initialPoints[i]);
+        setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(initialPoints[i]);
+        p->setQ(initialPoints[i]);
+        i++;
+    }
+}
+void AlexRobot::setPos(RobotMode mode, Foot standingLeg) {
+    std::vector<double> initialPoints;
+    if (mode == RobotMode::NORMALWALK && standingLeg == Foot::Left) {
+        initialPoints = {140.421,
+                         30.4901,
+                         177.933,
+                         5.74668,
+                         85,
+                         85};
+        /* these initial positions shoul causeanerror*/
+    } else if (mode == RobotMode::NORMALWALK && standingLeg == Foot::Right) {
+        // initialPoints = {178.896,
+        //                  5.31037,
+        //                  169.214,
+        //                  17.5468,
+        //                  85,
+        //                  85};
+        initialPoints = {178.896,
+                         5.31037,
+                         140.421,
+                         30.4901,
+                         85,
+                         85};
     }
     int i = 0;
     for (auto p : joints) {

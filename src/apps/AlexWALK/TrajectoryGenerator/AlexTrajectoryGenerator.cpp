@@ -106,7 +106,7 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
             return angles;
         }
     }
-    //cout << "[discretise_spline]:\t" << temp.time << "\t";
+    DEBUG_OUT("Time point outside range")
     //if the time point is outside range
     for (int i = 0; i < NUM_JOINTS; i++) {
         currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
@@ -402,13 +402,13 @@ std::vector<taskspace_state> AlexTrajectoryGenerator::generate_key_taskspace_sta
             if (initialTaskspaceState.stance_foot == Foot::Right)
             //|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
             {
-                stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + stepDisplacement;
+                stateEnd.left_ankle_position.x = initialTaskspaceState.right_ankle_position.x + trajectoryParameters.step_length;
                 stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
                 stateEnd.hip_position.x = initialTaskspaceState.right_ankle_position.x + trajectoryParameters.step_length * 1.6 / 3.0;
             }
 
             else {
-                stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + stepDisplacement;
+                stateEnd.right_ankle_position.x = initialTaskspaceState.left_ankle_position.x + trajectoryParameters.step_length;
                 stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
                 stateEnd.hip_position.x = initialTaskspaceState.left_ankle_position.x + trajectoryParameters.step_length * 1.6 / 3.0;
             }
@@ -1102,9 +1102,9 @@ std::vector<CubicPolynomial> AlexTrajectoryGenerator::cubic_spline(
     int numPoints) {
     std::vector<CubicPolynomial> cubicSplinePolynomials;
 
-    //std::cout << "[cubic_spline]: x's: ";
-    //for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
-    //std::cout << std::endl;
+    std::cout << "[cubic_spline]: x's: ";
+    for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
+    std::cout << std::endl;
 
     // Cubic spline
     // Assume boundary vel and acc are zero.
@@ -1373,8 +1373,9 @@ void AlexTrajectoryGenerator::limit_position_against_angle_boundary(std::vector<
             positions[i] = Q_MIN_MAX[maxIndex];
         }
         if (std::isnan(positions[i])) {
-            std::cout << "ISNAN now " << std::endl;
-            positions[i] = Q_MIN_MAX[maxIndex] + 10000;
+            std::cout << "Joint " << i << "ISNAN now " << std::endl;
+            positions[i] = Q_MIN_MAX[maxIndex];
+            // positions[i] = Q_MIN_MAX[maxIndex] + 10000; why is this +1000 (from old code)
         }
     }
 }
@@ -1408,7 +1409,7 @@ void AlexTrajectoryGenerator::setTrajectoryStanceRight() {
     trajectoryParameter.stance_foot = Foot::Right;
 }
 void AlexTrajectoryGenerator::setTrajectoryStanceLeft() {
-    DEBUG_OUT("Stance foot set to left")
+    DEBUG_OUT("LEFT FOOT STANCE IS SET")
     trajectoryParameter.stance_foot = Foot::Left;
 }
 
