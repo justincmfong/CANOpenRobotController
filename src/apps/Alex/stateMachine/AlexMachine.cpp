@@ -16,6 +16,9 @@ AlexMachine::AlexMachine() {
     startWalk = new StartWalk(this);
     feetTogether = new FeetTogether(this);
     resetButtonsPressed = new ResetButtons(this);
+    standSelect = new StandSelect(this);
+    sitSelect = new SitSelect(this);
+    walkSelect = new WalkSelect(this);
     //States
     initState = new InitState(this, robot, trajectoryGenerator);
     standing = new Standing(this, robot, trajectoryGenerator);
@@ -48,11 +51,11 @@ AlexMachine::AlexMachine() {
      *
      */
     NewTransition(initState, startExo, sitting);
-    NewTransition(sitting, startStand, standingUp);
-    NewTransition(standing, startSit, sittingDwn);
-    NewTransition(standing, startWalk, steppingFirstLeft);
-    NewTransition(leftForward, startWalk, steppingRight);
-    NewTransition(rightForward, startWalk, steppingLeft);
+    NewTransition(sitting, standSelect, standingUp);
+    NewTransition(standing, sitSelect, sittingDwn);
+    NewTransition(standing, walkSelect, steppingFirstLeft);
+    NewTransition(leftForward, walkSelect, steppingRight);
+    NewTransition(rightForward, walkSelect, steppingLeft);
     NewTransition(leftForward, feetTogether, steppingLastRight);
     NewTransition(rightForward, feetTogether, steppingLastLeft);
 
@@ -103,7 +106,7 @@ bool AlexMachine::IsAPressed::check(void) {
     return false;
 }
 bool AlexMachine::StartButtonsPressed::check(void) {
-    if (OWNER->robot->keyboard.getW() == true) {
+    if (OWNER->robot->keyboard.getA() == true) {
         return true;
     }
     return false;
@@ -116,7 +119,7 @@ bool AlexMachine::StartExo::check(void) {
     return false;
 }
 bool AlexMachine::StartStand::check(void) {
-    if (OWNER->robot->keyboard.getW() == true) {
+    if (OWNER->robot->keyboard.getA() == true) {
         DEBUG_OUT("START STAND PRESSED")
         return true;
     }
@@ -124,7 +127,7 @@ bool AlexMachine::StartStand::check(void) {
 }
 
 bool AlexMachine::StartSit::check(void) {
-    if (OWNER->robot->keyboard.getW() == true) {
+    if (OWNER->robot->keyboard.getA() == true) {
         DEBUG_OUT("START SIT PRESSED")
         return true;
     }
@@ -152,6 +155,30 @@ bool AlexMachine::IsRPressed::check(void) {
 }
 bool AlexMachine::ResetButtons::check(void) {
     if (OWNER->robot->keyboard.getS() == true) {
+        return true;
+    }
+    return false;
+}
+bool AlexMachine::StandSelect::check(void) {
+    // TODO change this to a getting a robotMode and move to other driver
+    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 3 && OWNER->robot->keyboard.getA()) {
+        DEBUG_OUT("Stand selected! Begin standing up")
+        return true;
+    }
+    return false;
+}
+bool AlexMachine::SitSelect::check(void) {
+    // TODO change this to a getting a robotMode and move to other driver
+    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 2 && OWNER->robot->keyboard.getA()) {
+        DEBUG_OUT("Sit selected! Begin standing up")
+        return true;
+    }
+    return false;
+}
+bool AlexMachine::WalkSelect::check(void) {
+    // TODO change this to a getting a robotMode and move to other driver
+    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 1 && OWNER->robot->keyboard.getS()) {
+        DEBUG_OUT("Sit selected! Begin standing up")
         return true;
     }
     return false;

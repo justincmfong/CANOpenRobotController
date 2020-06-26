@@ -28,6 +28,7 @@
 #include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
+#include "pocketBeagle.h"
 
 /**
      * \todo Load in paramaters and dictionary entries from JSON file.
@@ -61,6 +62,8 @@ class AlexRobot : public Robot {
     ~AlexRobot();
     AlexTrajectoryGenerator *trajectoryGenerator;
     Keyboard keyboard;
+    pocketBeagle pb;
+
     vector<CopleyDrive *> copleyDrives;
 
     // /**

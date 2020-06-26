@@ -9,7 +9,7 @@ void SteppingRight::entry(void) {
     /*ATM is just normal walk - choose from crutch*/
     trajectoryGenerator->initialiseTrajectory(RobotMode::NORMALWALK, Foot::Left, robot->getJointStates());
     robot->startNewTraj();
-    robot->copleyDrives[0]->setNextMotion(RobotMode::NORMALWALK);
+    //robot->copleyDrives[0]->setNextMotion(RobotMode::NORMALWALK);
 }
 void SteppingRight::during(void) {
     robot->moveThroughTraj();

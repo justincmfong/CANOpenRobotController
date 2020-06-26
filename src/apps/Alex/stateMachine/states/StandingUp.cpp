@@ -8,7 +8,7 @@ void StandingUp::entry(void) {
               << "===================" << endl;
     trajectoryGenerator->initialiseTrajectory(RobotMode::STNDUP, robot->getJointStates());
     robot->startNewTraj();
-    robot->copleyDrives[0]->setNextMotion(RobotMode::STNDUP);
+    //robot->copleyDrives[0]->setNextMotion(RobotMode::STNDUP);
 }
 
 void StandingUp::during(void) {

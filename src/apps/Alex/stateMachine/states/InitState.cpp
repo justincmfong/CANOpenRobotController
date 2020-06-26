@@ -9,8 +9,13 @@ void InitState::entry(void) {
         << "========================" << endl
         << " PRESS S to start program" << endl
         << "========================" << endl;
+    robot->pb.printMenu();
 }
 void InitState::during(void) {
+    RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
+    if (modeSelected != RobotMode::INITIAL) {
+        std::cout << "output:" << robot->pb.printRobotMode(modeSelected);
+    }
 }
 void InitState::exit(void) {
     robot->initPositionControl();

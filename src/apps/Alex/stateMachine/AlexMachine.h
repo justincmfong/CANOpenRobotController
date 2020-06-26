@@ -117,6 +117,9 @@ class AlexMachine : public StateMachine {
     EventObject(FeetTogether) * feetTogether;
     EventObject(IsRPressed) * isRPressed;
     EventObject(ResetButtons) * resetButtonsPressed;
+    EventObject(StandSelect) * standSelect;
+    EventObject(SitSelect) * sitSelect;
+    EventObject(WalkSelect) * walkSelect;
 };
 
 #endif /*EXO_SM_H*/

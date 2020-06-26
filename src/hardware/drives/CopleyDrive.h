@@ -126,6 +126,9 @@ class CopleyDrive : public Drive {
      * 
      */
     void setNextMotion(RobotMode mode);
+
+    int intRobotMode(RobotMode mode);
+    int getNextMotion();
 };
 
 #endif

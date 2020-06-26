@@ -9,7 +9,7 @@ void SteppingLastLeft::entry(void) {
     /*ATM is just normal walk - choose from crutch*/
     trajectoryGenerator->initialiseTrajectory(RobotMode::FTTG, robot->getJointStates());
     robot->startNewTraj();
-    robot->copleyDrives[0]->setNextMotion(RobotMode::FTTG);
+    //robot->copleyDrives[0]->setNextMotion(RobotMode::FTTG);
 }
 void SteppingLastLeft::during(void) {
     robot->moveThroughTraj();
