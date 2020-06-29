@@ -7,7 +7,8 @@ void RightForward::entry(void) {
         << " S ->> WALK " << endl
         << " A ->> FEET TOGETHER " << endl
         << "========================n" << endl;
-    //robot->copleyDrives[0]->setNextMotion(RobotMode::RFWD);
+    robot->copleyDrives[0]->setCurrentState(AlexState::RightForward);
+    //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
     robot->pb.printMenu();
 }
 void RightForward::during(void) {

@@ -195,12 +195,12 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                           .slope_angle = 0.0,      // tilted path
                           .left_foot_on_tilt = false,
                           .right_foot_on_tilt = false}},
-    {RobotMode::FTTG, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = BACKLENGTH,
+    {RobotMode::FTTG, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = STEPTGTLENGTH,
                        .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                        .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                        .swing_ankle_down_angle = 0,
                        .stance_foot = Foot::Right,
-                       .stepType = StepType::Back,
+                       .stepType = StepType::Walk,
                        .seat_height = 0.42,     // sit-stand
                        .step_end_height = 0.0,  // stairs
                        .slope_angle = 0.0,      // tilted path

@@ -9,6 +9,7 @@ void InitState::entry(void) {
         << "========================" << endl
         << " PRESS S to start program" << endl
         << "========================" << endl;
+    robot->copleyDrives[0]->setCurrentState(AlexState::Init);
     robot->pb.printMenu();
 }
 void InitState::during(void) {

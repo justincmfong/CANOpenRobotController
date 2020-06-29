@@ -10,7 +10,8 @@ void Standing::entry(void) {
               << " S ->> start Walk" << std::endl
               << "=======================" << std::endl
               << std::endl;
-    //robot->copleyDrives[0]->setNextMotion(RobotMode::STANDING);
+    robot->copleyDrives[0]->setCurrentState(AlexState::Standing);
+    //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
     robot->pb.printMenu();
 }
 

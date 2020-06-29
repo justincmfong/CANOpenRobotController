@@ -22,7 +22,24 @@
 // Macros
 #define deg2rad(deg) ((deg)*M_PI / 180.0)
 #define rad2deg(rad) ((rad)*180.0 / M_PI)
-
+/**
+ * \brief An enum type for robot communication with designed state machine
+ * 
+ */
+enum class AlexState { Error = 0,
+                       Init = 1,
+                       LeftForward = 2,
+                       RightForward = 3,
+                       Standing = 4,
+                       Sitting = 5,
+                       SittingDown = 6,
+                       StandingUp = 7,
+                       StepFirstL = 8,
+                       StepFirstR = 9,
+                       StepLastL = 10,
+                       StepLastR = 11,
+                       StepL = 12,
+                       StepR = 13 };
 /**
  * An enum type.
  * Joint Index for the 6 joints (note, NODEID = this + 1)

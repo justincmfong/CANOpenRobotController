@@ -8,7 +8,8 @@ void StandingUp::entry(void) {
               << "===================" << endl;
     trajectoryGenerator->initialiseTrajectory(RobotMode::STNDUP, robot->getJointStates());
     robot->startNewTraj();
-    //robot->copleyDrives[0]->setNextMotion(RobotMode::STNDUP);
+    robot->copleyDrives[0]->setCurrentState(AlexState::StandingUp);
+    //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
 }
 
 void StandingUp::during(void) {

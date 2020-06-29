@@ -8,7 +8,8 @@ void Sitting::entry() {
               << " HIT A to begin standing up" << std::endl
               << "=======================" << std::endl
               << std::endl;
-    //robot->copleyDrives[2]->setNextMotion(RobotMode::SITTING);
+    robot->copleyDrives[0]->setCurrentState(AlexState::Sitting);
+    //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
     robot->pb.printMenu();
 }
 void Sitting::during() {

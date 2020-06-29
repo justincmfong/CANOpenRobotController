@@ -57,6 +57,7 @@
 #include "SteppingLastRight.h"
 #include "SteppingLeft.h"
 #include "SteppingRight.h"
+
 /**
  * @brief Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestState
  * 
@@ -74,31 +75,31 @@ class AlexMachine : public StateMachine {
     void deactivate();
 
     void hwStateUpdate();
-    State *gettCurState();
-    void initRobot(AlexRobot *rb);
+    State* gettCurState();
+    void initRobot(AlexRobot* rb);
     bool trajComplete;
-    AlexTrajectoryGenerator *trajectoryGenerator;
+    AlexTrajectoryGenerator* trajectoryGenerator;
 
     /**
      * Pointers to the relevant states - initialised in init 
      * 
      */
-    InitState *initState;
-    SittingDwn *sittingDwn;
-    StandingUp *standingUp;
-    Sitting *sitting;
-    Standing *standing;
-    SteppingFirstLeft *steppingFirstLeft;
-    LeftForward *leftForward;
-    SteppingRight *steppingRight;
-    RightForward *rightForward;
-    SteppingLeft *steppingLeft;
-    SteppingLastRight *steppingLastRight;
-    SteppingLastLeft *steppingLastLeft;
-    ErrorState *errorState;
+    InitState* initState;
+    SittingDwn* sittingDwn;
+    StandingUp* standingUp;
+    Sitting* sitting;
+    Standing* standing;
+    SteppingFirstLeft* steppingFirstLeft;
+    LeftForward* leftForward;
+    SteppingRight* steppingRight;
+    RightForward* rightForward;
+    SteppingLeft* steppingLeft;
+    SteppingLastRight* steppingLastRight;
+    SteppingLastLeft* steppingLastLeft;
+    ErrorState* errorState;
 
    protected:
-    AlexRobot *robot; /*<!Pointer to the Robot*/
+    AlexRobot* robot; /*<!Pointer to the Robot*/
 
    private:
     /**
