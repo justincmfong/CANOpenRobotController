@@ -160,26 +160,26 @@ bool AlexMachine::ResetButtons::check(void) {
     return false;
 }
 bool AlexMachine::StandSelect::check(void) {
-    // TODO change this to a getting a robotMode and move to other driver
-    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 2 && OWNER->robot->keyboard.getA()) {
+    if (OWNER->robot->getNextMotion() == RobotMode::STNDUP && OWNER->robot->keyboard.getA()) {
         DEBUG_OUT("Stand selected! Begin standing up")
         return true;
     }
     return false;
 }
 bool AlexMachine::SitSelect::check(void) {
-    // TODO change this to a getting a robotMode and move to other driver
-    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 1 && OWNER->robot->keyboard.getA()) {
+    if (OWNER->robot->getNextMotion() == RobotMode::SITDWN && OWNER->robot->keyboard.getA()) {
         DEBUG_OUT("Sit selected! Begin standing up")
         return true;
     }
     return false;
 }
 bool AlexMachine::WalkSelect::check(void) {
-    // \todo change this to a getting a robotMode from the robot and move to other driver
     // \todo be any range of walking motions
-    if (OWNER->robot->copleyDrives[1]->getNextMotion() == static_cast<int>(RobotMode::NORMALWALK) && OWNER->robot->keyboard.getS()) {
-        DEBUG_OUT("Sit selected! Begin standing up")
+    if (OWNER->robot->getNextMotion() == RobotMode::NORMALWALK && OWNER->robot->keyboard.getS()) {
+        DEBUG_OUT("Normal walk selected begin left step")
+        return true;
+    } else if (OWNER->robot->getNextMotion() == RobotMode::UNEVEN && OWNER->robot->keyboard.getS()) {
+        DEBUG_OUT("Uneven step selected begin left step")
         return true;
     }
     return false;

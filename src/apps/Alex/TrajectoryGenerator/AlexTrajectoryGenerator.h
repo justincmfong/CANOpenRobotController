@@ -239,7 +239,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                          .slope_angle = 0.0,      // tilted path
                          .left_foot_on_tilt = false,
                          .right_foot_on_tilt = false}},
-    {RobotMode::UNEVEN, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
+    {RobotMode::UNEVEN, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                          .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                          .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                          .swing_ankle_down_angle = 0,

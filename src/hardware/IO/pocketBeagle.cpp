@@ -52,7 +52,7 @@ std::string pocketBeagle::printRobotMode(RobotMode mode) {
             return "Standing Up";
             break;
         case RobotMode::UNEVEN:
-            return "UNEVEN";
+            return "Uneven Walk";
             break;
         default:
             return "No SELECTA";
@@ -62,16 +62,16 @@ std::string pocketBeagle::printRobotMode(RobotMode mode) {
 int pocketBeagle::intRobotMode(RobotMode mode) {
     switch (mode) {
         case RobotMode::NORMALWALK:
-            return 0;
-            break;
-        case RobotMode::SITDWN:
             return 1;
             break;
-        case RobotMode::STNDUP:
+        case RobotMode::SITDWN:
             return 2;
             break;
+        case RobotMode::STNDUP:
+            return 3;
+            break;
         default:
-            return static_cast<int> mode;
+            return 0;
             break;
     }
 }

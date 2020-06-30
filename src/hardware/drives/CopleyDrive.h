@@ -126,9 +126,24 @@ class CopleyDrive : public Drive {
      * 
      */
     void setCurrentState(AlexState state);
-
+    /**
+      * \brief Set the Next Motion OD entry -cast to an int
+      * 
+      * @param Robotmode 
+      */
     void setNextMotion(RobotMode mode);
+    /**
+     * \brief Set the Next Motion OD entry -cast to an int
+     * 
+     * @param Robotmode 
+     * \return int 
+     */
     int intRobotMode(RobotMode mode);
+    /**
+     * \brief Get the Next Motion object from OD.nm entry 
+     * 
+     * \return int 
+     */
     int getNextMotion();
 };
 
