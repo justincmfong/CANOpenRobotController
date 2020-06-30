@@ -161,7 +161,7 @@ bool AlexMachine::ResetButtons::check(void) {
 }
 bool AlexMachine::StandSelect::check(void) {
     // TODO change this to a getting a robotMode and move to other driver
-    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 3 && OWNER->robot->keyboard.getA()) {
+    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 2 && OWNER->robot->keyboard.getA()) {
         DEBUG_OUT("Stand selected! Begin standing up")
         return true;
     }
@@ -169,15 +169,16 @@ bool AlexMachine::StandSelect::check(void) {
 }
 bool AlexMachine::SitSelect::check(void) {
     // TODO change this to a getting a robotMode and move to other driver
-    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 2 && OWNER->robot->keyboard.getA()) {
+    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 1 && OWNER->robot->keyboard.getA()) {
         DEBUG_OUT("Sit selected! Begin standing up")
         return true;
     }
     return false;
 }
 bool AlexMachine::WalkSelect::check(void) {
-    // TODO change this to a getting a robotMode and move to other driver
-    if (OWNER->robot->copleyDrives[1]->getNextMotion() == 1 && OWNER->robot->keyboard.getS()) {
+    // \todo change this to a getting a robotMode from the robot and move to other driver
+    // \todo be any range of walking motions
+    if (OWNER->robot->copleyDrives[1]->getNextMotion() == static_cast<int>(RobotMode::NORMALWALK) && OWNER->robot->keyboard.getS()) {
         DEBUG_OUT("Sit selected! Begin standing up")
         return true;
     }

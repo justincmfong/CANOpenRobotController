@@ -7,7 +7,7 @@ RobotMode pocketBeagle::updateController(bool up, bool dwn, bool select) {
     RobotMode returnValue = RobotMode::INITIAL;
     if (up) {
         if (currentMode == (NUMMODES - 1)) {
-            //endcurrentMode of list go to start
+            //end of list go to start
             currentMode = 0;
         } else {
             currentMode++;
@@ -51,6 +51,9 @@ std::string pocketBeagle::printRobotMode(RobotMode mode) {
         case RobotMode::STNDUP:
             return "Standing Up";
             break;
+        case RobotMode::UNEVEN:
+            return "UNEVEN";
+            break;
         default:
             return "No SELECTA";
             break;
@@ -59,16 +62,16 @@ std::string pocketBeagle::printRobotMode(RobotMode mode) {
 int pocketBeagle::intRobotMode(RobotMode mode) {
     switch (mode) {
         case RobotMode::NORMALWALK:
-            return 1;
+            return 0;
             break;
         case RobotMode::SITDWN:
-            return 2;
+            return 1;
             break;
         case RobotMode::STNDUP:
-            return 3;
+            return 2;
             break;
         default:
-            return 0;
+            return static_cast<int> mode;
             break;
     }
 }

@@ -18,7 +18,7 @@
 
 #include "RobotParams.h"
 
-#define NUMMODES 3
+#define NUMMODES 4
 /**
  * @brief Abstract class representing any input device to be used in a Robot object 
  * 
@@ -26,7 +26,7 @@
 class pocketBeagle {
    private:
     // hard coded to only sit stand walk, todo is add the others to the list as deemed important.
-    RobotMode nextMotion[NUMMODES] = {RobotMode::NORMALWALK, RobotMode::SITDWN, RobotMode::STNDUP};
+    RobotMode nextMotion[NUMMODES] = {RobotMode::NORMALWALK, RobotMode::SITDWN, RobotMode::STNDUP, RobotMode::UNEVEN};
     // track index in nextMotion[]
     int currentMode = 0;
 

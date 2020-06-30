@@ -31,7 +31,7 @@ bool CopleyDrive::initPosControl(motorProfile posControlMotorProfile) {
     //  * \todo Move jointMinMap and jointMaxMap to set additional parameters (bit 5 in 0x6041 makes updates happen immediately)
     //  *
     //  */
-    //sendSDOMessages(generatePosControlConfigSDO(posControlMotorProfile));
+    sendSDOMessages(generatePosControlConfigSDO(posControlMotorProfile));
     /**
      * \todo Move jointMinMap and jointMaxMap to set additional parameters (bit 5 in 0x6041 makes updates happen immediately)
      * 
@@ -72,8 +72,8 @@ void CopleyDrive::setCurrentState(AlexState state) {
     DEBUG_OUT("current state SET TO:" << *(&CO_OD_RAM.nextMovement));
 }
 void CopleyDrive::setNextMotion(RobotMode mode) {
-    *(&CO_OD_RAM.nextMovement) = intRobotMode(mode);
-    //DEBUG_OUT("NEXTMOVEMENT SET TO:" << *(&CO_OD_RAM.nextMovement));
+    *(&CO_OD_RAM.nextMovement) = static_cast<int>(mode);
+    DEBUG_OUT("NEXTMOVEMENT SET TO:" << *(&CO_OD_RAM.nextMovement));
 }
 int CopleyDrive::getNextMotion() {
     return *(&CO_OD_RAM.nextMovement);
@@ -81,7 +81,7 @@ int CopleyDrive::getNextMotion() {
 int CopleyDrive::intRobotMode(RobotMode mode) {
     switch (mode) {
         case RobotMode::NORMALWALK:
-            return 1;
+            return 0;
             break;
         case RobotMode::SITDWN:
             return 2;

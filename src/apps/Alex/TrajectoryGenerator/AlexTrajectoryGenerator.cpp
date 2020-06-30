@@ -842,14 +842,13 @@ std::vector<taskspace_state> AlexTrajectoryGenerator::generate_key_taskspace_sta
             state2.swing_ankle_down_angle = 0.0;  // could be non-zero due to slight issues in forward kinematics/positioning, btu zero it out anyways
             keyTaskspaceStates.push_back(state2);
         }
-
         // Final state
         {
             taskspace_state stateEnd = initialTaskspaceState;
             if (initialTaskspaceState.stance_foot == Foot::Right)
             //|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
             {
-                stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x + stepDisplacement;
+                stateEnd.left_ankle_position.x = initialTaskspaceState.right_ankle_position.x + trajectoryParameters.step_length;
                 stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
                 stateEnd.hip_position.x = initialTaskspaceState.right_ankle_position.x + trajectoryParameters.step_length * 1.6 / 3.0;
                 stateEnd.right_ankle_position.z = pilotParameters.ankle_height;
@@ -857,7 +856,7 @@ std::vector<taskspace_state> AlexTrajectoryGenerator::generate_key_taskspace_sta
             }
 
             else {
-                stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + stepDisplacement;
+                stateEnd.right_ankle_position.x = initialTaskspaceState.left_ankle_position.x + trajectoryParameters.step_length;
                 stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
                 stateEnd.hip_position.x = initialTaskspaceState.left_ankle_position.x + trajectoryParameters.step_length * 1.6 / 3.0;
                 stateEnd.left_ankle_position.z = pilotParameters.ankle_height;
