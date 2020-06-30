@@ -121,6 +121,7 @@ Methods to Set Trajectory and Pilot Parameters
 ***********************************************************************/
 void AlexTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters trajectoryParameter) {
     DEBUG_OUT("setTrajectoryParameters()")
+    printTrajectoryParameters();
     this->trajectoryParameter = trajectoryParameter;
 }
 
@@ -138,6 +139,9 @@ void AlexTrajectoryGenerator::printTrajectoryParameters() {
     std::string outstring;
 
     switch (trajectoryParameter.stepType) {
+        case (StepType::Walk):
+            outstring = "Normal Walk";
+            break;
         case (StepType::Uneven):
             outstring = "Uneven";
             break;

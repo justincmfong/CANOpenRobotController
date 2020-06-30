@@ -171,3 +171,9 @@ void AlexRobot::bitFlip() {
         joint->bitFlip();
     }
 }
+RobotMode AlexRobot::getNextMotion() {
+    RobotMode currentMode;
+    currentMode = static_cast<RobotMode>(copleyDrives[0]->getNextMotion());
+    //\todo check that cast worked and throw error if not.
+    return currentMode;
+}

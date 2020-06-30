@@ -154,6 +154,12 @@ class AlexRobot : public Robot {
     */
     std::vector<double> getJointStates();
     /**
+ * \brief Get the Next Motion object from object dictionary and cast to RobotMode 
+ * 
+ * \return RobotMode 
+ */
+    RobotMode getNextMotion();
+    /**
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h
     * 
     */
@@ -162,13 +168,12 @@ class AlexRobot : public Robot {
        * \param int Joint value
        * \return int maxDeg 
        */
-    std::map<int, double>
-        jointMinMap = {{LEFT_HIP, 70},
-                       {LEFT_KNEE, 0},
-                       {RIGHT_HIP, 70},
-                       {RIGHT_KNEE, 0},
-                       {LEFT_ANKLE, 75},
-                       {RIGHT_ANKLE, 75}};
+    std::map<int, double> jointMinMap = {{LEFT_HIP, 70},
+                                         {LEFT_KNEE, 0},
+                                         {RIGHT_HIP, 70},
+                                         {RIGHT_KNEE, 0},
+                                         {LEFT_ANKLE, 75},
+                                         {RIGHT_ANKLE, 75}};
     /**
        * \brief Joint Limit Map between Joint value and max Degrees possible
        * \param int Joint value

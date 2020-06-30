@@ -6,7 +6,7 @@ void StandingUp::entry(void) {
               << " STANDING UP" << endl
               << " GREEN -> STAND UP" << endl
               << "===================" << endl;
-    trajectoryGenerator->initialiseTrajectory(RobotMode::STNDUP, robot->getJointStates());
+    trajectoryGenerator->initialiseTrajectory(robot->getNextMotion(), robot->getJointStates());
     robot->startNewTraj();
     robot->copleyDrives[0]->setCurrentState(AlexState::StandingUp);
     //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
