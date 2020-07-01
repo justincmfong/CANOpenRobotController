@@ -18,9 +18,11 @@ void Standing::entry(void) {
 void Standing::during(void) {
     RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
     if (modeSelected != RobotMode::INITIAL) {
-        std::cout << "Selected mode: " << robot->pb.printRobotMode(modeSelected);
+        std::cout << "Selected mode: " << robot->pb.printRobotMode(modeSelected) << std::endl;
+        ;
         robot->copleyDrives[1]->setNextMotion(modeSelected);
     }
+    updateCrutch();
 }
 
 void Standing::exit(void) {

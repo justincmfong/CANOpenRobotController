@@ -10,18 +10,16 @@ void InitState::entry(void) {
         << " PRESS S to start program" << endl
         << "========================" << endl;
     robot->copleyDrives[0]->setCurrentState(AlexState::Init);
+    robot->setCurrentMotion(RobotMode::INITIAL);
     robot->pb.printMenu();
 }
 void InitState::during(void) {
-    // RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
-    // if (modeSelected != RobotMode::INITIAL) {
-    //     std::cout << "output:" << robot->pb.printRobotMode(modeSelected);
-    // }
-    /// TESTING CRUTCH COMS w/ Crutch: pull RobotMode from OD and print to screen
-    RobotMode modeSelected = robot->getNextMotion());
+    RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
     if (modeSelected != RobotMode::INITIAL) {
-        std::cout << "output:" << robot->pb.printRobotMode(modeSelected);
+        std::cout << "output:" << robot->pb.printRobotMode(modeSelected) << std::endl;
     }
+
+    updateCrutch();
 }
 void InitState::exit(void) {
     robot->initPositionControl();

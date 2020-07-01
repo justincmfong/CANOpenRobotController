@@ -158,7 +158,27 @@ class AlexRobot : public Robot {
  * 
  * \return RobotMode 
  */
+
+    /*\todo change bellow two functions to access crutch driver or crutch object to OD entry not copley drive*/
+    /**
+ * \brief Get the Next Motion OD entry
+ * 
+ * \return RobotMode 
+ */
     RobotMode getNextMotion();
+    /**
+ * \brief Set the Current Motion object from the od.nextMotion entry
+ * 
+ * \return current RobotMode
+ * 
+ */
+    void setCurrentMotion(RobotMode nextMotion);
+    /**
+ * \brief Get the Current Motion OD entry
+ * 
+ * \return RobotMode 
+ */
+    RobotMode getCurrentMotion();
     /**
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h
     * 
@@ -168,12 +188,13 @@ class AlexRobot : public Robot {
        * \param int Joint value
        * \return int maxDeg 
        */
-    std::map<int, double> jointMinMap = {{LEFT_HIP, 70},
-                                         {LEFT_KNEE, 0},
-                                         {RIGHT_HIP, 70},
-                                         {RIGHT_KNEE, 0},
-                                         {LEFT_ANKLE, 75},
-                                         {RIGHT_ANKLE, 75}};
+    std::map<int, double>
+        jointMinMap = {{LEFT_HIP, 70},
+                       {LEFT_KNEE, 0},
+                       {RIGHT_HIP, 70},
+                       {RIGHT_KNEE, 0},
+                       {LEFT_ANKLE, 75},
+                       {RIGHT_ANKLE, 75}};
     /**
        * \brief Joint Limit Map between Joint value and max Degrees possible
        * \param int Joint value

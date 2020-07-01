@@ -18,6 +18,7 @@ void Sitting::during() {
         std::cout << "Selected mode: " << robot->pb.printRobotMode(modeSelected) << std::endl;
         robot->copleyDrives[1]->setNextMotion(modeSelected);
     }
+    updateCrutch();
 }
 void Sitting::exit() {
 }

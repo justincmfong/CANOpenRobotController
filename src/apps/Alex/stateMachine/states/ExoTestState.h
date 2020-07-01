@@ -41,6 +41,7 @@ class ExoTestState : public State {
     virtual void during() = 0;
     virtual void exit() = 0;
     ExoTestState(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL);
+    void updateCrutch();
 };
 
 #endif

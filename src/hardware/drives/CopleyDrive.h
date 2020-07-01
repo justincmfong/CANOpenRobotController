@@ -145,6 +145,18 @@ class CopleyDrive : public Drive {
      * \return int 
      */
     int getNextMotion();
+    /**
+ * \brief Set the Current Motion OD entry
+ * 
+ * @param robot mode
+ */
+    void setCurrentMotion(RobotMode mode);
+    /**
+ * \brief Get the Current Motion OD entry
+ * 
+ * \return int 
+ */
+    int getCurrentMotion();
 };
 
 #endif

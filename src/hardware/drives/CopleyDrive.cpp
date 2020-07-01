@@ -73,10 +73,17 @@ void CopleyDrive::setCurrentState(AlexState state) {
 }
 void CopleyDrive::setNextMotion(RobotMode mode) {
     *(&CO_OD_RAM.nextMovement) = static_cast<int>(mode);
-    DEBUG_OUT("NEXTMOVEMENT SET TO:" << *(&CO_OD_RAM.nextMovement));
+    //DEBUG_OUT("NEXTMOVEMENT SET TO:" << *(&CO_OD_RAM.nextMovement));
 }
 int CopleyDrive::getNextMotion() {
     return *(&CO_OD_RAM.nextMovement);
+}
+void CopleyDrive::setCurrentMotion(RobotMode mode) {
+    *(&CO_OD_RAM.currentMovement) = static_cast<int>(mode);
+}
+
+int CopleyDrive::getCurrentMotion() {
+    return *(&CO_OD_RAM.currentMovement);
 }
 int CopleyDrive::intRobotMode(RobotMode mode) {
     switch (mode) {

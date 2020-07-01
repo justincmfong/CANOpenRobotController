@@ -69,10 +69,6 @@ enum class RobotMode {
     UNEVEN,
     INITIAL,
     ERROR,
-    STANDING,
-    SITTING,
-    LFWD,
-    RFWD
 };
 /**
  * 

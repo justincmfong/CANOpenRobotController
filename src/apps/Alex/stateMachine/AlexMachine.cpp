@@ -141,7 +141,7 @@ bool AlexMachine::StartWalk::check(void) {
     return false;
 }
 bool AlexMachine::FeetTogether::check(void) {
-    if (OWNER->robot->keyboard.getA()) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->keyboard.getA()) {
         return true;
     }
     return false;
@@ -160,14 +160,14 @@ bool AlexMachine::ResetButtons::check(void) {
     return false;
 }
 bool AlexMachine::StandSelect::check(void) {
-    if (OWNER->robot->getNextMotion() == RobotMode::STNDUP && OWNER->robot->keyboard.getA()) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::STNDUP && OWNER->robot->keyboard.getA()) {
         DEBUG_OUT("Stand selected! Begin standing up")
         return true;
     }
     return false;
 }
 bool AlexMachine::SitSelect::check(void) {
-    if (OWNER->robot->getNextMotion() == RobotMode::SITDWN && OWNER->robot->keyboard.getA()) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->keyboard.getA()) {
         DEBUG_OUT("Sit selected! Begin standing up")
         return true;
     }
@@ -175,7 +175,7 @@ bool AlexMachine::SitSelect::check(void) {
 }
 bool AlexMachine::WalkSelect::check(void) {
     // \todo be any range of walking motions
-    if (OWNER->robot->getNextMotion() == RobotMode::NORMALWALK && OWNER->robot->keyboard.getS()) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->keyboard.getS()) {
         DEBUG_OUT("Normal walk selected begin left step")
         return true;
     } else if (OWNER->robot->getNextMotion() == RobotMode::UNEVEN && OWNER->robot->keyboard.getS()) {

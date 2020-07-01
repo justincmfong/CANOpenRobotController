@@ -142,11 +142,11 @@ bool AlexRobot::initialiseNetwork() {
     //         return false;
     // }
     /*for 4 joint speed*/
-    for (int i = 0; i < 4; i++) {
-        status = joints[i]->initNetwork();
-        if (!status)
-            return false;
-    }
+    // for (int i = 0; i < 4; i++) {
+    //     status = joints[i]->initNetwork();
+    //     if (!status)
+    //         return false;
+    // }
 
     return true;
 }
@@ -187,8 +187,17 @@ void AlexRobot::bitFlip() {
     }
 }
 RobotMode AlexRobot::getNextMotion() {
-    RobotMode currentMode;
-    currentMode = static_cast<RobotMode>(copleyDrives[0]->getNextMotion());
+    RobotMode nextMoode = static_cast<RobotMode>(copleyDrives[0]->getNextMotion());
+    //\todo check that cast worked and throw error if not.
+    return nextMoode;
+}
+
+void AlexRobot::setCurrentMotion(RobotMode nextMotion) {
+    copleyDrives[0]->setCurrentMotion(nextMotion);
+}
+
+RobotMode AlexRobot::getCurrentMotion() {
+    RobotMode currentMode = static_cast<RobotMode>(copleyDrives[0]->getCurrentMotion());
     //\todo check that cast worked and throw error if not.
     return currentMode;
 }
