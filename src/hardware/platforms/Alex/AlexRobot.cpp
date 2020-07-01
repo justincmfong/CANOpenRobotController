@@ -87,7 +87,7 @@ bool AlexRobot::moveThroughTraj() {
     double trajTimeUS = trajectoryGenerator->getStepDuration();
     prevTime = currTime;
     // This should check to make sure that the "GO" button is pressed.
-    if (true) {
+    if (copleyDrives[1]->getGoButton()) {
         currTrajProgress += elapsedSec;
         double fracTrajProgress = currTrajProgress / trajTimeUS;
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
@@ -195,8 +195,12 @@ RobotMode AlexRobot::getNextMotion() {
 void AlexRobot::setCurrentMotion(RobotMode nextMotion) {
     copleyDrives[0]->setCurrentMotion(nextMotion);
 }
+int AlexRobot::getGo() {
+    return copleyDrives[0]->getGoButton();
+}
 
-RobotMode AlexRobot::getCurrentMotion() {
+RobotMode
+AlexRobot::getCurrentMotion() {
     RobotMode currentMode = static_cast<RobotMode>(copleyDrives[0]->getCurrentMotion());
     //\todo check that cast worked and throw error if not.
     return currentMode;

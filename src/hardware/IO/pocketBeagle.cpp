@@ -1,8 +1,16 @@
 #include "pocketBeagle.h"
 
-pocketBeagle::pocketBeagle(){
-    DEBUG_OUT("Virtual pocket Beagle created")}
+pocketBeagle::pocketBeagle() {
+    DEBUG_OUT("Virtual pocket Beagle created")
+}
 
+void pocketBeagle::updateGO(bool go) {
+    if (go) {
+        *(&CO_OD_RAM.goButton) = 1;
+    } else {
+        *(&CO_OD_RAM.goButton) = 0;
+    }
+}
 RobotMode pocketBeagle::updateController(bool up, bool dwn, bool select) {
     RobotMode returnValue = RobotMode::INITIAL;
     if (up) {
@@ -53,6 +61,9 @@ std::string pocketBeagle::printRobotMode(RobotMode mode) {
             break;
         case RobotMode::UNEVEN:
             return "Uneven Walk";
+            break;
+        case RobotMode::FTTG:
+            return "Feet Together";
             break;
         default:
             return "No SELECTA";

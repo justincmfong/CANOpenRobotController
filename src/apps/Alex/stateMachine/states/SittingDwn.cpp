@@ -13,6 +13,8 @@ void SittingDwn::entry(void) {
     //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
 }
 void SittingDwn::during(void) {
+    // update go button do using keyboard d input.-> same as setting nm
+    //robot->pb.updateGO(robot->keyboard.getD());
     robot->moveThroughTraj();
 }
 void SittingDwn::exit(void) {

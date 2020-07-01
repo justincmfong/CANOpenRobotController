@@ -157,6 +157,12 @@ class CopleyDrive : public Drive {
  * \return int 
  */
     int getCurrentMotion();
+    /**
+    * \brief Get the Go Button OD entry
+    * 
+    * \return int 
+    */
+    int getGoButton();
 };
 
 #endif

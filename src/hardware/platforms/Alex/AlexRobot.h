@@ -180,6 +180,12 @@ class AlexRobot : public Robot {
  */
     RobotMode getCurrentMotion();
     /**
+     * \brief Get the Go OD entry
+     * 
+     * \return int 
+     */
+    int getGo();
+    /**
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h
     * 
     */

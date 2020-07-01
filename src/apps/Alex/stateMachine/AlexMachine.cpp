@@ -141,10 +141,14 @@ bool AlexMachine::StartWalk::check(void) {
     return false;
 }
 bool AlexMachine::FeetTogether::check(void) {
-    if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->keyboard.getA()) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::FTTG && OWNER->robot->keyboard.getA()) {
         return true;
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::FTTG && OWNER->robot->getGo()) {
+        DEBUG_OUT("Feet together  selected by crutch!")
+        return true;
+    } else {
+        return false;
     }
-    return false;
 }
 
 bool AlexMachine::IsRPressed::check(void) {
@@ -161,28 +165,40 @@ bool AlexMachine::ResetButtons::check(void) {
 }
 bool AlexMachine::StandSelect::check(void) {
     if (OWNER->robot->getCurrentMotion() == RobotMode::STNDUP && OWNER->robot->keyboard.getA()) {
-        DEBUG_OUT("Stand selected! Begin standing up")
+        DEBUG_OUT("Stand selected by keyboard! Begin standing up")
         return true;
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::STNDUP && OWNER->robot->getGo()) {
+        DEBUG_OUT("Stand selected by crutch! Begin standing up")
+        return true;
+    } else {
+        return false;
     }
-    return false;
 }
 bool AlexMachine::SitSelect::check(void) {
     if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->keyboard.getA()) {
         DEBUG_OUT("Sit selected! Begin standing up")
         return true;
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->getGo()) {
+        DEBUG_OUT("Sit selected by crutch! Begin standing up")
+        return true;
+    } else {
+        return false;
     }
-    return false;
 }
 bool AlexMachine::WalkSelect::check(void) {
     // \todo be any range of walking motions
     if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->keyboard.getS()) {
         DEBUG_OUT("Normal walk selected begin left step")
         return true;
-    } else if (OWNER->robot->getNextMotion() == RobotMode::UNEVEN && OWNER->robot->keyboard.getS()) {
+    } else if (OWNER->robot->getNextMotion() == RobotMode::UNEVEN && OWNER->robot->getGo()) {
         DEBUG_OUT("Uneven step selected begin left step")
         return true;
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->getGo()) {
+        DEBUG_OUT("Normal walk selected by crutch!")
+        return true;
+    } else {
+        return false;
     }
-    return false;
 }
 
 /**

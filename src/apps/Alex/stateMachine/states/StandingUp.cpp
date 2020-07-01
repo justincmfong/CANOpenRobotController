@@ -13,6 +13,8 @@ void StandingUp::entry(void) {
 }
 
 void StandingUp::during(void) {
+    // update go button do using keyboard d input.-> same as setting nm
+    //robot->pb.updateGO(robot->keyboard.getD());
     robot->moveThroughTraj();
 }
 void StandingUp::exit(void) {

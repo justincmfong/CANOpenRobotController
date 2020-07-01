@@ -14,11 +14,11 @@ void InitState::entry(void) {
     robot->pb.printMenu();
 }
 void InitState::during(void) {
+    //Virtual crutch - changing OD.nm
     RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
     if (modeSelected != RobotMode::INITIAL) {
         std::cout << "output:" << robot->pb.printRobotMode(modeSelected) << std::endl;
     }
-
     updateCrutch();
 }
 void InitState::exit(void) {

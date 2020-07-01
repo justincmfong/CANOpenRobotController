@@ -68,7 +68,6 @@ enum class RobotMode {
     FTTG,
     UNEVEN,
     INITIAL,
-    ERROR,
 };
 /**
  * 

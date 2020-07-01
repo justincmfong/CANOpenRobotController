@@ -59,6 +59,8 @@ class pocketBeagle {
  * \return std::string 
  */
     std::string printRobotMode(RobotMode mode);
+
+    void updateGO(bool go);
 };
 
 #endif

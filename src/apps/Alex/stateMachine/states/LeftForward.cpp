@@ -12,6 +12,7 @@ void LeftForward::entry(void) {
     robot->pb.printMenu();
 }
 void LeftForward::during(void) {
+    // Virtual crutch menu + OD.nm
     RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
     if (modeSelected != RobotMode::INITIAL) {
         std::cout << "Selected mode: " << robot->pb.printRobotMode(modeSelected) << std::endl;

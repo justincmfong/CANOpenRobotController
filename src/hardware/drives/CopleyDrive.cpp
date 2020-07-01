@@ -85,6 +85,9 @@ void CopleyDrive::setCurrentMotion(RobotMode mode) {
 int CopleyDrive::getCurrentMotion() {
     return *(&CO_OD_RAM.currentMovement);
 }
+int CopleyDrive::getGoButton() {
+    return *(&CO_OD_RAM.goButton);
+}
 int CopleyDrive::intRobotMode(RobotMode mode) {
     switch (mode) {
         case RobotMode::NORMALWALK:
