@@ -121,6 +121,7 @@ class AlexMachine : public StateMachine {
     EventObject(StandSelect) * standSelect;
     EventObject(SitSelect) * sitSelect;
     EventObject(WalkSelect) * walkSelect;
+    EventObject(BackStep) * backStep;
 };
 
 #endif /*EXO_SM_H*/

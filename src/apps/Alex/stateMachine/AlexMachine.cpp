@@ -19,6 +19,7 @@ AlexMachine::AlexMachine() {
     standSelect = new StandSelect(this);
     sitSelect = new SitSelect(this);
     walkSelect = new WalkSelect(this);
+    backStep = new BackStep(this);
     //States
     initState = new InitState(this, robot, trajectoryGenerator);
     standing = new Standing(this, robot, trajectoryGenerator);
@@ -186,15 +187,35 @@ bool AlexMachine::SitSelect::check(void) {
     }
 }
 bool AlexMachine::WalkSelect::check(void) {
-    // \todo be any range of walking motions
+    // \todo be any range of walking motions or change to switch stmnt
     if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->keyboard.getS()) {
         DEBUG_OUT("Normal walk selected begin left step")
         return true;
     } else if (OWNER->robot->getNextMotion() == RobotMode::UNEVEN && OWNER->robot->getGo()) {
         DEBUG_OUT("Uneven step selected begin left step")
         return true;
+    } else if (OWNER->robot->getNextMotion() == RobotMode::UPSTAIR && OWNER->robot->getGo()) {
+        DEBUG_OUT("up stair step selected begin left step")
+        return true;
+    } else if (OWNER->robot->getNextMotion() == RobotMode::DWNSTAIR && OWNER->robot->getGo()) {
+        DEBUG_OUT("Dwnstair step selected begin left step")
+        return true;
+    } else if (OWNER->robot->getNextMotion() == RobotMode::TILTUP && OWNER->robot->getGo()) {
+        DEBUG_OUT("Ramp up step selected begin left step")
+        return true;
+    } else if (OWNER->robot->getNextMotion() == RobotMode::TILTDWN && OWNER->robot->getGo()) {
+        DEBUG_OUT("Ramp dwn step selected begin left step")
+        return true;
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->getGo()) {
         DEBUG_OUT("Normal walk selected by crutch!")
+        return true;
+    } else {
+        return false;
+    }
+}
+bool AlexMachine::BackStep::check(void) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::BKSTEP && OWNER->robot->getGo()) {
+        DEBUG_OUT("Backstep selected by crutch!")
         return true;
     } else {
         return false;

@@ -142,11 +142,11 @@ bool AlexRobot::initialiseNetwork() {
     //         return false;
     // }
     /*for 4 joint speed*/
-    // for (int i = 0; i < 4; i++) {
-    //     status = joints[i]->initNetwork();
-    //     if (!status)
-    //         return false;
-    // }
+    for (int i = 0; i < 4; i++) {
+        status = joints[i]->initNetwork();
+        if (!status)
+            return false;
+    }
 
     return true;
 }

@@ -69,7 +69,7 @@ std::vector<std::string> CopleyDrive::generateTorqueControlConfigSDO() {
 }
 void CopleyDrive::setCurrentState(AlexState state) {
     *(&CO_OD_RAM.currentState) = static_cast<int>(state);
-    DEBUG_OUT("current state SET TO:" << *(&CO_OD_RAM.nextMovement));
+    DEBUG_OUT("current state SET TO:" << *(&CO_OD_RAM.currentState));
 }
 void CopleyDrive::setNextMotion(RobotMode mode) {
     *(&CO_OD_RAM.nextMovement) = static_cast<int>(mode);
