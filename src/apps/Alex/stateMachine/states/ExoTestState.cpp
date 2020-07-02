@@ -12,7 +12,6 @@ void ExoTestState::updateCrutch() {
 }
 void ExoTestState::updateFlag() {
     if (robot->getResetFlag() == false && robot->getGo() == false) {
-        DEBUG_OUT("Reset Trajectory FLAG SET to TRUE!")
         robot->setResetFlag(true);
     }
 }
