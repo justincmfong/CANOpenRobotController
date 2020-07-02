@@ -44,6 +44,8 @@ class AlexRobot : public Robot {
     double currTrajProgress = 0;
     double currTrajTime; /*currently loaded trajectories total time of execution, must be set before begining a trajectory*/
     timespec prevTime;
+    /*Flag for loading in new trajectories only after a green button release*/
+    bool resetTrajectory;
     /**
      * \brief motor drive position control profile paramaters, user defined.
      * 
@@ -183,13 +185,26 @@ class AlexRobot : public Robot {
      * 
      * \return int 
      */
-    int getGo();
+    bool getGo();
     /**
  * \brief Set the Current State object
  * 
  * @param state 
  */
     void setCurrentState(AlexState state);
+    /**
+ * \brief set Entry flag value
+ * 
+ * @param value 
+ */
+    void setResetFlag(bool value);
+    /**
+ * \brief get Entry Flag value
+ * 
+ * \return true 
+ * \return false 
+ */
+    bool getResetFlag();
     /**
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h
     * 

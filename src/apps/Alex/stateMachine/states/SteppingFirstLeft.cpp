@@ -10,8 +10,7 @@ void SteppingFirstLeft::entry(void) {
     /*MUST HAVE A CHECK THAT Its the correct motion here as well - or throw an error and don't move!*/
     trajectoryGenerator->initialiseTrajectory(robot->getNextMotion(), robot->getJointStates());
     robot->startNewTraj();
-    robot->copleyDrives[0]->setCurrentState(AlexState::StepFirstL);
-    //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
+    robot->setCurrentState(AlexState::StepFirstL);
 }
 void SteppingFirstLeft::during(void) {
     robot->moveThroughTraj();

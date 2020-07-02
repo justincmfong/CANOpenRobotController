@@ -120,49 +120,6 @@ class CopleyDrive : public Drive {
           *
           */
     std::vector<std::string> generateTorqueControlConfigSDO();
-    /*ALEX SPECIFIC - CRUTCH METHODS*/
-    /**
-     * \brief sets currentState object dictionary entry to send out to crutch
-     * 
-     */
-    void setCurrentState(AlexState state);
-    /**
-      * \brief Set the Next Motion OD entry -cast to an int
-      * 
-      * @param Robotmode 
-      */
-    void setNextMotion(RobotMode mode);
-    /**
-     * \brief Set the Next Motion OD entry -cast to an int
-     * 
-     * @param Robotmode 
-     * \return int 
-     */
-    int intRobotMode(RobotMode mode);
-    /**
-     * \brief Get the Next Motion object from OD.nm entry 
-     * 
-     * \return int 
-     */
-    int getNextMotion();
-    /**
- * \brief Set the Current Motion OD entry
- * 
- * @param robot mode
- */
-    void setCurrentMotion(RobotMode mode);
-    /**
- * \brief Get the Current Motion OD entry
- * 
- * \return int 
- */
-    int getCurrentMotion();
-    /**
-    * \brief Get the Go Button OD entry
-    * 
-    * \return int 
-    */
-    int getGoButton();
 };
 
 #endif

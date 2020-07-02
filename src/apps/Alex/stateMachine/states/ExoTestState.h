@@ -21,12 +21,11 @@
 #include "DebugMacro.h"
 #include "State.h"
 
-/**
- * \brief Example Implementation of State Class. Used with ExoTestMachine
- * 
- * Note: This is used to ensure that all states here have an ExoRobot, and a DummyTrajectoryGenerator (as opposed to more generic Robot and TrajectoryGenerator)
- * 
- */
+/* \brief Example Implementation of State Class.Used with ExoTestMachine
+*
+*  *Note : This is used to ensure that all states here have an ExoRobot,
+    and a DummyTrajectoryGenerator(as opposed to more generic Robot and TrajectoryGenerator) *
+*/
 class ExoTestState : public State {
    protected:
     /**
@@ -42,6 +41,10 @@ class ExoTestState : public State {
     virtual void exit() = 0;
     ExoTestState(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenerator *tg, const char *name = NULL);
     void updateCrutch();
+    void updateFlag();
+
+   private:
+    // bool entryFlag;
 };
 
 #endif

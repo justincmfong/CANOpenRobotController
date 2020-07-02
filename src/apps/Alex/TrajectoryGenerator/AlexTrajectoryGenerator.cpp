@@ -1423,7 +1423,7 @@ double AlexTrajectoryGenerator::getStepDuration() {
 
 bool AlexTrajectoryGenerator::isTrajectoryFinished(double trajProgress) {
     double fracProgress = trajProgress / (double)trajectoryParameter.step_duration;
-    if (fracProgress > 1) {
+    if (fracProgress > 1.05) {
         return true;
     } else {
         return false;

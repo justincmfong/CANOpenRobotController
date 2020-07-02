@@ -65,6 +65,24 @@ std::string pocketBeagle::printRobotMode(RobotMode mode) {
         case RobotMode::FTTG:
             return "Feet Together";
             break;
+        case RobotMode::INITIAL:
+            return "Initial Sit ";
+            break;
+        case RobotMode::UPSTAIR:
+            return "Upstairs";
+            break;
+        case RobotMode::DWNSTAIR:
+            return "DWNSTAIR";
+            break;
+        case RobotMode::TILTUP:
+            return "TILTUP";
+            break;
+        case RobotMode::TILTDWN:
+            return "TILTDWN";
+            break;
+        case RobotMode::BKSTEP:
+            return "Backstep";
+            break;
         default:
             return "No SELECTA";
             break;

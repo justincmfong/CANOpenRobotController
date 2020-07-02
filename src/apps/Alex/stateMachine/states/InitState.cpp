@@ -10,10 +10,12 @@ void InitState::entry(void) {
         << " PRESS S to start program" << endl
         << "========================" << endl;
     //Initialize OD entries - Must be something other then Initial -> must be sent by crutch @ startup
-    robot->copleyDrives[0]->setCurrentState(AlexState::Init);
+    robot->setCurrentState(AlexState::Init);
     robot->setCurrentMotion(RobotMode::NORMALWALK);
     robot->setNextMotion(RobotMode::NORMALWALK);
     robot->pb.printMenu();
+    // entry flag must be set to true by a green button release
+    robot->setResetFlag(false);
 }
 void InitState::during(void) {
     //Virtual crutch - changing OD.nm
@@ -22,6 +24,7 @@ void InitState::during(void) {
         std::cout << "output:" << robot->pb.printRobotMode(modeSelected) << std::endl;
     }
     updateCrutch();
+    updateFlag();
 }
 void InitState::exit(void) {
     robot->initPositionControl();

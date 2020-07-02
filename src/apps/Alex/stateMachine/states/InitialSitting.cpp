@@ -5,7 +5,7 @@ void InitialSitting::entry(void) {
     DEBUG_OUT("PRESS GREEN TO SIT DOWN")
     trajectoryGenerator->initialiseTrajectory(RobotMode::INITIAL, robot->getJointStates());
     robot->startNewTraj();
-    robot->setCurrentState(AlexState::SittingDown);
+    robot->setCurrentState(AlexState::InitSitting);
 }
 void InitialSitting::during(void) {
     robot->moveThroughTraj();

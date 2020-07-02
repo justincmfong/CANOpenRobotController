@@ -22,6 +22,7 @@ AlexMachine::AlexMachine() {
     backStep = new BackStep(this);
     //States
     initState = new InitState(this, robot, trajectoryGenerator);
+    initialSitting = new InitialSitting(this, robot, trajectoryGenerator);
     standing = new Standing(this, robot, trajectoryGenerator);
     sitting = new Sitting(this, robot, trajectoryGenerator);
     standingUp = new StandingUp(this, robot, trajectoryGenerator);
@@ -39,6 +40,7 @@ AlexMachine::AlexMachine() {
      * \brief Moving Trajectory Transitions
      *
      */
+    NewTransition(initialSitting, endTraj, sitting);
     NewTransition(standingUp, endTraj, standing);
     NewTransition(sittingDwn, endTraj, sitting);
     // Stepping
@@ -51,7 +53,7 @@ AlexMachine::AlexMachine() {
      * \brief Stationary to moving state transitions (OD.NM controls type of walk)
      *
      */
-    NewTransition(initState, startExo, sitting);
+    NewTransition(initState, startExo, initialSitting);
     NewTransition(sitting, standSelect, standingUp);
     NewTransition(standing, sitSelect, sittingDwn);
     NewTransition(standing, walkSelect, steppingFirstLeft);
@@ -98,7 +100,10 @@ void AlexMachine::init() {
      */
 bool AlexMachine::EndTraj::check() {
     /*For alex Traj Generator*/
-    return OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress());
+    if (OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress()) && !OWNER->robot->getGo()) {
+        return true;
+    }
+    return false;
 }
 bool AlexMachine::IsAPressed::check(void) {
     if (OWNER->robot->keyboard.getA() == true) {
@@ -114,7 +119,9 @@ bool AlexMachine::StartButtonsPressed::check(void) {
 }
 bool AlexMachine::StartExo::check(void) {
     if (OWNER->robot->keyboard.getS() == true) {
-        std::cout << "LEAVING INIT and entering Sitting" << endl;
+        std::cout << "LEAVING INIT and entering init Sitting" << endl;
+        return true;
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::INITIAL && OWNER->robot->getGo()) {
         return true;
     }
     return false;
@@ -142,14 +149,16 @@ bool AlexMachine::StartWalk::check(void) {
     return false;
 }
 bool AlexMachine::FeetTogether::check(void) {
-    if (OWNER->robot->getCurrentMotion() == RobotMode::FTTG && OWNER->robot->keyboard.getA()) {
-        return true;
-    } else if (OWNER->robot->getCurrentMotion() == RobotMode::FTTG && OWNER->robot->getGo()) {
-        DEBUG_OUT("Feet together  selected by crutch!")
-        return true;
-    } else {
-        return false;
+    if (OWNER->robot->getResetFlag()) {
+        if (OWNER->robot->getCurrentMotion() == RobotMode::FTTG && OWNER->robot->keyboard.getA()) {
+            return true;
+        }
+        if (OWNER->robot->getCurrentMotion() == RobotMode::FTTG && OWNER->robot->getGo()) {
+            DEBUG_OUT("Feet together  selected by crutch!")
+            return true;
+        }
     }
+    return false;
 }
 
 bool AlexMachine::IsRPressed::check(void) {
@@ -165,26 +174,29 @@ bool AlexMachine::ResetButtons::check(void) {
     return false;
 }
 bool AlexMachine::StandSelect::check(void) {
-    if (OWNER->robot->getCurrentMotion() == RobotMode::STNDUP && OWNER->robot->keyboard.getA()) {
-        DEBUG_OUT("Stand selected by keyboard! Begin standing up")
-        return true;
-    } else if (OWNER->robot->getCurrentMotion() == RobotMode::STNDUP && OWNER->robot->getGo()) {
-        DEBUG_OUT("Stand selected by crutch! Begin standing up")
-        return true;
-    } else {
-        return false;
+    if (OWNER->robot->getResetFlag()) {
+        if (OWNER->robot->getCurrentMotion() == RobotMode::STNDUP && OWNER->robot->keyboard.getA()) {
+            DEBUG_OUT("Stand selected by keyboard! Begin standing up")
+            return true;
+        }
+        if (OWNER->robot->getCurrentMotion() == RobotMode::STNDUP && OWNER->robot->getGo()) {
+            DEBUG_OUT("Stand selected by crutch! Begin standing up")
+            return true;
+        }
     }
+    return false;
 }
 bool AlexMachine::SitSelect::check(void) {
-    if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->keyboard.getA()) {
-        DEBUG_OUT("Sit selected! Begin standing up")
-        return true;
-    } else if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->getGo()) {
-        DEBUG_OUT("Sit selected by crutch! Begin standing up")
-        return true;
-    } else {
-        return false;
+    if (OWNER->robot->getResetFlag()) {
+        if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->keyboard.getA()) {
+            DEBUG_OUT("Sit selected! Begin standing up")
+            return true;
+        } else if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->getGo()) {
+            DEBUG_OUT("Sit selected by crutch! Begin standing up")
+            return true;
+        }
     }
+    return false;
 }
 bool AlexMachine::WalkSelect::check(void) {
     // \todo be any range of walking motions or change to switch stmnt

@@ -46,6 +46,7 @@
 // State Classes
 #include "ErrorState.h"
 #include "InitState.h"
+#include "InitialSitting.h"
 #include "LeftForward.h"
 #include "RightForward.h"
 #include "Sitting.h"
@@ -85,6 +86,7 @@ class AlexMachine : public StateMachine {
      * 
      */
     InitState* initState;
+    InitialSitting* initialSitting;
     SittingDwn* sittingDwn;
     StandingUp* standingUp;
     Sitting* sitting;

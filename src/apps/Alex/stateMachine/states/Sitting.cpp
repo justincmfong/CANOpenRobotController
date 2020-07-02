@@ -8,17 +8,19 @@ void Sitting::entry() {
               << " HIT A to begin standing up" << std::endl
               << "=======================" << std::endl
               << std::endl;
-    robot->copleyDrives[0]->setCurrentState(AlexState::Sitting);
-    //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
+    robot->setCurrentState(AlexState::Sitting);
     robot->pb.printMenu();
+    // entry flag must be set to true by a green button release
+    robot->setResetFlag(false);
 }
 void Sitting::during() {
     RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
     if (modeSelected != RobotMode::INITIAL) {
         std::cout << "Selected mode: " << robot->pb.printRobotMode(modeSelected) << std::endl;
-        robot->copleyDrives[1]->setNextMotion(modeSelected);
+        robot->setNextMotion(modeSelected);
     }
     updateCrutch();
+    updateFlag();
 }
 void Sitting::exit() {
 }

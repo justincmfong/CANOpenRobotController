@@ -39,11 +39,9 @@ bool AlexRobot::initPositionControl() {
     // }
 
     // Pause for a bit to let commands go
-    usleep(2000);
     for (auto p : joints) {
         ((ActuatedJoint *)p)->enable();
     }
-    usleep(2000);
     for (auto p : joints) {
         ((AlexJoint *)p)->enableContinuousProfile();
     }
@@ -87,7 +85,7 @@ bool AlexRobot::moveThroughTraj() {
     double trajTimeUS = trajectoryGenerator->getStepDuration();
     prevTime = currTime;
     // This should check to make sure that the "GO" button is pressed.
-    if (copleyDrives[1]->getGoButton()) {
+    if (getGo()) {
         currTrajProgress += elapsedSec;
         double fracTrajProgress = currTrajProgress / trajTimeUS;
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
@@ -191,20 +189,30 @@ void AlexRobot::setCurrentMotion(RobotMode mode) {
 }
 
 RobotMode AlexRobot::getCurrentMotion() {
-    RobotMode currentMode = static_cast<RobotMode>(copleyDrives[0]->getCurrentMotion());
-    return currentMode;
+    return static_cast<RobotMode>(*(&CO_OD_RAM.currentMovement));
 }
 void AlexRobot::setNextMotion(RobotMode mode) {
     *(&CO_OD_RAM.nextMovement) = static_cast<int>(mode);
 }
 RobotMode AlexRobot::getNextMotion() {
-    RobotMode nextMoode = static_cast<RobotMode>(*(&CO_OD_RAM.nextMovement));
-    return nextMoode;
+    return static_cast<RobotMode>(*(&CO_OD_RAM.nextMovement));
 }
 void AlexRobot::setCurrentState(AlexState state) {
     *(&CO_OD_RAM.currentState) = static_cast<int>(state);
     DEBUG_OUT("current state SET TO:" << *(&CO_OD_RAM.currentState));
 }
-int AlexRobot::getGo() {
-    return copleyDrives[0]->getGoButton();
+bool AlexRobot::getGo() {
+    if (*(&CO_OD_RAM.goButton) == 1) {
+        return true;
+    }
+    return false;
+}
+
+void AlexRobot::setResetFlag(bool value) {
+    resetTrajectory = value;
+}
+
+bool AlexRobot::getResetFlag() {
+    return resetTrajectory;
+    ;
 }

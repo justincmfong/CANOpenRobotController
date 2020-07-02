@@ -9,12 +9,9 @@ void SittingDwn::entry(void) {
               << "===================" << endl;
     trajectoryGenerator->initialiseTrajectory(robot->getCurrentMotion(), robot->getJointStates());
     robot->startNewTraj();
-    robot->copleyDrives[0]->setCurrentState(AlexState::SittingDown);
-    //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
+    robot->setCurrentState(AlexState::SittingDown);
 }
 void SittingDwn::during(void) {
-    // update go button do using keyboard d input.-> same as setting nm
-    //robot->pb.updateGO(robot->keyboard.getD());
     robot->moveThroughTraj();
 }
 void SittingDwn::exit(void) {
