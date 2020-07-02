@@ -140,7 +140,7 @@ void AlexTrajectoryGenerator::printTrajectoryParameters() {
 
     switch (trajectoryParameter.stepType) {
         case (StepType::Walk):
-            outstring = "Normal Walk";
+            outstring = "Walk";
             break;
         case (StepType::Uneven):
             outstring = "Uneven";

@@ -9,8 +9,10 @@ void InitState::entry(void) {
         << "========================" << endl
         << " PRESS S to start program" << endl
         << "========================" << endl;
+    //Initialize OD entries - Must be something other then Initial -> must be sent by crutch @ startup
     robot->copleyDrives[0]->setCurrentState(AlexState::Init);
-    robot->setCurrentMotion(RobotMode::INITIAL);
+    robot->setCurrentMotion(RobotMode::NORMALWALK);
+    robot->setNextMotion(RobotMode::NORMALWALK);
     robot->pb.printMenu();
 }
 void InitState::during(void) {

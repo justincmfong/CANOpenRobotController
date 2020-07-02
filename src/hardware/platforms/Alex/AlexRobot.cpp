@@ -186,22 +186,25 @@ void AlexRobot::bitFlip() {
         joint->bitFlip();
     }
 }
-RobotMode AlexRobot::getNextMotion() {
-    RobotMode nextMoode = static_cast<RobotMode>(copleyDrives[0]->getNextMotion());
-    //\todo check that cast worked and throw error if not.
-    return nextMoode;
+void AlexRobot::setCurrentMotion(RobotMode mode) {
+    *(&CO_OD_RAM.currentMovement) = static_cast<int>(mode);
 }
 
-void AlexRobot::setCurrentMotion(RobotMode nextMotion) {
-    copleyDrives[0]->setCurrentMotion(nextMotion);
+RobotMode AlexRobot::getCurrentMotion() {
+    RobotMode currentMode = static_cast<RobotMode>(copleyDrives[0]->getCurrentMotion());
+    return currentMode;
+}
+void AlexRobot::setNextMotion(RobotMode mode) {
+    *(&CO_OD_RAM.nextMovement) = static_cast<int>(mode);
+}
+RobotMode AlexRobot::getNextMotion() {
+    RobotMode nextMoode = static_cast<RobotMode>(*(&CO_OD_RAM.nextMovement));
+    return nextMoode;
+}
+void AlexRobot::setCurrentState(AlexState state) {
+    *(&CO_OD_RAM.currentState) = static_cast<int>(state);
+    DEBUG_OUT("current state SET TO:" << *(&CO_OD_RAM.currentState));
 }
 int AlexRobot::getGo() {
     return copleyDrives[0]->getGoButton();
-}
-
-RobotMode
-AlexRobot::getCurrentMotion() {
-    RobotMode currentMode = static_cast<RobotMode>(copleyDrives[0]->getCurrentMotion());
-    //\todo check that cast worked and throw error if not.
-    return currentMode;
 }

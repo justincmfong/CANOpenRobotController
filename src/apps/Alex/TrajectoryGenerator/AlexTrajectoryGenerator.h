@@ -127,9 +127,9 @@ typedef struct PilotParameters {
  * @return TrajectoryGenerator::TrajectoryParameters 
  */
 static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
-    {RobotMode::INITIAL, {.step_duration = 1, .step_height = 0.2, .step_length = 0.3,
-                          .hip_height_slack = 0.0001,         // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                          .torso_forward_angle = deg2rad(5),  // TODO: make this a vector/array?
+    {RobotMode::INITIAL, {.step_duration = SITTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
+                          .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
+                          .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                           .swing_ankle_down_angle = 0,
                           .stance_foot = Foot::Right,
                           .stepType = StepType::Sitting,

@@ -7,7 +7,7 @@ void SittingDwn::entry(void) {
               << "===================" << endl
               << " GREEN -> SIT DOWN " << endl
               << "===================" << endl;
-    trajectoryGenerator->initialiseTrajectory(robot->getNextMotion(), robot->getJointStates());
+    trajectoryGenerator->initialiseTrajectory(robot->getCurrentMotion(), robot->getJointStates());
     robot->startNewTraj();
     robot->copleyDrives[0]->setCurrentState(AlexState::SittingDown);
     //\todo change to this: robot->copleyDrives[0]->setCurrentState(this.getName());
