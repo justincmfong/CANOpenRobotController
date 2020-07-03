@@ -40,7 +40,9 @@ enum class AlexState { Error,
                        StepLastL,
                        StepLastR,
                        StepL,
-                       StepR };
+                       StepR,
+                       BackStepR,
+                       BackStepL };
 /**
  * An enum type.
  * Joint Index for the 6 joints (note, NODEID = this + 1)

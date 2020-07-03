@@ -44,6 +44,8 @@
 #include "StateMachine.h"
 
 // State Classes
+#include "BackStepLeft.h"
+#include "BackStepRight.h"
 #include "ErrorState.h"
 #include "InitState.h"
 #include "InitialSitting.h"
@@ -99,6 +101,8 @@ class AlexMachine : public StateMachine {
     SteppingLastRight* steppingLastRight;
     SteppingLastLeft* steppingLastLeft;
     ErrorState* errorState;
+    BackStepLeft* backStepLeft;
+    BackStepRight* backStepRight;
 
    protected:
     AlexRobot* robot; /*<!Pointer to the Robot*/

@@ -19,7 +19,7 @@ AlexMachine::AlexMachine() {
     standSelect = new StandSelect(this);
     sitSelect = new SitSelect(this);
     walkSelect = new WalkSelect(this);
-    backStep = new BackStep(this);
+
     //States
     initState = new InitState(this, robot, trajectoryGenerator);
     initialSitting = new InitialSitting(this, robot, trajectoryGenerator);
@@ -35,6 +35,8 @@ AlexMachine::AlexMachine() {
     steppingLastRight = new SteppingLastRight(this, robot, trajectoryGenerator);
     steppingLastLeft = new SteppingLastLeft(this, robot, trajectoryGenerator);
     errorState = new ErrorState(this, robot, trajectoryGenerator);
+    backStepLeft = new BackStepLeft(this, robot, trajectoryGenerator);
+    backStepRight = new BackStepRight(this, robot, trajectoryGenerator);
 
     /**
      * \brief Moving Trajectory Transitions
@@ -43,7 +45,7 @@ AlexMachine::AlexMachine() {
     NewTransition(initialSitting, endTraj, sitting);
     NewTransition(standingUp, endTraj, standing);
     NewTransition(sittingDwn, endTraj, sitting);
-    // Stepping
+    /* Stepping*/
     NewTransition(steppingRight, endTraj, rightForward);
     NewTransition(steppingFirstLeft, endTraj, leftForward);
     NewTransition(steppingLeft, endTraj, leftForward);
@@ -61,6 +63,13 @@ AlexMachine::AlexMachine() {
     NewTransition(rightForward, walkSelect, steppingLeft);
     NewTransition(leftForward, feetTogether, steppingLastRight);
     NewTransition(rightForward, feetTogether, steppingLastLeft);
+    /*Back Stepping transitions*/
+    //Currently just a left backstep from standing
+    /*\todo add backstep feet together (1/2 step x size) + starting w/back right step*/
+    NewTransition(standing, backStep, backStepLeft);
+    NewTransition(backStepLeft, endTraj, rightForward);
+    NewTransition(rightForward, backStep, backStepRight);
+    NewTransition(backStepRight, endTraj, leftForward);
 
     /**
      * \brief  Error State Transitions

@@ -345,6 +345,7 @@ sdoReturnCode_t Drive::sendSDOMessages(std::vector<std::string> messages) {
         // Because returnMessage includes sequence it is possible value is "[1] OK".
         // Therefore it is checked if return message includes the string "OK".
         // Another option would be erasing the sequence value before returning in cancomm_socketFree
+        // for write PDO ONLY
         if (retMsg.find("OK") != std::string::npos) {
             successfulMessages++;
         }
