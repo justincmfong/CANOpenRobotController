@@ -7,9 +7,9 @@ void SittingDwn::entry(void) {
               << "===================" << endl
               << " GREEN -> SIT DOWN " << endl
               << "===================" << endl;
-    trajectoryGenerator->initialiseTrajectory(RobotMode::SITDWN, robot->getJointStates());
+    trajectoryGenerator->initialiseTrajectory(robot->getCurrentMotion(), robot->getJointStates());
     robot->startNewTraj();
-    robot->copleyDrives[0]->setNextMotion(RobotMode::SITDWN);
+    robot->setCurrentState(AlexState::SittingDown);
 }
 void SittingDwn::during(void) {
     robot->moveThroughTraj();

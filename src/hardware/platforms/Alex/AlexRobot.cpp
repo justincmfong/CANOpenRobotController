@@ -19,22 +19,29 @@ AlexRobot::~AlexRobot() {
 bool AlexRobot::initPositionControl() {
     DEBUG_OUT("Initialising Position Control on all joints ")
     bool returnValue = true;
-    for (auto p : joints) {
-        if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL, posControlMotorProfile) != POSITION_CONTROL) {
+    for (int i = 0; i < 4; i++) {
+        if (((ActuatedJoint *)joints[i])->setMode(POSITION_CONTROL, posControlMotorProfile) != POSITION_CONTROL) {
             // Something back happened if were are here
             DEBUG_OUT("Something bad happened")
             returnValue = false;
         }
         // Put into ReadyToSwitchOn()
-        ((ActuatedJoint *)p)->readyToSwitchOn();
+        ((ActuatedJoint *)joints[i])->readyToSwitchOn();
     }
+    // for (auto p : joints) {
+    //     if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL, posControlMotorProfile) != POSITION_CONTROL) {
+    //         // Something back happened if were are here
+    //         DEBUG_OUT("Something bad happened")
+    //         returnValue = false;
+    //     }
+    //     // Put into ReadyToSwitchOn()
+    //     ((ActuatedJoint *)p)->readyToSwitchOn();
+    // }
 
     // Pause for a bit to let commands go
-    usleep(2000);
     for (auto p : joints) {
         ((ActuatedJoint *)p)->enable();
     }
-    usleep(2000);
     for (auto p : joints) {
         ((AlexJoint *)p)->enableContinuousProfile();
     }
@@ -78,7 +85,7 @@ bool AlexRobot::moveThroughTraj() {
     double trajTimeUS = trajectoryGenerator->getStepDuration();
     prevTime = currTime;
     // This should check to make sure that the "GO" button is pressed.
-    if (true) {
+    if (getGo()) {
         currTrajProgress += elapsedSec;
         double fracTrajProgress = currTrajProgress / trajTimeUS;
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
@@ -127,8 +134,14 @@ bool AlexRobot::initialiseNetwork() {
     DEBUG_OUT("AlexRobot::initialiseNetwork()");
 
     bool status;
-    for (auto joint : joints) {
-        status = joint->initNetwork();
+    // for (auto joint : joints) {
+    //     status = joint->initNetwork();
+    //     if (!status)
+    //         return false;
+    // }
+    /*for 4 joint speed*/
+    for (int i = 0; i < 4; i++) {
+        status = joints[i]->initNetwork();
         if (!status)
             return false;
     }
@@ -170,4 +183,36 @@ void AlexRobot::bitFlip() {
     for (auto joint : joints) {
         joint->bitFlip();
     }
+}
+void AlexRobot::setCurrentMotion(RobotMode mode) {
+    *(&CO_OD_RAM.currentMovement) = static_cast<int>(mode);
+}
+
+RobotMode AlexRobot::getCurrentMotion() {
+    return static_cast<RobotMode>(*(&CO_OD_RAM.currentMovement));
+}
+void AlexRobot::setNextMotion(RobotMode mode) {
+    *(&CO_OD_RAM.nextMovement) = static_cast<int>(mode);
+}
+RobotMode AlexRobot::getNextMotion() {
+    return static_cast<RobotMode>(*(&CO_OD_RAM.nextMovement));
+}
+void AlexRobot::setCurrentState(AlexState state) {
+    *(&CO_OD_RAM.currentState) = static_cast<int>(state);
+    DEBUG_OUT("current state SET TO:" << *(&CO_OD_RAM.currentState));
+}
+bool AlexRobot::getGo() {
+    if (*(&CO_OD_RAM.goButton) == 1) {
+        return true;
+    }
+    return false;
+}
+
+void AlexRobot::setResetFlag(bool value) {
+    resetTrajectory = value;
+}
+
+bool AlexRobot::getResetFlag() {
+    return resetTrajectory;
+    ;
 }

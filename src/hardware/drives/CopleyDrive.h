@@ -120,12 +120,6 @@ class CopleyDrive : public Drive {
           *
           */
     std::vector<std::string> generateTorqueControlConfigSDO();
-    /*ALEX SPECIFIC - CRUTCH METHODS*/
-    /**
-     * \brief sets nextMotion object dictionary entry to send out to crutch
-     * 
-     */
-    void setNextMotion(RobotMode mode);
 };
 
 #endif

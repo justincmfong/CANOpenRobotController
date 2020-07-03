@@ -10,7 +10,7 @@ void Standing::entry(void) {
               << " S ->> start Walk" << std::endl
               << "=======================" << std::endl
               << std::endl;
-    robot->copleyDrives[0]->setNextMotion(RobotMode::STANDING);
+    //robot->copleyDrives[0]->setNextMotion(RobotMode::STANDING);
 }
 
 void Standing::during(void) {

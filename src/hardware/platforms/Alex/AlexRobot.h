@@ -28,6 +28,7 @@
 #include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
+#include "pocketBeagle.h"
 
 /**
      * \todo Load in paramaters and dictionary entries from JSON file.
@@ -43,6 +44,8 @@ class AlexRobot : public Robot {
     double currTrajProgress = 0;
     double currTrajTime; /*currently loaded trajectories total time of execution, must be set before begining a trajectory*/
     timespec prevTime;
+    /*Flag for loading in new trajectories only after a green button release*/
+    bool resetTrajectory;
     /**
      * \brief motor drive position control profile paramaters, user defined.
      * 
@@ -61,6 +64,8 @@ class AlexRobot : public Robot {
     ~AlexRobot();
     AlexTrajectoryGenerator *trajectoryGenerator;
     Keyboard keyboard;
+    pocketBeagle pb;
+
     vector<CopleyDrive *> copleyDrives;
 
     // /**
@@ -151,6 +156,56 @@ class AlexRobot : public Robot {
     */
     std::vector<double> getJointStates();
     /**
+ * \brief Set the Next Motion object
+ * 
+ * @param nextMotion 
+ */
+    void setNextMotion(RobotMode nextMotion);
+    /**
+ * \brief Get the Next Motion OD entry
+ * 
+ * \return RobotMode 
+ */
+    RobotMode getNextMotion();
+    /**
+ * \brief Set the Current Motion object from the od.nextMotion entry
+ * 
+ * \return current RobotMode
+ * 
+ */
+    void setCurrentMotion(RobotMode nextMotion);
+    /**
+ * \brief Get the Current Motion OD entry
+ * 
+ * \return RobotMode 
+ */
+    RobotMode getCurrentMotion();
+    /**
+     * \brief Get the Go OD entry
+     * 
+     * \return int 
+     */
+    bool getGo();
+    /**
+ * \brief Set the Current State object
+ * 
+ * @param state 
+ */
+    void setCurrentState(AlexState state);
+    /**
+ * \brief set Entry flag value
+ * 
+ * @param value 
+ */
+    void setResetFlag(bool value);
+    /**
+ * \brief get Entry Flag value
+ * 
+ * \return true 
+ * \return false 
+ */
+    bool getResetFlag();
+    /**
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h
     * 
     */
@@ -159,13 +214,12 @@ class AlexRobot : public Robot {
        * \param int Joint value
        * \return int maxDeg 
        */
-    std::map<int, double>
-        jointMinMap = {{LEFT_HIP, 70},
-                       {LEFT_KNEE, 0},
-                       {RIGHT_HIP, 70},
-                       {RIGHT_KNEE, 0},
-                       {LEFT_ANKLE, 75},
-                       {RIGHT_ANKLE, 75}};
+    std::map<int, double> jointMinMap = {{LEFT_HIP, 70},
+                                         {LEFT_KNEE, 0},
+                                         {RIGHT_HIP, 70},
+                                         {RIGHT_KNEE, 0},
+                                         {LEFT_ANKLE, 75},
+                                         {RIGHT_ANKLE, 75}};
     /**
        * \brief Joint Limit Map between Joint value and max Degrees possible
        * \param int Joint value

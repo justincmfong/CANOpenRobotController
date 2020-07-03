@@ -6,12 +6,14 @@ void StandingUp::entry(void) {
               << " STANDING UP" << endl
               << " GREEN -> STAND UP" << endl
               << "===================" << endl;
-    trajectoryGenerator->initialiseTrajectory(RobotMode::STNDUP, robot->getJointStates());
+    trajectoryGenerator->initialiseTrajectory(robot->getNextMotion(), robot->getJointStates());
     robot->startNewTraj();
-    robot->copleyDrives[0]->setNextMotion(RobotMode::STNDUP);
+    robot->setCurrentState(AlexState::StandingUp);
 }
 
 void StandingUp::during(void) {
+    // update go button do using keyboard d input.-> same as setting nm
+    //robot->pb.updateGO(robot->keyboard.getD());
     robot->moveThroughTraj();
 }
 void StandingUp::exit(void) {

@@ -5,11 +5,10 @@ void SteppingFirstLeft::entry(void) {
         << "==================" << endl
         << " Stepping 1st Left" << endl
         << "==================" << endl;
-    /*/TODO CHANGE to selecting NORMALwALK to be from OD.mode traj param map equivalent*/
-    /*ATM is just normal walk - choose from crutch*/
-    trajectoryGenerator->initialiseTrajectory(RobotMode::NORMALWALK, robot->getJointStates());
+    /*MUST HAVE A CHECK THAT Its the correct motion here as well - or throw an error and don't move!*/
+    trajectoryGenerator->initialiseTrajectory(robot->getNextMotion(), robot->getJointStates());
     robot->startNewTraj();
-    robot->copleyDrives[0]->setNextMotion(RobotMode::NORMALWALK);
+    robot->setCurrentState(AlexState::StepFirstL);
 }
 void SteppingFirstLeft::during(void) {
     robot->moveThroughTraj();

@@ -9,8 +9,22 @@ void InitState::entry(void) {
         << "========================" << endl
         << " PRESS S to start program" << endl
         << "========================" << endl;
+    //Initialize OD entries - Must be something other then Initial -> must be sent by crutch @ startup
+    robot->setCurrentState(AlexState::Init);
+    robot->setCurrentMotion(RobotMode::NORMALWALK);
+    robot->setNextMotion(RobotMode::NORMALWALK);
+    robot->pb.printMenu();
+    // entry flag must be set to true by a green button release
+    robot->setResetFlag(false);
 }
 void InitState::during(void) {
+    //Virtual crutch - changing OD.nm
+    RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
+    if (modeSelected != RobotMode::INITIAL) {
+        std::cout << "output:" << robot->pb.printRobotMode(modeSelected) << std::endl;
+    }
+    updateCrutch();
+    updateFlag();
 }
 void InitState::exit(void) {
     robot->initPositionControl();

@@ -44,8 +44,11 @@
 #include "StateMachine.h"
 
 // State Classes
+#include "BackStepLeft.h"
+#include "BackStepRight.h"
 #include "ErrorState.h"
 #include "InitState.h"
+#include "InitialSitting.h"
 #include "LeftForward.h"
 #include "RightForward.h"
 #include "Sitting.h"
@@ -57,6 +60,7 @@
 #include "SteppingLastRight.h"
 #include "SteppingLeft.h"
 #include "SteppingRight.h"
+
 /**
  * @brief Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestState
  * 
@@ -74,31 +78,34 @@ class AlexMachine : public StateMachine {
     void deactivate();
 
     void hwStateUpdate();
-    State *gettCurState();
-    void initRobot(AlexRobot *rb);
+    State* gettCurState();
+    void initRobot(AlexRobot* rb);
     bool trajComplete;
-    AlexTrajectoryGenerator *trajectoryGenerator;
+    AlexTrajectoryGenerator* trajectoryGenerator;
 
     /**
      * Pointers to the relevant states - initialised in init 
      * 
      */
-    InitState *initState;
-    SittingDwn *sittingDwn;
-    StandingUp *standingUp;
-    Sitting *sitting;
-    Standing *standing;
-    SteppingFirstLeft *steppingFirstLeft;
-    LeftForward *leftForward;
-    SteppingRight *steppingRight;
-    RightForward *rightForward;
-    SteppingLeft *steppingLeft;
-    SteppingLastRight *steppingLastRight;
-    SteppingLastLeft *steppingLastLeft;
-    ErrorState *errorState;
+    InitState* initState;
+    InitialSitting* initialSitting;
+    SittingDwn* sittingDwn;
+    StandingUp* standingUp;
+    Sitting* sitting;
+    Standing* standing;
+    SteppingFirstLeft* steppingFirstLeft;
+    LeftForward* leftForward;
+    SteppingRight* steppingRight;
+    RightForward* rightForward;
+    SteppingLeft* steppingLeft;
+    SteppingLastRight* steppingLastRight;
+    SteppingLastLeft* steppingLastLeft;
+    ErrorState* errorState;
+    BackStepLeft* backStepLeft;
+    BackStepRight* backStepRight;
 
    protected:
-    AlexRobot *robot; /*<!Pointer to the Robot*/
+    AlexRobot* robot; /*<!Pointer to the Robot*/
 
    private:
     /**
@@ -117,6 +124,10 @@ class AlexMachine : public StateMachine {
     EventObject(FeetTogether) * feetTogether;
     EventObject(IsRPressed) * isRPressed;
     EventObject(ResetButtons) * resetButtonsPressed;
+    EventObject(StandSelect) * standSelect;
+    EventObject(SitSelect) * sitSelect;
+    EventObject(WalkSelect) * walkSelect;
+    EventObject(BackStep) * backStep;
 };
 
 #endif /*EXO_SM_H*/

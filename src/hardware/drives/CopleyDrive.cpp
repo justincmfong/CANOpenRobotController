@@ -67,6 +67,3 @@ std::vector<std::string> CopleyDrive::generateVelControlConfigSDO(motorProfile v
 std::vector<std::string> CopleyDrive::generateTorqueControlConfigSDO() {
     return Drive::generateTorqueControlConfigSDO(); /*<!execute base class function*/
 }
-void CopleyDrive::setNextMotion(RobotMode mode) {
-    *(&CO_OD_RAM.currentState) = (int)mode;
-}
