@@ -12,4 +12,5 @@
 #include "TrajectoryGenerator.h"
 
 TrajectoryGenerator::TrajectoryGenerator() {
+    DEBUG("Trajectory Generator base constructor");
 }

@@ -31,6 +31,7 @@
 typedef struct keys {
     bool a;
     bool s;
+    bool e;
     bool d;
     bool w;
     bool x;
@@ -43,8 +44,8 @@ typedef struct keys {
  */
 class Keyboard : public InputDevice {
    private:
-    key_states lastKeyStates = {false, false, false, false, false, false};
-    key_states currentKeyStates = {false, false, false, false, false, false};
+    key_states lastKeyStates = {false, false, false, false, false, false, false};
+    key_states currentKeyStates = {false, false, false, false, false, false, false};
     int keyboardActive;
 
    public:
@@ -94,6 +95,11 @@ class Keyboard : public InputDevice {
  * 
  */
     bool getS();
+    /**
+ * \brief Getter method for private E key state
+ * 
+ */
+    bool getE();
     /**
  * \brief Getter method for private D key state
  * 

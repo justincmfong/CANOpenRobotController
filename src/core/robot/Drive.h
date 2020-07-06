@@ -30,32 +30,32 @@
 */
 
 enum ControlMode {
-    UNCONFIGURED = 0, /**< 0 */
+    UNCONFIGURED = 0,     /**< 0 */
     POSITION_CONTROL = 1, /**< 1 */
     VELOCITY_CONTROL = 2, /**< 2 */
-    TORQUE_CONTROL = 3, /**< 3 */
-    ERROR = -1 /**< -1 */
+    TORQUE_CONTROL = 3,   /**< 3 */
+    ERROR = -1            /**< -1 */
 };
 /**
  * \brief Enum representing possible Drive states 
 */
 enum DriveState {
-    DISABLED = 0, /**< 0 */
+    DISABLED = 0,           /**< 0 */
     READY_TO_SWITCH_ON = 1, /**< 1 */
-    ENABLED = 2, /**< 2 */
+    ENABLED = 2,            /**< 2 */
 };
 
 /**
  * @brief Enum representing commonly-used entries defined in the Object Dictionary for CiA402 Drives
 */
 enum OD_Entry_t {
-    STATUS_WORD = 0,    /**< 0 */
-    ACTUAL_POS = 1,     /**< 1 */
-    ACTUAL_VEL = 2,     /**< 2 */
-    ACTUAL_TOR = 3,     /**< 3 */
-    TARGET_POS = 11,    /**< 11 */
-    TARGET_VEL = 12,    /**< 12 */
-    TARGET_TOR = 13     /**< 13 */
+    STATUS_WORD = 0, /**< 0 */
+    ACTUAL_POS = 1,  /**< 1 */
+    ACTUAL_VEL = 2,  /**< 2 */
+    ACTUAL_TOR = 3,  /**< 3 */
+    TARGET_POS = 11, /**< 11 */
+    TARGET_VEL = 12, /**< 12 */
+    TARGET_TOR = 13  /**< 13 */
 };
 
 /**
@@ -98,8 +98,16 @@ static std::map<OD_Entry_t, int> OD_Data_Size = {
  */
 struct motorProfile {
     int profileVelocity;
-    int profileAccelration;
+    int profileAcceleration;
     int profileDeceleration;
+};
+/**
+ * The sdoReturnCode_t is used to determine whether the correct number of SDO messages
+ * were recieved succesfully by nodes on the network.  
+ */
+enum sdoReturnCode_t {
+    CORRECT_NUM_CONFIRMATION = 1,
+    INCORRECT_NUM_CONFIRMATION = 0,
 };
 
 /**
@@ -176,7 +184,6 @@ class Drive {
        *           https://www.can-cia.org/can-knowledge/canopen/cia402/
        */
 
-
     /**
      * @brief 
      * @param velocityProfile 
@@ -198,8 +205,8 @@ class Drive {
         * 
         * \return int number of messages successfully processed(return OK) 
               */
-    int
-    sendSDOMessages(std::vector<std::string> messages);
+
+    sdoReturnCode_t sendSDOMessages(std::vector<std::string> messages);
 
    private:
     /**
@@ -413,6 +420,14 @@ class Drive {
            * \return int the Node ID 
            */
     int getNodeID();
+    /**
+        * \brief changes whether the set point is immediate changed, or the drive waits for the last set point to complete.
+        *     Drive must be in the ENABLED state. 
+        * 
+        *  \return true if successful
+        *  \return false if unsuccessful (drive not in the ENABLED State)
+        */
+    virtual bool changeSetPointImmediately(bool immediate);
 };
 
 #endif

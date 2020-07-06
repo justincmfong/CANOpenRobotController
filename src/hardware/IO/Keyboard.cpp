@@ -25,7 +25,7 @@ void Keyboard::updateInput() {
     setKeyboardActive(kbhit());
     if (getKeyboardActive() != 0) {
         setKeys();
-        printPressed();
+        //printPressed();
     }
 }
 void Keyboard::setKeys() {
@@ -45,6 +45,10 @@ void Keyboard::setKeys() {
         case 's':
         case 'S':
             currentKeyStates.s = true;
+            break;
+        case 'e':
+        case 'E':
+            currentKeyStates.e = true;
             break;
         case 'd':
         case 'D':
@@ -71,7 +75,9 @@ void Keyboard::setKeys() {
 }
 key_states Keyboard::getStates() {
     key_states current_state = {this->currentKeyStates.a, this->currentKeyStates.s,
-                                this->currentKeyStates.d, this->currentKeyStates.w, this->currentKeyStates.x};
+                                this->currentKeyStates.d, this->currentKeyStates.w,
+                                this->currentKeyStates.x, this->currentKeyStates.x,
+                                this->currentKeyStates.e};
     return current_state;
 };
 void Keyboard::printPressed() {
@@ -87,6 +93,10 @@ void Keyboard::printPressed() {
         std::cout
             << "PRESSED D " << std::endl;
     }
+    if (getE()) {
+        std::cout
+            << "PRESSED E " << std::endl;
+    }
     if (getW()) {
         std::cout
             << "PRESSED W " << std::endl;
@@ -99,6 +109,7 @@ void Keyboard::printPressed() {
 void Keyboard::clearCurrentStates() {
     currentKeyStates.a = false;
     currentKeyStates.s = false;
+    currentKeyStates.e = false;
     currentKeyStates.d = false;
     currentKeyStates.w = false;
     currentKeyStates.x = false;
@@ -109,6 +120,9 @@ bool Keyboard::getA() {
 
 bool Keyboard::getS() {
     return currentKeyStates.s;
+};
+bool Keyboard::getE() {
+    return currentKeyStates.e;
 };
 bool Keyboard::getD() {
     return currentKeyStates.d;

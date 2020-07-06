@@ -21,12 +21,9 @@ bool CopleyDrive::Init() {
 
 bool CopleyDrive::initPosControl(motorProfile posControlMotorProfile) {
     DEBUG_OUT("NodeID " << NodeID << " Initialising Position Control")
+    /*Catch SDO msg set up for real robot here*/
 
     sendSDOMessages(generatePosControlConfigSDO(posControlMotorProfile));
-    /**
-     * \todo Move jointMinMap and jointMaxMap to set additional parameters (bit 5 in 0x6041 makes updates happen immediately)
-     * 
-     */
     return true;
 }
 
