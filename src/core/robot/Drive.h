@@ -30,32 +30,32 @@
 */
 
 enum ControlMode {
-    UNCONFIGURED = 0, /**< 0 */
+    UNCONFIGURED = 0,     /**< 0 */
     POSITION_CONTROL = 1, /**< 1 */
     VELOCITY_CONTROL = 2, /**< 2 */
-    TORQUE_CONTROL = 3, /**< 3 */
-    ERROR = -1 /**< -1 */
+    TORQUE_CONTROL = 3,   /**< 3 */
+    ERROR = -1            /**< -1 */
 };
 /**
  * \brief Enum representing possible Drive states 
 */
 enum DriveState {
-    DISABLED = 0, /**< 0 */
+    DISABLED = 0,           /**< 0 */
     READY_TO_SWITCH_ON = 1, /**< 1 */
-    ENABLED = 2, /**< 2 */
+    ENABLED = 2,            /**< 2 */
 };
 
 /**
  * @brief Enum representing commonly-used entries defined in the Object Dictionary for CiA402 Drives
 */
 enum OD_Entry_t {
-    STATUS_WORD = 0,    /**< 0 */
-    ACTUAL_POS = 1,     /**< 1 */
-    ACTUAL_VEL = 2,     /**< 2 */
-    ACTUAL_TOR = 3,     /**< 3 */
-    TARGET_POS = 11,    /**< 11 */
-    TARGET_VEL = 12,    /**< 12 */
-    TARGET_TOR = 13     /**< 13 */
+    STATUS_WORD = 0, /**< 0 */
+    ACTUAL_POS = 1,  /**< 1 */
+    ACTUAL_VEL = 2,  /**< 2 */
+    ACTUAL_TOR = 3,  /**< 3 */
+    TARGET_POS = 11, /**< 11 */
+    TARGET_VEL = 12, /**< 12 */
+    TARGET_TOR = 13  /**< 13 */
 };
 
 /**
@@ -176,7 +176,6 @@ class Drive {
        *           https://www.can-cia.org/can-knowledge/canopen/cia402/
        */
 
-
     /**
      * @brief 
      * @param velocityProfile 
@@ -266,7 +265,7 @@ class Drive {
     *   ---- | ---- | ----
     *   RPDO3: COB-ID 300+{NODE-ID} | Target Position (0x607A) | Applied immediately when received
     *   RPDO4: COB-ID 400+{NODE-ID} | Target Velocity (0x60FF) | Applied immediately when received    
-    *   RPDO5: COB-ID 500+{NODE-ID} | Target Torque (0x6071) | Applied immediately when received    
+    *   RPDO5: COB-ID 500+{NODE-ID} | Target Torque (0x6071) |     
     *
     * \return true 
     * \return false 
