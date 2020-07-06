@@ -12,7 +12,7 @@ AlexRobot::~AlexRobot() {
     DEBUG_OUT("Delete AlexRobot object begins")
     freeMemory();
     joints.clear();
-    copleyDrives.clear();
+    Drives.clear();
     DEBUG_OUT("AlexRobot deleted")
 }
 
@@ -118,13 +118,15 @@ bool AlexRobot::initialiseJoints() {
     JointKnownPos ankleParam{0, -800000, 90, 115};
 
     for (int id = 0; id < NUM_JOINTS; id++) {
-        copleyDrives.push_back(new CopleyDrive(id + 1));
         if (id == LEFT_HIP || id == RIGHT_HIP) {
-            joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], hipParam));
+            Drives.push_back(new CopleyDrive(id + 1));
+            joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], Drives[id], hipParam));
         } else if (id == LEFT_KNEE || id == RIGHT_KNEE) {
-            joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], kneeParam));
+            Drives.push_back(new CopleyDrive(id + 1));
+            joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], Drives[id], kneeParam));
         } else {  // is an ankle  ->  CHANGE DRIVE to Ankle drives NOT COPLEY
-            joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], copleyDrives[id], ankleParam));
+            Drives.push_back(new SchneiderDrive(id + 1));
+            joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], Drives[id], ankleParam));
         }
     }
     return true;
@@ -158,7 +160,7 @@ void AlexRobot::freeMemory() {
         DEBUG_OUT("Delete Joint ID: " << p->getId())
         delete p;
     }
-    for (auto p : copleyDrives) {
+    for (auto p : Drives) {
         DEBUG_OUT("Delete Drive Node: " << p->getNodeID())
         delete p;
     }

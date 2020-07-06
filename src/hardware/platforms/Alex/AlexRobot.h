@@ -28,6 +28,7 @@
 #include "Keyboard.h"
 #include "Robot.h"
 #include "RobotParams.h"
+#include "SchneiderDrive.h"
 #include "pocketBeagle.h"
 
 /**
@@ -66,7 +67,8 @@ class AlexRobot : public Robot {
     Keyboard keyboard;
     pocketBeagle pb;
 
-    vector<CopleyDrive *> copleyDrives;
+    // Base class drive pointer: can be any type of derived driver class.
+    vector<Drive *> Drives;
 
     // /**
     //  * \brief Timer Variables for moving through trajectories
