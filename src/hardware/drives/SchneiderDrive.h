@@ -127,6 +127,11 @@ class SchneiderDrive : public Drive {
  * \return false 
  */
     bool initPDOs();
+    /**
+     * \brief Overload Drive class generateRPDOConfigSDO function for Schenider ankle implementation
+     * 
+     */
+    std::vector<std::string> generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int UpdateTiming);
 };
 
 #endif
