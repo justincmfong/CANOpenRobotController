@@ -240,14 +240,20 @@ class Drive {
     virtual bool Init() = 0;
 
     /**
-    * \brief Initialises a standard set of PDOs for the use of the drive as shown in table below
+    * \brief Initialises a standard set of PDOs for the use of the drive as shown in the tables below:
+    * 
+    *   TPDO
     * 
     *   TPDO | Mapping Address | Usage
     *   ---- | ---- | ----
     *   TPDO1: COB-ID 180+{NODE-ID} | Status Word (0x6041) | Send on Internal %Event Trigger
     *   TPDO2: COB-ID 280+{NODE-ID} | Actual Position (0x6064), Actual Velocity (0x606C) | Sent every SYNC Message
     *   TPDO3: COB-ID 380+{NODE-ID} | Actual Torque (0x607C) | Sent every SYNC MEssage
+    * 
+    *   RPDO
+    * 
     *   RPDO | Mapping Address | Usage
+    *   ---- | ---- | ----
     *   RPDO3: COB-ID 300+{NODE-ID} | Target Position (0x607A) | Applied immediately when received
     *   RPDO4: COB-ID 400+{NODE-ID} | Target Velocity (0x60FF) | Applied immediately when received    
     *   RPDO5: COB-ID 500+{NODE-ID} | Target Torque (0x6071) | Applied immediately when received       
@@ -260,9 +266,9 @@ class Drive {
     virtual bool initPDOs();
 
     /**
-     * \brief Sets the drive to position control with the provided \motorProfile parameters
+     * \brief Sets the drive to position control with the provided %motorProfile parameters
      * 
-     * \param posControlMotorProfile representing the \motorProfile parameters for position control
+     * \param posControlMotorProfile representing the %motorProfile parameters for position control
      * \return true if successful
      * \return false if unsuccessful
      * \sa motorProfile
