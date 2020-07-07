@@ -120,6 +120,13 @@ class SchneiderDrive : public Drive {
           *
           */
     std::vector<std::string> generateTorqueControlConfigSDO();
+    /**
+ * \brief Overload Drive class initPDO function for Schenider implementation
+ * 
+ * \return true 
+ * \return false 
+ */
+    bool initPDOs();
 };
 
 #endif

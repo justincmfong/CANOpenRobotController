@@ -19,27 +19,26 @@ AlexRobot::~AlexRobot() {
 bool AlexRobot::initPositionControl() {
     DEBUG_OUT("Initialising Position Control on all joints ")
     bool returnValue = true;
-    for (int i = 0; i < 4; i++) {
-        if (((ActuatedJoint *)joints[i])->setMode(POSITION_CONTROL, posControlMotorProfile) != POSITION_CONTROL) {
-            // Something back happened if were are here
-            DEBUG_OUT("Something bad happened")
-            returnValue = false;
-        }
-        // Put into ReadyToSwitchOn()
-        ((ActuatedJoint *)joints[i])->readyToSwitchOn();
-    }
-    // for (auto p : joints) {
-    //     if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL, posControlMotorProfile) != POSITION_CONTROL) {
+    // for (int i = 0; i < 4; i++) {
+    //     if (((ActuatedJoint *)joints[i])->setMode(POSITION_CONTROL, posControlMotorProfile) != POSITION_CONTROL) {
     //         // Something back happened if were are here
     //         DEBUG_OUT("Something bad happened")
     //         returnValue = false;
     //     }
     //     // Put into ReadyToSwitchOn()
-    //     ((ActuatedJoint *)p)->readyToSwitchOn();
+    //     ((ActuatedJoint *)joints[i])->readyToSwitchOn();
     // }
-
-    // Pause for a bit to let commands go
     for (auto p : joints) {
+        if (((ActuatedJoint *)p)->setMode(POSITION_CONTROL, posControlMotorProfile) != POSITION_CONTROL) {
+            // Something back happened if were are here
+            DEBUG_OUT("Something bad happened")
+            returnValue = false;
+        }
+        // Put into ReadyToSwitchOn()
+        ((ActuatedJoint *)p)->readyToSwitchOn();
+    }
+
+     for (auto p : joints) {
         ((ActuatedJoint *)p)->enable();
     }
     for (auto p : joints) {
@@ -136,17 +135,17 @@ bool AlexRobot::initialiseNetwork() {
     DEBUG_OUT("AlexRobot::initialiseNetwork()");
 
     bool status;
-    // for (auto joint : joints) {
-    //     status = joint->initNetwork();
-    //     if (!status)
-    //         return false;
-    // }
-    /*for 4 joint speed*/
-    for (int i = 0; i < 4; i++) {
-        status = joints[i]->initNetwork();
+    for (auto joint : joints) {
+        status = joint->initNetwork();
         if (!status)
             return false;
     }
+    /*for 4 joint speed*/
+    // for (int i = 0; i < 4; i++) {
+    //     status = joints[i]->initNetwork();
+    //     if (!status)
+    //         return false;
+    // }
 
     return true;
 }

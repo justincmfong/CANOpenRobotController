@@ -7,15 +7,9 @@ AlexMachine::AlexMachine() {
     trajectoryGenerator = new AlexTrajectoryGenerator(6);
     robot = new AlexRobot(trajectoryGenerator);
     // Events
-    isAPressed = new IsAPressed(this);
     endTraj = new EndTraj(this);
-    startButtonsPressed = new StartButtonsPressed(this);
     startExo = new StartExo(this);
-    startSit = new StartSit(this);
-    startStand = new StartStand(this);
-    startWalk = new StartWalk(this);
     feetTogether = new FeetTogether(this);
-    resetButtonsPressed = new ResetButtons(this);
     standSelect = new StandSelect(this);
     sitSelect = new SitSelect(this);
     walkSelect = new WalkSelect(this);
@@ -114,45 +108,13 @@ bool AlexMachine::EndTraj::check() {
     }
     return false;
 }
-bool AlexMachine::IsAPressed::check(void) {
-    if (OWNER->robot->keyboard.getA() == true) {
-        return true;
-    }
-    return false;
-}
-bool AlexMachine::StartButtonsPressed::check(void) {
-    if (OWNER->robot->keyboard.getA() == true) {
-        return true;
-    }
-    return false;
-}
+
 bool AlexMachine::StartExo::check(void) {
     if (OWNER->robot->keyboard.getS() == true) {
         std::cout << "LEAVING INIT and entering init Sitting" << endl;
         return true;
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::INITIAL && OWNER->robot->getGo()) {
-        return true;
-    }
-    return false;
-}
-bool AlexMachine::StartStand::check(void) {
-    if (OWNER->robot->keyboard.getA() == true) {
-        DEBUG_OUT("START STAND PRESSED")
-        return true;
-    }
-    return false;
-}
-
-bool AlexMachine::StartSit::check(void) {
-    if (OWNER->robot->keyboard.getA() == true) {
-        DEBUG_OUT("START SIT PRESSED")
-        return true;
-    }
-    return false;
-}
-bool AlexMachine::StartWalk::check(void) {
-    if (OWNER->robot->keyboard.getS() == true) {
-        DEBUG_OUT("START WALK PRESSED")
+        std::cout << "LEAVING INIT and entering init Sitting" << endl;
         return true;
     }
     return false;
@@ -170,18 +132,6 @@ bool AlexMachine::FeetTogether::check(void) {
     return false;
 }
 
-bool AlexMachine::IsRPressed::check(void) {
-    if (OWNER->robot->keyboard.getX() == true) {
-        return true;
-    }
-    return false;
-}
-bool AlexMachine::ResetButtons::check(void) {
-    if (OWNER->robot->keyboard.getS() == true) {
-        return true;
-    }
-    return false;
-}
 bool AlexMachine::StandSelect::check(void) {
     if (OWNER->robot->getResetFlag()) {
         if (OWNER->robot->getCurrentMotion() == RobotMode::STNDUP && OWNER->robot->keyboard.getA()) {

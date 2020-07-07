@@ -45,6 +45,22 @@ bool SchneiderDrive::initTorqueControl() {
 
     return false;
 }
+
+bool SchneiderDrive::initPDOs() {
+    DEBUG_OUT("Drive::initPDOs")
+    DEBUG_OUT("Set up STATUS_WORD TPDO")
+    sendSDOMessages(generateTPDOConfigSDO({STATUS_WORD}, 1, 0xFF));
+
+    DEBUG_OUT("Set up ACTUAL_POS and ACTUAL_VEL TPDO")
+    sendSDOMessages(generateTPDOConfigSDO({ACTUAL_POS, ACTUAL_VEL}, 2, 1));
+
+    DEBUG_OUT("Set up TARGET_POS RPDO")
+    sendSDOMessages(generateRPDOConfigSDO({TARGET_POS}, 2, 0xff));
+
+    DEBUG_OUT("Set up TARGET_VEL RPDO")
+    sendSDOMessages(generateRPDOConfigSDO({TARGET_VEL}, 3, 0xff));
+    return true;
+}
 std::vector<std::string> SchneiderDrive::generatePosControlConfigSDO(motorProfile positionProfile) {
     DEBUG_OUT("generating Pos Control config SDO")
     std::vector<std::string> CANCommands;
