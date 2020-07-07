@@ -110,9 +110,9 @@ struct motorProfile {
 class Drive {
    protected:
     /**
-         * \brief The CAN Node ID used to address this drive on the CAN bus
-         * 
-         */
+     * \brief The CANopen Node ID used to address this drive on the CAN bus
+     * 
+     */
     int NodeID;
 
     /**
@@ -144,61 +144,53 @@ class Drive {
     std::vector<std::string> generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int UpdateTiming);
 
     /**
-     * \brief Generates the list of SDO commands required to configure Position control in CANopen motor drive
+     * \brief Generates the list of SDO commands required to configure position control in CANopen motor drive
      * 
      * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
      *           https://www.can-cia.org/can-knowledge/canopen/cia402/
      * 
-     * \param positionProfile 
-     * \return std::vector<std::string> 
+     * \param positionProfile describing motorProfile parameters for position control
+     * \return std::vector<std::string> representing a generated list of SDO configuration commands for position control
      * \sa motorProfile
      */
 
     std::vector<std::string> generatePosControlConfigSDO(motorProfile positionProfile);
 
     /**
-       * 
-       * \brief  Generates the list of commands required to configure Velocity control in CANopen motor drive
-       * 
-       *     
-       * \param Profile Velocity, value used by Velocity mode motor trajectory generator.
-       *     
-       * \param Profile Acceleration, value Velocity mode motor trajectory generator will attempt to achieve.
-       *     
-       * \param Profile Deceleration, value Velocity mode motor trajectory generator will use at end of trapezoidal profile.
-       *     
-       * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
-       *           https://www.can-cia.org/can-knowledge/canopen/cia402/
-       */
-
-    /**
-     * @brief 
-     * @param velocityProfile 
-     * @return 
-    */
+     * \brief Generates the list of SDO commands required to configure velocity control in CANopen motor drive
+     * 
+     * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
+     *           https://www.can-cia.org/can-knowledge/canopen/cia402/
+     * 
+     * \param velocityProfile describing motorProfile parameters for velocity control
+     * \return std::vector<std::string> representing a generated list of SDO configuration commands for velocity control
+     * \sa motorProfile
+     */
     std::vector<std::string> generateVelControlConfigSDO(motorProfile velocityProfile);
 
     /**
-       *
-       * \brief  Generates the list of commands required to configure Torque control in CANopen motor drive
-       *
-       * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
-       *           https://www.can-cia.org/can-knowledge/canopen/cia402/
-       */
+     * \brief Generates the list of SDO commands required to configure torque control in CANopen motor drive 
+     * 
+     * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
+     *           https://www.can-cia.org/can-knowledge/canopen/cia402/ 
+     * 
+     * \return std::vector<std::string> representing a generated list of SDO configuration commands for torque control
+     */
     std::vector<std::string> generateTorqueControlConfigSDO();
 
-    /**                                                                                                             
-        * \brief messages Properly formatted SDO Messages
-        * 
-        * \return int number of messages successfully processed(return OK) 
-              */
+    /**
+     * \brief Sends correctly formatted SDO messages
+     * 
+     * \param messages 
+     * \return int representing the number of successfully processed messages (returned OK)
+     */
     int sendSDOMessages(std::vector<std::string> messages);
 
    private:
     /**
-        * \brief Current status word of the drive
-        * 
-        */
+     * \brief Current status word of the drive
+     * 
+     */
     int statusWord;
 
     /**
@@ -208,74 +200,73 @@ class Drive {
     int error;
 
     /**
-        * \brief State of the drive
-        * 
-        */
+     * \brief Current state of the drive - Initialised in DISABLED state
+     * 
+     */
     DriveState driveState = DISABLED;
 
     /**
-        * \brief The mode in which the drive is currently configured
-        * 
-        */
+     * \brief Current control mode of the drive - Initialised in UNCONFIGURED control mode
+     * 
+     */
     ControlMode controlMode = UNCONFIGURED;
 
    public:
     /**
-        * \brief Construct a new Drive object
-        * 
-        */
+     * \brief Construct a new Drive object
+     * 
+     */
     Drive();
 
     /**
-           * \brief Construct a new Drive object
-           * 
-           * \param NodeID the CANopen Node ID of this drive
-           */
+     * \brief Construct a new Drive object
+     * 
+     * \param NodeID The CANopen Node ID of this drive on the CAN bus
+     */
     Drive(int NodeID);
 
     /**
-           * \brief Destroy the Drive object
-           * 
-           */
+     * \brief Destroy the Drive object
+     * 
+     */
     virtual ~Drive(){};
 
     /**
-           * \brief Initialises the drive (SDO start message)
-           * 
-           * \return True if successful, False if not
-           */
+     * \brief Initialises the drive, providing the SDO start message
+     * 
+     * \return true if successful
+     * \return false if unsuccessful
+     */
     virtual bool Init() = 0;
 
     /**
-    * \brief Initialises a standard set of PDOs for the use of the drive. These are:
+    * \brief Initialises a standard set of PDOs for the use of the drive as shown in table below
     * 
     *   TPDO | Mapping Address | Usage
     *   ---- | ---- | ----
     *   TPDO1: COB-ID 180+{NODE-ID} | Status Word (0x6041) | Send on Internal %Event Trigger
     *   TPDO2: COB-ID 280+{NODE-ID} | Actual Position (0x6064), Actual Velocity (0x606C) | Sent every SYNC Message
     *   TPDO3: COB-ID 380+{NODE-ID} | Actual Torque (0x607C) | Sent every SYNC MEssage
-    *
     *   RPDO | Mapping Address | Usage
-    *   ---- | ---- | ----
     *   RPDO3: COB-ID 300+{NODE-ID} | Target Position (0x607A) | Applied immediately when received
     *   RPDO4: COB-ID 400+{NODE-ID} | Target Velocity (0x60FF) | Applied immediately when received    
-    *   RPDO5: COB-ID 500+{NODE-ID} | Target Torque (0x6071) | Applied immediately when received      
-    *
-    * \return true 
-    * \return false 
+    *   RPDO5: COB-ID 500+{NODE-ID} | Target Torque (0x6071) | Applied immediately when received       
+    * 
+    * 
+    * \return true if successful
+    * \return false if unsuccessful
     */
+
     virtual bool initPDOs();
 
     /**
-           * Sets the drive to Position control with set parameters (through SDO messages)
-           * 
-           * Note: Should be overloaded to allow parameters to be set
-           * 
-           * \param motorProfile The position control motor profile to be used
-           * 
-           * \return true if successful
-           * \return false if not
-           */
+     * \brief Sets the drive to position control with the provided \motorProfile parameters
+     * 
+     * \param posControlMotorProfile representing the \motorProfile parameters for position control
+     * \return true if successful
+     * \return false if unsuccessful
+     * \sa motorProfile
+     */
     virtual bool initPosControl(motorProfile posControlMotorProfile) = 0;
 
     /**
