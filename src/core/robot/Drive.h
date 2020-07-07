@@ -1,12 +1,11 @@
-
 /**
- * \file Drive.h
- * \author Justin Fong
  * \brief  The <code>Drive</code> class is used to interface with a CANOpen motor drive. According to the CiA402 standard
  * 
  * This class enables low level functions to the system. It does limited error 
  * checking. 
- * \version 0.1
+ * 
+ * \file Drive.h
+ * \author Justin Fong
  * \date 2020-04-07
  * \version 0.1
  * \copyright Copyright (c) 2020
@@ -15,7 +14,6 @@
 
 #ifndef DRIVE_H_INCLUDED
 #define DRIVE_H_INCLUDED
-
 #include <CANopen.h>
 #include <CO_command.h>
 #include <string.h>
@@ -25,10 +23,9 @@
 #include <vector>
 
 /**
- * \brief Enum representing possible Drive control modes
- *
-*/
-
+ * \brief Supported drive control modes
+ * 
+ */
 enum ControlMode {
     UNCONFIGURED = 0,     /**< 0 */
     POSITION_CONTROL = 1, /**< 1 */
@@ -36,9 +33,11 @@ enum ControlMode {
     TORQUE_CONTROL = 3,   /**< 3 */
     ERROR = -1            /**< -1 */
 };
+
 /**
- * \brief Enum representing possible Drive states 
-*/
+ * \brief Supported drive states
+ * 
+ */
 enum DriveState {
     DISABLED = 0,           /**< 0 */
     READY_TO_SWITCH_ON = 1, /**< 1 */
@@ -46,8 +45,9 @@ enum DriveState {
 };
 
 /**
- * @brief Enum representing commonly-used entries defined in the Object Dictionary for CiA402 Drives
-*/
+ * \brief Commonly-used Object Dictionary (OD) entries for CiA402 Drives
+ * 
+ */
 enum OD_Entry_t {
     STATUS_WORD = 0, /**< 0 */
     ACTUAL_POS = 1,  /**< 1 */
@@ -63,7 +63,6 @@ enum OD_Entry_t {
  *
  *  Used to generate PDO Configurations
  *  NOTE: The addresses are written in hexadecimal
- *  
  * 
  */
 static std::map<OD_Entry_t, int> OD_Addresses = {
@@ -94,7 +93,8 @@ static std::map<OD_Entry_t, int> OD_Data_Size = {
 /**
  * \brief Struct for Drive motor controller motion profile
  *
- *  Stores desired velocity, acceleration and deceleration values for motor profile.
+ *  Stores the desired velocity, acceleration and deceleration values of a motor profile.
+ * 
  */
 struct motorProfile {
     int profileVelocity;
@@ -110,54 +110,49 @@ struct motorProfile {
 class Drive {
    protected:
     /**
-        * \brief The CAN Node ID used to address this drive on the CAN bus
-        * 
-        */
+         * \brief The CAN Node ID used to address this drive on the CAN bus
+         * 
+         */
     int NodeID;
 
     /**
-    * \brief Generates the list of SDO commands required to configure TPDOs on the drive
-    * 
-    * Transmit Process Data Objects (TPDOs) require prior setup to be used to send data from a drive's object dictionary,
-    * this setup is performed using Service Data Object (SDO) commands
-    *      
-    * \param items A list of OD_Entry_t items which are to be configured with this TPDO
-    * \param PDO_Num The number/index of this PDO
-    * \param SyncRate The rate at which this PDO transmits (e.g. number of Sync Messages. 0xFF represents internal trigger event)
-    * \return std::string 
-    */
+     * \brief Generates the list of SDO commands required to configure TPDOs on the drive
+     * 
+     * Transmit Process Data Objects (TPDOs) require prior setup to be used to send data from a drive's object dictionary,
+     * this setup is performed using Service Data Object (SDO) commands
+     * 
+     * \param items A list of OD_Entry_t items which are to be configured with this TPDO
+     * \param PDO_Num The number/index of this PDO
+     * \param SyncRate The rate at which this PDO transmits (e.g. number of Sync Messages. 0xFF represents internal trigger event)
+     * \return std::vector<std::string> 
+     */
+
     std::vector<std::string> generateTPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int SyncRate);
 
     /**
-    * \brief Generates the list of SDO commands required to configure RPDOs on the drives
-    * 
-    * Receive Process Data Objects (RPDOs) require prior setup to be used to receive data sent to a drive's object dictionary,
-    * this setup is performed using Service Data Object (SDO) commands
-    *
-    * \param items A list of OD_Entry_t items which are to be configured with this RPDO
-    * \param PDO_Num The number/index of this PDO
-    * \param UpdateTiming 0-240 represents hold until next sync message, 0xFF represents immediate update
-    * \return std::string 
-    */
+     * \brief Generates the list of SDO commands required to configure RPDOs on the drives
+     * 
+     * Receive Process Data Objects (RPDOs) require prior setup to be used to receive data sent to a drive's object dictionary,
+     * this setup is performed using Service Data Object (SDO) commands
+     * 
+     * \param items A list of OD_Entry_t items which are to be configured with this RPDO
+     * \param PDO_Num The number/index of this PDO
+     * \param UpdateTiming 0-240 represents hold until next sync message, 0xFF represents immediate update
+     * \return std::vector<std::string> 
+     */
+
     std::vector<std::string> generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int UpdateTiming);
 
     /**
-       * 
-       * \brief  Generates the list of SDO commands required to configure Position control in CANopen motor drive
-       * 
-       * \param positionProfile.profileVelocity Velocity value used by position mode motor trajectory generator.   
-       * \param positionProfile.profileAccelration Acceleration value Position Mode motor trajectory generator will attempt to achieve.  
-       * \param positionProfile.profileDeceleration Deceleration value Position Mode motor trajectory generator will use at the end of trapezoidal motion profile. 
-       * 
-       * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
-       *           https://www.can-cia.org/can-knowledge/canopen/cia402/
-       */
-
-    /**
-     * @brief Generates the list of SDO commands required to configure Position control in CANopen motor drive
-     * @param positionProfile 
-     * @return 
-    */
+     * \brief Generates the list of SDO commands required to configure Position control in CANopen motor drive
+     * 
+     * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
+     *           https://www.can-cia.org/can-knowledge/canopen/cia402/
+     * 
+     * \param positionProfile 
+     * \return std::vector<std::string> 
+     * \sa motorProfile
+     */
 
     std::vector<std::string> generatePosControlConfigSDO(motorProfile positionProfile);
 
@@ -197,8 +192,7 @@ class Drive {
         * 
         * \return int number of messages successfully processed(return OK) 
               */
-    int
-    sendSDOMessages(std::vector<std::string> messages);
+    int sendSDOMessages(std::vector<std::string> messages);
 
    private:
     /**
@@ -265,7 +259,7 @@ class Drive {
     *   ---- | ---- | ----
     *   RPDO3: COB-ID 300+{NODE-ID} | Target Position (0x607A) | Applied immediately when received
     *   RPDO4: COB-ID 400+{NODE-ID} | Target Velocity (0x60FF) | Applied immediately when received    
-    *   RPDO5: COB-ID 500+{NODE-ID} | Target Torque (0x6071) |     
+    *   RPDO5: COB-ID 500+{NODE-ID} | Target Torque (0x6071) | Applied immediately when received      
     *
     * \return true 
     * \return false 
