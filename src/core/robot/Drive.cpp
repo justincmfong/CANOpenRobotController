@@ -45,11 +45,12 @@ int Drive::getPos() {
     * \todo change to accomodate Virtual and real robots - or add virtual Drive class
     *
     */
-    int q = *(&CO_OD_RAM.actualMotorPositions.motor1 + ((this->NodeID - 1)));
-    /*VIRTUAL*/
-    //int q = *(&CO_OD_RAM.targetMotorPositions.motor1 + ((this->NodeID - 1)));
-
-    return q;
+#ifndef VIRTUAL
+    return *(&CO_OD_RAM.actualMotorPositions.motor1 + ((this->NodeID - 1)));
+#endif
+#ifdef VIRTUAL
+    return *(&CO_OD_RAM.targetMotorPositions.motor1 + ((this->NodeID - 1)));
+#endif
 }
 
 int Drive::getVel() {
@@ -104,22 +105,22 @@ bool Drive::posControlConfirmSP() {
 
 bool Drive::initPDOs() {
     DEBUG_OUT("Drive::initPDOs")
-    //DEBUG_OUT("Set up STATUS_WORD TPDO")
+    DEBUG_OUT("Set up STATUS_WORD TPDO")
     sendSDOMessages(generateTPDOConfigSDO({STATUS_WORD}, 1, 0xFF));
 
-    //DEBUG_OUT("Set up ACTUAL_POS and ACTUAL_VEL TPDO")
+    DEBUG_OUT("Set up ACTUAL_POS and ACTUAL_VEL TPDO")
     sendSDOMessages(generateTPDOConfigSDO({ACTUAL_POS, ACTUAL_VEL}, 2, 1));
 
-    //DEBUG_OUT("Set up ACTUAL_TOR TPDO")
+    DEBUG_OUT("Set up ACTUAL_TOR TPDO")
     sendSDOMessages(generateTPDOConfigSDO({ACTUAL_TOR}, 3, 1));
 
-    //DEBUG_OUT("Set up TARGET_POS RPDO")
+    DEBUG_OUT("Set up TARGET_POS RPDO")
     sendSDOMessages(generateRPDOConfigSDO({TARGET_POS}, 3, 0xff));
 
-    //DEBUG_OUT("Set up TARGET_VEL RPDO")
+    DEBUG_OUT("Set up TARGET_VEL RPDO")
     sendSDOMessages(generateRPDOConfigSDO({TARGET_VEL}, 4, 0xff));
 
-    //DEBUG_OUT("Set up TARGET_TOR RPDO")
+    DEBUG_OUT("Set up TARGET_TOR RPDO")
     sendSDOMessages(generateRPDOConfigSDO({TARGET_TOR}, 5, 0xff));
     return true;
 }

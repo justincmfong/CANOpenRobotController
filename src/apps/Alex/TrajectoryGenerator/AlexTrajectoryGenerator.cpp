@@ -120,7 +120,6 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
 Methods to Set Trajectory and Pilot Parameters
 ***********************************************************************/
 void AlexTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters trajectoryParameter) {
-    DEBUG_OUT("setTrajectoryParameters()")
     printTrajectoryParameters();
     this->trajectoryParameter = trajectoryParameter;
 }
@@ -1107,9 +1106,9 @@ std::vector<CubicPolynomial> AlexTrajectoryGenerator::cubic_spline(
     int numPoints) {
     std::vector<CubicPolynomial> cubicSplinePolynomials;
 
-    std::cout << "[cubic_spline]: x's: ";
-    for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
-    std::cout << std::endl;
+    // std::cout << "[cubic_spline]: x's: ";
+    // for (int i = 0; i < numPoints; i++) std::cout << x[i] << "\t";
+    // std::cout << std::endl;
 
     // Cubic spline
     // Assume boundary vel and acc are zero.
@@ -1209,7 +1208,6 @@ double AlexTrajectoryGenerator::evaluate_cubic_polynomial_second_derivative(Cubi
 //Generate and store the trajectory spline into the trajectory object
 void AlexTrajectoryGenerator::generateAndSaveSpline(jointspace_state initialJointspaceState) {
     this->trajectoryJointSpline = compute_trajectory_spline(trajectoryParameter, pilotParameters, initialJointspaceState);
-    std::cout << "trajectory Spline is set!" << std::endl;
 }
 
 /**********************************************************************
@@ -1244,14 +1242,14 @@ jointspace_spline AlexTrajectoryGenerator::compute_trajectory_spline(const Traje
     // Convert key states to jointspace (prepend known initial jointspace state)
     jointspaceStates = taskspace_states_to_jointspace_states(initialJointspaceState, taskspaceStates, trajectoryParameters, pilotParameters);
     //Print out all joint space states
-    DEBUG_OUT("---- Joint space via points 'states'-----")
-    for (auto states : jointspaceStates) {
-        DEBUG_OUT("TIME: " << states.time)
-        for (auto q : states.q) {
-            std::cout << rad2deg(q) << ", ";
-        }
-        std::cout << std::endl;
-    }
+    // DEBUG_OUT("---- Joint space via points 'states'-----")
+    // for (auto states : jointspaceStates) {
+    //     DEBUG_OUT("TIME: " << states.time)
+    //     for (auto q : states.q) {
+    //         std::cout << rad2deg(q) << ", ";
+    //     }
+    //     std::cout << std::endl;
+    // }
     // Calculate the spline for the given jointspacestates
     jointspaceSpline = cubic_spline_jointspace_states(jointspaceStates);
 
