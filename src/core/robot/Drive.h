@@ -186,11 +186,12 @@ class Drive {
      */
     std::vector<std::string> generateTorqueControlConfigSDO();
 
-    /**                                                                                                             
-        * \brief messages Properly formatted SDO Messages
-        * 
-        * \return int number of messages successfully processed(return OK) 
-              */
+    /**
+     * \brief Sends correctly formatted SDO messages
+     * 
+     * \param messages 
+     * \return sdoReturnCode_t representing the number of successfully processed messages (returned OK)
+     */
 
     sdoReturnCode_t sendSDOMessages(std::vector<std::string> messages);
 
