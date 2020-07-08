@@ -13,9 +13,12 @@
 
 #include "DebugMacro.h"
 
-Robot::Robot(TrajectoryGenerator *tj) {
-    DEBUG_OUT("Robot object created")
-    trajectoryGenerator = tj;
+// Robot::Robot(TrajectoryGenerator *tj) {
+//     DEBUG_OUT("Robot object created")
+//     trajectoryGenerator = tj;
+// }
+Robot::Robot() {
+    DEBUG_OUT("Robot object created");
 }
 
 Robot::~Robot() {

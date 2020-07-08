@@ -19,11 +19,12 @@
  */
 #ifndef ROBOT_H_INCLUDED
 #define ROBOT_H_INCLUDED
+#include <assert.h>
+
 #include <vector>
 
 #include "InputDevice.h"
 #include "Joint.h"
-#include "TrajectoryGenerator.h"
 using namespace std;
 
 /**
@@ -40,22 +41,19 @@ class Robot {
  * any of their explicit implementations.
  * 
  */
-    vector<Joint *> joints;
+    vector<Joint*> joints;
 
-    vector<InputDevice *> inputs;
-    /**
- * \brief Trajectory Generator  
- * 
- */
-    TrajectoryGenerator *trajectoryGenerator;
+    vector<InputDevice*> inputs;
 
    public:
     //Setup
     /**
  * \brief Default <code>Robot</code> constructor.
+ * // tj must be a pointer returned by new, it must not be NULL
  */
-    Robot(TrajectoryGenerator *tj);
+    Robot();
     ~Robot();
+
     /**
      * \brief Initialize memory for the designed <code>Robot</code> classes specific
      * <code>Joint</code> objects + sensors (if available) using the pure virtual initialiseJoints()

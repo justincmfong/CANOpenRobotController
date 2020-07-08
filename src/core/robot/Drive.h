@@ -98,8 +98,16 @@ static std::map<OD_Entry_t, int> OD_Data_Size = {
  */
 struct motorProfile {
     int profileVelocity;
-    int profileAccelration;
+    int profileAcceleration;
     int profileDeceleration;
+};
+/**
+ * The sdoReturnCode_t is used to determine whether the correct number of SDO messages
+ * were recieved succesfully by nodes on the network.  
+ */
+enum sdoReturnCode_t {
+    CORRECT_NUM_CONFIRMATION = 1,
+    INCORRECT_NUM_CONFIRMATION = 0,
 };
 
 /**
@@ -178,13 +186,13 @@ class Drive {
      */
     std::vector<std::string> generateTorqueControlConfigSDO();
 
-    /**
-     * \brief Sends correctly formatted SDO messages
-     * 
-     * \param messages 
-     * \return int representing the number of successfully processed messages (returned OK)
-     */
-    int sendSDOMessages(std::vector<std::string> messages);
+    /**                                                                                                             
+        * \brief messages Properly formatted SDO Messages
+        * 
+        * \return int number of messages successfully processed(return OK) 
+              */
+
+    sdoReturnCode_t sendSDOMessages(std::vector<std::string> messages);
 
    private:
     /**
@@ -413,6 +421,14 @@ class Drive {
      * \return int representing the CANopen Node ID
      */
     int getNodeID();
+    /**
+        * \brief changes whether the set point is immediate changed, or the drive waits for the last set point to complete.
+        *     Drive must be in the ENABLED state. 
+        * 
+        *  \return true if successful
+        *  \return false if unsuccessful (drive not in the ENABLED State)
+        */
+    virtual bool changeSetPointImmediately(bool immediate);
 };
 
 #endif
