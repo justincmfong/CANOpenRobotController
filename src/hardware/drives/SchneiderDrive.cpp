@@ -23,7 +23,9 @@ bool SchneiderDrive::initPosControl(motorProfile posControlMotorProfile) {
     DEBUG_OUT("NodeID " << NodeID << " Initialising Position Control")
 
     // Send same as other motro config using motor profile
+#ifndef VIRTUAL
     sendSDOMessages(generatePosControlConfigSDO(posControlMotorProfile));
+#endif
 
     return true;
 }
