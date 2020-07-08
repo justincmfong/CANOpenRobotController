@@ -80,9 +80,9 @@ bool AlexRobot::moveThroughTraj() {
         double fracTrajProgress = currTrajProgress / trajTimeUS;
         std::vector<double> setPoints = trajectoryGenerator->getSetPoint(fracTrajProgress);
         int i = 0;
-        std::cout << currTrajProgress << " , ";
+        //std::cout << currTrajProgress << " , ";
         for (auto p : joints) {
-            std::cout << rad2deg(setPoints[i]) << ",";
+            //std::cout << rad2deg(setPoints[i]) << ",";
             setMovementReturnCode_t setPosCode = ((ActuatedJoint *)p)->setPosition(rad2deg(setPoints[i]));
             if (setPosCode == INCORRECT_MODE) {
                 std::cout << "Joint ID: " << p->getId() << ": is not in Position Control " << std::endl;
@@ -94,9 +94,9 @@ bool AlexRobot::moveThroughTraj() {
             }
             i++;
         }
-        std::cout << std::endl;
+        //std::cout << std::endl;
     } else {
-        DEBUG_OUT("Not moving")
+        //DEBUG_OUT("Not moving")
     }
 
     return returnValue;
@@ -185,7 +185,7 @@ RobotMode AlexRobot::getNextMotion() {
 }
 void AlexRobot::setCurrentState(AlexState state) {
     *(&CO_OD_RAM.currentState) = static_cast<int>(state);
-    DEBUG_OUT("current state SET TO:" << *(&CO_OD_RAM.currentState));
+    //:" << *(&CO_OD_RAM.currentState));
 }
 bool AlexRobot::getGo() {
     if (*(&CO_OD_RAM.goButton) == 1) {
