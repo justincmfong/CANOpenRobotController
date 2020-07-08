@@ -21,9 +21,10 @@ bool CopleyDrive::Init() {
 
 bool CopleyDrive::initPosControl(motorProfile posControlMotorProfile) {
     DEBUG_OUT("NodeID " << NodeID << " Initialising Position Control")
-    /*Catch SDO msg set up for real robot here*/
-
+/*Catch SDO msg set up for real robot here*/
+#ifndef VIRTUAL
     sendSDOMessages(generatePosControlConfigSDO(posControlMotorProfile));
+#endif
     return true;
 }
 
