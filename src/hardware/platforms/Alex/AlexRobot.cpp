@@ -59,11 +59,9 @@ bool AlexRobot::initTorqueControl() {
     return returnValue;
 }
 void AlexRobot::startNewTraj() {
-    DEBUG_OUT("Start New Traj");
     // Index Resetting
     currTrajProgress = 0;
     clock_gettime(CLOCK_MONOTONIC, &prevTime);
-    DEBUG_OUT("EXIT Start New Traj");
 }
 
 bool AlexRobot::moveThroughTraj() {
@@ -96,7 +94,7 @@ bool AlexRobot::moveThroughTraj() {
         }
         //std::cout << std::endl;
     } else {
-        //DEBUG_OUT("Not moving")
+        DEBUG_OUT("PRESS Go to go!")
     }
 
     return returnValue;
@@ -107,7 +105,7 @@ bool AlexRobot::initialiseJoints() {
     JointKnownPos kneeParam{250880, 0, 90, 0};
     JointKnownPos ankleParam{0, -800000, 90, 115};
 
-    for (int id = 0; id < NUM_JOINTS; id++) {
+    for (int id = 0; id < 4; id++) {
         if (id == LEFT_HIP || id == RIGHT_HIP) {
             Drives.push_back(new CopleyDrive(id + 1));
             joints.push_back(new AlexJoint(id, jointMinMap[id], jointMaxMap[id], Drives[id], hipParam));

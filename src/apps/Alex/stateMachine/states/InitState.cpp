@@ -20,9 +20,11 @@ void InitState::entry(void) {
 void InitState::during(void) {
     //Virtual crutch - changing OD.nm
     RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
-    if (modeSelected != RobotMode::INITIAL) {
+    if (modeSelected == RobotMode::INITIAL) {
         std::cout << "output:" << robot->pb.printRobotMode(modeSelected) << std::endl;
+        robot->setNextMotion(modeSelected);
     }
+    // if Crutch has changed  nm from od.cm -> update the cm to nm.
     updateCrutch();
     updateFlag();
 }

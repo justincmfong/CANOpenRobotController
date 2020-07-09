@@ -19,6 +19,7 @@ void Sitting::during() {
         std::cout << "Selected mode: " << robot->pb.printRobotMode(modeSelected) << std::endl;
         robot->setNextMotion(modeSelected);
     }
+    //robot->pb.updateGO(robot->keyboard.getD());
     updateCrutch();
     updateFlag();
 }

@@ -4,6 +4,7 @@ ExoTestState::ExoTestState(StateMachine *m, AlexRobot *exo, AlexTrajectoryGenera
 
 void ExoTestState::updateCrutch() {
     RobotMode modeSelected = robot->getNextMotion();
+    std::cout << "NEXT MOtion is:" << robot->pb.printRobotMode(modeSelected) << std::endl;
     if (modeSelected != robot->getCurrentMotion()) {
         std::cout << "Setting current Mode to:" << robot->pb.printRobotMode(modeSelected) << std::endl;
         //update current mode to send out to crutch
@@ -12,6 +13,7 @@ void ExoTestState::updateCrutch() {
 }
 void ExoTestState::updateFlag() {
     if (robot->getResetFlag() == false && robot->getGo() == false) {
+        DEBUG_OUT("Reset flag set to true!")
         robot->setResetFlag(true);
     }
 }

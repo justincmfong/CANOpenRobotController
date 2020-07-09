@@ -7,6 +7,7 @@ void InitialSitting::entry(void) {
     robot->setCurrentState(AlexState::InitSitting);
 }
 void InitialSitting::during(void) {
+    //robot->pb.updateGO(true);
     robot->moveThroughTraj();
 }
 void InitialSitting::exit(void) {
