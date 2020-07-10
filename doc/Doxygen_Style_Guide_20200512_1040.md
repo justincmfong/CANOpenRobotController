@@ -14,16 +14,95 @@ This document is a style guide to provide best practice formatting guidelines fo
 7. [Documenting Formuli - LaTeX Support](#docformulas)
 8. [Tips From The Javadoc Style Guide](#javastyleguidetips)
 
-## Setup for Documentation Commenting Using Doxygen {#doccommentsetup}
+
+## Headings
+## Setup for Commenting Using Doxygen
 
 ### Doxygen Configuration File
+The following tags should be changed as shown below to produce the expected Doxygen documentation:
 ```c++
-CPP_CLI_SUPPORT = YES //Parsing Support for C++/CLI language
-JAVADOC_AUTOBRIEF = NO //Explicitly use \brief to specify a brief description
+CPP_CLI_SUPPORT = YES
+JAVADOC_AUTOBRIEF = NO
+EXTRACT_ALL = YES
+GENERATE_TODOLIST = YES
+CLASS_DIAGRAMS = YES
+HAVE_DOT = YES
+CLASS_GRAPH = YES
+COLLABORATION_GRAPH = YES
+UML_LOOK = YES
 ```
-### VSCode TODO
 
-### Visual Studio TODO
+### Visual Studio Code
+Note: Ensure the [Doxygen Document Generator](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen) extension is installed and enabled in Visual Studio Code.
+
+Follow the steps below to change the **Doxygen Document Generator** configuration to produce comment templates which conform to the Doxygen standard used in this guide.
+
+In Visual Studio Code,
+1. Navigate to **Settings** - **Extensions** - **Doxygen Document Generator**
+2. Change the template prefixes from @ to \ as shown below for the **Brief Template**
+
+```c++
+\brief{text} //Template prefix changed from @brief to \brief
+```
+
+## Common Structure of Documentation Blocks
+
+### Brief Description
+A brief description is the first sentence of a doc comment block and should be short and concise but complete enough the describe the API item - ideally it should fit onto one line.
+
+The`\brief` command before the description indicates it is a brief description and is ended when a blank line is encountered. If several `\brief` descriptions are used in a comment block they will be joined.
+
+### Detailed Description
+
+A Detailed description is optional and begins after a blank line following a `\brief` command. It should provide further clarity and support to the brief description. Ideally it should be complete enough for conforming implementors and include enough description so that someone reading the source code can write a substantial suite of conformance tests. Where appropriate, include boundary conditions, parameter ranges and corner cases (special case scenarios)
+
+```c++
+/**
+ * \brief This a brief description
+ * 
+ * This is an optional detailed description to support the brief description above
+ * 
+ */
+```
+
+### Parameters
+
+`\param` commands are automatically created for each function argument when a doc comment block is triggered above the associated function (using `/** + Enter`). The following tips (sourced from the [Javadoc Style Guide](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)) provide convention for using `\param`:
+
+* The first noun in the description is the data type of the parameter (may be preceded by an article "an", "a", "the"). Exception is the primitive type **int**
+* Parameter names are lowercase
+
+### Returns
+
+A `\return` command is automatically created for each function which returns a value when the doc comment block is triggered above the associated function (using `/** + Enter`). The following tips (sourced from the [Javadoc Style Guide](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)) provide convention for using `\return`:
+
+*   **Omit** `\return` for methods that return void and for constructors
+*   **Include** `\return` for all other methods, even if its content is entirely redundant with the method description
+    *   Having an explicit @return tag makes it easier for someone to find the return value quickly
+    *   Whenever possible, supply return values for special cases (such as specifying the value returned when an out-of-bounds argument is supplied)
+
+### See Also
+
+The `\sa` or `\see` command starts a paragraph which cross-references classes, functions, methods, variables or URLs. This optional command may be used to avoid repetition of the same information applicable across several class entities.
+
+### Notes
+
+### Tables
+
+## Documenting Classes
+
+## Documenting Enumerated Types
+
+## Documenting Function/Method Definitions
+
+## Additional (Useful) Special Commands
+
+## Tips from The Javadoc Style Guide
+
+
+## Setup for Documentation Commenting Using Doxygen {#doccommentsetup}
+
+
 
 ## Example of Documented Header File {#doccommentblock} TODO
 #### Doc Comment Block Prototype
@@ -45,7 +124,7 @@ The following tips (sourced from the [Javadoc Style Guide](https://www.oracle.co
     * The first noun in the description is the data type of the parameter (may be preceded by an article "an", "a", "the"). Exception is the primitive type **int**
     * Parameter names are lowercase
 *   `\return`
-    *   **Omit** `\return`for methods that return void and for constructors
+    *   **Omit** `\return` for methods that return void and for constructors
     *   **Include** `\return` for all other methods, even if its content is entirely redundant with the method description
         *   Having an explicit @return tag makes it easier for someone to find the return value quickly
         *   Whenever possible, supply return values for special cases (such as specifying the value returned when an out-of-bounds argument is supplied)
@@ -155,7 +234,7 @@ The following tips from the Javadoc Style Guide are presented as either one-to-o
 5. **Omit parentheses for the general form of methods and constructors** - only use when referring to the specific form (for example, when you wish to distinguish between two methods)
 6. **OK to use phrases instead of complete sentences, in the interest of brevity**
 7. **Use 3rd person (Descriptive) not 2nd person (prescriptive)** - Gets the label (preferred) over Get the label (avoid)
-8. **Method descriptions begin with a verb phrase** - A method implements an operation, or performs an action, so it should begin with a verb phrase (for example, This method sends a position command to the `\code<Drive>` described by DriveID)
+8. **Method descriptions begin with a verb phrase** - A method implements an operation, or performs an action, so it should begin with a verb phrase (for example, This method sends a position command to the `Drive` described by DriveID)
 9. **Class/interface/field descriptions can omit the subject and simply state the object** - The aformentioned API often describe things rather than actions or behaviours, as such: *Drive class containing*... (preferred) over *This is a Drive class containing* (avoid)
 10. **Use "this" instead of "the" when referring to an object created from the current class.** - Gets the toolkit for **this** component (preferred) over Gets the toolkit for **the** component (avoid)
 11. **Add description beyond the API name** - The best API names are "self-documenting". Thus, it is not beneficial to simply repeat the API name in description. The ideal comment should reward the reader with additional information which is not immediately obvious from the API name.

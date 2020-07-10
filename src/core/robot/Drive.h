@@ -154,7 +154,7 @@ class Drive {
     /**
      * \brief Generates the list of SDO commands required to configure position control in CANopen motor drive
      * 
-     * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
+     * \note More details on params and profiles can be found in the CANopne CiA 402 series specifications:
      *           https://www.can-cia.org/can-knowledge/canopen/cia402/
      * 
      * \param positionProfile describing motorProfile parameters for position control
@@ -167,7 +167,7 @@ class Drive {
     /**
      * \brief Generates the list of SDO commands required to configure velocity control in CANopen motor drive
      * 
-     * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
+     * \note More details on params and profiles can be found in the CANopne CiA 402 series specifications:
      *           https://www.can-cia.org/can-knowledge/canopen/cia402/
      * 
      * \param velocityProfile describing motorProfile parameters for velocity control
@@ -179,7 +179,7 @@ class Drive {
     /**
      * \brief Generates the list of SDO commands required to configure torque control in CANopen motor drive 
      * 
-     * NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:
+     * \note More details on params and profiles can be found in the CANopne CiA 402 series specifications:
      *           https://www.can-cia.org/can-knowledge/canopen/cia402/ 
      * 
      * \return std::vector<std::string> representing a generated list of SDO configuration commands for torque control
@@ -302,7 +302,7 @@ class Drive {
     /**
      * \brief Sets the drive to torque control with the provided %motorProfile parameters using SDO messages
      * 
-     * Note: Should be overloaded to allow parameters to be set
+     * \note Should be overloaded to allow parameters to be set
      * 
      * \return true if successful
      * \return false if unsuccessful
