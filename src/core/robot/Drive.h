@@ -111,7 +111,7 @@ enum sdoReturnCode_t {
 };
 
 /**
- * @ingroup Robot
+ * \ingroup Robot
  * \brief Abstract class describing a Drive used to communicate with a CANbus device. Note that many functions are implemented according to the CiA 402 Standard (but can be overridden)
  * 
  */

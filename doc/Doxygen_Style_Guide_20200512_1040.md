@@ -4,22 +4,21 @@
 This document is a style guide to provide best practice formatting guidelines for ALEX Software Documentation using Doxygen. As such, the guide is a compilation of material from the [Doxygen Manual](http://www.doxygen.nl/manual/docblocks.html) and the [How to Write Doc Comments for the Javadoc Tool](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html) technical article. The latter document contains a Javadoc style guide which provides conventions for creating useful API documents - these conventions are included at the end of this document as an essential documentation reference.
 
 ## Document Quick Links
-1. [Setup for Documentation Commenting Using Doxygen](#doccommentsetup)
-2. [Example of Documented Header File](#doccommentblock)
-3. [Documenting a Class](#docclass)
-3. [Documenting Enumerated Types](#docenum)
-4. [Documenting A Function/Method](#docfunction)
-5. [Additional (Useful) Special Commands](#docusefulcmds)
-6. [Tables (Documenting Maps) - Markdown Support](#docmaps)
-7. [Documenting Formuli - LaTeX Support](#docformulas)
-8. [Tips From The Javadoc Style Guide](#javastyleguidetips)
+
+1. [Setup for Commenting Using Doxygen](#h_setup_for_doxygen)
+2. [Common Structure of Documentation Blocks](#h_common_struct)
+3. [Documenting Classes](#h_doc_class)
+4. [Documenting Enumerated Types](#h_doc_enum)
+5. [Documenting Function/Method Definitions](#h_doc_func)
+6. [Additional (Useful) Special Commands](#h_special_cmds)
+7. [Tips From The Javadoc Style Guide](#h_javadoc)
 
 
-## Headings
-## Setup for Commenting Using Doxygen
+## Setup for Commenting Using Doxygen<a name="h_setup_for_doxygen"></a>
 
 ### Doxygen Configuration File
-The following tags should be changed as shown below to produce the expected Doxygen documentation:
+The following tag values should be changed as shown below within the Doxyfile (Doxygen Configuration File) to produce correctly formatted Doxygen documentation:
+
 ```c++
 CPP_CLI_SUPPORT = YES
 JAVADOC_AUTOBRIEF = NO
@@ -35,149 +34,64 @@ UML_LOOK = YES
 ### Visual Studio Code
 Note: Ensure the [Doxygen Document Generator](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen) extension is installed and enabled in Visual Studio Code.
 
-Follow the steps below to change the **Doxygen Document Generator** configuration to produce comment templates which conform to the Doxygen standard used in this guide.
+**Doxygen Document Generator** is used to automatically generate doc comment block templates. By default, it uses javadoc commands (prefixed by `@`). This prefix should be changed to the Doxygen standard prefix (`\`). Follow the steps below to make this change in Visual Studio Code:
 
 In Visual Studio Code,
 1. Navigate to **Settings** - **Extensions** - **Doxygen Document Generator**
-2. Change the template prefixes from @ to \ as shown below for the **Brief Template**
+2. Change all template prefixes from @ to \ as shown in the example below for the **Brief Template**
 
 ```c++
 \brief{text} //Template prefix changed from @brief to \brief
 ```
 
-## Common Structure of Documentation Blocks
+## Common Structure of Documentation Blocks<a name="h_common_struct"></a>
 
-### Brief Description
-A brief description is the first sentence of a doc comment block and should be short and concise but complete enough the describe the API item - ideally it should fit onto one line.
+### Brief Description<a name="brief_desc"></a>
+A brief description is the first sentence of a doc comment block and should be short and concise but complete enough to describe the API item - ideally it should fit onto one line.
 
-The`\brief` command before the description indicates it is a brief description and is ended when a blank line is encountered. If several `\brief` descriptions are used in a comment block they will be joined.
+The`\brief` command starts a brief description paragraph. Brief descriptions are ended when a blank line is encountered. If several `\brief` descriptions are used in a comment block they will be joined.
 
-### Detailed Description
+### Detailed Description<a name="detailed_desc"></a>
 
 A Detailed description is optional and begins after a blank line following a `\brief` command. It should provide further clarity and support to the brief description. Ideally it should be complete enough for conforming implementors and include enough description so that someone reading the source code can write a substantial suite of conformance tests. Where appropriate, include boundary conditions, parameter ranges and corner cases (special case scenarios)
 
 ```c++
 /**
  * \brief This a brief description
- * 
+ *
  * This is an optional detailed description to support the brief description above
- * 
+ *
  */
 ```
 
-### Parameters
+### Parameters<a name="pars"></a>
 
-`\param` commands are automatically created for each function argument when a doc comment block is triggered above the associated function (using `/** + Enter`). The following tips (sourced from the [Javadoc Style Guide](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)) provide convention for using `\param`:
+`\param` commands are automatically created for each function argument when a doc comment block is triggered above the associated function (using `/** + Enter` when **Doxygen Document Generator** is enabled). The following tips (sourced from the [Javadoc Style Guide](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)) provide convention for using `\param`:
 
 * The first noun in the description is the data type of the parameter (may be preceded by an article "an", "a", "the"). Exception is the primitive type **int**
 * Parameter names are lowercase
 
-### Returns
+### Returns<a name="rets"></a>
 
-A `\return` command is automatically created for each function which returns a value when the doc comment block is triggered above the associated function (using `/** + Enter`). The following tips (sourced from the [Javadoc Style Guide](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)) provide convention for using `\return`:
+A `\return` command is automatically created for each function which returns a value when the doc comment block is triggered above the associated function (using `/** + Enter` when **Doxygen Document Generator** is enabled). The following tips (sourced from the [Javadoc Style Guide](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)) provide convention for using `\return`:
 
 *   **Omit** `\return` for methods that return void and for constructors
 *   **Include** `\return` for all other methods, even if its content is entirely redundant with the method description
-    *   Having an explicit @return tag makes it easier for someone to find the return value quickly
+    *   Having an explicit `\return` tag makes it easier for someone to find the return value quickly
     *   Whenever possible, supply return values for special cases (such as specifying the value returned when an out-of-bounds argument is supplied)
 
-### See Also
+### See Also<a name="sas"></a>
 
 The `\sa` or `\see` command starts a paragraph which cross-references classes, functions, methods, variables or URLs. This optional command may be used to avoid repetition of the same information applicable across several class entities.
 
-### Notes
+### Notes<a name="notes"></a>
 
-### Tables
+The `\note` command starts a noteworthy paragraph. It is an optional command that can be used to draw emphasis to an important set of instructions within a doc comment block.
 
-## Documenting Classes
+### Tables<a name="tables"></a>
 
-## Documenting Enumerated Types
+Doxygen supports the use of Markdown to create tables in the doc comment blocks. This optional feature should be used when it is suitable to represent information in tabular form, such as key-value pairs which are not of an `enum` type. Please see the example below:
 
-## Documenting Function/Method Definitions
-
-## Additional (Useful) Special Commands
-
-## Tips from The Javadoc Style Guide
-
-
-## Setup for Documentation Commenting Using Doxygen {#doccommentsetup}
-
-
-
-## Example of Documented Header File {#doccommentblock} TODO
-#### Doc Comment Block Prototype
-Part-example of Documented Drive.h
-
-## Documenting a Class {#docclass} TODO
-
-## Documenting A Function/Method {#docfunction}
-### Function Special Commands
-
-| Function Command | Decription | Doxygen Manual Link |
-|----|----|----|
-|`\param` | Used to describe a function parameter | [\param command](http://www.doxygen.nl/manual/commands.html#cmdparam) |
-|`\return` | Used to describe the function return variable | [\return command](http://www.doxygen.nl/manual/commands.html#cmdreturn)
-|`\sa` | Used to refer to associated functions, may be used to avoid unnecessary repitition | [\sa command](http://www.doxygen.nl/manual/commands.html#cmdsa)
-
-The following tips (sourced from the [Javadoc Style Guide](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)) provide convention for using `\param` and `\return`:
-*   `\param` - Use the command `\param` followed by the name (not the data type) of the parameter, then the description. By convention:
-    * The first noun in the description is the data type of the parameter (may be preceded by an article "an", "a", "the"). Exception is the primitive type **int**
-    * Parameter names are lowercase
-*   `\return`
-    *   **Omit** `\return` for methods that return void and for constructors
-    *   **Include** `\return` for all other methods, even if its content is entirely redundant with the method description
-        *   Having an explicit @return tag makes it easier for someone to find the return value quickly
-        *   Whenever possible, supply return values for special cases (such as specifying the value returned when an out-of-bounds argument is supplied)
-
-### Function Description Prototype
-```c++
-/**
- * \brief This is description which ends with a dot if *_AUTOBRIEF = YES
- *
- * This is a detailed description indicated by a space between a brief
- * and detailed description
- * \param a an integer
- * \return the result
- * \sa anotherFunction()
- */
- int testComment(int a);
-```
-
-## Documenting Enumerated Types {#docenum}
-Source: [Doxygen Manual](http://www.doxygen.nl/manual/docblocks.html)
-
-```c++
-/**
- * An enum type.
- * The documentation block cannot be put after the enum! 
- */
- enum EnumType
- {
-     int Eval1,     /**< enum value 1 */
-     int Eval2,     /**< enum value 2 */
- };
-```
-[Doxygen Output - Documenting Enum Type](http://www.doxygen.nl/manual/examples/afterdoc/html/class_afterdoc___test.html)
-
-**Using In-line Comments to Display an Enum Table**
-`/**< enum value 1 */` represents an inline comment. This comment is placed after the member it refers to, this association is indicated by `<` symbol in the comment description. Here, the placement of in-line comments associated the enum variable `Eval1` with its `value 1` and Doxygen creates an enum table from these associations.
-
-
-## Additional (Useful) Special Commands {#docusefulcmds}
-| Function Command | Decription | Doxygen Manual Link |
-|----|----|----|
-|`\code` | Starts a code block. A code block is interpreted as source code. Names of class, members, and other documented entities are replaced by links to the documentation. Use with `\endcode` | [\code command](http://www.doxygen.nl/manual/commands.html#cmdcode) |
-|`\b<word>` | Displays the argument \<word> in bold font. Equivalent to HTML `<b>multiple words</b>` | [\b command](http://www.doxygen.nl/manual/commands.html#cmdb) |
-|`\e<word>` | Displays the argument \<word> in italic font. Equivalent to HTML `<em>multiple words</em>` | [\e command](http://www.doxygen.nl/manual/commands.html#cmde) |
-|`\details` | Starts the detail description. Alternatively, a detailed description is started with a new paragraph (after a blank line) | [\detail command](http://www.doxygen.nl/manual/commands.html#cmddetails) |
-|`\todo` | Starts a paragraph where a TODO item is described. The description will also add an item to a separate TODO list. | [\todo command](http://www.doxygen.nl/manual/commands.html#cmdtodo) |
-|`\test` | Starts a paragraph where a test case can be described. The description will also add the test case to a separate test list. | [\test command](http://www.doxygen.nl/manual/commands.html#cmdtest) | 
-|`\bug`|
-|`\deprecated`|
-
-## Tables (Documenting Maps) - Markdown Support {#docmaps}
-Doxygen supports the use of Markdown to create tables in the doc comments. These should be used to document mappings (key-value pairs) when an enum type is not used.
-See the example below:
 ```c++
 /**
  * First Header | Second Header
@@ -186,6 +100,7 @@ See the example below:
  * Content Cell | Content Cell
  */
  ```
+
  For column alignment, one or two colons (`:`) can be used to select the type of alignment in the header seperator line.
  See the example below:
  ```c++
@@ -196,32 +111,111 @@ See the example below:
   */
 ```
 
-## Documenting Formulas - LaTeX Support {#docformulas}
+## Documenting Classes<a name="h_doc_class"></a>
 
-Doxygen supports the use of LaTeX commands to document formulas.
-See the example below.
-| Function Command | Decription | Doxygen Manual Link |
-|----|----|----|
-|`\f$` | Used to insert an in-line formula in a paragraph. End with `\f$` | [\f$ command](http://www.doxygen.nl/manual/commands.html#cmdfdollar)
-| `f[ ... \f]` or `\f{ ... }{ ...\f}`| Used to insert column-centered and multi-line formulas into paragraph.
+Class doc comment blocks are placed before the class definition using two comment blocks. The first is at the start of the header file and contains the metadata of the class (`\file`, `\author`, `\date`, `\version`, and `\copyright` information) along with a description of the class. The second is placed immediately before the start of the class definition to provide an overall description of the class.
+
+**Please Note**: The descriptions in both doc comment blocks may be identical as they appear in different places in the created Doxygen documentation, the documented header file and class definition, respectively. 
+
+These doc comment block use the following structural elements:
+
+1. [Brief Description](#brief_desc)
+2. [Detailed Description](#detailed_desc) (recommended)
+3. [Notes](#notes) (optional)
+
+**Example of Header Doc Comment Block**
 
 ```c++
 /**
- *  \f[
- *  \frac{1}{w_{new}} = \frac{1}{w_{1}} + \frac{1}{w_{2}}
- *  \f]
- 
- * \f{eqnarray*}{
- *    w &=& \frac{\sigma L}{N_{gen} \epsilon_{trig}} \\
- *      &-& \sigma ...\ cross\ section \\
- *      &-& L ...\ luminosity \\
- *      &-& N_{gen}\ ... number\ of\ generated\ events \\
- *      &-& \epsilon_{trig}\ ...\ (known)\ trigger\ efficiency \\
- * \f}    
+ * \brief The %Drive class is used to interface with a CANOpen motor drive. According to the CiA402 standard
+ * 
+ * This class enables low level functions to the system. It does limited error
+ * checking.
+ *
+ * \file Drive.h
+ * \author Justin Fong
+ * \date 2020-04-07
+ * \version 0.1
+ * \copyright Copyright (c) 2020
+ *
  */
 ```
-Source: [ROOT Data Analysis Framework Style Guide](https://root.cern.ch/formatting-comments-doxygen)
-## Tips From The Javadoc Style Guide {#javastyleguidetips}
+
+**Example of Class Definition Doc Comment Block**
+
+```c++
+/**
+ * \ingroup Robot
+ * \brief Abstract class describing a Drive used to communicate with a CANbus device. 
+ * Note that many functions are implemented according to the CiA 402 Standard (but can be overridden)
+ *
+ */
+```
+
+## Documenting Enumerated Types<a name="h_doc_enum"></a>
+
+**Using In-line Comments to Display an Enum Table**
+`/**< enum value 1 */` represents an inline comment. This comment is placed after the member it refers to, this association is indicated by `<` symbol in the comment description. Here, the placement of in-line comments associates the enum variable `Eval1` with its `value 1` and Doxygen creates an enum table from these associations.
+
+```c++
+/**
+ * \brief Supported drive control modes
+ * 
+ */
+enum ControlMode {
+    UNCONFIGURED = 0,     /**< 0 */
+    POSITION_CONTROL = 1, /**< 1 */
+    VELOCITY_CONTROL = 2, /**< 2 */
+    TORQUE_CONTROL = 3,   /**< 3 */
+    ERROR = -1            /**< -1 */
+};
+```
+
+[Doxygen Output - Documenting Enum Type](http://www.doxygen.nl/manual/examples/afterdoc/html/class_afterdoc___test.html)
+
+## Documenting Function/Method Definitions<a name="h_doc_func"></a>
+
+Function/Method definition doc comment blocks are place before the function/method definition. This doc comment block consists of the following structural elements:
+
+1. [Brief Description](#brief_desc)
+2. [Detailed Description](#detailed_desc) (recommended)
+3. [Parameters](#pars) (if applicable)
+4. [Returns](#rets) (if applicable)
+5. [See Also](#sas) (optional)
+6. [Notes](#notes) (optional)
+7. [Todo](#todos) (optional)
+
+**Example of Function/Method Doc Comment Block**
+
+```c++
+/**
+ * \brief Generates the list of SDO commands required to configure position control in CANopen motor drive
+ * 
+ * \note More details on params and profiles can be found in the CANopne CiA 402 series specifications:
+ *           https://www.can-cia.org/can-knowledge/canopen/cia402/
+ * 
+ * \param positionProfile describing motorProfile parameters for position control
+ * \return std::vector<std::string> representing a generated list of SDO configuration commands for position control
+ * \sa motorProfile
+ */
+```
+
+## Additional (Useful) Special Commands <a name="h_special_cmds"></a> 
+<a name="todos"></a> 
+
+| Function Command | Decription | Doxygen Manual Link |
+|----|----|----|
+|`\code` | Starts a code block. A code block is interpreted as source code. Names of class, members, and other documented entities are replaced by links to the documentation. Use with `\endcode` | [\code command](http://www.doxygen.nl/manual/commands.html#cmdcode) |
+|`\b<word>` | Displays the argument \<word> in bold font. Equivalent to HTML `<b>multiple words</b>` | [\b command](http://www.doxygen.nl/manual/commands.html#cmdb) |
+|`\e<word>` | Displays the argument \<word> in italic font. Equivalent to HTML `<em>multiple words</em>` | [\e command](http://www.doxygen.nl/manual/commands.html#cmde) |
+|`\details` | Starts the detailed description. Alternatively, a detailed description is started with a new paragraph (after a blank line) | [\detail command](http://www.doxygen.nl/manual/commands.html#cmddetails) |
+|`\todo`| Starts a paragraph where a TODO item is described. The description will also add an item to a separate TODO list. | [\todo command](http://www.doxygen.nl/manual/commands.html#cmdtodo) |
+|`\test` | Starts a paragraph where a test case can be described. The description will also add the test case to a separate test list. | [\test command](http://www.doxygen.nl/manual/commands.html#cmdtest) | 
+|`\bug`|
+|`\deprecated`|
+
+## Tips from The Javadoc Style Guide<a name="h_javadoc"></a> 
+
 Source: [Javadoc Style Guide](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)
 The following tips from the Javadoc Style Guide are presented as either one-to-one translation from the guide (see source reference above) or a paraphrase of the original content.
 1. **First Sentence** - The first sentence of each doc comment should be a summary sentence, containing a concise but complete description of the API item
@@ -267,10 +261,3 @@ The following tips from the Javadoc Style Guide are presented as either one-to-o
     4.  `\return` (methods only)
     5.  `\exception`(`\throws` is a synonym)
     6.  `\sa` or `\see\`
-
-
-
-
-
-
-
