@@ -11,18 +11,18 @@ void Standing::entry(void) {
               << "=======================" << std::endl
               << std::endl;
     robot->setCurrentState(AlexState::Standing);
-    robot->pb.printMenu();
+    //robot->pb.printMenu();
     // entry flag must be set to true by a green button release
     robot->setResetFlag(false);
 }
 
 void Standing::during(void) {
-    RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
-    if (modeSelected != RobotMode::INITIAL) {
-        std::cout << "Selected mode: " << robot->pb.printRobotMode(modeSelected) << std::endl;
-        ;
-        robot->setNextMotion(modeSelected);
-    }
+    // RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
+    // if (modeSelected != RobotMode::INITIAL) {
+    //     std::cout << "Selected mode: " << robot->pb.printRobotMode(modeSelected) << std::endl;
+    //     ;
+    //     robot->setNextMotion(modeSelected);
+    // }
     updateCrutch();
     updateFlag();
 }

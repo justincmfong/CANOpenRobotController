@@ -5,7 +5,7 @@ void SteppingRight::entry(void) {
         << "==================" << endl
         << " Stepping RIGHT" << endl
         << "==================" << endl;
-    trajectoryGenerator->initialiseTrajectory(robot->getNextMotion(), Foot::Left, robot->getJointStates());
+    trajectoryGenerator->initialiseTrajectory(robot->getCurrentMotion(), Foot::Left, robot->getJointStates());
     robot->startNewTraj();
     robot->setCurrentState(AlexState::StepR);
 }

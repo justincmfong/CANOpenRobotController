@@ -104,7 +104,7 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
             return angles;
         }
     }
-    DEBUG_OUT("Time point outside range")
+    //DEBUG_OUT("Time point outside range")
     //if the time point is outside range
     for (int i = 0; i < NUM_JOINTS; i++) {
         currentPolynomial[i] = trajectoryJointSpline.polynomials[i].at(numPolynomials - 1);
@@ -120,8 +120,8 @@ std::vector<double> AlexTrajectoryGenerator::getSetPoint(time_tt time) {
 Methods to Set Trajectory and Pilot Parameters
 ***********************************************************************/
 void AlexTrajectoryGenerator::setTrajectoryParameters(TrajectoryParameters trajectoryParameter) {
-    printTrajectoryParameters();
     this->trajectoryParameter = trajectoryParameter;
+    printTrajectoryParameters();
 }
 
 void AlexTrajectoryGenerator::setPilotParameters(PilotParameters pilotParameters) {
