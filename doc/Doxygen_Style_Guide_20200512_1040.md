@@ -146,10 +146,10 @@ These doc comment block use the following structural elements:
 ```c++
 /**
  * \ingroup Robot
- * \brief Abstract class describing a Drive used to communicate with a CANbus device. 
- * Note that many functions are implemented according to the CiA 402 Standard (but can be overridden)
- *
+ * \brief Abstract class describing a Drive used to communicate with a CANbus device. Note that many functions are implemented according to the CiA 402 Standard (but can be overridden)
+ * 
  */
+class Drive {
 ```
 
 ## Documenting Enumerated Types<a name="h_doc_enum"></a>
@@ -198,6 +198,8 @@ Function/Method definition doc comment blocks are place before the function/meth
  * \return std::vector<std::string> representing a generated list of SDO configuration commands for position control
  * \sa motorProfile
  */
+
+std::vector<std::string> generatePosControlConfigSDO(motorProfile positionProfile);
 ```
 
 ## Additional (Useful) Special Commands <a name="h_special_cmds"></a> 
