@@ -108,15 +108,15 @@ bool AlexMachine::EndTraj::check() {
         return true;
     }
     // testing w/o green button
-    if (OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress())) {
-        return true;
-    } else {
+    // if (OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress())) {
+    //     return true;
+    // }
+    else {
         return false;
     }
 }
 
 bool AlexMachine::StartExo::check(void) {
-    //DEBUG_OUT("GO BUTTON:" << OWNER->robot->getGo())
     if (OWNER->robot->keyboard.getD() == true) {
         std::cout << "LEAVING INIT and entering init Sitting" << endl;
         return true;
@@ -155,15 +155,16 @@ bool AlexMachine::StandSelect::check(void) {
 bool AlexMachine::SitSelect::check(void) {
     DEBUG_OUT("Sit SELECT check")
 
-    //if (OWNER->robot->getResetFlag()) {
-    if (OWNER->robot->keyboard.getA()) {
-        DEBUG_OUT("Sit selected! Begin standing up")
-        return true;
-    } else if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->getGo()) {
-        DEBUG_OUT("Sit selected by crutch! Begin standing up")
-        return true;
-    } else {
-        return false;
+    if (OWNER->robot->getResetFlag()) {
+        if (OWNER->robot->keyboard.getA()) {
+            DEBUG_OUT("Sit selected! Begin standing up")
+            return true;
+        } else if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->getGo()) {
+            DEBUG_OUT("Sit selected by crutch! Begin standing up")
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 bool AlexMachine::WalkSelect::check(void) {

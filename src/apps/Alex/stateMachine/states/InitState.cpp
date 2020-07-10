@@ -24,7 +24,6 @@ void InitState::during(void) {
     //     std::cout << "output:" << robot->pb.printRobotMode(modeSelected) << std::endl;
     //     robot->setNextMotion(modeSelected);
     // }
-    // if Crutch has changed  nm from od.cm -> update the cm to nm.
     updateCrutch();
     updateFlag();
 }

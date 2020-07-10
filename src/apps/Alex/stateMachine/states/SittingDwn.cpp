@@ -12,11 +12,13 @@ void SittingDwn::entry(void) {
     robot->setCurrentState(AlexState::SittingDown);
 }
 void SittingDwn::during(void) {
-    robot->pb.updateGO(true);
+    // w/o crutch Go button
+    //robot->pb.updateGO(true);
     robot->moveThroughTraj();
 }
 void SittingDwn::exit(void) {
-    robot->pb.updateGO(false);
+    // w/o crutch Go button
+    //robot->pb.updateGO(false);
     DEBUG_OUT("EXIT SITTING DOWN POS:")
     robot->printStatus();
     std::cout
