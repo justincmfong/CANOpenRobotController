@@ -13,6 +13,7 @@ AlexMachine::AlexMachine() {
     standSelect = new StandSelect(this);
     sitSelect = new SitSelect(this);
     walkSelect = new WalkSelect(this);
+    backStep = new BackStep(this);
 
     //States
     initState = new InitState(this, robot, trajectoryGenerator);
@@ -106,10 +107,12 @@ bool AlexMachine::EndTraj::check() {
     if (OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress()) && !OWNER->robot->getGo()) {
         return true;
     }
-    // if (OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress())) {
-    //     return true;
-    // }
-    return false;
+    // testing w/o green button
+    if (OWNER->trajectoryGenerator->isTrajectoryFinished(OWNER->robot->getCurrTrajProgress())) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 bool AlexMachine::StartExo::check(void) {
@@ -138,7 +141,7 @@ bool AlexMachine::FeetTogether::check(void) {
 
 bool AlexMachine::StandSelect::check(void) {
     if (OWNER->robot->getResetFlag()) {
-        if (OWNER->robot->getCurrentMotion() == RobotMode::STNDUP && OWNER->robot->keyboard.getA()) {
+        if (OWNER->robot->keyboard.getA()) {
             DEBUG_OUT("Stand selected by keyboard! Begin standing up")
             return true;
         }
@@ -153,7 +156,7 @@ bool AlexMachine::SitSelect::check(void) {
     DEBUG_OUT("Sit SELECT check")
 
     //if (OWNER->robot->getResetFlag()) {
-    if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->keyboard.getA()) {
+    if (OWNER->robot->keyboard.getA()) {
         DEBUG_OUT("Sit selected! Begin standing up")
         return true;
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::SITDWN && OWNER->robot->getGo()) {
@@ -165,23 +168,23 @@ bool AlexMachine::SitSelect::check(void) {
 }
 bool AlexMachine::WalkSelect::check(void) {
     DEBUG_OUT("WALK SELECT")
-    // \todo be any range of walking motions or change to switch stmnt
+    // \todo change to switch statement
     if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->keyboard.getS()) {
         DEBUG_OUT("Normal walk selected begin left step")
         return true;
-    } else if (OWNER->robot->getCurrentMotion == RobotMode::UNEVEN && OWNER->robot->getGo()) {
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::UNEVEN && OWNER->robot->getGo()) {
         DEBUG_OUT("Uneven step selected begin left step")
         return true;
-    } else if (OWNER->robot->getCurrentMotion == RobotMode::UPSTAIR && OWNER->robot->getGo()) {
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::UPSTAIR && OWNER->robot->getGo()) {
         DEBUG_OUT("up stair step selected begin left step")
         return true;
-    } else if (OWNER->robot->getCurrentMotion == RobotMode::DWNSTAIR && OWNER->robot->getGo()) {
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::DWNSTAIR && OWNER->robot->getGo()) {
         DEBUG_OUT("Dwnstair step selected begin left step")
         return true;
-    } else if (OWNER->robot->getCurrentMotion == RobotMode::TILTUP && OWNER->robot->getGo()) {
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::TILTUP && OWNER->robot->getGo()) {
         DEBUG_OUT("Ramp up step selected begin left step")
         return true;
-    } else if (OWNER->robot->getCurrentMotion == RobotMode::TILTDWN && OWNER->robot->getGo()) {
+    } else if (OWNER->robot->getCurrentMotion() == RobotMode::TILTDWN && OWNER->robot->getGo()) {
         DEBUG_OUT("Ramp dwn step selected begin left step")
         return true;
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->getGo()) {
@@ -193,7 +196,6 @@ bool AlexMachine::WalkSelect::check(void) {
 }
 bool AlexMachine::BackStep::check(void) {
     DEBUG_OUT("Back select check")
-
     if (OWNER->robot->getCurrentMotion() == RobotMode::BKSTEP && OWNER->robot->getGo()) {
         DEBUG_OUT("Backstep selected by crutch!")
         return true;

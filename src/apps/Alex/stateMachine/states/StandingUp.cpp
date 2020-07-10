@@ -13,11 +13,11 @@ void StandingUp::entry(void) {
 
 void StandingUp::during(void) {
     // update go button do using keyboard d input.-> same as setting nm
-    //robot->pb.updateGO(true);
+    robot->pb.updateGO(true);
     robot->moveThroughTraj();
 }
 void StandingUp::exit(void) {
-    //robot->pb.updateGO(false);
+    robot->pb.updateGO(false);
     robot->printStatus();
     std::cout
         << "Standing up motion State Exited"

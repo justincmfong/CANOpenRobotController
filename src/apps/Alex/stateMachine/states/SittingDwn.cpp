@@ -7,14 +7,16 @@ void SittingDwn::entry(void) {
               << "===================" << endl
               << " GREEN -> SIT DOWN " << endl
               << "===================" << endl;
-    trajectoryGenerator->initialiseTrajectory(robot->getCurrentMotion(), robot->getJointStates());
+    trajectoryGenerator->initialiseTrajectory(RobotMode::SITDWN, robot->getJointStates());
     robot->startNewTraj();
     robot->setCurrentState(AlexState::SittingDown);
 }
 void SittingDwn::during(void) {
+    robot->pb.updateGO(true);
     robot->moveThroughTraj();
 }
 void SittingDwn::exit(void) {
+    robot->pb.updateGO(false);
     DEBUG_OUT("EXIT SITTING DOWN POS:")
     robot->printStatus();
     std::cout

@@ -13,17 +13,17 @@ void InitState::entry(void) {
     robot->setCurrentState(AlexState::Init);
     robot->setCurrentMotion(RobotMode::NORMALWALK);
     robot->setNextMotion(RobotMode::NORMALWALK);
-    robot->pb.printMenu();
+    //robot->pb.printMenu();
     // entry flag must be set to true by a green button release
     robot->setResetFlag(false);
 }
 void InitState::during(void) {
     //Virtual crutch - changing OD.nm
-    RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
-    if (modeSelected == RobotMode::INITIAL) {
-        std::cout << "output:" << robot->pb.printRobotMode(modeSelected) << std::endl;
-        robot->setNextMotion(modeSelected);
-    }
+    // RobotMode modeSelected = robot->pb.updateController(robot->keyboard.getE(), robot->keyboard.getW(), robot->keyboard.getX());
+    // if (modeSelected == RobotMode::INITIAL) {
+    //     std::cout << "output:" << robot->pb.printRobotMode(modeSelected) << std::endl;
+    //     robot->setNextMotion(modeSelected);
+    // }
     // if Crutch has changed  nm from od.cm -> update the cm to nm.
     updateCrutch();
     updateFlag();
