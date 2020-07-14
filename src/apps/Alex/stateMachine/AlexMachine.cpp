@@ -153,8 +153,6 @@ bool AlexMachine::StandSelect::check(void) {
     return false;
 }
 bool AlexMachine::SitSelect::check(void) {
-    DEBUG_OUT("Sit SELECT check")
-
     if (OWNER->robot->getResetFlag()) {
         if (OWNER->robot->keyboard.getA()) {
             DEBUG_OUT("Sit selected! Begin standing up")
@@ -168,7 +166,6 @@ bool AlexMachine::SitSelect::check(void) {
     }
 }
 bool AlexMachine::WalkSelect::check(void) {
-    DEBUG_OUT("WALK SELECT")
     // \todo change to switch statement
     if (OWNER->robot->getCurrentMotion() == RobotMode::NORMALWALK && OWNER->robot->keyboard.getS()) {
         DEBUG_OUT("Normal walk selected begin left step")
@@ -196,7 +193,6 @@ bool AlexMachine::WalkSelect::check(void) {
     }
 }
 bool AlexMachine::BackStep::check(void) {
-    DEBUG_OUT("Back select check")
     if (OWNER->robot->getCurrentMotion() == RobotMode::BKSTEP && OWNER->robot->getGo()) {
         DEBUG_OUT("Backstep selected by crutch!")
         return true;

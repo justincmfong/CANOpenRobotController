@@ -94,7 +94,7 @@ bool AlexRobot::moveThroughTraj() {
         }
         //std::cout << std::endl;
     } else {
-        DEBUG_OUT("PRESS Go to go!")
+        //DEBUG_OUT("PRESS Go to go!")
     }
 
     return returnValue;
