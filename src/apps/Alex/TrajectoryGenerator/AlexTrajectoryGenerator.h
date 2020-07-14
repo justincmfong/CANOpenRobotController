@@ -60,6 +60,17 @@ enum class StepType {
     DownStair
 };
 
+static std::map<StepType, std::string> StepTypeToString = {
+    {StepType::Walk, "Walk"},
+    {StepType::Sit, "Sit"},
+    {StepType::Stand, "Stand"},
+    {StepType::Stair, "Up stairs"},
+    {StepType::DownStair, "Down stairs"},
+    {StepType::Ramp, "Up slope"},
+    {StepType::Back, "Backstep"},
+    {StepType::Sitting, "Sitting (Fixed)"},
+    {StepType::Uneven, "Uneven"}};
+
 typedef struct point {
     double x, y, z;
 } point;

@@ -135,29 +135,8 @@ void AlexTrajectoryGenerator::setPilotParameters(PilotParameters pilotParameters
 void AlexTrajectoryGenerator::printTrajectoryParameters() {
     //std::cout << "Step height:" << ((AlexTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.step_height << std::endl;
     //std::cout << "Slope angle: " << ((AlexTrajectoryGenerator *)trajectoryGenerator)->trajectoryParameter.slope_angle << std::endl;
-    std::string outstring;
 
-    switch (trajectoryParameter.stepType) {
-        case (StepType::Walk):
-            outstring = "Walk";
-            break;
-        case (StepType::Uneven):
-            outstring = "Uneven";
-            break;
-        case (StepType::Sit):
-            outstring = "Sit";
-            break;
-        case (StepType::Stand):
-            outstring = "stand";
-            break;
-        case (StepType::Sitting):
-            outstring = "Sitting";
-            break;
-        default:
-            outstring = "Something else";
-    }
-
-    std::cout << "Step Type: " << outstring << std::endl;
+    std::cout << "Step Type: " << StepTypeToString[trajectoryParameter.stepType] << std::endl;
 }
 /*
 void AlexTrajectoryGenerator::setTrajectoryParameters(time_tt step_duration, double step_height, double step_length, double hip_height_slack, double torso_forward_angle, double swing_ankle_down_angle,
