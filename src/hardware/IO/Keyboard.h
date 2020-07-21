@@ -6,11 +6,11 @@
  * \date 2019-09-24
  * \copyright Copyright (c) 2020
  * 
- * \breif The <code>Keyboard</code> class is an implementation of the abstract <class>Input</class>class for a computer keyboard.
+ * \brief The <code>Keyboard</code> class is an implementation of the abstract <class>Input</class>class for a computer keyboard.
  *    The device has key states which maintain the current values for a given programs update frame or refresh rate. 
  *
  *
- * Version 0.1
+ * \Version 0.1
  * Date: 07/04/2020
  */
 

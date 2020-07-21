@@ -14,6 +14,7 @@ AlexMachine::AlexMachine() {
     sitSelect = new SitSelect(this);
     walkSelect = new WalkSelect(this);
     backStep = new BackStep(this);
+    isRPressed = new isRPressed(this);
 
     //States
     initState = new InitState(this, robot, trajectoryGenerator);
