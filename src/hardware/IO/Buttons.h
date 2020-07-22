@@ -18,7 +18,7 @@ class Buttons : public InputDevice {
     private:
      bool errorButton;
 
-     std::string errorButtonPath = "/sys/class/gpio/gpio67/value";
+     std::string errorButtonPath = "/sys/class/gpio/gpio60/value";
 
      /**
       * \brief check the value of the e-stop button
