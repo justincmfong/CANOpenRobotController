@@ -150,6 +150,7 @@ void AlexRobot::freeMemory() {
 void AlexRobot::updateRobot() {
     Robot::updateRobot();
     keyboard.updateInput();
+    buttons.updateInput();
 }
 double AlexRobot::getCurrTrajProgress() {
     return currTrajProgress;

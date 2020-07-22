@@ -72,17 +72,17 @@ AlexMachine::AlexMachine() {
      *
      */
     // NewTransition(errorState, resetButtonsPressed, initState);
-    // NewTransition(sitting, isRPressed, errorState);
-    // NewTransition(standing, isRPressed, errorState);
-    // NewTransition(standingUp, isRPressed, errorState);
-    // NewTransition(sittingDwn, isRPressed, errorState);
-    // NewTransition(steppingFirstLeft, isRPressed, errorState);
-    // NewTransition(leftForward, isRPressed, errorState);
-    // NewTransition(steppingRight, isRPressed, errorState);
-    // NewTransition(rightForward, isRPressed, errorState);
-    // NewTransition(steppingLeft, isRPressed, errorState);
-    // NewTransition(steppingLastRight, isRPressed, errorState);
-    // NewTransition(steppingLastLeft, isRPressed, errorState);
+    NewTransition(sitting, isRPressed, errorState);
+    NewTransition(standing, isRPressed, errorState);
+    NewTransition(standingUp, isRPressed, errorState);
+    NewTransition(sittingDwn, isRPressed, errorState);
+    NewTransition(steppingFirstLeft, isRPressed, errorState);
+    NewTransition(leftForward, isRPressed, errorState);
+    NewTransition(steppingRight, isRPressed, errorState);
+    NewTransition(rightForward, isRPressed, errorState);
+    NewTransition(steppingLeft, isRPressed, errorState);
+    NewTransition(steppingLastRight, isRPressed, errorState);
+    NewTransition(steppingLastLeft, isRPressed, errorState);
     //Initialize the state machine with first state of the designed state machine, using baseclass function.
     StateMachine::initialize(initState);
 }
