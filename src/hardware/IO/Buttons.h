@@ -40,4 +40,5 @@ class Buttons : public InputDevice {
       * 
       */
      void updateInput();
+     bool getErrorButton();
 };

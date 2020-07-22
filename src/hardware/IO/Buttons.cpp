@@ -26,3 +26,6 @@ bool Buttons::checkButton(std::string path) {
         return false;
     }
 };
+bool Buttons::getErrorButton() {
+    return errorButton;
+};

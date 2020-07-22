@@ -26,6 +26,7 @@
 #include "AlexTrajectoryGenerator.h"
 #include "CopleyDrive.h"
 #include "Keyboard.h"
+#include "Buttons.h"
 #include "Robot.h"
 #include "RobotParams.h"
 #include "SchneiderDrive.h"
@@ -66,6 +67,7 @@ class AlexRobot : public Robot {
     AlexTrajectoryGenerator *trajectoryGenerator;
     Keyboard keyboard;
     pocketBeagle pb;
+    Buttons buttons;
 
     // Base class drive pointer: can be any type of derived driver class.
     vector<Drive *> Drives;
