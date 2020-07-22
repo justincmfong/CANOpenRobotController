@@ -10,6 +10,7 @@
  */
 
 #include <unistd.h>
+// #include <string>
 
 #include "InputDevice.h"
 
@@ -23,7 +24,7 @@ class Buttons : public InputDevice {
       * \brief check the value of the e-stop button
       * 
       */
-     bool checkButton(std);
+     bool checkButton(std::string path);
     
     public:
      /**
