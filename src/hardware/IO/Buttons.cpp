@@ -10,8 +10,8 @@ Buttons::~Buttons() {
     // Check if destructor is necessary
 };
 void Buttons::updateInput() {
-    std::cout << "Error button value: " << errorButton << std::endl;
     errorButton = checkButton(errorButtonPath);
+    std::cout << "Error button value: " << errorButton << std::endl;
 };
 bool Buttons::checkButton(std::string path) {
     char value;
@@ -20,7 +20,7 @@ bool Buttons::checkButton(std::string path) {
     stream.close();
 
     // Button is pressed if value is 0
-    if (value == '0') {
+    if (value == '1') {
         return true;
     } else {
         return false;
