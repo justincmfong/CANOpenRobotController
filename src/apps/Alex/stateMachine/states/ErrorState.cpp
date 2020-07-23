@@ -8,10 +8,11 @@ void ErrorState::entry(void) {
               << "==================" << endl;
     // /todo turn into function; disable joints
 
-    // for (auto i = 0; i < NUM_JOINTS; i++) {
-    //     OWNER->robot->joints[i].disable();
-    // }
-    //robot->copleyDrives[0]->setNextMotion(RobotMode::ERROR);
+    for (auto i = 0; i < NUM_JOINTS; i++) {
+        OWNER->robot->joints[i].disable();
+    }
+    robot->copleyDrives[0]->setNextMotion(RobotMode::ERROR);
+    robot->setCurrentState(AlexState::Error);
 }
 void ErrorState::during(void) {
 }
