@@ -29,7 +29,7 @@
 #define SITTIME 3
 #define STEPTIME 2
 #define STAIRTIME 3
-#define UNEVENSTEPTIME 4
+#define UNEVENSTEPTIME 3
 #define UNEVENTORSO deg2rad(10)
 #define STEPLENGTH 0.33
 #define HALFSTEPLENGTH STEPLENGTH / 2
@@ -40,6 +40,9 @@
 #define STEPTGTLENGTH 0.0
 #define LEGSLACK 0.0001
 #define TORSOANGLE deg2rad(5)
+#define UNEVENSTEP 0.3
+#define STAIRSTEP 0.35
+#define STAIRHEIGHT 0.25
 
 typedef double time_tt;  // time_t is already used
 
@@ -144,15 +147,15 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                           .swing_ankle_down_angle = 0,
                           .stance_foot = Foot::Right,
                           .stepType = StepType::Sitting,
-                          .seat_height = 0.45,     // sit-stand
+                          .seat_height = 0.42,     // sit-stand, when checked on July 23rd was 0.45
                           .step_end_height = 0.0,  // stairs
                           .slope_angle = 0.0,      // tilted path
                           .left_foot_on_tilt = false,
                           .right_foot_on_tilt = false}},
     {RobotMode::NORMALWALK, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                              .hip_height_slack = LEGSLACK,  // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                             //.torso_forward_angle = TORSOANGLE,
-                             .torso_forward_angle = UNEVENTORSO,
+                             .torso_forward_angle = TORSOANGLE,
+                             //.torso_forward_angle = UNEVENTORSO,
                              .swing_ankle_down_angle = 0,
                              .stance_foot = Foot::Right,
                              .stepType = StepType::Walk,
@@ -162,25 +165,25 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                              .slope_angle = 0.0,      // tilted path
                              .left_foot_on_tilt = false,
                              .right_foot_on_tilt = false}},
-    {RobotMode::UPSTAIR, {.step_duration = STEPTIME, .step_height = STEPHEIGHT, .step_length = STEPTGTLENGTH,
+    {RobotMode::UPSTAIR, {.step_duration = STAIRTIME, .step_height = STEPHEIGHT, .step_length = STAIRSTEP,
                           .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                           .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                           .swing_ankle_down_angle = 0,
                           .stance_foot = Foot::Right,
-                          .stepType = StepType::Walk,
+                          .stepType = StepType::Stair, //Stair
                           .seat_height = 0.42,     // sit-stand
-                          .step_end_height = 0.0,  // stairs
+                          .step_end_height = STAIRHEIGHT,  // stairs
                           .slope_angle = 0.0,      // tilted path
                           .left_foot_on_tilt = false,
                           .right_foot_on_tilt = false}},
-    {RobotMode::DWNSTAIR, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
+    {RobotMode::DWNSTAIR, {.step_duration = STAIRTIME * 2, .step_height = STEPHEIGHT, .step_length = STAIRSTEP,
                            .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                            .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                            .swing_ankle_down_angle = 0,
                            .stance_foot = Foot::Right,
-                           .stepType = StepType::Uneven,
+                           .stepType = StepType::Walk, //DownStair
                            .seat_height = 0.42,     // sit-stand
-                           .step_end_height = 0.0,  // stairs
+                           .step_end_height = STAIRHEIGHT,  // stairs
                            .slope_angle = 0.0,      // tilted path
                            .left_foot_on_tilt = false,
                            .right_foot_on_tilt = false}},
@@ -250,14 +253,14 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                          .slope_angle = 0.0,      // tilted path
                          .left_foot_on_tilt = false,
                          .right_foot_on_tilt = false}},
-    {RobotMode::UNEVEN, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
+    {RobotMode::UNEVEN, {.step_duration = UNEVENSTEPTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                          .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                          .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                          .swing_ankle_down_angle = 0,
                          .stance_foot = Foot::Right,
                          .stepType = StepType::Uneven,
                          .seat_height = 0.42,     // sit-stand
-                         .step_end_height = 0.0,  // stairs
+                         .step_end_height = 0.04,  // stairs
                          .slope_angle = 0.0,      // tilted path
                          .left_foot_on_tilt = false,
                          .right_foot_on_tilt = false}}};
