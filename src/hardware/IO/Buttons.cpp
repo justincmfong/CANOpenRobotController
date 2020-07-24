@@ -7,7 +7,7 @@ Buttons::Buttons() {
     errorButton = false;
 };
 Buttons::~Buttons() {
-    // Check if destructor is necessary
+    // Todo: Check if destructor is necessary
 };
 void Buttons::updateInput() {
     errorButton = checkButton(errorButtonPath);
