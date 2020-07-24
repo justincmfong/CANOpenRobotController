@@ -60,7 +60,6 @@ enum robotJoints {
  * Different Robot motion profiles
  */
 enum class RobotMode {
-    ERROR,
     NORMALWALK,
     SITDWN,
     STNDUP,
