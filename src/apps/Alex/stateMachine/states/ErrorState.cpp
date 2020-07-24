@@ -12,9 +12,7 @@ void ErrorState::entry(void) {
     //     OWNER->robot->joints[i].disable();
     // }
     // robot->copleyDrives[0]->setNextMotion(RobotMode::ERROR);
-    for (auto p : robot->joints) {
-        ((ActuatedJoint *)p)->disable();
-    }
+    robot->disableJoints();
 
     robot->setCurrentState(AlexState::Error);
 }

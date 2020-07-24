@@ -12,6 +12,7 @@
 #define ErrorState_H_INCLUDED
 
 #include "ExoTestState.h"
+#include "AlexJoint.h"
 
 /**
  * \brief Initialisation State for the ExoTestMachine (implementing ExoTestState)

@@ -213,6 +213,12 @@ class AlexRobot : public Robot {
     * \todo Move jointMinMap and jointMaxMap to RobotParams.h
     * 
     */
+
+   /**
+    * \brief disable all joints of the robot, returns true if successful
+    * 
+    */
+   bool disableJoints();
     /**
        * \brief Joint Limit Map between Joint value and max Degrees possible
        * \param int Joint value
