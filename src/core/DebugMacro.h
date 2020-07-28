@@ -8,7 +8,7 @@
  * \version 0.1
  * \date 2020-05-12
  * \copyright Copyright (c) 2020
- * 
+ *
  */
 #ifndef DEBUG_H_INCLUDED
 #define DEBUG_H_INCLUDED

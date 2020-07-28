@@ -14,7 +14,8 @@ AlexMachine::AlexMachine() {
     sitSelect = new SitSelect(this);
     walkSelect = new WalkSelect(this);
     backStep = new BackStep(this);
-    stairSelect = new StairSelect(this);
+    upStairSelect = new UpStairSelect(this);
+    downStairSelect = new DownStairSelect(this);
     isRPressed = new IsRPressed(this);
     resetButtonsPressed = new ResetButtons(this);
 
@@ -37,7 +38,8 @@ AlexMachine::AlexMachine() {
     backStepRight = new BackStepRight(this, robot, trajectoryGenerator);
     steppingRightStair = new SteppingRightStair(this, robot, trajectoryGenerator);
     steppingLeftStair = new SteppingLeftStair(this, robot, trajectoryGenerator);
-
+    steppingRightStairDown = new SteppingRightStairDown(this, robot, trajectoryGenerator);
+    steppingLeftStairDown = new SteppingLeftStairDown(this, robot, trajectoryGenerator);
     /**
      * \brief Moving Trajectory Transitions
      *
@@ -66,13 +68,20 @@ AlexMachine::AlexMachine() {
     /*Back Stepping transitions*/
     //Currently just a left backstep from standing
     /*\todo add backstep feet together (1/2 step x size) + starting w/back right step*/
-    NewTransition(standing, stairSelect, steppingLeftStair);
-    NewTransition(steppingLeftStair, endTraj, leftForward);
-    NewTransition(leftForward, stairSelect, steppingRightStair);
-    NewTransition(steppingRightStair, endTraj, standing);
+    NewTransition(standing, backStep, backStepLeft);
+    NewTransition(backStepLeft, endTraj, rightForward);
+    NewTransition(rightForward, backStep, backStepRight);
+    NewTransition(backStepRight, endTraj, leftForward);
 
     /*Stair stepping transitions*/
-    NewTransition(standing, backStep, backStepLeft);
+    NewTransition(standing, upStairSelect, steppingLeftStair);
+    NewTransition(steppingLeftStair, endTraj, leftForward);
+    NewTransition(leftForward, upStairSelect, steppingRightStair);
+    NewTransition(steppingRightStair, endTraj, standing);
+    NewTransition(standing, downStairSelect, steppingLeftStairDown);
+    NewTransition(steppingLeftStairDown, endTraj, rightForward);
+    NewTransition(rightForward, downStairSelect, steppingRightStairDown);
+    NewTransition(steppingRightStairDown, endTraj, standing);
     /**
      * \brief  Error State Transitions
      *
@@ -91,6 +100,8 @@ AlexMachine::AlexMachine() {
     NewTransition(steppingLastLeft, isRPressed, errorState);
     NewTransition(steppingRightStair, isRPressed, errorState);
     NewTransition(steppingLeftStair, isRPressed, errorState);
+    NewTransition(steppingRightStairDown, isRPressed, errorState);
+    NewTransition(steppingLeftStairDown, isRPressed, errorState);
     //Initialize the state machine with first state of the designed state machine, using baseclass function.
     StateMachine::initialize(initState);
 }
@@ -182,9 +193,6 @@ bool AlexMachine::WalkSelect::check(void) {
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::UNEVEN && OWNER->robot->getGo()) {
         DEBUG_OUT("Uneven step selected begin left step")
         return true;
-    } else if (OWNER->robot->getCurrentMotion() == RobotMode::DWNSTAIR && OWNER->robot->getGo()) {
-        DEBUG_OUT("Dwnstair step selected begin left step")
-        return true;
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::TILTUP && OWNER->robot->getGo()) {
         DEBUG_OUT("Ramp up step selected begin left step")
         return true;
@@ -206,9 +214,17 @@ bool AlexMachine::BackStep::check(void) {
         return false;
     }
 }
-bool AlexMachine::StairSelect::check(void) {
+bool AlexMachine::UpStairSelect::check(void) {
     if (OWNER->robot->getCurrentMotion() == RobotMode::UPSTAIR && OWNER->robot->getGo()) {
-        DEBUG_OUT("up stair step selected begin left step")
+        DEBUG_OUT("up stair step selected")
+        return true;
+    }  else {
+        return false;
+    }
+}
+bool AlexMachine::DownStairSelect::check(void) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::DWNSTAIR && OWNER->robot->getGo()) {
+        DEBUG_OUT("down stair step selected")
         return true;
     }  else {
         return false;
