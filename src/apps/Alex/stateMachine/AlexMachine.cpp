@@ -15,6 +15,7 @@ AlexMachine::AlexMachine() {
     walkSelect = new WalkSelect(this);
     backStep = new BackStep(this);
     isRPressed = new IsRPressed(this);
+    resetButtonsPressed = new ResetButtons(this);
 
     //States
     initState = new InitState(this, robot, trajectoryGenerator);
@@ -71,7 +72,7 @@ AlexMachine::AlexMachine() {
      * \brief  Error State Transitions
      *
      */
-    // NewTransition(errorState, resetButtonsPressed, initState);
+    NewTransition(errorState, resetButtonsPressed, initState);
     NewTransition(sitting, isRPressed, errorState);
     NewTransition(standing, isRPressed, errorState);
     NewTransition(standingUp, isRPressed, errorState);
@@ -203,6 +204,9 @@ bool AlexMachine::BackStep::check(void) {
 }
 bool AlexMachine::IsRPressed::check(void) {
     return OWNER->robot->buttons.getErrorButton();
+}
+bool AlexMachine::ResetButtons::check(void) {
+    return !(OWNER->robot->buttons.getErrorButton());
 }
 
 /**
