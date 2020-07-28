@@ -1,20 +1,20 @@
 /**
  * \file AlexMachine.h
- * \author William Campbell 
+ * \author William Campbell
  * \version 0.1
  * \date 2020-06-01
  * \copyright Copyright (c) 2020
  *
- * /brief The <code>AlexMachine</code> class represents the Alex teamsimplementation of an exoskeleton state machine 
- * with five states. 
- * Initialisation, sitting, standing, standing up and sitting down./todo: add walking states. 
+ * /brief The <code>AlexMachine</code> class represents the Alex teamsimplementation of an exoskeleton state machine
+ * with five states.
+ * Initialisation, sitting, standing, standing up and sitting down./todo: add walking states.
  * The machine uses the AlexTrajectory generator to perform position control opperations using an X2 hardware platform.
- * 
- *  
+ *
+ *
  * For more detail on the architecture, mechanics and design of the project please go to embedded.readthedocs.io
- * 
+ *
  *  State transition Diagram.
- * 
+ *
  *         startExo             startStand
  *  initState +-----> sitting +---------> standingUp
  *                      ^                  +
@@ -23,7 +23,7 @@
  *                      +                  |
  *                 sittingDwn <---------+ standing
  *                              startSit
- * 
+ *
  * Version 0.1
  * Date: 07/04/2020
  *
@@ -60,17 +60,19 @@
 #include "SteppingLastRight.h"
 #include "SteppingLeft.h"
 #include "SteppingRight.h"
+#include "SteppingRightStair.h"
+#include "SteppingLeftStair.h"
 
 /**
  * @brief Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestState
- * 
+ *
  */
 class AlexMachine : public StateMachine {
    public:
     bool running = false;
     /**
      *  \todo Pilot Parameters would be set in constructor here
-     * 
+     *
      */
     AlexMachine();
     void init();
@@ -84,8 +86,8 @@ class AlexMachine : public StateMachine {
     AlexTrajectoryGenerator* trajectoryGenerator;
 
     /**
-     * Pointers to the relevant states - initialised in init 
-     * 
+     * Pointers to the relevant states - initialised in init
+     *
      */
     InitState* initState;
     InitialSitting* initialSitting;
@@ -103,13 +105,15 @@ class AlexMachine : public StateMachine {
     ErrorState* errorState;
     BackStepLeft* backStepLeft;
     BackStepRight* backStepRight;
+    SteppingLeftStair* steppingLeftStair;
+    SteppingRightStair* steppingRightStair;
 
    protected:
     AlexRobot* robot; /*<!Pointer to the Robot*/
 
    private:
     /**
-     * 
+     *
      * \brief Event Objects defined using Macro defined in StateMachine.h
      * Defines the Class itself, as well as initialises an object of that class
      * An events check function are defined in the .cpp file.
@@ -128,6 +132,8 @@ class AlexMachine : public StateMachine {
     EventObject(SitSelect) * sitSelect;
     EventObject(WalkSelect) * walkSelect;
     EventObject(BackStep) * backStep;
+    EventObject(StairSelect) * stairSelect;
+
 };
 
 #endif /*EXO_SM_H*/

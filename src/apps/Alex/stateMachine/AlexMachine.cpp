@@ -14,6 +14,7 @@ AlexMachine::AlexMachine() {
     sitSelect = new SitSelect(this);
     walkSelect = new WalkSelect(this);
     backStep = new BackStep(this);
+    stairSelect = new StairSelect(this);
     isRPressed = new IsRPressed(this);
     resetButtonsPressed = new ResetButtons(this);
 
@@ -34,6 +35,8 @@ AlexMachine::AlexMachine() {
     errorState = new ErrorState(this, robot, trajectoryGenerator);
     backStepLeft = new BackStepLeft(this, robot, trajectoryGenerator);
     backStepRight = new BackStepRight(this, robot, trajectoryGenerator);
+    steppingRightStair = new SteppingRightStair(this, robot, trajectoryGenerator);
+    steppingLeftStair = new SteppingLeftStair(this, robot, trajectoryGenerator);
 
     /**
      * \brief Moving Trajectory Transitions
@@ -63,11 +66,13 @@ AlexMachine::AlexMachine() {
     /*Back Stepping transitions*/
     //Currently just a left backstep from standing
     /*\todo add backstep feet together (1/2 step x size) + starting w/back right step*/
-    NewTransition(standing, backStep, backStepLeft);
-    NewTransition(backStepLeft, endTraj, rightForward);
-    NewTransition(rightForward, backStep, backStepRight);
-    NewTransition(backStepRight, endTraj, leftForward);
+    NewTransition(standing, stairSelect, steppingLeftStair);
+    NewTransition(steppingLeftStair, endTraj, leftForward);
+    NewTransition(leftForward, stairSelect, steppingRightStair);
+    NewTransition(steppingRightStair, endTraj, standing);
 
+    /*Stair stepping transitions*/
+    NewTransition(standing, backStep, backStepLeft);
     /**
      * \brief  Error State Transitions
      *
@@ -84,13 +89,15 @@ AlexMachine::AlexMachine() {
     NewTransition(steppingLeft, isRPressed, errorState);
     NewTransition(steppingLastRight, isRPressed, errorState);
     NewTransition(steppingLastLeft, isRPressed, errorState);
+    NewTransition(steppingRightStair, isRPressed, errorState);
+    NewTransition(steppingLeftStair, isRPressed, errorState);
     //Initialize the state machine with first state of the designed state machine, using baseclass function.
     StateMachine::initialize(initState);
 }
 /**
  * \brief start function for running any designed statemachine specific functions
  * for example initialising robot objects.
- * 
+ *
  */
 void AlexMachine::init() {
     robot->initialise();
@@ -175,9 +182,6 @@ bool AlexMachine::WalkSelect::check(void) {
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::UNEVEN && OWNER->robot->getGo()) {
         DEBUG_OUT("Uneven step selected begin left step")
         return true;
-    } else if (OWNER->robot->getCurrentMotion() == RobotMode::UPSTAIR && OWNER->robot->getGo()) {
-        DEBUG_OUT("up stair step selected begin left step")
-        return true;
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::DWNSTAIR && OWNER->robot->getGo()) {
         DEBUG_OUT("Dwnstair step selected begin left step")
         return true;
@@ -202,6 +206,14 @@ bool AlexMachine::BackStep::check(void) {
         return false;
     }
 }
+bool AlexMachine::StairSelect::check(void) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::UPSTAIR && OWNER->robot->getGo()) {
+        DEBUG_OUT("up stair step selected begin left step")
+        return true;
+    }  else {
+        return false;
+    }
+}
 bool AlexMachine::IsRPressed::check(void) {
     return OWNER->robot->buttons.getErrorButton();
 }
@@ -212,7 +224,7 @@ bool AlexMachine::ResetButtons::check(void) {
 /**
  * \brief Statemachine to hardware interface method. Run any hardware update methods
  * that need to run every program loop update cycle.
- * 
+ *
  */
 void AlexMachine::hwStateUpdate(void) {
     robot->updateRobot();
