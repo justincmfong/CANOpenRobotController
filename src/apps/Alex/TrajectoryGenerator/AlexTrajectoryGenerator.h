@@ -43,6 +43,7 @@
 #define UNEVENSTEP 0.3
 #define STAIRSTEP 0.35
 #define STAIRHEIGHT 0.25
+#define TILTANKLE deg2rad(10) //tbd, 12 deg for tilted path, 20 deg for ramp
 
 typedef double time_tt;  // time_t is already used
 
@@ -190,7 +191,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
     {RobotMode::TILTUP, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                          .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                          .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                         .swing_ankle_down_angle = 0,
+                         .swing_ankle_down_angle = TILTANKLE,
                          .stance_foot = Foot::Right,
                          .stepType = StepType::Uneven,
                          .seat_height = 0.42,     // sit-stand
@@ -201,7 +202,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
     {RobotMode::TILTDWN, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                           .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                           .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                          .swing_ankle_down_angle = 0,
+                          .swing_ankle_down_angle = -TILTANKLE,
                           .stance_foot = Foot::Right,
                           .stepType = StepType::Uneven,
                           .seat_height = 0.42,     // sit-stand
