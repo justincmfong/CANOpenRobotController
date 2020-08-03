@@ -43,6 +43,7 @@
 #define UNEVENSTEP 0.3
 #define STAIRSTEP 0.35
 #define STAIRHEIGHT 0.25
+#define TILTANKLE deg2rad(10)  //tbd, 12 deg for tilted path, 20 deg for ramp
 
 typedef double time_tt;  // time_t is already used
 
@@ -134,11 +135,11 @@ typedef struct PilotParameters {
 
 /**
  * @brief Map between Movement values for specific trajectory motion paramaters. These paramaters are fed into the
- * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading 
+ * TrajectoryGenerator object to create unique trajectories. The map is constructed for ease of loading
  * in new trajectories dictated by an external CAN enabled controller in the exoskeleton State machine. The paramater
  * map is constructed at runtime from trajectoryParam.JSON
  * @param RobotMode Current mode of robot
- * @return TrajectoryGenerator::TrajectoryParameters 
+ * @return TrajectoryGenerator::TrajectoryParameters
  */
 static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
     {RobotMode::INITIAL, {.step_duration = SITTIME, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
@@ -170,10 +171,10 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                           .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                           .swing_ankle_down_angle = 0,
                           .stance_foot = Foot::Right,
-                          .stepType = StepType::Stair, //Stair
-                          .seat_height = 0.42,     // sit-stand
+                          .stepType = StepType::Stair,     //Stair
+                          .seat_height = 0.42,             // sit-stand
                           .step_end_height = STAIRHEIGHT,  // stairs
-                          .slope_angle = 0.0,      // tilted path
+                          .slope_angle = 0.0,              // tilted path
                           .left_foot_on_tilt = false,
                           .right_foot_on_tilt = false}},
     {RobotMode::DWNSTAIR, {.step_duration = STAIRTIME * 2, .step_height = STEPHEIGHT, .step_length = STAIRSTEP,
@@ -181,16 +182,16 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                            .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                            .swing_ankle_down_angle = 0,
                            .stance_foot = Foot::Right,
-                           .stepType = StepType::Walk, //DownStair
-                           .seat_height = 0.42,     // sit-stand
+                           .stepType = StepType::Walk,      //DownStair
+                           .seat_height = 0.42,             // sit-stand
                            .step_end_height = STAIRHEIGHT,  // stairs
-                           .slope_angle = 0.0,      // tilted path
+                           .slope_angle = 0.0,              // tilted path
                            .left_foot_on_tilt = false,
                            .right_foot_on_tilt = false}},
     {RobotMode::TILTUP, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                          .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                          .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                         .swing_ankle_down_angle = 0,
+                         .swing_ankle_down_angle = TILTANKLE,
                          .stance_foot = Foot::Right,
                          .stepType = StepType::Uneven,
                          .seat_height = 0.42,     // sit-stand
@@ -201,7 +202,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
     {RobotMode::TILTDWN, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                           .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                           .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                          .swing_ankle_down_angle = 0,
+                          .swing_ankle_down_angle = -TILTANKLE,
                           .stance_foot = Foot::Right,
                           .stepType = StepType::Uneven,
                           .seat_height = 0.42,     // sit-stand
@@ -259,9 +260,9 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                          .swing_ankle_down_angle = 0,
                          .stance_foot = Foot::Right,
                          .stepType = StepType::Uneven,
-                         .seat_height = 0.42,     // sit-stand
+                         .seat_height = 0.42,      // sit-stand
                          .step_end_height = 0.04,  // stairs
-                         .slope_angle = 0.0,      // tilted path
+                         .slope_angle = 0.0,       // tilted path
                          .left_foot_on_tilt = false,
                          .right_foot_on_tilt = false}}};
 
@@ -274,20 +275,20 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
     void setPilotParameters(double lowerleg_length, double upperleg_length, double ankle_height, double foot_length,
                             double hip_width, double torso_length, double buttocks_height);*/
     /**
-     * @brief Parameters which should be constant from construction and never changed - related to the physical 
+     * @brief Parameters which should be constant from construction and never changed - related to the physical
      * pilot/exoskeleton system
-     * 
+     *
      */
     PilotParameters pilotParameters;
 
     /**
      * @brief Parameters related to the trajectory to be executed
-     * 
+     *
      */
     TrajectoryParameters trajectoryParameter;
     /**
      * @brief Parameters related to joint space splines
-     * 
+     *
      */
 
     jointspace_spline trajectoryJointSpline;
@@ -381,13 +382,13 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
     bool initialiseTrajectory();
     bool initialiseTrajectory(RobotMode mov);
     /**
-     * \brief 
+     * \brief
      *      initialize the trajectory generators paramaters and generate a spline given current pos
      *      Function overloaded for walking stance leg input or w/o
      * @param mvmnt type
      * @param vector of robot joints qdeg
-     * \return true 
-     * \return false 
+     * \return true
+     * \return false
      */
     bool initialiseTrajectory(RobotMode mvmnt, std::vector<double> qdeg);
     bool initialiseTrajectory(RobotMode mvmnt, Foot stanceFoot, std::vector<double> qdeg);
@@ -402,8 +403,8 @@ class AlexTrajectoryGenerator : public TrajectoryGenerator {
 
     void setTrajectoryStanceRight();
     /**
-     * \brief Set the Trajectory Objects paramaters Foot stance to Left 
-     * 
+     * \brief Set the Trajectory Objects paramaters Foot stance to Left
+     *
      */
     void setTrajectoryStanceLeft();
 

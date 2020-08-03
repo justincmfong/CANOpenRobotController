@@ -142,10 +142,18 @@ class ActuatedJoint : public Joint {
     /**
      * \brief Enable the joint
      * 
-     * \return true if succesful
+     * \return true if successful
      * \return false if drive is currently not in the correct state to enable
      */
     bool enable();
+
+     /**
+     * \brief Disable the joint
+     * 
+     * \return true if successful
+     * \return false if failed
+     */
+    bool disable();
 };
 
 #endif

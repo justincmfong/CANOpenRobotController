@@ -150,6 +150,7 @@ void AlexRobot::freeMemory() {
 void AlexRobot::updateRobot() {
     Robot::updateRobot();
     keyboard.updateInput();
+    buttons.updateInput();
 }
 double AlexRobot::getCurrTrajProgress() {
     return currTrajProgress;
@@ -199,4 +200,16 @@ void AlexRobot::setResetFlag(bool value) {
 bool AlexRobot::getResetFlag() {
     return resetTrajectory;
     ;
+}
+
+bool AlexRobot::disableJoints() {
+    bool tmp = true;
+    for (auto p : joints) {
+        if (((ActuatedJoint *)p)->disable() == false) {
+            std::cout << "Drive failed to be disabled!" << std::endl;
+            tmp = false;
+        }
+    }
+
+    return tmp;
 }

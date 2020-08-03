@@ -11,7 +11,10 @@ void ErrorState::entry(void) {
     // for (auto i = 0; i < NUM_JOINTS; i++) {
     //     OWNER->robot->joints[i].disable();
     // }
-    //robot->copleyDrives[0]->setNextMotion(RobotMode::ERROR);
+    // robot->copleyDrives[0]->setNextMotion(RobotMode::ERROR);
+    robot->disableJoints();
+
+    robot->setCurrentState(AlexState::Error);
 }
 void ErrorState::during(void) {
 }

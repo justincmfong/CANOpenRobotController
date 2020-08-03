@@ -82,3 +82,11 @@ bool ActuatedJoint::enable() {
     }
     return false;
 }
+
+bool ActuatedJoint::disable() {
+    drive->disable();
+    if (drive->getDriveState() == DISABLED) {
+        return true;
+    }
+    return false;
+}

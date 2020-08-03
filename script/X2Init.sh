@@ -28,6 +28,9 @@ config-pin -a p8.8 in+
 config-pin -a p8.9 in+
 config-pin -a p8.10 in+
 
+# FOR TESTING E-STOP
+config-pin -a p9.12 in+
+
 cd /home/debian
 echo - > od4_storage
 echo - > od4_storage_auto

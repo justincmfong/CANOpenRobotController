@@ -14,6 +14,10 @@ AlexMachine::AlexMachine() {
     sitSelect = new SitSelect(this);
     walkSelect = new WalkSelect(this);
     backStep = new BackStep(this);
+    upStairSelect = new UpStairSelect(this);
+    downStairSelect = new DownStairSelect(this);
+    isRPressed = new IsRPressed(this);
+    resetButtonsPressed = new ResetButtons(this);
 
     //States
     initState = new InitState(this, robot, trajectoryGenerator);
@@ -32,7 +36,10 @@ AlexMachine::AlexMachine() {
     errorState = new ErrorState(this, robot, trajectoryGenerator);
     backStepLeft = new BackStepLeft(this, robot, trajectoryGenerator);
     backStepRight = new BackStepRight(this, robot, trajectoryGenerator);
-
+    steppingRightStair = new SteppingRightStair(this, robot, trajectoryGenerator);
+    steppingLeftStair = new SteppingLeftStair(this, robot, trajectoryGenerator);
+    steppingRightStairDown = new SteppingRightStairDown(this, robot, trajectoryGenerator);
+    steppingLeftStairDown = new SteppingLeftStairDown(this, robot, trajectoryGenerator);
     /**
      * \brief Moving Trajectory Transitions
      *
@@ -66,29 +73,42 @@ AlexMachine::AlexMachine() {
     NewTransition(rightForward, backStep, backStepRight);
     NewTransition(backStepRight, endTraj, leftForward);
 
+    /*Stair stepping transitions*/
+    NewTransition(standing, upStairSelect, steppingLeftStair);
+    NewTransition(steppingLeftStair, endTraj, leftForward);
+    NewTransition(leftForward, upStairSelect, steppingRightStair);
+    NewTransition(steppingRightStair, endTraj, standing);
+    NewTransition(standing, downStairSelect, steppingLeftStairDown);
+    NewTransition(steppingLeftStairDown, endTraj, rightForward);
+    NewTransition(rightForward, downStairSelect, steppingRightStairDown);
+    NewTransition(steppingRightStairDown, endTraj, standing);
     /**
      * \brief  Error State Transitions
      *
      */
-    // NewTransition(errorState, resetButtonsPressed, initState);
-    // NewTransition(sitting, isRPressed, errorState);
-    // NewTransition(standing, isRPressed, errorState);
-    // NewTransition(standingUp, isRPressed, errorState);
-    // NewTransition(sittingDwn, isRPressed, errorState);
-    // NewTransition(steppingFirstLeft, isRPressed, errorState);
-    // NewTransition(leftForward, isRPressed, errorState);
-    // NewTransition(steppingRight, isRPressed, errorState);
-    // NewTransition(rightForward, isRPressed, errorState);
-    // NewTransition(steppingLeft, isRPressed, errorState);
-    // NewTransition(steppingLastRight, isRPressed, errorState);
-    // NewTransition(steppingLastLeft, isRPressed, errorState);
+    NewTransition(errorState, resetButtonsPressed, initState);
+    NewTransition(sitting, isRPressed, errorState);
+    NewTransition(standing, isRPressed, errorState);
+    NewTransition(standingUp, isRPressed, errorState);
+    NewTransition(sittingDwn, isRPressed, errorState);
+    NewTransition(steppingFirstLeft, isRPressed, errorState);
+    NewTransition(leftForward, isRPressed, errorState);
+    NewTransition(steppingRight, isRPressed, errorState);
+    NewTransition(rightForward, isRPressed, errorState);
+    NewTransition(steppingLeft, isRPressed, errorState);
+    NewTransition(steppingLastRight, isRPressed, errorState);
+    NewTransition(steppingLastLeft, isRPressed, errorState);
+    NewTransition(steppingRightStair, isRPressed, errorState);
+    NewTransition(steppingLeftStair, isRPressed, errorState);
+    NewTransition(steppingRightStairDown, isRPressed, errorState);
+    NewTransition(steppingLeftStairDown, isRPressed, errorState);
     //Initialize the state machine with first state of the designed state machine, using baseclass function.
     StateMachine::initialize(initState);
 }
 /**
  * \brief start function for running any designed statemachine specific functions
  * for example initialising robot objects.
- * 
+ *
  */
 void AlexMachine::init() {
     robot->initialise();
@@ -173,12 +193,6 @@ bool AlexMachine::WalkSelect::check(void) {
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::UNEVEN && OWNER->robot->getGo()) {
         DEBUG_OUT("Uneven step selected begin left step")
         return true;
-    } else if (OWNER->robot->getCurrentMotion() == RobotMode::UPSTAIR && OWNER->robot->getGo()) {
-        DEBUG_OUT("up stair step selected begin left step")
-        return true;
-    } else if (OWNER->robot->getCurrentMotion() == RobotMode::DWNSTAIR && OWNER->robot->getGo()) {
-        DEBUG_OUT("Dwnstair step selected begin left step")
-        return true;
     } else if (OWNER->robot->getCurrentMotion() == RobotMode::TILTUP && OWNER->robot->getGo()) {
         DEBUG_OUT("Ramp up step selected begin left step")
         return true;
@@ -200,11 +214,33 @@ bool AlexMachine::BackStep::check(void) {
         return false;
     }
 }
+bool AlexMachine::UpStairSelect::check(void) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::UPSTAIR && OWNER->robot->getGo()) {
+        DEBUG_OUT("up stair step selected")
+        return true;
+    }  else {
+        return false;
+    }
+}
+bool AlexMachine::DownStairSelect::check(void) {
+    if (OWNER->robot->getCurrentMotion() == RobotMode::DWNSTAIR && OWNER->robot->getGo()) {
+        DEBUG_OUT("down stair step selected")
+        return true;
+    }  else {
+        return false;
+    }
+}
+bool AlexMachine::IsRPressed::check(void) {
+    return OWNER->robot->buttons.getErrorButton();
+}
+bool AlexMachine::ResetButtons::check(void) {
+    return !(OWNER->robot->buttons.getErrorButton());
+}
 
 /**
  * \brief Statemachine to hardware interface method. Run any hardware update methods
  * that need to run every program loop update cycle.
- * 
+ *
  */
 void AlexMachine::hwStateUpdate(void) {
     robot->updateRobot();

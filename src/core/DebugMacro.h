@@ -8,14 +8,13 @@
  * \version 0.1
  * \date 2020-05-12
  * \copyright Copyright (c) 2020
- * 
+ *
  */
 #ifndef DEBUG_H_INCLUDED
 #define DEBUG_H_INCLUDED
 #include <iostream>
-/** #define NOROBOT
-#define VIRTUAL
-*/
+// #define NOROBOT
+// #define VIRTUAL
 #define DEBUG
 #ifdef DEBUG
 #define DEBUG_OUT(x) (std::cout << x << std::endl);
