@@ -787,7 +787,7 @@ std::vector<taskspace_state> AlexTrajectoryGenerator::generate_key_taskspace_sta
 
     //Ramp down
 
-    if (trajectoryParameters.stepType == StepType::RampUp) {
+    if (trajectoryParameters.stepType == StepType::RampDown) {
         Foot inferredStanceFoot = ((initialTaskspaceState.left_ankle_position.x > initialTaskspaceState.right_ankle_position.x)
             ? Foot::Left
             : Foot::Right);
@@ -1018,7 +1018,7 @@ std::vector<taskspace_state> AlexTrajectoryGenerator::generate_key_taskspace_sta
                 stateEnd.hip_position.x = initialTaskspaceState.left_ankle_position.x + trajectoryParameters.step_length / 2.0;
                 stateEnd.hip_position.z = initialTaskspaceState.left_ankle_position.z + hipHeight - pilotParameters.ankle_height;
             }
-            
+
             stateEnd.time = 1;
             stateEnd.torso_forward_angle = trajectoryParameters.torso_forward_angle;
             stateEnd.swing_ankle_down_angle = 0.0;
