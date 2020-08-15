@@ -65,6 +65,8 @@ enum class RobotMode {
     STNDUP,
     UPSTAIR,
     DWNSTAIR,
+    RAMPUP,
+    RAMPDOWN,
     TILTUP,
     TILTDWN,
     BKSTEP,
