@@ -35,7 +35,7 @@ bool Robot::initialise() {
         }
     } else
         return false;
-}  // testing travis ci...
+}
 
 void Robot::updateRobot() {
     for (auto joint : joints)
