@@ -43,8 +43,7 @@
 #define UNEVENSTEP 0.3
 #define STAIRSTEP 0.35
 #define STAIRHEIGHT 0.25
-#define TILTANKLE deg2rad(10) //tbd, 12 deg for tilted path, 20 deg for ramp
-#define RAMPANKLE deg2rad(10) //tbd, need to measure when back in the lab
+#define TILTANKLE deg2rad(10)  //tbd, 12 deg for tilted path, 20 deg for ramp
 
 typedef double time_tt;  // time_t is already used
 
@@ -58,10 +57,7 @@ enum class StepType {
     Sit,
     Stand,
     Stair,
-    RampUp,
-    RampDown,
-    TiltUp,
-    TiltDown,
+    Ramp,
     Back,
     Sitting,
     Uneven,
@@ -74,10 +70,7 @@ static std::map<StepType, std::string> StepTypeToString = {
     {StepType::Stand, "Stand"},
     {StepType::Stair, "Up stairs"},
     {StepType::DownStair, "Down stairs"},
-    {StepType::RampUp, "Up ramp"},
-    {StepType::RampDown, "Down ramp"},
-    {StepType::TiltUp, "Up tilt"},
-    {StepType::TiltDown, "Down tilt"},
+    {StepType::Ramp, "Up slope"},
     {StepType::Back, "Backstep"},
     {StepType::Sitting, "Sitting (Fixed)"},
     {StepType::Uneven, "Uneven"}};
@@ -195,34 +188,12 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                            .slope_angle = 0.0,              // tilted path
                            .left_foot_on_tilt = false,
                            .right_foot_on_tilt = false}},
-    {RobotMode::RAMPUP, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
-                         .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                         .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                         .swing_ankle_down_angle = RAMPANKLE,
-                         .stance_foot = Foot::Right,
-                         .stepType = StepType::RampUp,
-                         .seat_height = 0.42,     // sit-stand
-                         .step_end_height = 0.0,  // stairs
-                         .slope_angle = 0.0,      // tilted path
-                         .left_foot_on_tilt = false,
-                         .right_foot_on_tilt = false}},
-    {RobotMode::RAMPDOWN, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
-                         .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
-                         .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
-                         .swing_ankle_down_angle = -RAMPANKLE,
-                         .stance_foot = Foot::Right,
-                         .stepType = StepType::RampUp,
-                         .seat_height = 0.42,     // sit-stand
-                         .step_end_height = 0.0,  // stairs
-                         .slope_angle = 0.0,      // tilted path
-                         .left_foot_on_tilt = false,
-                         .right_foot_on_tilt = false}},
     {RobotMode::TILTUP, {.step_duration = 6, .step_height = STEPHEIGHT, .step_length = STEPLENGTH,
                          .hip_height_slack = LEGSLACK,       // never make this zero, or else it'll probably make a trig/pythag give NaN due to invalid triangle
                          .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                          .swing_ankle_down_angle = TILTANKLE,
                          .stance_foot = Foot::Right,
-                         .stepType = StepType::TiltUp,
+                         .stepType = StepType::Uneven,
                          .seat_height = 0.42,     // sit-stand
                          .step_end_height = 0.0,  // stairs
                          .slope_angle = 0.0,      // tilted path
@@ -233,7 +204,7 @@ static std::map<RobotMode, TrajectoryParameters> movementTrajMap = {
                           .torso_forward_angle = TORSOANGLE,  // TODO: make this a vector/array?
                           .swing_ankle_down_angle = -TILTANKLE,
                           .stance_foot = Foot::Right,
-                          .stepType = StepType::TiltDown,
+                          .stepType = StepType::Uneven,
                           .seat_height = 0.42,     // sit-stand
                           .step_end_height = 0.0,  // stairs
                           .slope_angle = 0.0,      // tilted path
