@@ -43,7 +43,7 @@
 #define UNEVENSTEP 0.3
 #define STAIRSTEP 0.35
 #define STAIRHEIGHT 0.25
-#define TILTANKLE deg2rad(10)  //tbd, 12 deg for tilted path, 20 deg for ramp
+#define TILTANKLE deg2rad(10) //tbd, 12 deg for tilted path, 20 deg for ramp
 
 typedef double time_tt;  // time_t is already used
 
