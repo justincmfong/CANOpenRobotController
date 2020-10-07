@@ -1,0 +1,6 @@
+<map id="Eigen::Homogeneous&lt; MatrixType, _Direction &gt;" name="Eigen::Homogeneous&lt; MatrixType, _Direction &gt;">
+<area shape="rect" id="node2" href="$classEigen_1_1MatrixBase.html" title="{Eigen::MatrixBase\&lt;\l Homogeneous\&lt; MatrixType,\l _Direction \&gt; \&gt;\n||+ diagonalSize()\l+ binaryExpr()\l+ operator&amp;&amp;()\l+ operator\|\|()\l+ cwiseAbs()\l+ cwiseAbs2()\l+ cwiseSqrt()\l+ cwiseSign()\l+ cwiseInverse()\l+ EIGEN_CWISE_BINARY\l_RETURN_TYPE()\land 100 more...\l+ Identity()\l+ Identity()\l+ Unit()\l+ Unit()\l+ UnitX()\l+ UnitY()\l+ UnitZ()\l+ UnitW()\l# operator+=()\l# operator&#45;=()\l&#45; MatrixBase()\l&#45; MatrixBase()\l&#45; MatrixBase()\l}" alt="" coords="25,711,232,1169"/>
+<area shape="rect" id="node3" href="$classEigen_1_1DenseBase.html" title="Base class for all dense matrices, vectors, and arrays. " alt="" coords="5,160,252,663"/>
+<area shape="rect" id="node4" href="$classEigen_1_1DenseCoeffsBase.html" title="{Eigen::DenseCoeffsBase\l\&lt; Derived, internal::accessors\l_level\&lt; Derived \&gt;::value \&gt;\n||}" alt="" coords="21,5,236,112"/>
+<area shape="rect" id="node5" href="$classEigen_1_1internal_1_1no__assignment__operator.html" title="{Eigen::internal::no\l_assignment_operator\n||&#45; operator=()\l}" alt="" coords="256,894,423,986"/>
+</map>

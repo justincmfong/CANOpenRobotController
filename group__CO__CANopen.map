@@ -1,0 +1,11 @@
+<map id="CANopen stack" name="CANopen stack">
+<area shape="rect" id="node1" href="$group__CO__crc16__ccitt.html" title="CRC 16 CCITT" alt="" coords="197,5,304,32"/>
+<area shape="rect" id="node2" href="$group__CO__SDOmaster.html" title="SDO client" alt="" coords="206,56,295,83"/>
+<area shape="rect" id="node3" href="$group__CO__PDO.html" title="PDO" alt="" coords="225,107,276,133"/>
+<area shape="rect" id="node4" href="$group__CO__SYNC.html" title="SYNC" alt="" coords="222,157,279,184"/>
+<area shape="rect" id="node5" href="$group__CO__NMT__Heartbeat.html" title="NMT and Heartbeat" alt="" coords="177,208,324,235"/>
+<area shape="rect" id="node6" href="$group__CO__HBconsumer.html" title="Heartbeat consumer" alt="" coords="173,259,328,285"/>
+<area shape="rect" id="node7" href="$group__CO__Emergency.html" title="Emergency" alt="" coords="203,309,298,336"/>
+<area shape="rect" id="node8" href="$group__CO__trace.html" title="Trace" alt="" coords="223,360,278,387"/>
+<area shape="rect" id="node9" href="$group__CO__SDO.html" title="SDO server" alt="" coords="203,411,298,437"/>
+</map>

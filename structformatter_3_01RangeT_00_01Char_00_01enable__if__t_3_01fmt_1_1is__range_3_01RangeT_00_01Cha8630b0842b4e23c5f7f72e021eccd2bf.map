@@ -1,0 +1,4 @@
+<map id="formatter&lt; RangeT, Char, enable_if_t&lt; fmt::is_range&lt; RangeT, Char &gt;::value &gt; &gt;" name="formatter&lt; RangeT, Char, enable_if_t&lt; fmt::is_range&lt; RangeT, Char &gt;::value &gt; &gt;">
+<area shape="rect" id="node2" href="$structformatting__range.html" title="{formatting_range\&lt; Char \&gt;\n|+ range_length_limit\l+ add_delimiter_spaces\l+ add_prepostfix_space\l|+ formatting_range()\l}" alt="" coords="74,175,267,281"/>
+<area shape="rect" id="node3" href="$structformatting__base.html" title="{formatting_base\&lt; Char \&gt;\n||+ parse()\l}" alt="" coords="5,5,192,83"/>
+</map>

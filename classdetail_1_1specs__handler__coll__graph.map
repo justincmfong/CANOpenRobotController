@@ -1,0 +1,5 @@
+<map id="detail::specs_handler&lt; ParseContext, Context &gt;" name="detail::specs_handler&lt; ParseContext, Context &gt;">
+<area shape="rect" id="node2" href="$classdetail_1_1specs__setter.html" title="{detail::specs_setter\l\&lt; Context::char_type \&gt;\n||+ specs_setter()\l+ specs_setter()\l+ on_align()\l+ on_fill()\l+ on_plus()\l+ on_minus()\l+ on_space()\l+ on_hash()\l+ on_zero()\l+ on_width()\l+ on_precision()\l+ end_precision()\l+ on_type()\l}" alt="" coords="16,476,189,744"/>
+<area shape="rect" id="node3" href="$structbasic__format__specs.html" title="{basic_format_specs\l\&lt; Context::char_type \&gt;\n|+ width\l+ precision\l+ type\l+ align\l+ sign\l+ alt\l|+ basic_format_specs()\l}" alt="" coords="15,248,190,413"/>
+<area shape="rect" id="node4" href="$structdetail_1_1fill__t.html" title="{detail::fill_t\&lt; Context\l::char_type \&gt;\n|&#45; data_\l&#45; size_\l|+ operator=()\l+ size()\l+ data()\l+ operator[]()\l+ operator[]()\l+ make()\l}" alt="" coords="25,5,180,185"/>
+</map>

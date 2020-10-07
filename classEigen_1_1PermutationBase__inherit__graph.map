@@ -1,0 +1,4 @@
+<map id="Eigen::PermutationBase&lt; Derived &gt;" name="Eigen::PermutationBase&lt; Derived &gt;">
+<area shape="rect" id="node3" href="$classEigen_1_1PermutationMatrix.html" title="{PermutationMatrix\&lt;\l Dynamic, Dynamic, Storage\lIndex \&gt;\n|# m_indices\l|+ PermutationMatrix()\l+ PermutationMatrix()\l+ PermutationMatrix()\l+ PermutationMatrix()\l+ PermutationMatrix()\l+ PermutationMatrix()\l+ PermutationMatrix()\l+ operator=()\l+ operator=()\l+ indices()\l+ indices()\l}" alt="" coords="8,608,213,861"/>
+<area shape="rect" id="node2" href="$structEigen_1_1EigenBase.html" title="{Eigen::EigenBase\&lt; Derived \&gt;\n||+ derived()\l+ derived()\l+ const_cast_derived()\l+ const_derived()\l+ rows()\l+ cols()\l+ size()\l+ evalTo()\l+ addTo()\l+ subTo()\l+ applyThisOnTheRight()\l+ applyThisOnTheLeft()\l}" alt="" coords="5,5,216,244"/>
+</map>

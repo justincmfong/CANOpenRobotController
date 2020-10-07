@@ -1,0 +1,4 @@
+<map id="text_style" name="text_style">
+<area shape="rect" id="node2" href="$structdetail_1_1color__type.html" title="{detail::color_type\n|+ is_rgb\l|+ color_type()\l+ color_type()\l+ color_type()\l+ color_type()\l}" alt="" coords="25,175,156,296"/>
+<area shape="rect" id="node3" href="$uniondetail_1_1color__type_1_1color__union.html" title="{detail::color_type\l::color_union\n|+ term_color\l+ rgb_color\l|}" alt="" coords="25,5,156,112"/>
+</map>

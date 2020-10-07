@@ -1,0 +1,21 @@
+<map id="lib/spdlog/cfg/helpers&#45;inl.h" name="lib/spdlog/cfg/helpers&#45;inl.h">
+<area shape="rect" id="node2" href="$helpers_8h.html" title="spdlog/cfg/helpers.h" alt="" coords="1078,259,1229,285"/>
+<area shape="rect" id="node31" href="$spdlog_8h.html" title="spdlog/spdlog.h" alt="" coords="1408,95,1531,121"/>
+<area shape="rect" id="node32" href="$registry_8h.html" title="spdlog/details/registry.h" alt="" coords="1383,341,1555,367"/>
+<area shape="rect" id="node42" href="$details_2os_8h.html" title="spdlog/details/os.h" alt="" coords="1928,95,2069,121"/>
+<area shape="rect" id="node3" href="$log__levels_8h.html" title="spdlog/cfg/log_levels.h" alt="" coords="976,430,1141,457"/>
+<area shape="rect" id="node4" href="$common_8h.html" title="spdlog/common.h" alt="" coords="990,512,1127,539"/>
+<area shape="rect" id="node5" href="$tweakme_8h.html" title="spdlog/tweakme.h" alt="" coords="933,594,1072,621"/>
+<area shape="rect" id="node6" href="$null__mutex_8h.html" title="spdlog/details/null\l_mutex.h" alt="" coords="637,587,773,628"/>
+<area shape="rect" id="node16" href="$fmt_8h.html" title="spdlog/fmt/fmt.h" alt="" coords="1096,594,1224,621"/>
+<area shape="rect" id="node29" href="$common-inl_8h.html" title="common&#45;inl.h" alt="" coords="798,594,909,621"/>
+<area shape="rect" id="node17" href="$core_8h.html" title="spdlog/fmt/bundled\l/core.h" alt="" coords="1197,765,1342,807"/>
+<area shape="rect" id="node22" href="$format_8h.html" title="spdlog/fmt/bundled\l/format.h" alt="" coords="950,676,1095,717"/>
+<area shape="rect" id="node34" href="$logger_8h.html" title="spdlog/logger.h" alt="" coords="763,177,882,203"/>
+<area shape="rect" id="node40" href="$version_8h.html" title="spdlog/version.h" alt="" coords="1305,177,1431,203"/>
+<area shape="rect" id="node41" href="$synchronous__factory_8h.html" title="spdlog/details/synchronous\l_factory.h" alt="" coords="1507,169,1701,211"/>
+<area shape="rect" id="node35" href="$log__msg_8h.html" title="spdlog/details/log\l_msg.h" alt="" coords="243,423,376,464"/>
+<area shape="rect" id="node36" href="$backtracer_8h.html" title="spdlog/details/backtracer.h" alt="" coords="861,259,1054,285"/>
+<area shape="rect" id="node37" href="$log__msg__buffer_8h.html" title="spdlog/details/log\l_msg_buffer.h" alt="" coords="337,333,471,375"/>
+<area shape="rect" id="node38" href="$circular__q_8h.html" title="spdlog/details/circular_q.h" alt="" coords="564,341,751,367"/>
+</map>

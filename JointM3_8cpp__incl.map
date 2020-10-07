@@ -1,0 +1,17 @@
+<map id="src/hardware/platforms/M3/JointM3.cpp" name="src/hardware/platforms/M3/JointM3.cpp">
+<area shape="rect" id="node2" href="$JointM3_8h.html" title="An M3 actuated joint. " alt="" coords="1161,95,1241,121"/>
+<area shape="rect" id="node32" href="$DebugMacro_8h.html" title="Defines some macros for debugging output. " alt="" coords="1355,95,1469,121"/>
+<area shape="rect" id="node4" href="$Joint_8h.html" title="The Joint class is a abstract class which represents a joint in a Robot objec. This class can be used..." alt="" coords="1219,169,1280,196"/>
+<area shape="rect" id="node31" href="$KincoDrive_8h.html" title="An implementation of the Drive Object, specifically for the Kinco Drive. " alt="" coords="1005,169,1107,196"/>
+<area shape="rect" id="node7" href="$Drive_8h.html" title="The Drive class is used to interface with a CANOpen motor drive. According to the CiA402 standard..." alt="" coords="1072,244,1139,271"/>
+<area shape="rect" id="node8" href="$CANopen_8h.html" title="CANopen.h" alt="" coords="758,319,853,345"/>
+<area shape="rect" id="node26" href="$CO__command_8h.html" title="CO_command.h" alt="" coords="877,319,1003,345"/>
+<area shape="rect" id="node9" href="$CO__driver_8h.html" title="CO_driver.h" alt="" coords="394,468,489,495"/>
+<area shape="rect" id="node19" href="$CO__OD_8h.html" title="CO_OD.h" alt="" coords="440,393,520,420"/>
+<area shape="rect" id="node20" href="$CO__SDO_8h.html" title="CO_SDO.h" alt="" coords="544,393,632,420"/>
+<area shape="rect" id="node21" href="$CO__Emergency_8h.html" title="CO_Emergency.h" alt="" coords="656,393,787,420"/>
+<area shape="rect" id="node22" href="$CO__NMT__Heartbeat_8h.html" title="CO_NMT_Heartbeat.h" alt="" coords="811,393,971,420"/>
+<area shape="rect" id="node23" href="$CO__SYNC_8h.html" title="CO_SYNC.h" alt="" coords="995,393,1090,420"/>
+<area shape="rect" id="node24" href="$CO__PDO_8h.html" title="CO_PDO.h" alt="" coords="1114,393,1201,420"/>
+<area shape="rect" id="node25" href="$CO__HBconsumer_8h.html" title="CO_HBconsumer.h" alt="" coords="1225,393,1367,420"/>
+</map>

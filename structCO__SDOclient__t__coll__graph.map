@@ -1,0 +1,10 @@
+<map id="CO_SDOclient_t" name="CO_SDOclient_t">
+<area shape="rect" id="node2" href="$structCO__CANtx__t.html" title="{CO_CANtx_t\n|+ ident\l+ DLC\l+ bufferFull\l+ syncFlag\l|+ __attribute__()\l}" alt="" coords="321,5,451,127"/>
+<area shape="rect" id="node3" href="$structCO__CANmodule__t.html" title="{CO_CANmodule_t\n|+ CANbaseAddress\l+ rxSize\l+ txSize\l+ wasConfigured\l+ fd\l+ filter\l+ CANnormal\l+ useCANrxFilters\l+ bufferInhibitFlag\l+ firstCANtxMessage\l+ error\l+ CANtxCount\l+ errOld\l+ em\l|}" alt="" coords="5,189,164,457"/>
+<area shape="rect" id="node5" href="$structCO__SDO__t.html" title="{CO_SDO_t\n|+ CANrxData\l+ databuffer\l+ ownOD\l+ ODSize\l+ bufferOffset\l+ entryNo\l+ nodeId\l+ state\l+ sequence\l+ timeoutTimer\land 7 more...\l|}" alt="" coords="411,520,534,744"/>
+<area shape="rect" id="node4" href="$structCO__CANrx__t.html" title="{CO_CANrx_t\n|+ ident\l+ mask\l+ object\l+ pFunct\l|}" alt="" coords="35,5,135,127"/>
+<area shape="rect" id="node6" href="$structCO__OD__extension__t.html" title="{CO_OD_extension_t\n|+ pODFunc\l+ object\l+ flags\l|}" alt="" coords="189,270,338,377"/>
+<area shape="rect" id="node7" href="$structCO__ODF__arg__t.html" title="{CO_ODF_arg_t\n|+ object\l+ data\l+ ODdataStorage\l+ dataLength\l+ attribute\l+ pFlags\l+ index\l+ subIndex\l+ reading\l+ firstSegment\l+ lastSegment\l+ dataLengthTotal\l+ offset\l|}" alt="" coords="491,197,630,450"/>
+<area shape="rect" id="node8" href="$structCO__OD__entry__t.html" title="{CO_OD_entry_t\n|+ index\l+ maxSubIndex\l+ attribute\l+ length\l+ pData\l|}" alt="" coords="655,255,779,391"/>
+<area shape="rect" id="node9" href="$structCO__SDOclientPar__t.html" title="{CO_SDOclientPar_t\n|+ maxSubIndex\l+ COB_IDClientToServer\l+ COB_IDServerToClient\l+ nodeIDOfTheSDOServer\l|}" alt="" coords="855,571,1045,693"/>
+</map>

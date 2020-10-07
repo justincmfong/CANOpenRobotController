@@ -1,0 +1,17 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$structdetail_1_1is__back__insert__iterator_3_01std_1_1back__insert__iterator_3_01Container_01_4_01_4.html" title="detail::is_back_insert\l_iterator\&lt; std::back_insert\l_iterator\&lt; Container \&gt; \&gt;" alt="" coords="140,5,332,61"/>
+<area shape="rect" id="node3" href="$structdetail_1_1is__integral_3_01int128__t_01_4.html" title="detail::is_integral\l\&lt; int128_t \&gt;" alt="" coords="171,85,301,126"/>
+<area shape="rect" id="node4" href="$structdetail_1_1is__integral_3_01uint128__t_01_4.html" title="detail::is_integral\l\&lt; uint128_t \&gt;" alt="" coords="171,150,301,191"/>
+<area shape="rect" id="node5" href="$structdetail_1_1is__like__std__string_3_01fmt_1_1basic__string__view_3_01Char_01_4_01_4.html" title="detail::is_like_std\l_string\&lt; fmt::basic\l_string_view\&lt; Char \&gt; \&gt;" alt="" coords="149,215,323,271"/>
+<area shape="rect" id="node6" href="$structdetail_1_1is__named__arg_3_01named__arg_3_01Char_00_01T_01_4_01_4.html" title="detail::is_named_arg\l\&lt; named_arg\&lt; Char, T \&gt; \&gt;" alt="" coords="136,294,336,335"/>
+<area shape="rect" id="node7" href="$structdetail_1_1is__reference__wrapper_3_01std_1_1reference__wrapper_3_01T_01_4_01_4.html" title="detail::is_reference\l_wrapper\&lt; std::reference\l_wrapper\&lt; T \&gt; \&gt;" alt="" coords="144,359,328,415"/>
+<area shape="rect" id="node8" href="$structdetail_1_1void.html" title="detail::void\&lt; T \&gt;" alt="" coords="172,439,300,465"/>
+<area shape="rect" id="node9" href="$structis__char_3_01char_01_4.html" title="is_char\&lt; char \&gt;" alt="" coords="173,489,299,516"/>
+<area shape="rect" id="node10" href="$structis__char_3_01char16__t_01_4.html" title="is_char\&lt; char16_t \&gt;" alt="" coords="159,540,313,567"/>
+<area shape="rect" id="node11" href="$structis__char_3_01char32__t_01_4.html" title="is_char\&lt; char32_t \&gt;" alt="" coords="159,591,313,617"/>
+<area shape="rect" id="node12" href="$structis__char_3_01detail_1_1char8__type_01_4.html" title="is_char\&lt; detail::char8\l_type \&gt;" alt="" coords="155,642,317,683"/>
+<area shape="rect" id="node13" href="$structis__char_3_01wchar__t_01_4.html" title="is_char\&lt; wchar_t \&gt;" alt="" coords="163,708,309,735"/>
+<area shape="rect" id="node14" href="$structis__contiguous_3_01basic__memory__buffer_3_01T_00_01SIZE_00_01Allocator_01_4_01_4.html" title="is_contiguous\&lt; basic\l_memory_buffer\&lt; T, SIZE,\l Allocator \&gt; \&gt;" alt="" coords="141,759,331,815"/>
+<area shape="rect" id="node15" href="$structis__contiguous_3_01detail_1_1buffer_3_01Char_01_4_01_4.html" title="is_contiguous\&lt; detail\l::buffer\&lt; Char \&gt; \&gt;" alt="" coords="157,838,315,879"/>
+<area shape="rect" id="node16" href="$structis__contiguous_3_01std_1_1basic__string_3_01Char_01_4_01_4.html" title="is_contiguous\&lt; std\l::basic_string\&lt; Char \&gt; \&gt;" alt="" coords="145,903,327,945"/>
+</map>

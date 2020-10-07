@@ -1,0 +1,11 @@
+<map id="lib/spdlog/details/synchronous_factory.h" name="lib/spdlog/details/synchronous_factory.h">
+<area shape="rect" id="node2" href="$registry_8h.html" title="registry.h" alt="" coords="1228,95,1308,121"/>
+<area shape="rect" id="node3" href="$common_8h.html" title="spdlog/common.h" alt="" coords="630,244,767,271"/>
+<area shape="rect" id="node29" href="$log__levels_8h.html" title="spdlog/cfg/log_levels.h" alt="" coords="1245,169,1411,196"/>
+<area shape="rect" id="node4" href="$tweakme_8h.html" title="spdlog/tweakme.h" alt="" coords="523,326,661,353"/>
+<area shape="rect" id="node5" href="$null__mutex_8h.html" title="spdlog/details/null\l_mutex.h" alt="" coords="864,319,1000,360"/>
+<area shape="rect" id="node15" href="$fmt_8h.html" title="spdlog/fmt/fmt.h" alt="" coords="235,326,363,353"/>
+<area shape="rect" id="node28" href="$common-inl_8h.html" title="common&#45;inl.h" alt="" coords="387,326,498,353"/>
+<area shape="rect" id="node16" href="$core_8h.html" title="spdlog/fmt/bundled\l/core.h" alt="" coords="286,497,431,539"/>
+<area shape="rect" id="node21" href="$format_8h.html" title="spdlog/fmt/bundled\l/format.h" alt="" coords="534,408,679,449"/>
+</map>

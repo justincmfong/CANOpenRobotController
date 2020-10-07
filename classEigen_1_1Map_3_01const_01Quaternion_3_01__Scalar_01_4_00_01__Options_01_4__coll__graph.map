@@ -1,0 +1,4 @@
+<map id="Eigen::Map&lt; const Quaternion&lt; _Scalar &gt;, _Options &gt;" name="Eigen::Map&lt; const Quaternion&lt; _Scalar &gt;, _Options &gt;">
+<area shape="rect" id="node2" href="$classEigen_1_1QuaternionBase.html" title="{Eigen::QuaternionBase\l\&lt; Map\&lt; const Quaternion\l\&lt; _Scalar \&gt;, _Options \&gt; \&gt;\n||+ x()\l+ x()\l+ y()\l+ y()\l+ z()\l+ z()\l+ w()\l+ w()\l+ vec()\l+ vec()\land 24 more...\l+ Identity()\l}" alt="" coords="17,292,211,560"/>
+<area shape="rect" id="node3" href="$classEigen_1_1RotationBase.html" title="{Eigen::RotationBase\l\&lt; Map\&lt; const Quaternion\l\&lt; _Scalar \&gt;, _Options \&gt;, 3 \&gt;\n||+ derived()\l+ derived()\l+ toRotationMatrix()\l+ matrix()\l+ inverse()\l+ operator*()\l+ operator*()\l+ operator*()\l+ operator*()\l+ _transformVector()\l}" alt="" coords="9,5,219,244"/>
+</map>

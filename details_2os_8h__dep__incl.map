@@ -1,0 +1,30 @@
+<map id="lib/spdlog/details/os.h" name="lib/spdlog/details/os.h">
+<area shape="rect" id="node2" href="$env_8h.html" title="lib/spdlog/cfg/env.h" alt="" coords="5,87,148,114"/>
+<area shape="rect" id="node3" href="$helpers-inl_8h.html" title="lib/spdlog/cfg/helpers\l&#45;inl.h" alt="" coords="172,80,328,121"/>
+<area shape="rect" id="node4" href="$file__helper-inl_8h.html" title="lib/spdlog/details\l/file_helper&#45;inl.h" alt="" coords="353,80,481,121"/>
+<area shape="rect" id="node5" href="$log__msg-inl_8h.html" title="lib/spdlog/details\l/log_msg&#45;inl.h" alt="" coords="505,80,633,121"/>
+<area shape="rect" id="node6" href="$os-inl_8h.html" title="lib/spdlog/details\l/os&#45;inl.h" alt="" coords="657,80,785,121"/>
+<area shape="rect" id="node7" href="$tcp__client-windows_8h.html" title="lib/spdlog/details\l/tcp_client&#45;windows.h" alt="" coords="809,80,965,121"/>
+<area shape="rect" id="node8" href="$tcp__client_8h.html" title="lib/spdlog/details\l/tcp_client.h" alt="" coords="990,80,1118,121"/>
+<area shape="rect" id="node10" href="$thread__pool_8h.html" title="lib/spdlog/details\l/thread_pool.h" alt="" coords="1142,80,1270,121"/>
+<area shape="rect" id="node17" href="$pattern__formatter-inl_8h.html" title="lib/spdlog/pattern\l_formatter&#45;inl.h" alt="" coords="1241,169,1374,211"/>
+<area shape="rect" id="node18" href="$pattern__formatter_8h.html" title="lib/spdlog/pattern\l_formatter.h" alt="" coords="1711,80,1845,121"/>
+<area shape="rect" id="node21" href="$ansicolor__sink-inl_8h.html" title="lib/spdlog/sinks/ansicolor\l_sink&#45;inl.h" alt="" coords="1398,169,1577,211"/>
+<area shape="rect" id="node28" href="$basic__file__sink-inl_8h.html" title="lib/spdlog/sinks/basic\l_file_sink&#45;inl.h" alt="" coords="1869,80,2023,121"/>
+<area shape="rect" id="node29" href="$daily__file__sink_8h.html" title="lib/spdlog/sinks/daily\l_file_sink.h" alt="" coords="2048,80,2199,121"/>
+<area shape="rect" id="node9" href="$tcp__sink_8h.html" title="lib/spdlog/sinks/tcp\l_sink.h" alt="" coords="563,169,705,211"/>
+<area shape="rect" id="node11" href="$async_8h.html" title="lib/spdlog/async.h" alt="" coords="729,177,864,203"/>
+<area shape="rect" id="node15" href="$async__logger-inl_8h.html" title="lib/spdlog/async_logger\l&#45;inl.h" alt="" coords="889,169,1059,211"/>
+<area shape="rect" id="node16" href="$thread__pool-inl_8h.html" title="lib/spdlog/details\l/thread_pool&#45;inl.h" alt="" coords="1083,169,1217,211"/>
+<area shape="rect" id="node12" href="$LogHelper_8h.html" title="lib/spdlog/helper/LogHelper.h" alt="" coords="693,266,900,293"/>
+<area shape="rect" id="node13" href="$X2DemoMachine_8h.html" title="src/apps/X2DemoMachine\l/X2DemoMachine.h" alt="" coords="703,348,891,389"/>
+<area shape="rect" id="node14" href="$X2DemoMachine_8cpp.html" title="src/apps/X2DemoMachine\l/X2DemoMachine.cpp" alt="" coords="703,437,891,479"/>
+<area shape="rect" id="node19" href="$registry-inl_8h.html" title="lib/spdlog/details\l/registry&#45;inl.h" alt="" coords="2169,169,2297,211"/>
+<area shape="rect" id="node20" href="$logger-inl_8h.html" title="lib/spdlog/logger&#45;inl.h" alt="" coords="2321,177,2477,203"/>
+<area shape="rect" id="node22" href="$base__sink-inl_8h.html" title="lib/spdlog/sinks/base\l_sink&#45;inl.h" alt="" coords="2501,169,2655,211"/>
+<area shape="rect" id="node23" href="$dist__sink_8h.html" title="lib/spdlog/sinks/dist\l_sink.h" alt="" coords="2679,169,2824,211"/>
+<area shape="rect" id="node25" href="$stdout__sinks-inl_8h.html" title="lib/spdlog/sinks/stdout\l_sinks&#45;inl.h" alt="" coords="1601,169,1763,211"/>
+<area shape="rect" id="node26" href="$wincolor__sink-inl_8h.html" title="lib/spdlog/sinks/wincolor\l_sink&#45;inl.h" alt="" coords="1787,169,1961,211"/>
+<area shape="rect" id="node27" href="$spdlog-inl_8h.html" title="lib/spdlog/spdlog&#45;inl.h" alt="" coords="1985,177,2144,203"/>
+<area shape="rect" id="node24" href="$dup__filter__sink_8h.html" title="lib/spdlog/sinks/dup\l_filter_sink.h" alt="" coords="2678,259,2825,300"/>
+</map>

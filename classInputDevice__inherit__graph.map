@@ -1,0 +1,5 @@
+<map id="InputDevice" name="InputDevice">
+<area shape="rect" id="node2" href="$classJoystick.html" title="Joystick support class. Mostly stollen from Jason White (https://gist.github.com/jasonwhite/) ..." alt="" coords="5,182,156,406"/>
+<area shape="rect" id="node3" href="$classKeyboard.html" title="Example InputDevice which takes input in from a keyboard. Useful for testing without any other input ..." alt="" coords="181,160,349,428"/>
+<area shape="rect" id="node4" href="$classX2ForceSensor.html" title="{X2ForceSensor\n|&#45; sensorID\l&#45; forceReading\l|+ X2ForceSensor()\l+ updateInput()\l+ calibrate()\l+ getForce()\l&#45; sensorValueToNewton()\l}" alt="" coords="373,219,553,369"/>
+</map>

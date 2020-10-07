@@ -1,0 +1,29 @@
+<map id="src/apps/ExoTestMachine/stateMachine/states/Sitting.cpp" name="src/apps/ExoTestMachine/stateMachine/states/Sitting.cpp">
+<area shape="rect" id="node2" href="$Sitting_8h.html" title="Sitting.h" alt="" coords="991,95,1065,121"/>
+<area shape="rect" id="node4" href="$ExoTestState_8h.html" title="ExoTestState.h" alt="" coords="1192,169,1309,196"/>
+<area shape="rect" id="node6" href="$DebugMacro_8h.html" title="Defines some macros for debugging output. " alt="" coords="1348,468,1463,495"/>
+<area shape="rect" id="node7" href="$DummyTrajectoryGenerator_8h.html" title="A trajectory generator to be used for testing purposes. " alt="" coords="943,244,1153,271"/>
+<area shape="rect" id="node10" href="$ExoRobot_8h.html" title="ExoRobot.h" alt="" coords="1204,244,1297,271"/>
+<area shape="rect" id="node43" href="$State_8h.html" title="State.h" alt="" coords="1887,244,1956,271"/>
+<area shape="rect" id="node12" href="$CopleyDrive_8h.html" title="An implementation of the Drive Object, specifically for the Copley Drive. " alt="" coords="849,393,959,420"/>
+<area shape="rect" id="node35" href="$DummyActJoint_8h.html" title="A dummy class to test whether the actuated joint inheritence stuff works. " alt="" coords="1085,319,1219,345"/>
+<area shape="rect" id="node38" href="$Keyboard_8h.html" title="Keyboard.h" alt="" coords="1533,319,1627,345"/>
+<area shape="rect" id="node41" href="$Robot_8h.html" title="The Robot class is a abstract class which is a software representation of a Robot with a flexible rep..." alt="" coords="1243,319,1314,345"/>
+<area shape="rect" id="node42" href="$RobotParams_8h.html" title="Specific paramaters and naming definitions for exoskeleton robot class implementetion. " alt="" coords="1390,319,1509,345"/>
+<area shape="rect" id="node13" href="$Drive_8h.html" title="The Drive class is used to interface with a CANOpen motor drive. According to the CiA402 standard..." alt="" coords="883,468,949,495"/>
+<area shape="rect" id="node14" href="$CANopen_8h.html" title="CANopen.h" alt="" coords="563,543,658,569"/>
+<area shape="rect" id="node32" href="$CO__command_8h.html" title="CO_command.h" alt="" coords="683,543,808,569"/>
+<area shape="rect" id="node15" href="$CO__driver_8h.html" title="CO_driver.h" alt="" coords="349,692,443,719"/>
+<area shape="rect" id="node25" href="$CO__OD_8h.html" title="CO_OD.h" alt="" coords="279,617,359,644"/>
+<area shape="rect" id="node26" href="$CO__SDO_8h.html" title="CO_SDO.h" alt="" coords="433,617,521,644"/>
+<area shape="rect" id="node27" href="$CO__Emergency_8h.html" title="CO_Emergency.h" alt="" coords="545,617,676,644"/>
+<area shape="rect" id="node28" href="$CO__NMT__Heartbeat_8h.html" title="CO_NMT_Heartbeat.h" alt="" coords="700,617,860,644"/>
+<area shape="rect" id="node29" href="$CO__SYNC_8h.html" title="CO_SYNC.h" alt="" coords="885,617,979,644"/>
+<area shape="rect" id="node30" href="$CO__PDO_8h.html" title="CO_PDO.h" alt="" coords="1003,617,1090,644"/>
+<area shape="rect" id="node31" href="$CO__HBconsumer_8h.html" title="CO_HBconsumer.h" alt="" coords="1114,617,1257,644"/>
+<area shape="rect" id="node36" href="$Joint_8h.html" title="The Joint class is a abstract class which represents a joint in a Robot objec. This class can be used..." alt="" coords="1111,393,1172,420"/>
+<area shape="rect" id="node39" href="$InputDevice_8h.html" title="The Input class is a abstract class which represents an input device. The Update function is called i..." alt="" coords="1247,393,1356,420"/>
+<area shape="rect" id="node45" href="$StateMachine_8h.html" title="StateMachine.h" alt="" coords="1903,468,2025,495"/>
+<area shape="rect" id="node46" href="$Transition_8h.html" title="Transition.h" alt="" coords="1971,319,2066,345"/>
+<area shape="rect" id="node47" href="$Event_8h.html" title="Event.h" alt="" coords="1971,393,2042,420"/>
+</map>

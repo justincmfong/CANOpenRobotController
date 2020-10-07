@@ -1,0 +1,4 @@
+<map id="spdlog::details::log_msg" name="spdlog::details::log_msg">
+<area shape="rect" id="node2" href="$classspdlog_1_1details_1_1log__msg__buffer.html" title="{spdlog::details::log\l_msg_buffer\n|&#45; buffer\l|+ log_msg_buffer()\l+ log_msg_buffer()\l+ log_msg_buffer()\l+ log_msg_buffer()\l+ operator=()\l+ operator=()\l&#45; update_string_views()\l}" alt="" coords="17,292,188,472"/>
+<area shape="rect" id="node3" href="$structspdlog_1_1details_1_1async__msg.html" title="{spdlog::details::async_msg\n|+ msg_type\l+ worker_ptr\l|+ async_msg()\l+ ~async_msg()\l+ async_msg()\l+ async_msg()\l+ operator=()\l+ async_msg()\l+ async_msg()\l+ async_msg()\l}" alt="" coords="5,520,200,715"/>
+</map>

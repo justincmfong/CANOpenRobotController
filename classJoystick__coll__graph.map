@@ -1,0 +1,4 @@
+<map id="Joystick" name="Joystick">
+<area shape="rect" id="node2" href="$classInputDevice.html" title="Abstract class representing any input device to be used in a Robot object. " alt="" coords="5,5,139,112"/>
+<area shape="rect" id="node3" href="$structaxis__state.html" title="{axis_state\n|+ x\l+ y\l|}" alt="" coords="163,13,250,105"/>
+</map>

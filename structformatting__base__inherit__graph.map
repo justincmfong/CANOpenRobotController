@@ -1,0 +1,4 @@
+<map id="formatting_base&lt; Char &gt;" name="formatting_base&lt; Char &gt;">
+<area shape="rect" id="node2" href="$structformatting__range.html" title="{formatting_range\&lt; Char \&gt;\n|+ prefix\l+ delimiter\l+ postfix\l+ range_length_limit\l+ add_delimiter_spaces\l+ add_prepostfix_space\l|+ formatting_range()\l}" alt="" coords="5,131,199,281"/>
+<area shape="rect" id="node3" href="$structformatting__tuple.html" title="{formatting_tuple\&lt; Char \&gt;\n|+ prefix\l+ delimiter\l+ postfix\l+ add_delimiter_spaces\l+ add_prepostfix_space\l|+ formatting_tuple()\l}" alt="" coords="223,138,411,274"/>
+</map>

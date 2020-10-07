@@ -1,0 +1,21 @@
+<map id="src/hardware/platforms/DummyExo/RobotParams.h" name="src/hardware/platforms/DummyExo/RobotParams.h">
+<area shape="rect" id="node2" href="$ExoRobot_8h.html" title="src/hardware/platforms\l/DummyExo/ExoRobot.h" alt="" coords="903,95,1077,136"/>
+<area shape="rect" id="node3" href="$ExoTestMachine_8h.html" title="src/apps/ExoTestMachine\l/stateMachine/ExoTestMachine.h" alt="" coords="543,399,773,441"/>
+<area shape="rect" id="node5" href="$ExoTestState_8h.html" title="src/apps/ExoTestMachine\l/stateMachine/states/ExoTest\lState.h" alt="" coords="566,184,774,240"/>
+<area shape="rect" id="node17" href="$ExoRobot_8cpp.html" title="src/hardware/platforms\l/DummyExo/ExoRobot.cpp" alt="" coords="799,191,989,233"/>
+<area shape="rect" id="node18" href="$testRobot_8cpp.html" title="A script to test the functionality of the ExoRobot class. " alt="" coords="1014,199,1161,225"/>
+<area shape="rect" id="node19" href="$testSM_8cpp.html" title="Test for the statemachine class and associated classes: state, event and transition. " alt="" coords="1185,199,1315,225"/>
+<area shape="rect" id="node20" href="$testTraj_8cpp.html" title="tests/testTraj.cpp" alt="" coords="1339,199,1470,225"/>
+<area shape="rect" id="node4" href="$ExoTestMachine_8cpp.html" title="src/apps/ExoTestMachine\l/stateMachine/ExoTestMachine.cpp" alt="" coords="536,496,780,537"/>
+<area shape="rect" id="node6" href="$ExoTestState_8cpp.html" title="src/apps/ExoTestMachine\l/stateMachine/states/ExoTest\lState.cpp" alt="" coords="637,288,845,344"/>
+<area shape="rect" id="node7" href="$InitState_8h.html" title="src/apps/ExoTestMachine\l/stateMachine/states/InitState.h" alt="" coords="869,295,1095,337"/>
+<area shape="rect" id="node9" href="$Sitting_8h.html" title="src/apps/ExoTestMachine\l/stateMachine/states/Sitting.h" alt="" coords="1119,295,1333,337"/>
+<area shape="rect" id="node11" href="$SittingDwn_8h.html" title="src/apps/ExoTestMachine\l/stateMachine/states/SittingDwn.h" alt="" coords="1357,295,1597,337"/>
+<area shape="rect" id="node13" href="$Standing_8h.html" title="src/apps/ExoTestMachine\l/stateMachine/states/Standing.h" alt="" coords="13,295,242,337"/>
+<area shape="rect" id="node15" href="$StandingUp_8h.html" title="src/apps/ExoTestMachine\l/stateMachine/states/StandingUp.h" alt="" coords="316,295,563,337"/>
+<area shape="rect" id="node8" href="$InitState_8cpp.html" title="src/apps/ExoTestMachine\l/stateMachine/states/InitState.cpp" alt="" coords="852,399,1093,441"/>
+<area shape="rect" id="node10" href="$Sitting_8cpp.html" title="src/apps/ExoTestMachine\l/stateMachine/states/Sitting.cpp" alt="" coords="1117,399,1345,441"/>
+<area shape="rect" id="node12" href="$SittingDwn_8cpp.html" title="src/apps/ExoTestMachine\l/stateMachine/states/Sitting\lDwn.cpp" alt="" coords="1376,392,1577,448"/>
+<area shape="rect" id="node14" href="$Standing_8cpp.html" title="src/apps/ExoTestMachine\l/stateMachine/states/Standing.cpp" alt="" coords="5,399,249,441"/>
+<area shape="rect" id="node16" href="$StandingUp_8cpp.html" title="src/apps/ExoTestMachine\l/stateMachine/states/Standing\lUp.cpp" alt="" coords="301,392,519,448"/>
+</map>

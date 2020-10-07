@@ -1,0 +1,4 @@
+<map id="NMT and Heartbeat" name="NMT and Heartbeat">
+<area shape="rect" id="node2" href="$group__CO__NMT__statusLEDdiodes.html" title="Status LED diodes" alt="" coords="368,5,507,32"/>
+<area shape="rect" id="node3" href="$group__CO__CANopen.html" title="CANopen stack" alt="" coords="5,5,125,32"/>
+</map>

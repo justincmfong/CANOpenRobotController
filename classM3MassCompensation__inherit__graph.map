@@ -1,0 +1,4 @@
+<map id="M3MassCompensation" name="M3MassCompensation">
+<area shape="rect" id="node2" href="$classM3TimedState.html" title="Generic state type for used with M3DemoMachine, providing running time and iterations number..." alt="" coords="31,292,171,633"/>
+<area shape="rect" id="node3" href="$classState.html" title="Abstract class representing a state in a StateMachine. " alt="" coords="37,5,165,244"/>
+</map>

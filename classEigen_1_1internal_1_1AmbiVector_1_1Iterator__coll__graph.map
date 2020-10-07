@@ -1,0 +1,5 @@
+<map id="Eigen::internal::AmbiVector&lt; _Scalar, _StorageIndex &gt;::Iterator" name="Eigen::internal::AmbiVector&lt; _Scalar, _StorageIndex &gt;::Iterator">
+<area shape="rect" id="node2" href="$structEigen_1_1NumTraits.html" title="{Eigen::NumTraits\&lt; Scalar \&gt;\n||}" alt="" coords="5,330,204,407"/>
+<area shape="rect" id="node3" href="$structEigen_1_1GenericNumTraits.html" title="{Eigen::GenericNumTraits\l\&lt; Scalar \&gt;\n||}" alt="" coords="15,5,194,97"/>
+<area shape="rect" id="node4" href="$classEigen_1_1internal_1_1AmbiVector.html" title="{Eigen::internal::AmbiVector\l\&lt; _Scalar, _StorageIndex \&gt;\n|# m_buffer\l# m_zero\l# m_size\l# m_start\l# m_end\l# m_allocatedSize\l# m_allocatedElements\l# m_mode\l# m_llStart\l# m_llCurrent\l# m_llSize\l|+ AmbiVector()\l+ init()\l+ init()\l+ nonZeros()\l+ setBounds()\l+ setZero()\l+ restart()\l+ coeffRef()\l+ coeff()\l+ ~AmbiVector()\l+ resize()\l+ size()\l# convert_index()\l# reallocate()\l# reallocateSparse()\l}" alt="" coords="228,147,427,591"/>
+</map>

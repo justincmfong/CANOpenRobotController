@@ -1,0 +1,15 @@
+<map id="lib/spdlog/sinks/tcp_sink.h" name="lib/spdlog/sinks/tcp_sink.h">
+<area shape="rect" id="node2" href="$common_8h.html" title="spdlog/common.h" alt="" coords="818,423,955,449"/>
+<area shape="rect" id="node4" href="$null__mutex_8h.html" title="spdlog/details/null\l_mutex.h" alt="" coords="281,497,417,539"/>
+<area shape="rect" id="node28" href="$base__sink_8h.html" title="spdlog/sinks/base_sink.h" alt="" coords="732,95,911,121"/>
+<area shape="rect" id="node32" href="$tcp__client_8h.html" title="spdlog/details/tcp\l_client.h" alt="" coords="1601,244,1735,285"/>
+<area shape="rect" id="node3" href="$tweakme_8h.html" title="spdlog/tweakme.h" alt="" coords="1220,505,1359,531"/>
+<area shape="rect" id="node14" href="$fmt_8h.html" title="spdlog/fmt/fmt.h" alt="" coords="543,505,671,531"/>
+<area shape="rect" id="node27" href="$common-inl_8h.html" title="common&#45;inl.h" alt="" coords="1085,505,1195,531"/>
+<area shape="rect" id="node15" href="$core_8h.html" title="spdlog/fmt/bundled\l/core.h" alt="" coords="653,676,798,717"/>
+<area shape="rect" id="node20" href="$format_8h.html" title="spdlog/fmt/bundled\l/format.h" alt="" coords="479,587,625,628"/>
+<area shape="rect" id="node29" href="$log__msg_8h.html" title="spdlog/details/log\l_msg.h" alt="" coords="879,333,1012,375"/>
+<area shape="rect" id="node30" href="$sink_8h.html" title="spdlog/sinks/sink.h" alt="" coords="767,169,908,196"/>
+<area shape="rect" id="node31" href="$formatter_8h.html" title="spdlog/formatter.h" alt="" coords="767,251,907,278"/>
+<area shape="rect" id="node33" href="$details_2os_8h.html" title="spdlog/details/os.h" alt="" coords="1401,341,1543,367"/>
+</map>

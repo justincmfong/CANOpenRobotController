@@ -1,0 +1,4 @@
+<map id="formatter&lt; TupleT, Char, enable_if_t&lt; fmt::is_tuple_like&lt; TupleT &gt;::value &gt; &gt;" name="formatter&lt; TupleT, Char, enable_if_t&lt; fmt::is_tuple_like&lt; TupleT &gt;::value &gt; &gt;">
+<area shape="rect" id="node2" href="$structformatting__tuple.html" title="{formatting_tuple\&lt; Char \&gt;\n|+ add_delimiter_spaces\l+ add_prepostfix_space\l|+ formatting_tuple()\l}" alt="" coords="77,175,265,267"/>
+<area shape="rect" id="node3" href="$structformatting__base.html" title="{formatting_base\&lt; Char \&gt;\n||+ parse()\l}" alt="" coords="5,5,192,83"/>
+</map>

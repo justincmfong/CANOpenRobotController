@@ -1,0 +1,8 @@
+<map id="RobotM3" name="RobotM3">
+<area shape="rect" id="node2" href="$classRobot.html" title="Abstract Class representing a robot. Includes vectors of Joint and InputDevice. " alt="" coords="5,241,156,479"/>
+<area shape="rect" id="node3" href="$classJoystick.html" title="Joystick support class. Mostly stollen from Jason White (https://gist.github.com/jasonwhite/) ..." alt="" coords="373,255,524,465"/>
+<area shape="rect" id="node4" href="$classInputDevice.html" title="Abstract class representing any input device to be used in a Robot object. " alt="" coords="283,35,417,141"/>
+<area shape="rect" id="node6" href="$classKeyboard.html" title="Example InputDevice which takes input in from a keyboard. Useful for testing without any other input ..." alt="" coords="181,233,349,487"/>
+<area shape="rect" id="node5" href="$structaxis__state.html" title="{axis_state\n|+ x\l+ y\l|}" alt="" coords="441,42,528,134"/>
+<area shape="rect" id="node7" href="$structkeys.html" title="Struct listing the Keys which exist on a Keyboard. " alt="" coords="183,5,237,171"/>
+</map>

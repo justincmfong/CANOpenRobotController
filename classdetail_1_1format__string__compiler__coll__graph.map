@@ -1,0 +1,4 @@
+<map id="detail::format_string_compiler&lt; Char, PartHandler &gt;" name="detail::format_string_compiler&lt; Char, PartHandler &gt;">
+<area shape="rect" id="node2" href="$structdetail_1_1error__handler.html" title="{detail::error_handler\n||+ error_handler()\l+ error_handler()\l+ on_error()\l}" alt="" coords="59,5,210,112"/>
+<area shape="rect" id="node3" href="$classbasic__format__parse__context.html" title="{basic_format_parse\l_context\&lt; Char \&gt;\n|&#45; format_str_\l&#45; next_arg_id_\l|+ basic_format_parse\l_context()\l+ begin()\l+ end()\l+ advance_to()\l+ next_arg_id()\l+ check_arg_id()\l+ check_arg_id()\l+ on_error()\l+ error_handler()\l}" alt="" coords="135,161,297,400"/>
+</map>

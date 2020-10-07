@@ -1,0 +1,4 @@
+<map id="spdlog::details::thread_pool" name="spdlog::details::thread_pool">
+<area shape="rect" id="node2" href="$classspdlog_1_1details_1_1mpmc__blocking__queue.html" title="{spdlog::details::mpmc\l_blocking_queue\&lt; item\l_type \&gt;\n|&#45; queue_mutex_\l&#45; push_cv_\l&#45; pop_cv_\l|+ mpmc_blocking_queue()\l+ enqueue()\l+ enqueue_nowait()\l+ dequeue_for()\l+ overrun_counter()\l}" alt="" coords="7,439,202,633"/>
+<area shape="rect" id="node3" href="$classspdlog_1_1details_1_1circular__q.html" title="{spdlog::details::circular\l_q\&lt; item_type \&gt;\n|&#45; max_items_\l&#45; head_\l&#45; tail_\l&#45; overrun_counter_\l&#45; v_\l|+ circular_q()\l+ circular_q()\l+ circular_q()\l+ circular_q()\l+ operator=()\l+ operator=()\l+ push_back()\l+ front()\l+ front()\l+ size()\l+ at()\l+ pop_front()\l+ empty()\l+ full()\l+ overrun_counter()\l&#45; copy_moveable()\l}" alt="" coords="21,5,189,376"/>
+</map>

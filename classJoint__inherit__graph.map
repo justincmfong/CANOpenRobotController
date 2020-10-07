@@ -1,0 +1,5 @@
+<map id="Joint" name="Joint">
+<area shape="rect" id="node2" href="$classDummyActJoint.html" title="Example implementation of the ActuatedJoints class. " alt="" coords="5,607,196,919"/>
+<area shape="rect" id="node3" href="$classJointM3.html" title="M3 actuated joints, using Kinoc drives. " alt="" coords="220,556,411,971"/>
+<area shape="rect" id="node4" href="$classX2Joint.html" title="Example implementation of the ActuatedJoints class. " alt="" coords="435,629,625,897"/>
+</map>

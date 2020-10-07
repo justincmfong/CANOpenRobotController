@@ -1,0 +1,15 @@
+<map id="lib/spdlog/details/thread_pool&#45;inl.h" name="lib/spdlog/details/thread_pool&#45;inl.h">
+<area shape="rect" id="node2" href="$thread__pool_8h.html" title="spdlog/details/thread\l_pool.h" alt="" coords="659,95,815,136"/>
+<area shape="rect" id="node5" href="$common_8h.html" title="spdlog/common.h" alt="" coords="689,363,826,389"/>
+<area shape="rect" id="node3" href="$log__msg__buffer_8h.html" title="spdlog/details/log\l_msg_buffer.h" alt="" coords="604,184,737,225"/>
+<area shape="rect" id="node31" href="$mpmc__blocking__q_8h.html" title="spdlog/details/mpmc\l_blocking_q.h" alt="" coords="335,184,489,225"/>
+<area shape="rect" id="node36" href="$details_2os_8h.html" title="spdlog/details/os.h" alt="" coords="849,191,991,218"/>
+<area shape="rect" id="node4" href="$log__msg_8h.html" title="spdlog/details/log\l_msg.h" alt="" coords="604,273,737,315"/>
+<area shape="rect" id="node6" href="$tweakme_8h.html" title="spdlog/tweakme.h" alt="" coords="635,445,773,471"/>
+<area shape="rect" id="node7" href="$null__mutex_8h.html" title="spdlog/details/null\l_mutex.h" alt="" coords="848,437,984,479"/>
+<area shape="rect" id="node17" href="$fmt_8h.html" title="spdlog/fmt/fmt.h" alt="" coords="347,445,475,471"/>
+<area shape="rect" id="node30" href="$common-inl_8h.html" title="common&#45;inl.h" alt="" coords="499,445,610,471"/>
+<area shape="rect" id="node18" href="$core_8h.html" title="spdlog/fmt/bundled\l/core.h" alt="" coords="347,616,493,657"/>
+<area shape="rect" id="node23" href="$format_8h.html" title="spdlog/fmt/bundled\l/format.h" alt="" coords="638,527,783,568"/>
+<area shape="rect" id="node32" href="$circular__q_8h.html" title="spdlog/details/circular_q.h" alt="" coords="93,281,280,307"/>
+</map>

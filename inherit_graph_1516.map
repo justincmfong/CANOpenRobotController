@@ -1,0 +1,78 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classEigen_1_1internal_1_1noncopyable.html" title="Eigen::internal::noncopyable" alt="" coords="5,1232,208,1259"/>
+<area shape="rect" id="node2" href="$classEigen_1_1internal_1_1aligned__stack__memory__handler.html" title="Eigen::internal::aligned\l_stack_memory_handler\&lt; T \&gt;" alt="" coords="289,150,505,191"/>
+<area shape="rect" id="node3" href="$classEigen_1_1internal_1_1scoped__array.html" title="Eigen::internal::scoped\l_array\&lt; T \&gt;" alt="" coords="313,215,480,257"/>
+<area shape="rect" id="node4" href="$classEigen_1_1SparseSolverBase.html" title="A base class for sparse solvers. " alt="" coords="305,281,488,322"/>
+<area shape="rect" id="node11" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; BiCGSTAB\&lt; _MatrixType,\l _Preconditioner \&gt; \&gt;" alt="" coords="299,419,494,475"/>
+<area shape="rect" id="node14" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; CholmodDecomposition\l\&lt; _MatrixType, _UpLo \&gt; \&gt;" alt="" coords="301,507,492,563"/>
+<area shape="rect" id="node17" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; CholmodSimplicialLDLT\l\&lt; _MatrixType, _UpLo \&gt; \&gt;" alt="" coords="302,593,491,649"/>
+<area shape="rect" id="node20" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; CholmodSimplicialLLT\l\&lt; _MatrixType, _UpLo \&gt; \&gt;" alt="" coords="302,673,491,729"/>
+<area shape="rect" id="node23" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; CholmodSupernodalLLT\l\&lt; _MatrixType, _UpLo \&gt; \&gt;" alt="" coords="302,753,491,809"/>
+<area shape="rect" id="node26" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; ConjugateGradient\&lt; \l_MatrixType, _UpLo, _Preconditioner \&gt; \&gt;" alt="" coords="256,833,537,889"/>
+<area shape="rect" id="node29" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; IncompleteCholesky\&lt;\l Scalar, _UpLo, _OrderingType \&gt; \&gt;" alt="" coords="275,913,518,969"/>
+<area shape="rect" id="node31" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; IncompleteLUT\&lt; _Scalar,\l _StorageIndex \&gt; \&gt;" alt="" coords="298,993,495,1049"/>
+<area shape="rect" id="node33" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; KLU\&lt; _MatrixType \&gt; \&gt;" alt="" coords="305,1073,488,1114"/>
+<area shape="rect" id="node35" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; LeastSquaresConjugateGradient\l\&lt; _MatrixType, _Preconditioner \&gt; \&gt;" alt="" coords="273,1137,521,1193"/>
+<area shape="rect" id="node38" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; PardisoLDLT\&lt; MatrixType,\l Options \&gt; \&gt;" alt="" coords="297,1217,496,1273"/>
+<area shape="rect" id="node41" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; PardisoLLT\&lt; MatrixType,\l _UpLo \&gt; \&gt;" alt="" coords="303,1297,491,1353"/>
+<area shape="rect" id="node44" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; PardisoLU\&lt; MatrixType \&gt; \&gt;" alt="" coords="291,1377,502,1418"/>
+<area shape="rect" id="node47" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; PastixLDLT\&lt; _MatrixType,\l _UpLo \&gt; \&gt;" alt="" coords="299,1441,495,1497"/>
+<area shape="rect" id="node50" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; PastixLLT\&lt; _MatrixType,\l _UpLo \&gt; \&gt;" alt="" coords="303,1521,490,1577"/>
+<area shape="rect" id="node53" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; PastixLU\&lt; _MatrixType \&gt; \&gt;" alt="" coords="292,1601,501,1642"/>
+<area shape="rect" id="node56" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; SimplicialCholesky\&lt;\l _MatrixType, _UpLo, _Ordering \&gt; \&gt;" alt="" coords="273,1665,521,1721"/>
+<area shape="rect" id="node59" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; SimplicialLDLT\&lt; _MatrixType,\l _UpLo, _Ordering \&gt; \&gt;" alt="" coords="287,1745,506,1801"/>
+<area shape="rect" id="node62" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; SimplicialLLT\&lt; _MatrixType,\l _UpLo, _Ordering \&gt; \&gt;" alt="" coords="292,1825,501,1881"/>
+<area shape="rect" id="node65" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; SparseLU\&lt; _MatrixType,\l _OrderingType \&gt; \&gt;" alt="" coords="301,1905,492,1961"/>
+<area shape="rect" id="node67" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; SparseQR\&lt; _MatrixType,\l _OrderingType \&gt; \&gt;" alt="" coords="300,2065,493,2121"/>
+<area shape="rect" id="node69" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; SPQR\&lt; _MatrixType \&gt; \&gt;" alt="" coords="301,2145,492,2186"/>
+<area shape="rect" id="node71" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; SuperLU\&lt; _MatrixType \&gt; \&gt;" alt="" coords="291,2210,502,2251"/>
+<area shape="rect" id="node74" href="$classEigen_1_1SparseSolverBase.html" title="Eigen::SparseSolverBase\l\&lt; UmfPackLU\&lt; _MatrixType \&gt; \&gt;" alt="" coords="283,2278,511,2319"/>
+<area shape="rect" id="node5" href="$classEigen_1_1CholmodBase.html" title="The base class for the direct Cholesky factorization of Cholmod. " alt="" coords="633,5,796,61"/>
+<area shape="rect" id="node6" href="$classEigen_1_1IterativeSolverBase.html" title="Base class for linear iterative solvers. " alt="" coords="620,85,809,126"/>
+<area shape="rect" id="node7" href="$classEigen_1_1PardisoImpl.html" title="Eigen::PardisoImpl\l\&lt; Derived \&gt;" alt="" coords="645,150,784,191"/>
+<area shape="rect" id="node8" href="$classEigen_1_1PastixBase.html" title="Eigen::PastixBase\&lt;\l Derived \&gt;" alt="" coords="642,215,787,257"/>
+<area shape="rect" id="node9" href="$classEigen_1_1SimplicialCholeskyBase.html" title="A base class for direct sparse Cholesky factorizations. " alt="" coords="623,281,806,322"/>
+<area shape="rect" id="node10" href="$classEigen_1_1SuperLUBase.html" title="The base class for the direct and incomplete LU factorization of SuperLU. " alt="" coords="623,346,806,387"/>
+<area shape="rect" id="node12" href="$classEigen_1_1IterativeSolverBase.html" title="Eigen::IterativeSolverBase\l\&lt; BiCGSTAB\&lt; _MatrixType,\l _Preconditioner \&gt; \&gt;" alt="" coords="617,411,812,467"/>
+<area shape="rect" id="node13" href="$classEigen_1_1BiCGSTAB.html" title="A bi conjugate gradient stabilized solver for sparse square problems. " alt="" coords="908,418,1099,459"/>
+<area shape="rect" id="node15" href="$classEigen_1_1CholmodBase.html" title="Eigen::CholmodBase\l\&lt; _MatrixType, _UpLo,\l CholmodDecomposition\l\&lt; _MatrixType, _UpLo \&gt; \&gt;" alt="" coords="620,491,809,562"/>
+<area shape="rect" id="node16" href="$classEigen_1_1CholmodDecomposition.html" title="A general Cholesky factorization and solver based on Cholmod. " alt="" coords="894,506,1113,547"/>
+<area shape="rect" id="node18" href="$classEigen_1_1CholmodBase.html" title="Eigen::CholmodBase\l\&lt; _MatrixType, _UpLo,\l CholmodSimplicialLDLT\l\&lt; _MatrixType, _UpLo \&gt; \&gt;" alt="" coords="620,586,809,657"/>
+<area shape="rect" id="node19" href="$classEigen_1_1CholmodSimplicialLDLT.html" title="A simplicial direct Cholesky (LDLT) factorization and solver based on Cholmod. " alt="" coords="902,601,1105,642"/>
+<area shape="rect" id="node21" href="$classEigen_1_1CholmodBase.html" title="Eigen::CholmodBase\l\&lt; _MatrixType, _UpLo,\l CholmodSimplicialLLT\l\&lt; _MatrixType, _UpLo \&gt; \&gt;" alt="" coords="620,681,809,751"/>
+<area shape="rect" id="node22" href="$classEigen_1_1CholmodSimplicialLLT.html" title="A simplicial direct Cholesky (LLT) factorization and solver based on Cholmod. " alt="" coords="907,695,1100,737"/>
+<area shape="rect" id="node24" href="$classEigen_1_1CholmodBase.html" title="Eigen::CholmodBase\l\&lt; _MatrixType, _UpLo,\l CholmodSupernodalLLT\l\&lt; _MatrixType, _UpLo \&gt; \&gt;" alt="" coords="620,775,809,846"/>
+<area shape="rect" id="node25" href="$classEigen_1_1CholmodSupernodalLLT.html" title="A supernodal Cholesky (LLT) factorization and solver based on Cholmod. " alt="" coords="906,790,1101,831"/>
+<area shape="rect" id="node27" href="$classEigen_1_1IterativeSolverBase.html" title="Eigen::IterativeSolverBase\l\&lt; ConjugateGradient\&lt; _MatrixType,\l _UpLo, _Preconditioner \&gt; \&gt;" alt="" coords="589,871,840,927"/>
+<area shape="rect" id="node28" href="$classEigen_1_1ConjugateGradient.html" title="A conjugate gradient solver for sparse (or dense) self&#45;adjoint problems. " alt="" coords="911,871,1096,927"/>
+<area shape="rect" id="node30" href="$classEigen_1_1IncompleteCholesky.html" title="Modified Incomplete Cholesky with dual threshold. " alt="" coords="595,950,834,991"/>
+<area shape="rect" id="node32" href="$classEigen_1_1IncompleteLUT.html" title="Incomplete LU factorization with dual&#45;threshold strategy. " alt="" coords="615,1015,814,1057"/>
+<area shape="rect" id="node34" href="$classEigen_1_1KLU.html" title="Eigen::KLU\&lt; _MatrixType \&gt;" alt="" coords="618,1081,811,1108"/>
+<area shape="rect" id="node36" href="$classEigen_1_1IterativeSolverBase.html" title="Eigen::IterativeSolverBase\l\&lt; LeastSquaresConjugateGradient\l\&lt; _MatrixType, _Preconditioner \&gt; \&gt;" alt="" coords="591,1137,839,1193"/>
+<area shape="rect" id="node37" href="$classEigen_1_1LeastSquaresConjugateGradient.html" title="A conjugate gradient solver for sparse (or dense) least&#45;square problems. " alt="" coords="894,1137,1113,1193"/>
+<area shape="rect" id="node39" href="$classEigen_1_1PardisoImpl.html" title="Eigen::PardisoImpl\l\&lt; PardisoLDLT\&lt; MatrixType,\l Options \&gt; \&gt;" alt="" coords="615,1217,814,1273"/>
+<area shape="rect" id="node40" href="$classEigen_1_1PardisoLDLT.html" title="A sparse direct Cholesky (LDLT) factorization and solver based on the PARDISO library. " alt="" coords="915,1225,1091,1266"/>
+<area shape="rect" id="node42" href="$classEigen_1_1PardisoImpl.html" title="Eigen::PardisoImpl\l\&lt; PardisoLLT\&lt; MatrixType,\l _UpLo \&gt; \&gt;" alt="" coords="621,1297,809,1353"/>
+<area shape="rect" id="node43" href="$classEigen_1_1PardisoLLT.html" title="A sparse direct Cholesky (LLT) factorization and solver based on the PARDISO library. " alt="" coords="925,1305,1081,1346"/>
+<area shape="rect" id="node45" href="$classEigen_1_1PardisoImpl.html" title="Eigen::PardisoImpl\l\&lt; PardisoLU\&lt; MatrixType \&gt; \&gt;" alt="" coords="609,1377,820,1418"/>
+<area shape="rect" id="node46" href="$classEigen_1_1PardisoLU.html" title="A sparse direct LU factorization and solver based on the PARDISO library. " alt="" coords="913,1377,1094,1418"/>
+<area shape="rect" id="node48" href="$classEigen_1_1PastixBase.html" title="Eigen::PastixBase\&lt;\l PastixLDLT\&lt; _MatrixType,\l _UpLo \&gt; \&gt;" alt="" coords="622,1441,807,1497"/>
+<area shape="rect" id="node49" href="$classEigen_1_1PastixLDLT.html" title="A sparse direct supernodal Cholesky (LLT) factorization and solver based on the PaStiX library..." alt="" coords="922,1449,1085,1490"/>
+<area shape="rect" id="node51" href="$classEigen_1_1PastixBase.html" title="Eigen::PastixBase\&lt;\l PastixLLT\&lt; _MatrixType,\l _UpLo \&gt; \&gt;" alt="" coords="627,1521,802,1577"/>
+<area shape="rect" id="node52" href="$classEigen_1_1PastixLLT.html" title="A sparse direct supernodal Cholesky (LLT) factorization and solver based on the PaStiX library..." alt="" coords="924,1529,1083,1570"/>
+<area shape="rect" id="node54" href="$classEigen_1_1PastixBase.html" title="Eigen::PastixBase\&lt;\l PastixLU\&lt; _MatrixType \&gt; \&gt;" alt="" coords="615,1601,814,1642"/>
+<area shape="rect" id="node55" href="$classEigen_1_1PastixLU.html" title="Interface to the PaStix solver. " alt="" coords="914,1601,1093,1642"/>
+<area shape="rect" id="node57" href="$classEigen_1_1SimplicialCholeskyBase.html" title="Eigen::SimplicialCholesky\lBase\&lt; SimplicialCholesky\l\&lt; _MatrixType, _UpLo, _Ordering \&gt; \&gt;" alt="" coords="585,1665,844,1721"/>
+<area shape="rect" id="node58" href="$classEigen_1_1SimplicialCholesky.html" title="Eigen::SimplicialCholesky\l\&lt; _MatrixType, _UpLo, \l_Ordering \&gt;" alt="" coords="912,1665,1095,1721"/>
+<area shape="rect" id="node60" href="$classEigen_1_1SimplicialCholeskyBase.html" title="Eigen::SimplicialCholesky\lBase\&lt; SimplicialLDLT\&lt; \l_MatrixType, _UpLo, _Ordering \&gt; \&gt;" alt="" coords="593,1745,837,1801"/>
+<area shape="rect" id="node61" href="$classEigen_1_1SimplicialLDLT.html" title="A direct sparse LDLT Cholesky factorizations without square root. " alt="" coords="922,1745,1085,1801"/>
+<area shape="rect" id="node63" href="$classEigen_1_1SimplicialCholeskyBase.html" title="Eigen::SimplicialCholesky\lBase\&lt; SimplicialLLT\&lt; _MatrixType,\l _UpLo, _Ordering \&gt; \&gt;" alt="" coords="594,1825,835,1881"/>
+<area shape="rect" id="node64" href="$classEigen_1_1SimplicialLLT.html" title="A direct sparse LLT Cholesky factorizations. " alt="" coords="922,1825,1085,1881"/>
+<area shape="rect" id="node66" href="$classEigen_1_1SparseLU.html" title="Sparse supernodal LU factorization for general matrices. " alt="" coords="621,1953,808,1994"/>
+<area shape="rect" id="node68" href="$classEigen_1_1SparseQR.html" title="Sparse left&#45;looking QR factorization with numerical column pivoting. " alt="" coords="620,2073,809,2114"/>
+<area shape="rect" id="node70" href="$classEigen_1_1SPQR.html" title="Sparse QR factorization based on SuiteSparseQR library. " alt="" coords="613,2152,817,2179"/>
+<area shape="rect" id="node72" href="$classEigen_1_1SuperLUBase.html" title="Eigen::SuperLUBase\l\&lt; _MatrixType, SuperLU\l\&lt; _MatrixType \&gt; \&gt;" alt="" coords="628,2203,801,2259"/>
+<area shape="rect" id="node73" href="$classEigen_1_1SuperLU.html" title="A sparse direct LU factorization and solver based on the SuperLU library. " alt="" coords="892,2217,1115,2244"/>
+<area shape="rect" id="node75" href="$classEigen_1_1UmfPackLU.html" title="A sparse LU factorization and solver based on UmfPack. " alt="" coords="639,2282,791,2323"/>
+<area shape="rect" id="node76" href="$classEigen_1_1internal_1_1SparseLUImpl.html" title="Eigen::internal::SparseLUImpl\l\&lt; _MatrixType::Scalar, _MatrixType\l::StorageIndex \&gt;" alt="" coords="276,1985,517,2041"/>
+</map>

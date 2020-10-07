@@ -1,0 +1,5 @@
+<map id="detail::view" name="detail::view">
+<area shape="rect" id="node2" href="$structarg__join.html" title="{arg_join\&lt; It, Sentinel,\l Char \&gt;\n|+ begin\l+ end\l+ sep\l|+ arg_join()\l}" alt="" coords="5,131,164,252"/>
+<area shape="rect" id="node3" href="$structdetail_1_1named__arg.html" title="{detail::named_arg\&lt;\l Char, T \&gt;\n|+ name\l+ value\l|+ named_arg()\l}" alt="" coords="189,138,338,245"/>
+<area shape="rect" id="node4" href="$structtuple__arg__join.html" title="{tuple_arg_join\&lt; Char, T \&gt;\n|+ tuple\l+ sep\l|+ tuple_arg_join()\l}" alt="" coords="362,145,549,237"/>
+</map>

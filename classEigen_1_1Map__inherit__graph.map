@@ -1,0 +1,4 @@
+<map id="Eigen::Map&lt; PlainObjectType, MapOptions, StrideType &gt;" name="Eigen::Map&lt; PlainObjectType, MapOptions, StrideType &gt;">
+<area shape="rect" id="node3" href="$classEigen_1_1MappedSparseMatrix.html" title="{MappedSparseMatrix\l\&lt; Scalar, ColMajor,\l StorageIndex \&gt;\n||+ MappedSparseMatrix()\l+ ~MappedSparseMatrix()\l}" alt="" coords="21,373,214,495"/>
+<area shape="rect" id="node2" href="$classEigen_1_1MapBase.html" title="{Eigen::MapBase\&lt; Map\l\&lt; PlainObjectType, MapOptions,\l StrideType \&gt; \&gt;\n||}" alt="" coords="5,5,229,112"/>
+</map>

@@ -1,0 +1,15 @@
+<map id="src/hardware/drives/CopleyDrive.cpp" name="src/hardware/drives/CopleyDrive.cpp">
+<area shape="rect" id="node2" href="$CopleyDrive_8h.html" title="An implementation of the Drive Object, specifically for the Copley Drive. " alt="" coords="1050,95,1161,121"/>
+<area shape="rect" id="node28" href="$DebugMacro_8h.html" title="Defines some macros for debugging output. " alt="" coords="1236,95,1351,121"/>
+<area shape="rect" id="node3" href="$Drive_8h.html" title="The Drive class is used to interface with a CANOpen motor drive. According to the CiA402 standard..." alt="" coords="1072,169,1139,196"/>
+<area shape="rect" id="node4" href="$CANopen_8h.html" title="CANopen.h" alt="" coords="758,244,853,271"/>
+<area shape="rect" id="node22" href="$CO__command_8h.html" title="CO_command.h" alt="" coords="877,244,1003,271"/>
+<area shape="rect" id="node5" href="$CO__driver_8h.html" title="CO_driver.h" alt="" coords="394,393,489,420"/>
+<area shape="rect" id="node15" href="$CO__OD_8h.html" title="CO_OD.h" alt="" coords="440,319,520,345"/>
+<area shape="rect" id="node16" href="$CO__SDO_8h.html" title="CO_SDO.h" alt="" coords="544,319,632,345"/>
+<area shape="rect" id="node17" href="$CO__Emergency_8h.html" title="CO_Emergency.h" alt="" coords="656,319,787,345"/>
+<area shape="rect" id="node18" href="$CO__NMT__Heartbeat_8h.html" title="CO_NMT_Heartbeat.h" alt="" coords="811,319,971,345"/>
+<area shape="rect" id="node19" href="$CO__SYNC_8h.html" title="CO_SYNC.h" alt="" coords="995,319,1090,345"/>
+<area shape="rect" id="node20" href="$CO__PDO_8h.html" title="CO_PDO.h" alt="" coords="1114,319,1201,345"/>
+<area shape="rect" id="node21" href="$CO__HBconsumer_8h.html" title="CO_HBconsumer.h" alt="" coords="1225,319,1367,345"/>
+</map>

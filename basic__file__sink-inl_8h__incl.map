@@ -1,0 +1,19 @@
+<map id="lib/spdlog/sinks/basic_file_sink&#45;inl.h" name="lib/spdlog/sinks/basic_file_sink&#45;inl.h">
+<area shape="rect" id="node2" href="$basic__file__sink_8h.html" title="spdlog/sinks/basic\l_file_sink.h" alt="" coords="1339,95,1476,136"/>
+<area shape="rect" id="node4" href="$common_8h.html" title="spdlog/common.h" alt="" coords="1101,512,1239,539"/>
+<area shape="rect" id="node40" href="$details_2os_8h.html" title="spdlog/details/os.h" alt="" coords="1802,102,1943,129"/>
+<area shape="rect" id="node3" href="$file__helper_8h.html" title="spdlog/details/file\l_helper.h" alt="" coords="1432,184,1564,225"/>
+<area shape="rect" id="node6" href="$null__mutex_8h.html" title="spdlog/details/null\l_mutex.h" alt="" coords="1649,587,1785,628"/>
+<area shape="rect" id="node31" href="$base__sink_8h.html" title="spdlog/sinks/base_sink.h" alt="" coords="1229,191,1407,218"/>
+<area shape="rect" id="node35" href="$synchronous__factory_8h.html" title="spdlog/details/synchronous\l_factory.h" alt="" coords="719,184,914,225"/>
+<area shape="rect" id="node5" href="$tweakme_8h.html" title="spdlog/tweakme.h" alt="" coords="1149,594,1287,621"/>
+<area shape="rect" id="node16" href="$fmt_8h.html" title="spdlog/fmt/fmt.h" alt="" coords="709,594,837,621"/>
+<area shape="rect" id="node29" href="$common-inl_8h.html" title="common&#45;inl.h" alt="" coords="1013,594,1124,621"/>
+<area shape="rect" id="node17" href="$core_8h.html" title="spdlog/fmt/bundled\l/core.h" alt="" coords="221,765,367,807"/>
+<area shape="rect" id="node22" href="$format_8h.html" title="spdlog/fmt/bundled\l/format.h" alt="" coords="696,676,841,717"/>
+<area shape="rect" id="node32" href="$log__msg_8h.html" title="spdlog/details/log\l_msg.h" alt="" coords="1318,423,1451,464"/>
+<area shape="rect" id="node33" href="$sink_8h.html" title="spdlog/sinks/sink.h" alt="" coords="1247,273,1389,300"/>
+<area shape="rect" id="node34" href="$formatter_8h.html" title="spdlog/formatter.h" alt="" coords="1208,348,1348,375"/>
+<area shape="rect" id="node36" href="$registry_8h.html" title="registry.h" alt="" coords="654,348,734,375"/>
+<area shape="rect" id="node37" href="$log__levels_8h.html" title="spdlog/cfg/log_levels.h" alt="" coords="611,430,777,457"/>
+</map>

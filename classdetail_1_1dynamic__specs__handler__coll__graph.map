@@ -1,0 +1,10 @@
+<map id="detail::dynamic_specs_handler&lt; ParseContext &gt;" name="detail::dynamic_specs_handler&lt; ParseContext &gt;">
+<area shape="rect" id="node2" href="$classdetail_1_1specs__setter.html" title="{detail::specs_setter\l\&lt; ParseContext::char\l_type \&gt;\n||+ specs_setter()\l+ specs_setter()\l+ on_align()\l+ on_fill()\l+ on_plus()\l+ on_minus()\l+ on_space()\l+ on_hash()\l+ on_zero()\l+ on_width()\l+ on_precision()\l+ end_precision()\l+ on_type()\l}" alt="" coords="29,505,188,788"/>
+<area shape="rect" id="node3" href="$structbasic__format__specs.html" title="{basic_format_specs\l\&lt; ParseContext::char\l_type \&gt;\n|+ width\l+ precision\l+ type\l+ align\l+ sign\l+ alt\l|+ basic_format_specs()\l}" alt="" coords="13,248,188,428"/>
+<area shape="rect" id="node4" href="$structdetail_1_1fill__t.html" title="{detail::fill_t\&lt; ParseContext\l::char_type \&gt;\n|&#45; data_\l&#45; size_\l|+ operator=()\l+ size()\l+ data()\l+ operator[]()\l+ operator[]()\l+ make()\l}" alt="" coords="5,5,196,185"/>
+<area shape="rect" id="node5" href="$structdetail_1_1dynamic__format__specs.html" title="{detail::dynamic_format\l_specs\&lt; char_type \&gt;\n||}" alt="" coords="215,601,384,693"/>
+<area shape="rect" id="node6" href="$structbasic__format__specs.html" title="{basic_format_specs\l\&lt; char_type \&gt;\n|+ width\l+ precision\l+ type\l+ align\l+ sign\l+ alt\l|+ basic_format_specs()\l}" alt="" coords="212,255,387,421"/>
+<area shape="rect" id="node7" href="$structdetail_1_1fill__t.html" title="{detail::fill_t\&lt; char\l_type \&gt;\n|&#45; data_\l&#45; size_\l|+ operator=()\l+ size()\l+ data()\l+ operator[]()\l+ operator[]()\l+ make()\l}" alt="" coords="233,5,366,185"/>
+<area shape="rect" id="node8" href="$structdetail_1_1arg__ref.html" title="{detail::arg_ref\&lt; char\l_type \&gt;\n|+ kind\l|+ arg_ref()\l+ arg_ref()\l+ arg_ref()\l+ operator=()\l}" alt="" coords="411,270,564,406"/>
+<area shape="rect" id="node9" href="$uniondetail_1_1arg__ref_1_1value.html" title="{detail::arg_ref\&lt; Char\l \&gt;::value\n|+ index\l+ name\l|+ value()\l+ value()\l}" alt="" coords="410,35,565,156"/>
+</map>

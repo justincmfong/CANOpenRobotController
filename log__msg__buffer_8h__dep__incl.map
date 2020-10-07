@@ -1,0 +1,21 @@
+<map id="lib/spdlog/details/log_msg_buffer.h" name="lib/spdlog/details/log_msg_buffer.h">
+<area shape="rect" id="node2" href="$backtracer_8h.html" title="lib/spdlog/details\l/backtracer.h" alt="" coords="691,95,819,136"/>
+<area shape="rect" id="node17" href="$log__msg__buffer-inl_8h.html" title="lib/spdlog/details\l/log_msg_buffer&#45;inl.h" alt="" coords="919,95,1073,136"/>
+<area shape="rect" id="node18" href="$thread__pool_8h.html" title="lib/spdlog/details\l/thread_pool.h" alt="" coords="896,273,1024,315"/>
+<area shape="rect" id="node20" href="$ringbuffer__sink_8h.html" title="lib/spdlog/sinks/ringbuffer\l_sink.h" alt="" coords="1098,95,1281,136"/>
+<area shape="rect" id="node3" href="$backtracer-inl_8h.html" title="lib/spdlog/details\l/backtracer&#45;inl.h" alt="" coords="628,184,756,225"/>
+<area shape="rect" id="node4" href="$logger-inl_8h.html" title="lib/spdlog/logger&#45;inl.h" alt="" coords="715,281,871,307"/>
+<area shape="rect" id="node5" href="$logger_8h.html" title="lib/spdlog/logger.h" alt="" coords="422,191,559,218"/>
+<area shape="rect" id="node6" href="$async__logger_8h.html" title="lib/spdlog/async_logger.h" alt="" coords="357,281,539,307"/>
+<area shape="rect" id="node12" href="$registry-inl_8h.html" title="lib/spdlog/details\l/registry&#45;inl.h" alt="" coords="563,273,691,315"/>
+<area shape="rect" id="node13" href="$stdout__color__sinks-inl_8h.html" title="lib/spdlog/sinks/stdout\l_color_sinks&#45;inl.h" alt="" coords="5,273,168,315"/>
+<area shape="rect" id="node14" href="$spdlog_8h.html" title="lib/spdlog/spdlog.h" alt="" coords="193,281,333,307"/>
+<area shape="rect" id="node7" href="$async_8h.html" title="lib/spdlog/async.h" alt="" coords="739,370,874,397"/>
+<area shape="rect" id="node11" href="$async__logger-inl_8h.html" title="lib/spdlog/async_logger\l&#45;inl.h" alt="" coords="544,363,715,404"/>
+<area shape="rect" id="node8" href="$LogHelper_8h.html" title="lib/spdlog/helper/LogHelper.h" alt="" coords="371,452,578,479"/>
+<area shape="rect" id="node9" href="$X2DemoMachine_8h.html" title="src/apps/X2DemoMachine\l/X2DemoMachine.h" alt="" coords="381,527,569,568"/>
+<area shape="rect" id="node10" href="$X2DemoMachine_8cpp.html" title="src/apps/X2DemoMachine\l/X2DemoMachine.cpp" alt="" coords="381,616,569,657"/>
+<area shape="rect" id="node15" href="$helpers-inl_8h.html" title="lib/spdlog/cfg/helpers\l&#45;inl.h" alt="" coords="181,363,337,404"/>
+<area shape="rect" id="node16" href="$spdlog-inl_8h.html" title="lib/spdlog/spdlog&#45;inl.h" alt="" coords="361,370,519,397"/>
+<area shape="rect" id="node19" href="$thread__pool-inl_8h.html" title="lib/spdlog/details\l/thread_pool&#45;inl.h" alt="" coords="899,363,1032,404"/>
+</map>

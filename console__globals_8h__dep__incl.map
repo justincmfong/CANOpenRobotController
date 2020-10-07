@@ -1,0 +1,11 @@
+<map id="lib/spdlog/details/console_globals.h" name="lib/spdlog/details/console_globals.h">
+<area shape="rect" id="node2" href="$ansicolor__sink_8h.html" title="lib/spdlog/sinks/ansicolor\l_sink.h" alt="" coords="225,95,404,136"/>
+<area shape="rect" id="node7" href="$stdout__sinks-inl_8h.html" title="lib/spdlog/sinks/stdout\l_sinks&#45;inl.h" alt="" coords="547,184,709,225"/>
+<area shape="rect" id="node8" href="$stdout__sinks_8h.html" title="lib/spdlog/sinks/stdout\l_sinks.h" alt="" coords="547,95,709,136"/>
+<area shape="rect" id="node9" href="$wincolor__sink_8h.html" title="lib/spdlog/sinks/wincolor\l_sink.h" alt="" coords="733,95,907,136"/>
+<area shape="rect" id="node3" href="$registry-inl_8h.html" title="lib/spdlog/details\l/registry&#45;inl.h" alt="" coords="5,184,133,225"/>
+<area shape="rect" id="node4" href="$ansicolor__sink-inl_8h.html" title="lib/spdlog/sinks/ansicolor\l_sink&#45;inl.h" alt="" coords="157,184,336,225"/>
+<area shape="rect" id="node5" href="$stdout__color__sinks_8h.html" title="lib/spdlog/sinks/stdout\l_color_sinks.h" alt="" coords="360,184,523,225"/>
+<area shape="rect" id="node6" href="$stdout__color__sinks-inl_8h.html" title="lib/spdlog/sinks/stdout\l_color_sinks&#45;inl.h" alt="" coords="360,273,523,315"/>
+<area shape="rect" id="node10" href="$wincolor__sink-inl_8h.html" title="lib/spdlog/sinks/wincolor\l_sink&#45;inl.h" alt="" coords="733,184,907,225"/>
+</map>

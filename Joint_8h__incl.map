@@ -1,0 +1,13 @@
+<map id="src/core/robot/Joint.h" name="src/core/robot/Joint.h">
+<area shape="rect" id="node4" href="$Drive_8h.html" title="The Drive class is used to interface with a CANOpen motor drive. According to the CiA402 standard..." alt="" coords="1072,80,1139,107"/>
+<area shape="rect" id="node5" href="$CANopen_8h.html" title="CANopen.h" alt="" coords="758,155,853,181"/>
+<area shape="rect" id="node23" href="$CO__command_8h.html" title="CO_command.h" alt="" coords="877,155,1003,181"/>
+<area shape="rect" id="node6" href="$CO__driver_8h.html" title="CO_driver.h" alt="" coords="394,304,489,331"/>
+<area shape="rect" id="node16" href="$CO__OD_8h.html" title="CO_OD.h" alt="" coords="440,229,520,256"/>
+<area shape="rect" id="node17" href="$CO__SDO_8h.html" title="CO_SDO.h" alt="" coords="544,229,632,256"/>
+<area shape="rect" id="node18" href="$CO__Emergency_8h.html" title="CO_Emergency.h" alt="" coords="656,229,787,256"/>
+<area shape="rect" id="node19" href="$CO__NMT__Heartbeat_8h.html" title="CO_NMT_Heartbeat.h" alt="" coords="811,229,971,256"/>
+<area shape="rect" id="node20" href="$CO__SYNC_8h.html" title="CO_SYNC.h" alt="" coords="995,229,1090,256"/>
+<area shape="rect" id="node21" href="$CO__PDO_8h.html" title="CO_PDO.h" alt="" coords="1114,229,1201,256"/>
+<area shape="rect" id="node22" href="$CO__HBconsumer_8h.html" title="CO_HBconsumer.h" alt="" coords="1225,229,1367,256"/>
+</map>

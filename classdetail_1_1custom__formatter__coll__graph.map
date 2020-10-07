@@ -1,0 +1,5 @@
+<map id="detail::custom_formatter&lt; Context &gt;" name="detail::custom_formatter&lt; Context &gt;">
+<area shape="rect" id="node2" href="$classbasic__format__parse__context.html" title="{basic_format_parse\l_context\&lt; char_type \&gt;\n|&#45; next_arg_id_\l|+ basic_format_parse\l_context()\l+ begin()\l+ end()\l+ advance_to()\l+ next_arg_id()\l+ check_arg_id()\l+ check_arg_id()\l+ on_error()\l+ error_handler()\l}" alt="" coords="85,336,255,560"/>
+<area shape="rect" id="node3" href="$structdetail_1_1error__handler.html" title="{detail::error_handler\n||+ error_handler()\l+ error_handler()\l+ on_error()\l}" alt="" coords="5,86,156,193"/>
+<area shape="rect" id="node4" href="$classbasic__string__view.html" title="{basic_string_view\&lt;\l char_type \&gt;\n|&#45; data_\l&#45; size_\l|+ basic_string_view()\l+ basic_string_view()\l+ basic_string_view()\l+ basic_string_view()\l+ basic_string_view()\l+ data()\l+ size()\l+ begin()\l+ end()\l+ operator[]()\l+ remove_prefix()\l+ compare()\l}" alt="" coords="181,5,338,273"/>
+</map>

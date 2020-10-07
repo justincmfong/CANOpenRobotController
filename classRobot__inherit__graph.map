@@ -1,0 +1,5 @@
+<map id="Robot" name="Robot">
+<area shape="rect" id="node2" href="$classExoRobot.html" title="Example implementation of the Robot class, representing an X2 Exoskeleton, using DummyActuatedJoint a..." alt="" coords="5,321,181,619"/>
+<area shape="rect" id="node3" href="$classRobotM3.html" title="Convenience alias for double Vector of length 3. " alt="" coords="205,307,368,633"/>
+<area shape="rect" id="node4" href="$classX2Robot.html" title="Example implementation of the Robot class, representing an X2 Exoskeleton. " alt="" coords="392,292,568,648"/>
+</map>

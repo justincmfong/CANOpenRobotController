@@ -1,0 +1,5 @@
+<map id="JointM3" name="JointM3">
+<area shape="rect" id="node2" href="$classJoint.html" title="Abstract class representing any joints within a Robot. " alt="" coords="39,497,235,985"/>
+<area shape="rect" id="node3" href="$classDrive.html" title="Abstract class describing a Drive used to communicate with a CANbus device. Note that many functions ..." alt="" coords="5,5,268,435"/>
+<area shape="rect" id="node4" href="$structmotorProfile.html" title="struct to hold desired velocity, acceleration and deceleration values for a drives motor controller p..." alt="" coords="259,688,417,795"/>
+</map>

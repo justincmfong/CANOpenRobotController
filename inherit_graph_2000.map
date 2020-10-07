@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classJoint.html" title="Abstract class representing any joints within a Robot. " alt="" coords="5,56,55,83"/>
+<area shape="rect" id="node2" href="$classDummyActJoint.html" title="Example implementation of the ActuatedJoints class. " alt="" coords="103,5,224,32"/>
+<area shape="rect" id="node3" href="$classJointM3.html" title="M3 actuated joints, using Kinoc drives. " alt="" coords="129,56,197,83"/>
+<area shape="rect" id="node4" href="$classX2Joint.html" title="Example implementation of the ActuatedJoints class. " alt="" coords="131,107,196,133"/>
+</map>

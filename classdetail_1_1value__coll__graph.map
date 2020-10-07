@@ -1,0 +1,8 @@
+<map id="detail::value&lt; Context &gt;" name="detail::value&lt; Context &gt;">
+<area shape="rect" id="node2" href="$structdetail_1_1int128__t.html" title="{detail::int128_t\n||}" alt="" coords="5,189,123,267"/>
+<area shape="rect" id="node3" href="$structdetail_1_1uint128__t.html" title="{detail::uint128_t\n||}" alt="" coords="147,189,272,267"/>
+<area shape="rect" id="node4" href="$structdetail_1_1string__value.html" title="{detail::string_value\l\&lt; char_type \&gt;\n|+ data\l+ size\l|}" alt="" coords="297,175,439,281"/>
+<area shape="rect" id="node5" href="$structdetail_1_1void.html" title="{detail::void\&lt; T \&gt;\n||}" alt="" coords="464,189,592,267"/>
+<area shape="rect" id="node7" href="$structdetail_1_1named__arg__value.html" title="{detail::named_arg_value\l\&lt; char_type \&gt;\n|+ size\l|}" alt="" coords="616,182,795,274"/>
+<area shape="rect" id="node8" href="$structdetail_1_1named__arg__info.html" title="{detail::named_arg_info\l\&lt; char_type \&gt;\n|+ name\l+ id\l|}" alt="" coords="621,5,789,112"/>
+</map>

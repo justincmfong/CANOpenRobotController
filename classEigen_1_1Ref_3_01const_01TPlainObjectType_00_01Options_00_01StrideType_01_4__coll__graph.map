@@ -1,0 +1,7 @@
+<map id="Eigen::Ref&lt; const TPlainObjectType, Options, StrideType &gt;" name="Eigen::Ref&lt; const TPlainObjectType, Options, StrideType &gt;">
+<area shape="rect" id="node2" href="$classEigen_1_1RefBase.html" title="{Eigen::RefBase\&lt; Ref\l\&lt; const TPlainObjectType,\l Options, StrideType \&gt; \&gt;\n||+ innerStride()\l+ outerStride()\l+ RefBase()\l# construct()\l}" alt="" coords="80,447,267,597"/>
+<area shape="rect" id="node3" href="$classEigen_1_1MapBase.html" title="{Eigen::MapBase\&lt; Ref\l\&lt; const TPlainObjectType,\l Options, StrideType \&gt; \&gt;\n||}" alt="" coords="5,248,192,355"/>
+<area shape="rect" id="node4" href="$classEigen_1_1Stride.html" title="{Eigen::Stride\&lt; StrideType\l::OuterStrideAtCompileTime,\l StrideType::InnerStrideAtCompileTime \&gt;\n||+ Stride()\l+ Stride()\l+ Stride()\l+ outer()\l+ inner()\l}" alt="" coords="216,219,499,384"/>
+<area shape="rect" id="node5" href="$classEigen_1_1internal_1_1variable__if__dynamic.html" title="{Eigen::internal::variable\l_if_dynamic\&lt; Index, OuterStride\lAtCompileTime \&gt;\n||+ variable_if_dynamic()\l+ operator Index()\l+ setValue()\l+ value()\l}" alt="" coords="118,5,346,156"/>
+<area shape="rect" id="node6" href="$classEigen_1_1internal_1_1variable__if__dynamic.html" title="{Eigen::internal::variable\l_if_dynamic\&lt; Index, InnerStride\lAtCompileTime \&gt;\n||+ variable_if_dynamic()\l+ operator Index()\l+ setValue()\l+ value()\l}" alt="" coords="371,5,595,156"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="detail::arg_formatter_base&lt; OutputIt, Char, ErrorHandler &gt;::char_spec_handler" name="detail::arg_formatter_base&lt; OutputIt, Char, ErrorHandler &gt;::char_spec_handler">
+<area shape="rect" id="node4" href="$classdetail_1_1arg__formatter__base.html" title="{detail::arg_formatter\l_base\&lt; OutputIt, Char,\l ErrorHandler \&gt;\n||+ arg_formatter_base()\l+ operator()()\l+ operator()()\l+ operator()()\l+ operator()()\l+ operator()()\l+ operator()()\l+ operator()()\l+ operator()()\l# out()\l# specs()\l# write()\l# write()\l&#45; reserve()\l&#45; write_int()\l&#45; write()\l&#45; write()\l&#45; write()\l&#45; write()\l&#45; write()\l&#45; write()\l&#45; write_pointer()\l}" alt="" coords="208,515,383,929"/>
+<area shape="rect" id="node5" href="$classdetail_1_1locale__ref.html" title="{detail::locale_ref\n||+ locale_ref()\l+ locale_ref()\l+ operator bool()\l+ get()\l}" alt="" coords="50,301,183,423"/>
+<area shape="rect" id="node6" href="$structdetail_1_1void.html" title="{detail::void\&lt; T \&gt;\n||}" alt="" coords="53,132,181,209"/>
+<area shape="rect" id="node8" href="$structbasic__format__specs.html" title="{basic_format_specs\l\&lt; Char \&gt;\n|+ width\l+ precision\l+ type\l+ align\l+ sign\l+ alt\l+ fill\l|+ basic_format_specs()\l}" alt="" coords="208,272,383,452"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="X2DemoMachineROS" name="X2DemoMachineROS">
+<area shape="rect" id="node2" href="$classX2Robot.html" title="Example implementation of the Robot class, representing an X2 Exoskeleton. " alt="" coords="183,564,346,876"/>
+<area shape="rect" id="node3" href="$classRobot.html" title="Abstract Class representing a robot. Includes vectors of Joint and InputDevice. " alt="" coords="5,241,156,479"/>
+<area shape="rect" id="node4" href="$classKeyboard.html" title="Example InputDevice which takes input in from a keyboard. Useful for testing without any other input ..." alt="" coords="181,233,349,487"/>
+<area shape="rect" id="node5" href="$classInputDevice.html" title="Abstract class representing any input device to be used in a Robot object. " alt="" coords="139,35,273,141"/>
+<area shape="rect" id="node6" href="$structkeys.html" title="Struct listing the Keys which exist on a Keyboard. " alt="" coords="297,5,352,171"/>
+<area shape="rect" id="node7" href="$structmotorProfile.html" title="struct to hold desired velocity, acceleration and deceleration values for a drives motor controller p..." alt="" coords="373,307,530,413"/>
+</map>

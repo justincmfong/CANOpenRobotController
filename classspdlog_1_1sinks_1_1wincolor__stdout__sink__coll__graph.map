@@ -1,0 +1,4 @@
+<map id="spdlog::sinks::wincolor_stdout_sink&lt; ConsoleMutex &gt;" name="spdlog::sinks::wincolor_stdout_sink&lt; ConsoleMutex &gt;">
+<area shape="rect" id="node2" href="$classspdlog_1_1sinks_1_1wincolor__sink.html" title="{spdlog::sinks::wincolor\l_sink\&lt; ConsoleMutex \&gt;\n|+ BOLD\l+ RED\l+ GREEN\l+ CYAN\l+ WHITE\l+ YELLOW\l# out_handle_\l# mutex_\l# in_console_\l# should_do_colors_\l# formatter_\l# colors_\l|+ wincolor_sink()\l+ ~wincolor_sink()\l+ wincolor_sink()\l+ operator=()\l+ set_color()\l+ log()\l+ flush()\l+ set_pattern()\l+ set_formatter()\l+ set_color_mode()\l# set_foreground_color_()\l# print_range_()\l# write_to_file_()\l}" alt="" coords="22,233,211,663"/>
+<area shape="rect" id="node3" href="$classspdlog_1_1sinks_1_1sink.html" title="{spdlog::sinks::sink\n|# level_\l|+ ~sink()\l+ log()\l+ flush()\l+ set_pattern()\l+ set_formatter()\l+ set_level()\l+ level()\l+ should_log()\l}" alt="" coords="48,5,185,185"/>
+</map>

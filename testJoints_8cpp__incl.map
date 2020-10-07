@@ -1,0 +1,16 @@
+<map id="tests/testJoints.cpp" name="tests/testJoints.cpp">
+<area shape="rect" id="node4" href="$CANopen_8h.html" title="CANopen.h" alt="" coords="758,304,853,331"/>
+<area shape="rect" id="node22" href="$CopleyDrive_8h.html" title="An implementation of the Drive Object, specifically for the Copley Drive. " alt="" coords="1098,155,1209,181"/>
+<area shape="rect" id="node23" href="$Drive_8h.html" title="The Drive class is used to interface with a CANOpen motor drive. According to the CiA402 standard..." alt="" coords="1111,229,1177,256"/>
+<area shape="rect" id="node29" href="$DummyActJoint_8h.html" title="A dummy class to test whether the actuated joint inheritence stuff works. " alt="" coords="1028,80,1161,107"/>
+<area shape="rect" id="node30" href="$Joint_8h.html" title="The Joint class is a abstract class which represents a joint in a Robot objec. This class can be used..." alt="" coords="1011,155,1072,181"/>
+<area shape="rect" id="node5" href="$CO__driver_8h.html" title="CO_driver.h" alt="" coords="394,453,489,480"/>
+<area shape="rect" id="node15" href="$CO__OD_8h.html" title="CO_OD.h" alt="" coords="440,379,520,405"/>
+<area shape="rect" id="node16" href="$CO__SDO_8h.html" title="CO_SDO.h" alt="" coords="544,379,632,405"/>
+<area shape="rect" id="node17" href="$CO__Emergency_8h.html" title="CO_Emergency.h" alt="" coords="656,379,787,405"/>
+<area shape="rect" id="node18" href="$CO__NMT__Heartbeat_8h.html" title="CO_NMT_Heartbeat.h" alt="" coords="811,379,971,405"/>
+<area shape="rect" id="node19" href="$CO__SYNC_8h.html" title="CO_SYNC.h" alt="" coords="995,379,1090,405"/>
+<area shape="rect" id="node20" href="$CO__PDO_8h.html" title="CO_PDO.h" alt="" coords="1114,379,1201,405"/>
+<area shape="rect" id="node21" href="$CO__HBconsumer_8h.html" title="CO_HBconsumer.h" alt="" coords="1225,379,1367,405"/>
+<area shape="rect" id="node24" href="$CO__command_8h.html" title="CO_command.h" alt="" coords="1293,304,1419,331"/>
+</map>

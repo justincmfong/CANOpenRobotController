@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classInputDevice.html" title="Abstract class representing any input device to be used in a Robot object. " alt="" coords="5,56,103,83"/>
+<area shape="rect" id="node2" href="$classJoystick.html" title="Joystick support class. Mostly stollen from Jason White (https://gist.github.com/jasonwhite/) ..." alt="" coords="175,5,245,32"/>
+<area shape="rect" id="node3" href="$classKeyboard.html" title="Example InputDevice which takes input in from a keyboard. Useful for testing without any other input ..." alt="" coords="169,56,251,83"/>
+<area shape="rect" id="node4" href="$classX2ForceSensor.html" title="X2ForceSensor" alt="" coords="151,107,269,133"/>
+</map>

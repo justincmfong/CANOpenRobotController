@@ -1,0 +1,4 @@
+<map id="Eigen::internal::pointer_based_stl_iterator&lt; XprType &gt;" name="Eigen::internal::pointer_based_stl_iterator&lt; XprType &gt;">
+<area shape="rect" id="node2" href="$structEigen_1_1internal_1_1conditional.html" title="{Eigen::internal::conditional\l\&lt; bool(is_lvalue), value\l_type *, const value_type * \&gt;\n||}" alt="" coords="5,27,216,134"/>
+<area shape="rect" id="node3" href="$classEigen_1_1internal_1_1variable__if__dynamic.html" title="{Eigen::internal::variable\l_if_dynamic\&lt; Index, XprType\l::InnerStrideAtCompileTime \&gt;\n||+ variable_if_dynamic()\l+ operator Index()\l+ setValue()\l+ value()\l}" alt="" coords="239,5,451,156"/>
+</map>

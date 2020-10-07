@@ -1,0 +1,4 @@
+<map id="format_arg_store&lt; Context, Args &gt;" name="format_arg_store&lt; Context, Args &gt;">
+<area shape="rect" id="node2" href="$structdetail_1_1arg__data.html" title="{detail::arg_data\&lt; value\l_type, typename Context\l::char_type, num_args, num\l_named_args \&gt;\n|+ args_\l|+ arg_data()\l+ arg_data()\l+ args()\l+ named_args()\l}" alt="" coords="5,189,208,355"/>
+<area shape="rect" id="node3" href="$structdetail_1_1named__arg__info.html" title="{detail::named_arg_info\l\&lt; typename Context::char\l_type \&gt;\n|+ name\l+ id\l|}" alt="" coords="11,5,203,127"/>
+</map>

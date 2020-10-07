@@ -1,0 +1,12 @@
+<map id="IdleState" name="IdleState">
+<area shape="rect" id="node2" href="$classState.html" title="Abstract class representing a state in a StateMachine. " alt="" coords="124,615,252,825"/>
+<area shape="rect" id="node3" href="$classStateMachine.html" title="Abstract class representing a state machine. Includes a number of State and Transition objects..." alt="" coords="15,939,150,1089"/>
+<area shape="rect" id="node4" href="$classTransition.html" title="Represents possible transitions linking two State objects with an Event. " alt="" coords="134,1321,241,1413"/>
+<area shape="rect" id="node5" href="$classEvent.html" title="Abstract class for events used as StateMachine triggers to transition between states. Events must be explicitly tied to a current State and state to transition to once the event has been triggered. This is done using a Transition object in a designed StateMachine. " alt="" coords="40,1152,146,1259"/>
+<area shape="rect" id="node6" href="$classX2Robot.html" title="Example implementation of the Robot class, representing an X2 Exoskeleton. " alt="" coords="276,564,438,876"/>
+<area shape="rect" id="node7" href="$classRobot.html" title="Abstract Class representing a robot. Includes vectors of Joint and InputDevice. " alt="" coords="98,241,248,479"/>
+<area shape="rect" id="node8" href="$classKeyboard.html" title="Example InputDevice which takes input in from a keyboard. Useful for testing without any other input ..." alt="" coords="273,233,441,487"/>
+<area shape="rect" id="node9" href="$classInputDevice.html" title="Abstract class representing any input device to be used in a Robot object. " alt="" coords="230,35,364,141"/>
+<area shape="rect" id="node10" href="$structkeys.html" title="Struct listing the Keys which exist on a Keyboard. " alt="" coords="388,5,443,171"/>
+<area shape="rect" id="node11" href="$structmotorProfile.html" title="struct to hold desired velocity, acceleration and deceleration values for a drives motor controller p..." alt="" coords="465,307,622,413"/>
+</map>

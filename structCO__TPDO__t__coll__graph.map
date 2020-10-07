@@ -1,0 +1,12 @@
+<map id="CO_TPDO_t" name="CO_TPDO_t">
+<area shape="rect" id="node2" href="$structCO__EM__t.html" title="{CO_EM_t\n|+ errorStatusBits\l+ errorStatusBitsSize\l+ buf\l+ bufEnd\l+ bufWritePtr\l+ bufReadPtr\l+ bufFull\l+ wrongErrorReport\l+ pFunctSignal\l|}" alt="" coords="5,535,167,729"/>
+<area shape="rect" id="node3" href="$structCO__CANtx__t.html" title="{CO_CANtx_t\n|+ ident\l+ DLC\l+ bufferFull\l+ syncFlag\l|+ __attribute__()\l}" alt="" coords="430,5,561,127"/>
+<area shape="rect" id="node4" href="$structCO__CANmodule__t.html" title="{CO_CANmodule_t\n|+ CANbaseAddress\l+ rxSize\l+ txSize\l+ wasConfigured\l+ fd\l+ filter\l+ CANnormal\l+ useCANrxFilters\l+ bufferInhibitFlag\l+ firstCANtxMessage\l+ error\l+ CANtxCount\l+ errOld\l+ em\l|}" alt="" coords="115,189,273,457"/>
+<area shape="rect" id="node7" href="$structCO__SDO__t.html" title="{CO_SDO_t\n|+ CANrxData\l+ databuffer\l+ ownOD\l+ ODSize\l+ bufferOffset\l+ entryNo\l+ nodeId\l+ state\l+ sequence\l+ timeoutTimer\land 7 more...\l|}" alt="" coords="435,520,558,744"/>
+<area shape="rect" id="node5" href="$structCO__CANrx__t.html" title="{CO_CANrx_t\n|+ ident\l+ mask\l+ object\l+ pFunct\l|}" alt="" coords="144,5,244,127"/>
+<area shape="rect" id="node6" href="$structCO__TPDOCommPar__t.html" title="{CO_TPDOCommPar_t\n|+ maxSubIndex\l+ COB_IDUsedByTPDO\l+ transmissionType\l+ inhibitTime\l+ compatibilityEntry\l+ eventTimer\l+ SYNCStartValue\l|}" alt="" coords="583,549,752,715"/>
+<area shape="rect" id="node8" href="$structCO__OD__extension__t.html" title="{CO_OD_extension_t\n|+ pODFunc\l+ object\l+ flags\l|}" alt="" coords="298,270,447,377"/>
+<area shape="rect" id="node9" href="$structCO__ODF__arg__t.html" title="{CO_ODF_arg_t\n|+ object\l+ data\l+ ODdataStorage\l+ dataLength\l+ attribute\l+ pFlags\l+ index\l+ subIndex\l+ reading\l+ firstSegment\l+ lastSegment\l+ dataLengthTotal\l+ offset\l|}" alt="" coords="601,197,739,450"/>
+<area shape="rect" id="node10" href="$structCO__OD__entry__t.html" title="{CO_OD_entry_t\n|+ index\l+ maxSubIndex\l+ attribute\l+ length\l+ pData\l|}" alt="" coords="764,255,888,391"/>
+<area shape="rect" id="node11" href="$structCO__TPDOMapPar__t.html" title="{CO_TPDOMapPar_t\n|+ numberOfMappedObjects\l+ mappedObject1\l+ mappedObject2\l+ mappedObject3\l+ mappedObject4\l+ mappedObject5\l+ mappedObject6\l+ mappedObject7\l+ mappedObject8\l|}" alt="" coords="963,535,1163,729"/>
+</map>

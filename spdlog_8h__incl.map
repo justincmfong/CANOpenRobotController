@@ -1,0 +1,18 @@
+<map id="lib/spdlog/spdlog.h" name="lib/spdlog/spdlog.h">
+<area shape="rect" id="node2" href="$common_8h.html" title="spdlog/common.h" alt="" coords="897,423,1034,449"/>
+<area shape="rect" id="node28" href="$registry_8h.html" title="spdlog/details/registry.h" alt="" coords="537,251,709,278"/>
+<area shape="rect" id="node32" href="$logger_8h.html" title="spdlog/logger.h" alt="" coords="1103,87,1222,114"/>
+<area shape="rect" id="node38" href="$version_8h.html" title="spdlog/version.h" alt="" coords="1246,87,1373,114"/>
+<area shape="rect" id="node39" href="$synchronous__factory_8h.html" title="spdlog/details/synchronous\l_factory.h" alt="" coords="525,80,720,121"/>
+<area shape="rect" id="node3" href="$tweakme_8h.html" title="spdlog/tweakme.h" alt="" coords="800,505,939,531"/>
+<area shape="rect" id="node4" href="$null__mutex_8h.html" title="spdlog/details/null\l_mutex.h" alt="" coords="640,497,776,539"/>
+<area shape="rect" id="node14" href="$fmt_8h.html" title="spdlog/fmt/fmt.h" alt="" coords="437,505,565,531"/>
+<area shape="rect" id="node27" href="$common-inl_8h.html" title="common&#45;inl.h" alt="" coords="1198,505,1309,531"/>
+<area shape="rect" id="node15" href="$core_8h.html" title="spdlog/fmt/bundled\l/core.h" alt="" coords="438,676,583,717"/>
+<area shape="rect" id="node20" href="$format_8h.html" title="spdlog/fmt/bundled\l/format.h" alt="" coords="610,587,755,628"/>
+<area shape="rect" id="node29" href="$log__levels_8h.html" title="spdlog/cfg/log_levels.h" alt="" coords="540,341,705,367"/>
+<area shape="rect" id="node33" href="$log__msg_8h.html" title="spdlog/details/log\l_msg.h" alt="" coords="1321,333,1455,375"/>
+<area shape="rect" id="node34" href="$backtracer_8h.html" title="spdlog/details/backtracer.h" alt="" coords="1134,169,1327,196"/>
+<area shape="rect" id="node35" href="$log__msg__buffer_8h.html" title="spdlog/details/log\l_msg_buffer.h" alt="" coords="1269,244,1403,285"/>
+<area shape="rect" id="node36" href="$circular__q_8h.html" title="spdlog/details/circular_q.h" alt="" coords="1477,251,1664,278"/>
+</map>

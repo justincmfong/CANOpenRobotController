@@ -1,0 +1,4 @@
+<map id="spdlog::details::log_msg_buffer" name="spdlog::details::log_msg_buffer">
+<area shape="rect" id="node2" href="$structspdlog_1_1details_1_1log__msg.html" title="{spdlog::details::log_msg\n|+ logger_name\l+ level\l+ time\l+ thread_id\l+ color_range_start\l+ color_range_end\l+ payload\l|+ log_msg()\l+ log_msg()\l+ log_msg()\l+ log_msg()\l+ log_msg()\l}" alt="" coords="5,204,181,428"/>
+<area shape="rect" id="node3" href="$structspdlog_1_1source__loc.html" title="{spdlog::source_loc\n|+ filename\l+ line\l+ funcname\l|+ source_loc()\l+ source_loc()\l+ empty()\l}" alt="" coords="23,5,163,141"/>
+</map>

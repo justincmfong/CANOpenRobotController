@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structdetail_1_1view.html" title="detail::view" alt="" coords="5,78,97,105"/>
+<area shape="rect" id="node2" href="$structarg__join.html" title="arg_join\&lt; It, Sentinel,\l Char \&gt;" alt="" coords="159,5,318,47"/>
+<area shape="rect" id="node3" href="$structdetail_1_1named__arg.html" title="detail::named_arg\&lt;\l Char, T \&gt;" alt="" coords="164,71,313,112"/>
+<area shape="rect" id="node4" href="$structtuple__arg__join.html" title="tuple_arg_join\&lt; Char, T \&gt;" alt="" coords="145,137,332,163"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="spdlog::sinks::dist_sink&lt; Mutex &gt;" name="spdlog::sinks::dist_sink&lt; Mutex &gt;">
+<area shape="rect" id="node4" href="$classspdlog_1_1sinks_1_1dup__filter__sink.html" title="{spdlog::sinks::dup\l_filter_sink\&lt; Mutex \&gt;\n|# max_skip_duration_\l# last_msg_time_\l# last_msg_payload_\l# skip_counter_\l|+ dup_filter_sink()\l# sink_it_()\l# filter_()\l}" alt="" coords="5,895,169,1060"/>
+<area shape="rect" id="node2" href="$classspdlog_1_1sinks_1_1base__sink.html" title="{spdlog::sinks::base\l_sink\&lt; Mutex \&gt;\n|# formatter_\l# mutex_\l|+ base_sink()\l+ base_sink()\l+ ~base_sink()\l+ base_sink()\l+ base_sink()\l+ operator=()\l+ operator=()\l+ log()\l+ flush()\l+ set_pattern()\l+ set_formatter()\l# sink_it_()\l# flush_()\l# set_pattern_()\l# set_formatter_()\l}" alt="" coords="16,233,159,545"/>
+<area shape="rect" id="node3" href="$classspdlog_1_1sinks_1_1sink.html" title="{spdlog::sinks::sink\n|# level_\l|+ ~sink()\l+ log()\l+ flush()\l+ set_pattern()\l+ set_formatter()\l+ set_level()\l+ level()\l+ should_log()\l}" alt="" coords="19,5,156,185"/>
+</map>

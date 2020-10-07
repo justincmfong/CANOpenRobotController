@@ -1,0 +1,12 @@
+<map id="src/hardware/platforms/DummyExo" name="src/hardware/platforms/DummyExo">
+<area shape="rect" id="node1" href="dir_51553e299297a0286f63ab6c278ac9fd.html" title="DummyExo" alt="" coords="89,52,185,100"/>
+<area shape="rect" id="node2" href="dir_ca7d6b00858de66d9b62b0d9c44aa790.html" title="IO" alt="" coords="5,148,77,196"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000080_000078.html" title="1" alt="" coords="79,134,88,149"/>
+<area shape="rect" id="node3" href="dir_5fa4ecd9c77dd79546666897500eeeb2.html" title="drives" alt="" coords="101,148,173,196"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000080_000077.html" title="1" alt="" coords="141,122,150,137"/>
+<area shape="rect" id="node4" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html" title="core" alt="" coords="101,244,173,292"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000080_000067.html" title="4" alt="" coords="171,227,180,242"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000078_000067.html" title="2" alt="" coords="102,218,111,232"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000077_000067.html" title="4" alt="" coords="141,218,150,233"/>
+<area shape="rect" id="clust1" href="dir_32a3c89eadef235f4d7b434edc47ee98.html" title="platforms" alt="" coords="79,16,196,111"/>
+</map>

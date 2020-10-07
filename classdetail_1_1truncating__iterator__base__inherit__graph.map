@@ -1,0 +1,4 @@
+<map id="detail::truncating_iterator_base&lt; OutputIt &gt;" name="detail::truncating_iterator_base&lt; OutputIt &gt;">
+<area shape="rect" id="node2" href="$classdetail_1_1truncating__iterator_3_01OutputIt_00_01std_1_1false__type_01_4.html" title="{detail::truncating\l_iterator\&lt; OutputIt,\l std::false_type \&gt;\n|&#45; blackhole_\l|+ truncating_iterator()\l+ operator++()\l+ operator++()\l+ operator*()\l}" alt="" coords="5,211,172,362"/>
+<area shape="rect" id="node3" href="$classdetail_1_1truncating__iterator_3_01OutputIt_00_01std_1_1true__type_01_4.html" title="{detail::truncating\l_iterator\&lt; OutputIt,\l std::true_type \&gt;\n||+ truncating_iterator()\l+ operator=()\l+ operator++()\l+ operator++()\l+ operator*()\l}" alt="" coords="196,204,363,369"/>
+</map>

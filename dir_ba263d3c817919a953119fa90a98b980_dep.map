@@ -1,0 +1,13 @@
+<map id="src/apps/X2DemoMachine" name="src/apps/X2DemoMachine">
+<area shape="rect" id="node2" href="dir_825262c923f6d0a47fb0ce3dad226c3f.html" title="states" alt="" coords="67,159,139,207"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000065_000066.html" title="2" alt="" coords="106,133,116,148"/>
+<area shape="rect" id="node4" href="dir_97aefd0d527b934f1d99a682da8fe6a9.html" title="lib" alt="" coords="200,159,272,207"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000065_000000.html" title="1" alt="" coords="189,134,198,148"/>
+<area shape="rect" id="node3" href="dir_59b1e980a670de987a696efba6dbbdbc.html" title="hardware" alt="" coords="23,255,105,303"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000066_000076.html" title="2" alt="" coords="84,234,93,248"/>
+<area shape="rect" id="node5" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html" title="core" alt="" coords="67,351,139,399"/>
+<area shape="rect" id="edge5-headlabel" href="dir_000066_000067.html" title="2" alt="" coords="116,327,126,342"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000076_000067.html" title="22" alt="" coords="85,323,103,338"/>
+<area shape="rect" id="clust2" href="dir_ba263d3c817919a953119fa90a98b980.html" alt="" coords="27,52,179,217"/>
+<area shape="rect" id="clust1" href="dir_53adf0b982dc8545998aae3f283a5a58.html" title="apps" alt="" coords="16,16,189,228"/>
+</map>

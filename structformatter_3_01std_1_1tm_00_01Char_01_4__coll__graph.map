@@ -1,0 +1,4 @@
+<map id="formatter&lt; std::tm, Char &gt;" name="formatter&lt; std::tm, Char &gt;">
+<area shape="rect" id="node2" href="$classbasic__memory__buffer.html" title="{basic_memory_buffer\l\&lt; Char \&gt;\n|&#45; alloc_\l|+ basic_memory_buffer()\l+ basic_memory_buffer()\l+ ~basic_memory_buffer()\l+ operator=()\l+ get_allocator()\l# grow()\l&#45; deallocate()\l&#45; move()\l}" alt="" coords="54,380,250,575"/>
+<area shape="rect" id="node3" href="$classdetail_1_1buffer.html" title="{detail::buffer\&lt; Char \&gt;\n|&#45; ptr_\l&#45; size_\l&#45; capacity_\l|+ buffer()\l+ operator=()\l+ ~buffer()\l+ begin()\l+ begin()\l+ end()\l+ end()\l+ size()\l+ capacity()\l+ data()\land 8 more...\l# buffer()\l# buffer()\l# set()\l# grow()\l}" alt="" coords="5,5,168,317"/>
+</map>

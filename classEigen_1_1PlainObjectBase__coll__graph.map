@@ -1,0 +1,4 @@
+<map id="Eigen::PlainObjectBase&lt; Derived &gt;" name="Eigen::PlainObjectBase&lt; Derived &gt;">
+<area shape="rect" id="node3" href="$classEigen_1_1DenseStorage.html" title="{Eigen::DenseStorage\l\&lt; Scalar, Base::MaxSizeAtCompile\lTime, Base::RowsAtCompileTime,\l Base::ColsAtCompileTime, Options \&gt;\n||+ DenseStorage()\l+ DenseStorage()\l+ DenseStorage()\l+ DenseStorage()\l+ operator=()\l+ swap()\l+ conservativeResize()\l+ resize()\l+ data()\l+ data()\l+ rows()\l+ cols()\l}" alt="" coords="204,189,467,472"/>
+<area shape="rect" id="node4" href="$structEigen_1_1internal_1_1plain__array.html" title="{Eigen::internal::plain\l_array\&lt; Scalar, Size,\l _Options \&gt;\n|+ array\l|+ plain_array()\l+ plain_array()\l}" alt="" coords="257,5,413,127"/>
+</map>

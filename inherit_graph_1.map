@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classbaseSocket.html" title="A network base class able to send and receive data (fixed number of doubles) " alt="" coords="5,31,103,57"/>
+<area shape="rect" id="node2" href="$classclient.html" title="A network client able to send and receive data (doubles) " alt="" coords="154,5,210,32"/>
+<area shape="rect" id="node3" href="$classserver.html" title="A network server able to send and receive data (doubles) " alt="" coords="151,56,213,83"/>
+</map>

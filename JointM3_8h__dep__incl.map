@@ -1,0 +1,13 @@
+<map id="src/hardware/platforms/M3/JointM3.h" name="src/hardware/platforms/M3/JointM3.h">
+<area shape="rect" id="node2" href="$JointM3_8cpp.html" title="src/hardware/platforms\l/M3/JointM3.cpp" alt="" coords="203,95,373,136"/>
+<area shape="rect" id="node3" href="$RobotM3_8h.html" title="The RobotM3&lt;/ code&gt; class represents an M3 Robot. " alt="" coords="397,95,566,136"/>
+<area shape="rect" id="node4" href="$M3Chai_8h.html" title="src/apps/M3Chai/M3Chai.h" alt="" coords="13,281,203,307"/>
+<area shape="rect" id="node6" href="$M3ChaiStates_8h.html" title="src/apps/M3Chai/M3ChaiStates.h" alt="" coords="212,191,444,218"/>
+<area shape="rect" id="node8" href="$M3DemoMachine_8h.html" title="src/apps/M3DemoMachine\l/M3DemoMachine.h" alt="" coords="498,273,689,315"/>
+<area shape="rect" id="node10" href="$M3DemoStates_8h.html" title="src/apps/M3DemoMachine\l/M3DemoStates.h" alt="" coords="519,184,710,225"/>
+<area shape="rect" id="node12" href="$RobotM3_8cpp.html" title="src/hardware/platforms\l/M3/RobotM3.cpp" alt="" coords="734,184,903,225"/>
+<area shape="rect" id="node5" href="$M3Chai_8cpp.html" title="src/apps/M3Chai/M3Chai.cpp" alt="" coords="5,370,211,397"/>
+<area shape="rect" id="node7" href="$M3ChaiStates_8cpp.html" title="src/apps/M3Chai/M3ChaiStates.cpp" alt="" coords="227,281,474,307"/>
+<area shape="rect" id="node9" href="$M3DemoMachine_8cpp.html" title="src/apps/M3DemoMachine\l/M3DemoMachine.cpp" alt="" coords="498,363,689,404"/>
+<area shape="rect" id="node11" href="$M3DemoStates_8cpp.html" title="src/apps/M3DemoMachine\l/M3DemoStates.cpp" alt="" coords="713,273,903,315"/>
+</map>

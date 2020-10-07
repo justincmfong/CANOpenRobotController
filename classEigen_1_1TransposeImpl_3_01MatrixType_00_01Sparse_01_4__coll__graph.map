@@ -1,0 +1,5 @@
+<map id="Eigen::TransposeImpl&lt; MatrixType, Sparse &gt;" name="Eigen::TransposeImpl&lt; MatrixType, Sparse &gt;">
+<area shape="rect" id="node2" href="$classEigen_1_1internal_1_1SparseTransposeImpl.html" title="{Eigen::internal::SparseTranspose\lImpl\&lt; MatrixType \&gt;\n||}" alt="" coords="5,652,236,744"/>
+<area shape="rect" id="node3" href="$classEigen_1_1SparseMatrixBase.html" title="{Eigen::SparseMatrixBase\l\&lt; Transpose\&lt; MatrixType \&gt; \&gt;\n|# m_isRValue\l|+ operator=()\l+ operator=()\l+ operator=()\l+ operator=()\l+ derived()\l+ derived()\l+ const_cast_derived()\l+ operator&#45;()\l+ cast()\l+ shift_right()\land 143 more...\l# assign()\l# assignGeneric()\l# convert_index()\l&#45; evalTo()\l}" alt="" coords="14,307,227,604"/>
+<area shape="rect" id="node4" href="$structEigen_1_1EigenBase.html" title="{Eigen::EigenBase\&lt; Transpose\l\&lt; MatrixType \&gt; \&gt;\n||+ derived()\l+ derived()\l+ const_cast_derived()\l+ const_derived()\l+ rows()\l+ cols()\l+ size()\l+ evalTo()\l+ addTo()\l+ subTo()\l+ applyThisOnTheRight()\l+ applyThisOnTheLeft()\l}" alt="" coords="15,5,226,259"/>
+</map>

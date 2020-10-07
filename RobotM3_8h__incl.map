@@ -1,0 +1,21 @@
+<map id="src/hardware/platforms/M3/RobotM3.h" name="src/hardware/platforms/M3/RobotM3.h">
+<area shape="rect" id="node4" href="$JointM3_8h.html" title="An M3 actuated joint. " alt="" coords="572,95,652,121"/>
+<area shape="rect" id="node33" href="$Keyboard_8h.html" title="Keyboard.h" alt="" coords="837,95,931,121"/>
+<area shape="rect" id="node37" href="$Joystick_8h.html" title="Joystick as Input device. " alt="" coords="1031,95,1113,121"/>
+<area shape="rect" id="node41" href="$Robot_8h.html" title="The Robot class is a abstract class which is a software representation of a Robot with a flexible rep..." alt="" coords="711,95,782,121"/>
+<area shape="rect" id="node6" href="$Joint_8h.html" title="The Joint class is a abstract class which represents a joint in a Robot objec. This class can be used..." alt="" coords="632,169,693,196"/>
+<area shape="rect" id="node32" href="$KincoDrive_8h.html" title="An implementation of the Drive Object, specifically for the Kinco Drive. " alt="" coords="419,169,520,196"/>
+<area shape="rect" id="node9" href="$Drive_8h.html" title="The Drive class is used to interface with a CANOpen motor drive. According to the CiA402 standard..." alt="" coords="456,244,523,271"/>
+<area shape="rect" id="node10" href="$CANopen_8h.html" title="CANopen.h" alt="" coords="561,319,655,345"/>
+<area shape="rect" id="node28" href="$CO__command_8h.html" title="CO_command.h" alt="" coords="216,319,341,345"/>
+<area shape="rect" id="node11" href="$CO__driver_8h.html" title="CO_driver.h" alt="" coords="577,468,671,495"/>
+<area shape="rect" id="node21" href="$CO__OD_8h.html" title="CO_OD.h" alt="" coords="637,393,717,420"/>
+<area shape="rect" id="node22" href="$CO__SDO_8h.html" title="CO_SDO.h" alt="" coords="741,393,829,420"/>
+<area shape="rect" id="node23" href="$CO__Emergency_8h.html" title="CO_Emergency.h" alt="" coords="853,393,984,420"/>
+<area shape="rect" id="node24" href="$CO__NMT__Heartbeat_8h.html" title="CO_NMT_Heartbeat.h" alt="" coords="5,393,165,420"/>
+<area shape="rect" id="node25" href="$CO__SYNC_8h.html" title="CO_SYNC.h" alt="" coords="190,393,285,420"/>
+<area shape="rect" id="node26" href="$CO__PDO_8h.html" title="CO_PDO.h" alt="" coords="309,393,395,420"/>
+<area shape="rect" id="node27" href="$CO__HBconsumer_8h.html" title="CO_HBconsumer.h" alt="" coords="419,393,562,420"/>
+<area shape="rect" id="node34" href="$InputDevice_8h.html" title="The Input class is a abstract class which represents an input device. The Update function is called i..." alt="" coords="875,169,984,196"/>
+<area shape="rect" id="node35" href="$DebugMacro_8h.html" title="Defines some macros for debugging output. " alt="" coords="777,244,892,271"/>
+</map>

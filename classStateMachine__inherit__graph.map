@@ -1,0 +1,6 @@
+<map id="StateMachine" name="StateMachine">
+<area shape="rect" id="node2" href="$classExoTestMachine.html" title="Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestSta..." alt="" coords="5,219,168,575"/>
+<area shape="rect" id="node3" href="$classM3Chai.html" title="StateMachine for the M3Robot providing support for Chai3D. " alt="" coords="192,270,411,523"/>
+<area shape="rect" id="node4" href="$classM3DemoMachine.html" title="Example implementation of a StateMachine for the M3Robot class. States should implemented M3DemoState..." alt="" coords="435,226,605,567"/>
+<area shape="rect" id="node5" href="$classX2DemoMachine.html" title="{X2DemoMachine\n|+ running\l+ time0\l+ time\l+ idleState\l+ x2DemoState\l+ robot\l+ x2DemoMachineRos_\l&#45; logHelper\l|+ X2DemoMachine()\l+ init()\l+ end()\l+ update()\l+ hwStateUpdate()\l+ initRobot()\l&#45; EventObject()\l}" alt="" coords="629,263,803,531"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="Eigen::MapBase&lt; Derived, Level &gt;" name="Eigen::MapBase&lt; Derived, Level &gt;">
+<area shape="rect" id="node2" href="$classEigen_1_1Map.html" title="{Map\&lt; SparseMatrix\&lt;\l _Scalar, _Flags, _Storage\lIndex \&gt; \&gt;\n|# m_stride\l|+ cast_to_pointer_type()\l+ innerStride()\l+ outerStride()\l+ Map()\l+ Map()\l+ Map()\l}" alt="" coords="61,145,247,325"/>
+<area shape="rect" id="node4" href="$classEigen_1_1RefBase.html" title="{RefBase\&lt; Ref\&lt; const\l TPlainObjectType, Options,\l StrideType \&gt; \&gt;\n|# m_stride\l|+ innerStride()\l+ outerStride()\l+ RefBase()\l# construct()\l}" alt="" coords="297,160,491,311"/>
+<area shape="rect" id="node6" href="$classEigen_1_1RefBase.html" title="{RefBase\&lt; Ref\&lt; PlainObject\lType, Options, StrideType \&gt; \&gt;\n|# m_stride\l|+ innerStride()\l+ outerStride()\l+ RefBase()\l# construct()\l}" alt="" coords="523,167,734,303"/>
+<area shape="rect" id="node3" href="$classEigen_1_1MappedSparseMatrix.html" title="Sparse matrix. " alt="" coords="5,395,252,502"/>
+<area shape="rect" id="node5" href="$classEigen_1_1Ref_3_01const_01TPlainObjectType_00_01Options_00_01StrideType_01_4.html" title="{Eigen::Ref\&lt; const TPlain\lObjectType, Options, StrideType \&gt;\n|# m_object\l|+ Ref()\l+ Ref()\l+ Ref()\l# construct()\l# construct()\l}" alt="" coords="275,373,513,524"/>
+<area shape="rect" id="node7" href="$classEigen_1_1Ref.html" title="A matrix or vector expression mapping an existing expression. " alt="" coords="537,388,739,509"/>
+</map>

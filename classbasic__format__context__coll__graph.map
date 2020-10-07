@@ -1,0 +1,13 @@
+<map id="basic_format_context&lt; OutputIt, Char &gt;" name="basic_format_context&lt; OutputIt, Char &gt;">
+<area shape="rect" id="node7" href="$classdetail_1_1value.html" title="{detail::value\&lt; basic\l_format_context \&gt;\n|+ int_value\l+ uint_value\l+ long_long_value\l+ ulong_long_value\l+ bool_value\l+ float_value\l+ double_value\l+ long_double_value\l+ @768\l|+ value()\l+ value()\l+ value()\l+ value()\l+ value()\l+ value()\l+ value()\l+ value()\l+ value()\l+ value()\land 6 more...\l&#45; format_custom_arg()\l}" alt="" coords="422,864,589,1235"/>
+<area shape="rect" id="node2" href="$classdetail_1_1locale__ref.html" title="{detail::locale_ref\n||+ locale_ref()\l+ locale_ref()\l+ operator bool()\l+ get()\l}" alt="" coords="5,287,139,408"/>
+<area shape="rect" id="node3" href="$structdetail_1_1void.html" title="{detail::void\&lt; T \&gt;\n||}" alt="" coords="211,132,339,209"/>
+<area shape="rect" id="node10" href="$structdetail_1_1custom__value.html" title="{detail::custom_value\l\&lt; basic_format_context \&gt;\n||}" alt="" coords="438,432,629,524"/>
+<area shape="rect" id="node5" href="$classbasic__format__args.html" title="{basic_format_args\&lt;\l basic_format_context \&gt;\n|&#45; desc_\l&#45; @771\l|+ basic_format_args()\l+ basic_format_args()\l+ basic_format_args()\l+ basic_format_args()\l+ get()\l+ get()\l+ get_id()\l+ max_size()\l&#45; is_packed()\l&#45; has_named_args()\l&#45; type()\l&#45; basic_format_args()\l&#45; basic_format_args()\l}" alt="" coords="201,1297,380,1580"/>
+<area shape="rect" id="node6" href="$classbasic__format__arg.html" title="{basic_format_arg\&lt; Context \&gt;\n|&#45; value_\l&#45; type_\l|+ basic_format_arg()\l+ operator bool()\l+ type()\l+ is_integral()\l+ is_arithmetic()\l&#45; basic_format_arg()\l}" alt="" coords="184,967,397,1132"/>
+<area shape="rect" id="node8" href="$structdetail_1_1int128__t.html" title="{detail::int128_t\n||}" alt="" coords="312,636,429,713"/>
+<area shape="rect" id="node9" href="$structdetail_1_1uint128__t.html" title="{detail::uint128_t\n||}" alt="" coords="453,636,579,713"/>
+<area shape="rect" id="node11" href="$structdetail_1_1string__value.html" title="{detail::string_value\l\&lt; char_type \&gt;\n|+ data\l+ size\l|}" alt="" coords="715,621,858,728"/>
+<area shape="rect" id="node12" href="$structdetail_1_1named__arg__value.html" title="{detail::named_arg_value\l\&lt; char_type \&gt;\n|+ size\l|}" alt="" coords="883,629,1061,721"/>
+<area shape="rect" id="node13" href="$structdetail_1_1named__arg__info.html" title="{detail::named_arg_info\l\&lt; char_type \&gt;\n|+ name\l+ id\l|}" alt="" coords="888,294,1056,401"/>
+</map>

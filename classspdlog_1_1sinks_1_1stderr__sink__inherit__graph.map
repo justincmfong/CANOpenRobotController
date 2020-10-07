@@ -1,0 +1,4 @@
+<map id="spdlog::sinks::stderr_sink&lt; ConsoleMutex &gt;" name="spdlog::sinks::stderr_sink&lt; ConsoleMutex &gt;">
+<area shape="rect" id="node2" href="$classspdlog_1_1sinks_1_1stdout__sink__base.html" title="{spdlog::sinks::stdout\l_sink_base\&lt; ConsoleMutex \&gt;\n|# mutex_\l# file_\l# formatter_\l|+ stdout_sink_base()\l+ ~stdout_sink_base()\l+ stdout_sink_base()\l+ stdout_sink_base()\l+ operator=()\l+ operator=()\l+ log()\l+ flush()\l+ set_pattern()\l+ set_formatter()\l}" alt="" coords="5,233,217,487"/>
+<area shape="rect" id="node3" href="$classspdlog_1_1sinks_1_1sink.html" title="{spdlog::sinks::sink\n|# level_\l|+ ~sink()\l+ log()\l+ flush()\l+ set_pattern()\l+ set_formatter()\l+ set_level()\l+ level()\l+ should_log()\l}" alt="" coords="43,5,180,185"/>
+</map>

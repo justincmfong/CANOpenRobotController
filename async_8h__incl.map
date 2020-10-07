@@ -1,0 +1,20 @@
+<map id="lib/spdlog/async.h" name="lib/spdlog/async.h">
+<area shape="rect" id="node2" href="$async__logger_8h.html" title="spdlog/async_logger.h" alt="" coords="687,80,849,107"/>
+<area shape="rect" id="node36" href="$registry_8h.html" title="spdlog/details/registry.h" alt="" coords="1649,326,1821,353"/>
+<area shape="rect" id="node39" href="$thread__pool_8h.html" title="spdlog/details/thread\l_pool.h" alt="" coords="809,229,965,271"/>
+<area shape="rect" id="node3" href="$logger_8h.html" title="spdlog/logger.h" alt="" coords="709,155,827,181"/>
+<area shape="rect" id="node4" href="$common_8h.html" title="spdlog/common.h" alt="" coords="1101,497,1238,524"/>
+<area shape="rect" id="node30" href="$log__msg_8h.html" title="spdlog/details/log\l_msg.h" alt="" coords="1123,408,1256,449"/>
+<area shape="rect" id="node31" href="$backtracer_8h.html" title="spdlog/details/backtracer.h" alt="" coords="495,237,689,263"/>
+<area shape="rect" id="node5" href="$tweakme_8h.html" title="spdlog/tweakme.h" alt="" coords="1228,579,1367,606"/>
+<area shape="rect" id="node6" href="$null__mutex_8h.html" title="spdlog/details/null\l_mutex.h" alt="" coords="1391,572,1527,613"/>
+<area shape="rect" id="node16" href="$fmt_8h.html" title="spdlog/fmt/fmt.h" alt="" coords="1551,579,1679,606"/>
+<area shape="rect" id="node29" href="$common-inl_8h.html" title="common&#45;inl.h" alt="" coords="1093,579,1203,606"/>
+<area shape="rect" id="node17" href="$core_8h.html" title="spdlog/fmt/bundled\l/core.h" alt="" coords="1537,751,1682,792"/>
+<area shape="rect" id="node22" href="$format_8h.html" title="spdlog/fmt/bundled\l/format.h" alt="" coords="1359,661,1505,703"/>
+<area shape="rect" id="node32" href="$log__msg__buffer_8h.html" title="spdlog/details/log\l_msg_buffer.h" alt="" coords="972,319,1105,360"/>
+<area shape="rect" id="node33" href="$circular__q_8h.html" title="spdlog/details/circular_q.h" alt="" coords="93,415,280,442"/>
+<area shape="rect" id="node37" href="$log__levels_8h.html" title="spdlog/cfg/log_levels.h" alt="" coords="1749,415,1915,442"/>
+<area shape="rect" id="node40" href="$mpmc__blocking__q_8h.html" title="spdlog/details/mpmc\l_blocking_q.h" alt="" coords="375,319,529,360"/>
+<area shape="rect" id="node42" href="$details_2os_8h.html" title="spdlog/details/os.h" alt="" coords="807,326,948,353"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="Eigen::BlockImpl&lt; XprType, BlockRows, BlockCols, InnerPanel, StorageKind &gt;" name="Eigen::BlockImpl&lt; XprType, BlockRows, BlockCols, InnerPanel, StorageKind &gt;">
+<area shape="rect" id="node2" href="$classEigen_1_1Block.html" title="{Block\&lt; VectorType,\l internal::traits\&lt; VectorType\l \&gt;::Flags &amp;RowMajorBit?1:Size,\l internal::traits\&lt; VectorType\l \&gt;::Flags &amp;RowMajorBit?Size:1 \&gt;\n||+ Block()\l+ Block()\l+ Block()\l}" alt="" coords="5,160,236,325"/>
+<area shape="rect" id="node3" href="$classEigen_1_1VectorBlock.html" title="Expression of a fixed&#45;size or dynamic&#45;size sub&#45;vector. " alt="" coords="43,373,199,480"/>
+</map>

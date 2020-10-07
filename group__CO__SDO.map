@@ -1,0 +1,6 @@
+<map id="SDO server" name="SDO server">
+<area shape="rect" id="node1" href="$group__CO__SDO__OD__function.html" title="Object Dictionary function" alt="" coords="316,5,503,32"/>
+<area shape="rect" id="node2" href="$group__CO__SDO__messageContents.html" title="SDO message contents" alt="" coords="322,56,497,83"/>
+<area shape="rect" id="node3" href="$group__CO__SDO__objectDictionary.html" title="Object dictionary" alt="" coords="345,107,474,133"/>
+<area shape="rect" id="node5" href="$group__CO__CANopen.html" title="CANopen stack" alt="" coords="5,56,125,83"/>
+</map>

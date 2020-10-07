@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classStateMachine.html" title="Abstract class representing a state machine. Includes a number of State and Transition objects..." alt="" coords="5,81,116,108"/>
+<area shape="rect" id="node2" href="$classExoTestMachine.html" title="Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestSta..." alt="" coords="169,5,292,32"/>
+<area shape="rect" id="node3" href="$classM3Chai.html" title="StateMachine for the M3Robot providing support for Chai3D. " alt="" coords="196,56,265,83"/>
+<area shape="rect" id="node4" href="$classM3DemoMachine.html" title="Example implementation of a StateMachine for the M3Robot class. States should implemented M3DemoState..." alt="" coords="164,107,297,133"/>
+<area shape="rect" id="node5" href="$classX2DemoMachine.html" title="X2DemoMachine" alt="" coords="165,157,296,184"/>
+</map>

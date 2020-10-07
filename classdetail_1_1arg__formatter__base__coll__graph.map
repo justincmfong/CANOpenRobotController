@@ -1,0 +1,5 @@
+<map id="detail::arg_formatter_base&lt; OutputIt, Char, ErrorHandler &gt;" name="detail::arg_formatter_base&lt; OutputIt, Char, ErrorHandler &gt;">
+<area shape="rect" id="node2" href="$classdetail_1_1locale__ref.html" title="{detail::locale_ref\n||+ locale_ref()\l+ locale_ref()\l+ operator bool()\l+ get()\l}" alt="" coords="5,301,139,423"/>
+<area shape="rect" id="node3" href="$structdetail_1_1void.html" title="{detail::void\&lt; T \&gt;\n||}" alt="" coords="8,132,136,209"/>
+<area shape="rect" id="node5" href="$structbasic__format__specs.html" title="{basic_format_specs\l\&lt; Char \&gt;\n|+ width\l+ precision\l+ type\l+ align\l+ sign\l+ alt\l+ fill\l|+ basic_format_specs()\l}" alt="" coords="163,272,338,452"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="baseSocket" name="baseSocket">
+<area shape="rect" id="node2" href="$classclient.html" title="A network client able to send and receive data (doubles) " alt="" coords="5,688,105,809"/>
+<area shape="rect" id="node3" href="$classserver.html" title="A network server able to send and receive data (doubles) " alt="" coords="130,644,269,853"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Eigen::GenericNumTraits&lt; T &gt;" name="Eigen::GenericNumTraits&lt; T &gt;">
+<area shape="rect" id="node2" href="$structEigen_1_1NumTraits.html" title="Holds information about the various numeric (i.e. scalar) types allowed by Eigen. ..." alt="" coords="5,138,172,215"/>
+<area shape="rect" id="node3" href="$structEigen_1_1NumTraits.html" title="{NumTraits\&lt; Scalar \&gt;\n||}" alt="" coords="196,138,352,215"/>
+<area shape="rect" id="node4" href="$structEigen_1_1NumTraits.html" title="{NumTraits\&lt; typename\l MatrixType::Scalar \&gt;\n||}" alt="" coords="376,131,543,223"/>
+</map>

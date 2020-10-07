@@ -1,0 +1,4 @@
+<map id="Eigen::MappedSparseMatrix&lt; _Scalar, _Flags, _StorageIndex &gt;" name="Eigen::MappedSparseMatrix&lt; _Scalar, _Flags, _StorageIndex &gt;">
+<area shape="rect" id="node2" href="$classEigen_1_1Map.html" title="{Eigen::Map\&lt; SparseMatrix\l\&lt; _Scalar, _Flags, _StorageIndex \&gt; \&gt;\n||+ cast_to_pointer_type()\l+ innerStride()\l+ outerStride()\l+ Map()\l+ Map()\l+ Map()\l}" alt="" coords="77,189,340,355"/>
+<area shape="rect" id="node3" href="$classEigen_1_1MapBase.html" title="{Eigen::MapBase\&lt; Map\l\&lt; SparseMatrix\&lt; _Scalar,\l _Flags, _StorageIndex\l \&gt;, MapOptions, StrideType \&gt; \&gt;\n||}" alt="" coords="5,5,231,127"/>
+</map>

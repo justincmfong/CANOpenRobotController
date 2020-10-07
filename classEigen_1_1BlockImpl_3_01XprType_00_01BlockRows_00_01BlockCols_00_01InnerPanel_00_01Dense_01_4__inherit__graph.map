@@ -1,0 +1,3 @@
+<map id="Eigen::BlockImpl&lt; XprType, BlockRows, BlockCols, InnerPanel, Dense &gt;" name="Eigen::BlockImpl&lt; XprType, BlockRows, BlockCols, InnerPanel, Dense &gt;">
+<area shape="rect" id="node2" href="$classEigen_1_1internal_1_1BlockImpl__dense.html" title="{Eigen::internal::BlockImpl\l_dense\&lt; XprType, BlockRows,\l BlockCols, InnerPanel \&gt;\n|# m_xpr\l# m_startRow\l# m_startCol\l# m_blockRows\l# m_blockCols\l|+ BlockImpl_dense()\l+ BlockImpl_dense()\l+ BlockImpl_dense()\l+ rows()\l+ cols()\l+ coeffRef()\l+ coeffRef()\l+ coeffRef()\l+ coeffRef()\l+ coeff()\land 9 more...\l}" alt="" coords="5,175,215,487"/>
+</map>

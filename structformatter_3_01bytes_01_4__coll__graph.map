@@ -1,0 +1,7 @@
+<map id="formatter&lt; bytes &gt;" name="formatter&lt; bytes &gt;">
+<area shape="rect" id="node2" href="$structdetail_1_1dynamic__format__specs.html" title="{detail::dynamic_format\l_specs\&lt; char \&gt;\n||}" alt="" coords="124,476,293,568"/>
+<area shape="rect" id="node3" href="$structbasic__format__specs.html" title="{basic_format_specs\l\&lt; char \&gt;\n|+ width\l+ precision\l+ type\l+ align\l+ sign\l+ alt\l|+ basic_format_specs()\l}" alt="" coords="5,233,180,399"/>
+<area shape="rect" id="node4" href="$structdetail_1_1fill__t.html" title="{detail::fill_t\&lt; char \&gt;\n|&#45; data_\l&#45; size_\l|+ operator=()\l+ size()\l+ data()\l+ operator[]()\l+ operator[]()\l+ make()\l}" alt="" coords="19,5,167,171"/>
+<area shape="rect" id="node5" href="$structdetail_1_1arg__ref.html" title="{detail::arg_ref\&lt; char \&gt;\n|+ kind\l|+ arg_ref()\l+ arg_ref()\l+ arg_ref()\l+ operator=()\l}" alt="" coords="205,255,373,377"/>
+<area shape="rect" id="node6" href="$uniondetail_1_1arg__ref_1_1value.html" title="{detail::arg_ref\&lt; Char\l \&gt;::value\n|+ index\l+ name\l|+ value()\l+ value()\l}" alt="" coords="211,27,366,149"/>
+</map>

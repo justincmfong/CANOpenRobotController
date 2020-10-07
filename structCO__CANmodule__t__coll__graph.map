@@ -1,0 +1,4 @@
+<map id="CO_CANmodule_t" name="CO_CANmodule_t">
+<area shape="rect" id="node2" href="$structCO__CANtx__t.html" title="{CO_CANtx_t\n|+ ident\l+ DLC\l+ bufferFull\l+ syncFlag\l|+ __attribute__()\l}" alt="" coords="5,5,136,127"/>
+<area shape="rect" id="node3" href="$structCO__CANrx__t.html" title="{CO_CANrx_t\n|+ ident\l+ mask\l+ object\l+ pFunct\l|}" alt="" coords="159,5,259,127"/>
+</map>

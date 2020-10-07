@@ -1,0 +1,11 @@
+<map id="src/hardware/platforms/X2/X2Robot.h" name="src/hardware/platforms/X2/X2Robot.h">
+<area shape="rect" id="node2" href="$IdleState_8h.html" title="src/apps/X2DemoMachine\l/states/IdleState.h" alt="" coords="85,95,273,136"/>
+<area shape="rect" id="node4" href="$X2DemoMachine_8h.html" title="src/apps/X2DemoMachine\l/X2DemoMachine.h" alt="" coords="217,184,405,225"/>
+<area shape="rect" id="node6" href="$X2DemoState_8h.html" title="src/apps/X2DemoMachine\l/states/X2DemoState.h" alt="" coords="349,95,537,136"/>
+<area shape="rect" id="node8" href="$X2DemoMachineROS_8h.html" title="src/apps/X2DemoMachine\l/X2DemoMachineROS.h" alt="" coords="561,95,749,136"/>
+<area shape="rect" id="node10" href="$X2Robot_8cpp.html" title="src/hardware/platforms\l/X2/X2Robot.cpp" alt="" coords="773,95,943,136"/>
+<area shape="rect" id="node3" href="$IdleState_8cpp.html" title="src/apps/X2DemoMachine\l/states/IdleState.cpp" alt="" coords="5,184,193,225"/>
+<area shape="rect" id="node5" href="$X2DemoMachine_8cpp.html" title="src/apps/X2DemoMachine\l/X2DemoMachine.cpp" alt="" coords="217,273,405,315"/>
+<area shape="rect" id="node7" href="$X2DemoState_8cpp.html" title="src/apps/X2DemoMachine\l/states/X2DemoState.cpp" alt="" coords="429,184,617,225"/>
+<area shape="rect" id="node9" href="$X2DemoMachineROS_8cpp.html" title="src/apps/X2DemoMachine\l/X2DemoMachineROS.cpp" alt="" coords="641,184,829,225"/>
+</map>
