@@ -26,23 +26,24 @@
  * \brief An enum type for robot communication with designed state machine
  * 
  */
-enum class AlexState { Error,
-                       Init,
-                       InitSitting,
-                       LeftForward,
-                       RightForward,
-                       Standing,
-                       Sitting,
-                       SittingDown,
-                       StandingUp,
-                       StepFirstL,
-                       StepFirstR,
-                       StepLastL,
-                       StepLastR,
-                       StepL,
-                       StepR,
-                       BackStepR,
-                       BackStepL };
+enum class AlexState { Init,         /**< 0 */
+               InitSitting,  /**< 1 */
+               LeftForward,  /**< 2 */
+               RightForward, /**< 3 */
+               Standing,     /**< 4 */
+               Sitting,      /**< 5 */
+               SittingDown,  /**< 6 */
+               StandingUp,   /**< 7 */
+               StepFirstL,   /**< 8 */
+               StepFirstR,   /**< 9 */
+               StepLastL,    /**< 10 */
+               StepLastR,    /**< 11 */
+               StepL,        /**< 12 */
+               StepR,        /**< 13 */
+               BackStepR,    /**< 14 */
+               BackStepL,    /**< 15 */
+               Error         /**< 16 */
+};
 /**
  * An enum type.
  * Joint Index for the 6 joints (note, NODEID = this + 1)
