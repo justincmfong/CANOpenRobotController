@@ -556,7 +556,7 @@ std::vector<taskspace_state> AlexTrajectoryGenerator::generate_key_taskspace_sta
                 state2.hip_position.x = initialTaskspaceState.right_ankle_position.x + trajectoryParameters.step_length * 0.0 / 3.0;
             } else {
                 //if stand together
-                state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + ankleDistance + 0.25;
+                state2.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x + ankleDistance + 0.35;
                 state2.right_ankle_position.z = pilotParameters.ankle_height + 0.5 * trajectoryParameters.step_height;
                 state2.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
                 state2.left_ankle_position.z = pilotParameters.ankle_height;
@@ -628,8 +628,10 @@ std::vector<taskspace_state> AlexTrajectoryGenerator::generate_key_taskspace_sta
                 state1.hip_position.x = initialTaskspaceState.right_ankle_position.x;
             } else {
               //A backward right swing
-                state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x - ankleDistance - 0.3; // with 0.2 seems to just clear the step, to be tested
-                state1.right_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height * .85;
+                // based on eye balling state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x - ankleDistance - 0.1; // with 0.2 seems to just clear the step, to be tested
+                // state1.right_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height * 1.05;
+                state1.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x - ankleDistance - 0.2; // with 0.2 seems to just clear the step, to be tested
+                state1.right_ankle_position.z = pilotParameters.ankle_height + trajectoryParameters.step_height * 0.85;
                 state1.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x;
                 state1.left_ankle_position.z = pilotParameters.ankle_height;
                 state1.hip_position.x = initialTaskspaceState.left_ankle_position.x;
@@ -648,6 +650,7 @@ std::vector<taskspace_state> AlexTrajectoryGenerator::generate_key_taskspace_sta
             //|| abs(initialTaskspaceState.left_ankle_position.x - initialTaskspaceState.right_ankle_position.x) <= deltaFootDistance)
             {
               //A backward left swing, ending in a left foot backward/right foot forward state
+                // based on 16/10 eye balling stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x - stepDisplacement + 0.05;
                 stateEnd.left_ankle_position.x = initialTaskspaceState.left_ankle_position.x - stepDisplacement;
                 stateEnd.right_ankle_position.x = initialTaskspaceState.right_ankle_position.x;
                 stateEnd.hip_position.x = stateEnd.left_ankle_position.x;
