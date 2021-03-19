@@ -12,37 +12,58 @@
 
 #include <iostream>
 
-#include "DebugMacro.h"
 
-AlexJoint::AlexJoint(int jointID, double jointMin, double jointMax, Drive *drive, JointKnownPos jointParams) : ActuatedJoint(jointID, jointMin, jointMax, drive) {
-    jointParamaters = jointParams;
-    DEBUG_OUT("MY JOINT ID: " << this->id)
+
+AlexJoint::AlexJoint(int jointID, double jointMin, double jointMax, JointDrivePairs jdp, Drive *drive) : Joint(jointID, jointMin, jointMax, drive) {
+    spdlog::debug("Joint Created, JOINT ID: {}", this->id);
+    JDSlope = (jdp.drivePosB - jdp.drivePosA) / (jdp.jointPosB - jdp.jointPosA);
+    JDIntercept =jdp.drivePosA -  JDSlope * jdp.jointPosA ;
+  
     // Do nothing else
 }
 
 bool AlexJoint::updateValue() {
-    q = fromDriveUnits(drive->getPos());
+    #ifndef VIRTUAL
+    position = driveUnitToJointPosition(drive->getPos());
+    velocity = driveUnitToJointVelocity(drive->getVel());
+    torque = driveUnitToJointTorque(drive->getTorque());
+    
     // FOR TESTING w/o real robot -> set current pos to last setPosition
-    //q = lastQCommand;
+#endif
+#ifdef VIRTUAL
+    position = lastQCommand;
+#endif
 
     return true;
 }
 
-setMovementReturnCode_t AlexJoint::setPosition(double desQ) {
-    // for testing w/o Robot
-    lastQCommand = desQ;
-    if (desQ > qMax) {
-        DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MAXQ")
-        desQ = qMax;
-    } else if (desQ < qMin) {
-        DEBUG_OUT("Joint" << this->id << " COMMAND:" << desQ << " OUTSIDE OF MINQ")
-        desQ = qMin;
-    }
-    return ActuatedJoint::setPosition(desQ);
+int AlexJoint::jointPositionToDriveUnit(double jointPosition) {
+
+    return JDSlope * jointPosition + JDIntercept;
+}
+
+double AlexJoint::driveUnitToJointPosition(int driveValue) {
+    return (driveValue - JDIntercept) / JDSlope;
+}
+
+int AlexJoint::jointVelocityToDriveUnit(double jointVelocity) {
+    return (JDSlope * jointVelocity) * 10;
+}
+
+double AlexJoint::driveUnitToJointVelocity(int driveValue) {
+    return ((driveValue) / (JDSlope * 10));
+}
+
+int AlexJoint::jointTorqueToDriveUnit(double jointTorque) {
+    return jointTorque / (MOTOR_RATED_TORQUE * REDUCTION_RATIO / 1000.0);
+}
+
+double AlexJoint::driveUnitToJointTorque(int driveValue) {
+    return driveValue * (MOTOR_RATED_TORQUE * REDUCTION_RATIO / 1000.0);
 }
 
 bool AlexJoint::initNetwork() {
-    DEBUG_OUT("Joint::initNetwork()")
+    spdlog::debug("Joint::initNetwork()");
     if (drive->initPDOs()) {
         return true;
     } else {
@@ -51,40 +72,24 @@ bool AlexJoint::initNetwork() {
     // For testing
     // return true;
 }
-double AlexJoint::getQ() {
-    return q;
+
+double AlexJoint::getPosition() {
+    return position;
 }
-double AlexJoint::fromDriveUnits(int driveValue) {
-    if (A == 0) {
-        //is first run -> calculate + set A and B
-        linearInterpolatePreCalc();
-    }
-    return (double)(driveValue - B) / A;
+double AlexJoint::getVelocity() {
+    return velocity;
 }
-int AlexJoint::toDriveUnits(double jointValue) {
-    if (A == 0) {
-        //is first run -> calculate + store A and B
-        linearInterpolatePreCalc();
-    }
-    int output = (int)(A * jointValue + B);
-    return output;
-}
-void AlexJoint::linearInterpolatePreCalc() {
-    long y1 = jointParamaters.motorCountA;
-    long y2 = jointParamaters.motorCountB;
-    long x1 = jointParamaters.motorDegPosA;
-    long x2 = jointParamaters.motorDegPosB;
-    A = 1.0 * (y2 - y1) / (x2 - x1);
-    B = 1.0 * (y1 * x2 - y2 * x1) / (x2 - x1);
+double AlexJoint::getTorque() {
+    return torque;
 }
 
-void AlexJoint::bitFlip() {
-    drive->posControlConfirmSP();
+void AlexJoint::setPositionOffset(double offset) {
+    ((CopleyDrive *)drive)->setPositionOffset(-jointPositionToDriveUnit(offset));
 }
-bool AlexJoint::enableContinuousProfile() {
-    if (drive->getDriveState() == ENABLED) {
-        drive->changeSetPointImmediately(true);
-        return true;
-    }
-    return false;
+
+bool AlexJoint::setOverloadBehaviour(UNSIGNED32 mask, double window) {
+    ((CopleyDrive *)drive)->setFaultMask(mask);
+    ((CopleyDrive *)drive)->setTrackingWindow(abs(window*JDSlope));
+
+    return true;
 }

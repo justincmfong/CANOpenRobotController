@@ -29,6 +29,7 @@
 #include <fcntl.h>
 #include <sys/timerfd.h>
 #include <sys/epoll.h>
+#include "stdio.h"
 
 
 #define NSEC_PER_SEC            (1000000000)    /* The number of nanoseconds per second. */
@@ -36,7 +37,7 @@
 
 
 /* External helper function ***************************************************/
-void CO_errExit(char* msg);
+void CO_errExit(char const *msg);
 void CO_error(const uint32_t info);
 
 
@@ -301,4 +302,9 @@ bool_t CANrx_taskTmr_process(int fd) {
     }
 
     return wasProcessed;
+}
+
+void CO_error(const uint32_t info) {
+    //CO_errorReport(CO->em, CO_EM_GENERIC_SOFTWARE_ERROR, CO_EMC_SOFTWARE_INTERNAL, info);
+    fprintf(stderr, "canopend generic error: 0x%X\n", info);
 }

@@ -10,6 +10,7 @@ Transition *State::getActiveArc(void) {
     while (i < numarcs) {
         if (arclist[i]->ev->check())
             return arclist[i];
+
         i++;
     }
     return NULL;
@@ -23,7 +24,7 @@ bool State::addArc(Transition *t) {
         return false;
 };
 
-const char *State::getName(void) {
+const std::string &State::getName(void) {
     return name;
 };
 
@@ -32,5 +33,4 @@ void State::printName(void) {
 };
 
 State::~State() {
-    std::cout << "State Deleted" << std::endl;
 }
