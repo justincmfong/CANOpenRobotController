@@ -11,7 +11,7 @@
 
 #include "RecordState.h"
 
-RecordState::RecordState(StateMachine *m, ForcePlate *robot, const char *name) : State(m, name), robot(robot) {
+RecordState::RecordState(StateMachine *m, ForcePlate4 *robot, const char *name) : State(m, name), robot(robot) {
     spdlog::debug("RecordState Created");
 };
 void RecordState::entry(void) {

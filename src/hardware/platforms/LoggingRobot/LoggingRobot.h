@@ -28,7 +28,7 @@ class LoggingRobot : public Robot {
     std::vector<RobotousRFT *> crutchSensors;
     Eigen::VectorXd crutchReadings;  //6xN Vector containing all crutch readings
 
-    ForcePlateSensor* forcePlate;
+    std::vector<ForcePlateSensor*> forcePlates;
     Eigen::VectorXi forcePlateForces;  // Should be a vector of size 4
 
     // -- Variables assoacited with parameters already transmitted from the robot -- // 
