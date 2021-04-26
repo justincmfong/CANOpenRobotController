@@ -8,10 +8,8 @@ LoggingRobot::LoggingRobot() {
 }
 
 bool LoggingRobot::initialiseInputs() {
-    spdlog::info("test");
 
     inputs.push_back(keyboard = new Keyboard());
-    spdlog::info("test");
 
     inputs.push_back(forcePlate = new ForcePlateSensor(0x3f0, 0x3f1, 0x3f2));
 
@@ -85,6 +83,7 @@ bool LoggingRobot::configureMasterPDOs() {
     UNSIGNED16 dataSize[1] = {2};
     rpdos.push_back(new RPDO(0x192, 0xff, tempDataEntryPointer, dataSize, 1));
 
+    dataSize[0] = 1;
     tempDataEntryPointer[0] = {(void *)&state};
     rpdos.push_back(new RPDO(0x211, 0xff, tempDataEntryPointer, dataSize, 1));
 
@@ -106,10 +105,10 @@ Eigen::Matrix<INTEGER16, Eigen::Dynamic, 1>& LoggingRobot::getMotorTorques() {
 INTEGER16& LoggingRobot::getGoButton() {
     return goButton;
 }
-INTEGER16&  LoggingRobot::getCurrentState() {
+INTEGER8&  LoggingRobot::getCurrentState() {
     return state;
 }
-INTEGER16&  LoggingRobot::getCurrentMovement() {
+INTEGER8&  LoggingRobot::getCurrentMovement() {
     return currentMotion;
 }
 

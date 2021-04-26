@@ -53,8 +53,8 @@ class LoggingRobot : public Robot {
     // Current State
     // Current Motion
     // Might need an additional about trajectory progress? (or could use target position)
-    INTEGER16 state;
-    INTEGER16 currentMotion;
+    INTEGER8 state;
+    INTEGER8 currentMotion;
 
     bool sensorsOn = false;
 
@@ -81,8 +81,8 @@ class LoggingRobot : public Robot {
     Eigen::Matrix<INTEGER16, Eigen::Dynamic, 1> &getMotorTorques();
 
     INTEGER16& getGoButton();
-    INTEGER16&  getCurrentState();
-    INTEGER16&  getCurrentMovement();
+    INTEGER8&  getCurrentState();
+    INTEGER8&  getCurrentMovement();
 
 
     /**
