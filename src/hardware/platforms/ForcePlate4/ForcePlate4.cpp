@@ -104,6 +104,7 @@ Eigen::VectorXd& ForcePlate4::getStrainReadings() {
     int i = 0;
     for (auto sg : strainGauges) {
         strainForces.segment<4>(i * 4) = sg->getAllForces();
+        i++;
     }
     updatePDOs();
     return strainForces;
@@ -114,6 +115,7 @@ Eigen::VectorXi ForcePlate4::getRawStrainReadings() {
     int i = 0;
     for (auto sg : strainGauges) {
         rawData.segment<4>(i * 4) = sg->getAllRawData();
+        i++;
     }
     return rawData;
 }
