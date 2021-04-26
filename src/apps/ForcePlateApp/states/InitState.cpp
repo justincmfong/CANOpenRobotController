@@ -11,7 +11,7 @@
 
 #include "InitState.h"
 
-InitState::InitState(StateMachine *m, ForcePlate *robot, const char *name) : State(m, name), robot(robot) {
+InitState::InitState(StateMachine *m, ForcePlate4 *robot, const char *name) : State(m, name), robot(robot) {
     spdlog::debug("InitState Created");
 };
 void InitState::entry(void) {
