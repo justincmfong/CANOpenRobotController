@@ -21,7 +21,8 @@ void RecordState::entry(void) {
 
 void RecordState::during(void){
     Eigen::VectorXd strain = robot->getStrainReadings();
-    spdlog::info("Strain1: {:03.2f}, Strain2: {:03.2f}, Strain3: {:03.2f}, Strain 4: {:03.2f}", strain[0], strain[1], strain[2], strain[3]);
+    spdlog::info("S1: {:03.2f}, S2: {:03.2f}, S3: {:03.2f}, S4: {:03.2f}", strain[0], strain[1], strain[2], strain[3]);
+    spdlog::info("S5: {:03.2f}, S6: {:03.2f}, S7: {:03.2f}, S8: {:03.2f}", strain[4], strain[5], strain[6], strain[7]);
 };
 
 void RecordState::exit(void) {

@@ -17,6 +17,8 @@ bool LoggingRobot::initialiseInputs() {
     forcePlates.push_back(new ForcePlateSensor(0x3f0, 0x3f5, 0x3f6));
     forcePlates.push_back(new ForcePlateSensor(0x3f0, 0x3f7, 0x3f8));
 
+    spdlog::info("test");
+
     // Add to input stack
     for (int i = 0; i < forcePlates.size(); i++) {
         inputs.push_back(forcePlates[i]);
@@ -37,6 +39,7 @@ bool LoggingRobot::initialiseInputs() {
     motorStatusWords = Eigen::Matrix<INTEGER16, Eigen::Dynamic, 1>::Zero(numJoints);
     goButton = -1;
     nextMotion = -1;
+    spdlog::info("test2");
 
     state = -1;
     currentMotion = -1;
@@ -130,7 +133,7 @@ Eigen::VectorXd& LoggingRobot::getCrutchReadings() {
 }
 
 Eigen::VectorXi& LoggingRobot::getForcePlateReadings() {
-    Eigen::VectorXi forcePlateForces = Eigen::VectorXi::Zero(forcePlates.size() * 4);
+    forcePlateForces = Eigen::VectorXi::Zero(forcePlates.size() * 4);
     int i = 0;
     for (auto fp : forcePlates) {
         forcePlateForces.segment<4>(i * 4) = fp->getForces();

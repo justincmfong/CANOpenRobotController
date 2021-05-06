@@ -24,8 +24,23 @@ HX711::HX711(Eigen::Matrix<int, Eigen::Dynamic, 2> inputPins, Eigen::Vector2i cl
         spdlog::info("Input Pin P{}.{}", inputPins(i, 0), inputPins(i, 1));
     }
 
+
+
     this->inputPins = inputPins;
     this->clockPin = clockPin;
+
+    clock_digitalWrite(LOW);
+    usleep(100000);
+
+    spdlog::info("LOW: {}", digitalRead(0));
+    usleep( 100000);
+
+    clock_digitalWrite(HIGH);
+    usleep( 100000);
+
+    spdlog::info("HIGH: {}", digitalRead(0));
+    usleep( 100000);
+
 }
 
 HX711::~HX711() {
@@ -37,7 +52,7 @@ void HX711::begin(int gain) {
 }
 
 void HX711::updateInput() {
-    spdlog::trace("HX711::updateInput()");
+    //spdlog::info("HX711::updateInput(), {}.{}", clockPin[0],clockPin[1]);
 
     // Wait for the chip to become ready.
     clock_digitalWrite(LOW);
@@ -46,18 +61,22 @@ void HX711::updateInput() {
     // Define structures for reading data into.
     unsigned long data[inputPins.rows()] = {0};
 
-    timespec startTime;
-    timespec currTime;
+//    timespec startTime;
+//   timespec currTime;
     for (int i = 0; i < 24; ++i) {
 
         clock_digitalWrite(HIGH);
-        clock_gettime(CLOCK_MONOTONIC, &startTime);
+        usleep(2);
+
+        //clock_gettime(CLOCK_MONOTONIC, &startTime);
         for (int j = 0; j < inputPins.rows(); j++)
             data[j] |= digitalRead(j) << (24 - i);
 
         clock_digitalWrite(LOW);
-        clock_gettime(CLOCK_MONOTONIC, &currTime);
-        //spdlog::info("{}",(currTime.tv_sec - startTime.tv_sec)*1e6 + (currTime.tv_nsec - startTime.tv_nsec) / 1e3);
+        usleep(2);
+
+        //clock_gettime(CLOCK_MONOTONIC, &currTime);
+        //spdlog::info("{}, {}",i, (currTime.tv_sec - startTime.tv_sec)*1e6 + (currTime.tv_nsec - startTime.tv_nsec) / 1e3);
     }
 
     // Set the channel and the gain factor for the next reading using the clock pin.
@@ -80,6 +99,7 @@ void HX711::updateInput() {
             force(j) = (rawData(j) - OFFSET(j))*SCALE(j);
         }
     }
+    //spdlog::info("{},{},{},{}", force[0],force[1], force[2], force[3] );
 }
 
 
