@@ -24,23 +24,14 @@ HX711::HX711(Eigen::Matrix<int, Eigen::Dynamic, 2> inputPins, Eigen::Vector2i cl
         spdlog::info("Input Pin P{}.{}", inputPins(i, 0), inputPins(i, 1));
     }
 
-
-
     this->inputPins = inputPins;
     this->clockPin = clockPin;
 
-    clock_digitalWrite(LOW);
-    usleep(100000);
-
-    spdlog::info("LOW: {}", digitalRead(0));
-    usleep( 100000);
 
     clock_digitalWrite(HIGH);
-    usleep( 100000);
+    usleep(1000);
 
-    spdlog::info("HIGH: {}", digitalRead(0));
-    usleep( 100000);
-
+    clock_digitalWrite(LOW);
 }
 
 HX711::~HX711() {
@@ -54,38 +45,50 @@ void HX711::begin(int gain) {
 void HX711::updateInput() {
     //spdlog::info("HX711::updateInput(), {}.{}", clockPin[0],clockPin[1]);
 
+    //timespec startTime;
+    //timespec currTime;
+
+//    clock_gettime(CLOCK_MONOTONIC, &startTime);
+
     // Wait for the chip to become ready.
-    clock_digitalWrite(LOW);
-    wait_ready(10);
-
+    wait_ready(1000);
+  //  clock_gettime(CLOCK_MONOTONIC, &currTime);
+   // double elapsedSec1 = currTime.tv_sec - startTime.tv_sec + (currTime.tv_nsec - startTime.tv_nsec) / 1e6;
     // Define structures for reading data into.
-    unsigned long data[inputPins.rows()] = {0};
 
-//    timespec startTime;
-//   timespec currTime;
-    for (int i = 0; i < 24; ++i) {
+    usleep(10);
+    unsigned long data[inputPins.rows()] = {0};
+    for (int i = 0; i < 24; i++) {
 
         clock_digitalWrite(HIGH);
-        usleep(2);
+        usleep(1);
 
         //clock_gettime(CLOCK_MONOTONIC, &startTime);
         for (int j = 0; j < inputPins.rows(); j++)
             data[j] |= digitalRead(j) << (24 - i);
 
         clock_digitalWrite(LOW);
-        usleep(2);
+        usleep(1);
 
-        //clock_gettime(CLOCK_MONOTONIC, &currTime);
-        //spdlog::info("{}, {}",i, (currTime.tv_sec - startTime.tv_sec)*1e6 + (currTime.tv_nsec - startTime.tv_nsec) / 1e3);
     }
 
+    // First Pulse
+    clock_digitalWrite(HIGH);
+    usleep(1);
+    clock_digitalWrite(LOW);
+    usleep(1);
+
+    // At this point, everything should be high
+    for (int j = 0; j < inputPins.rows(); j++)
+        if(digitalRead(j) != 1){spdlog::warn("Problems with {}", j);};
+
     // Set the channel and the gain factor for the next reading using the clock pin.
-    for (int i = 0; i < GAIN; i++) {
+    for (int i = 0; i < GAIN-1; i++) {
         clock_digitalWrite(HIGH);
         usleep(1);
         clock_digitalWrite(LOW);
+        usleep(1);
     }
-
     // Replicate the most significant bit to pad out a 32-bit signed integer
     for (int j = 0; j < inputPins.rows(); j++) {
         if (data[j] & 0x800000) {
@@ -94,12 +97,20 @@ void HX711::updateInput() {
 
         // Sometimes errorneous data comes in. Usually 0xFFFFFFFE or 0xFFFFE. Ignore if this is the case
         // TODO: Better comparison might be if all of them are equal
-        if((data[j] & 0xFFFE) != 0xFFFE){
+        if((data[j] & 0xFE) == 0xFE){  
+            spdlog::warn("Possible Error on {0}, {1:x}", j, data[j]);
+            rawData(j) = 0;
+            force(j) =0;
+        } else{
             rawData(j) = static_cast<INTEGER32>(data[j]);
             force(j) = (rawData(j) - OFFSET(j))*SCALE(j);
         }
     }
-    //spdlog::info("{},{},{},{}", force[0],force[1], force[2], force[3] );
+
+  //  clock_gettime(CLOCK_MONOTONIC, &currTime);
+   // double elapsedSec = currTime.tv_sec - startTime.tv_sec + (currTime.tv_nsec - startTime.tv_nsec) / 1e6;
+   // spdlog::info("{}, {}, {}", elapsedSec0, elapsedSec1, elapsedSec);
+
 }
 
 
@@ -130,7 +141,6 @@ bool HX711::is_ready() {
     for (int j =0; j< inputPins.rows(); j++){
         returnValue &= (digitalRead(j)==LOW);
     }
-
     return returnValue;
 }
 
@@ -151,45 +161,10 @@ void HX711::set_gain(uint8_t gain) {
 
 
 //go
-void HX711::wait_ready(unsigned long delay_ms) {
+void HX711::wait_ready(unsigned long delay_ns) {
     while (!is_ready()) {
-        usleep(delay_ms * 1000);
+        usleep(delay_ns );
     }
-}
-
-//go
-bool HX711::wait_ready_retry(int retries, unsigned long delay_ms) {
-    int count = 0;
-    while (count < retries) {
-        printf("wait_ready_retry\n");
-
-        if (is_ready()) { 
-            return true;
-        }
-        usleep(delay_ms * 1000);
-        count++;
-    }
-    return false;
-}
-
-//go
-bool HX711::wait_ready_timeout(unsigned long timeout, unsigned long delay_ms) {
-    timespec startTime;
-    clock_gettime(CLOCK_MONOTONIC, &startTime);
-
-    timespec currTime;
-    clock_gettime(CLOCK_MONOTONIC, &currTime);
-
-    double elapsedSec = currTime.tv_sec - startTime.tv_sec + (currTime.tv_nsec - startTime.tv_nsec) / 1e6;
-
-    while (elapsedSec < timeout) {
-        if (is_ready()) {
-            return true;
-        }
-        usleep(delay_ms * 1000);
-        elapsedSec = currTime.tv_sec - startTime.tv_sec + (currTime.tv_nsec - startTime.tv_nsec) / 1e6;
-    }
-    return false;
 }
 
 //go

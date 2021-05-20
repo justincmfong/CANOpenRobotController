@@ -18,12 +18,12 @@ project(CORC C CXX)
 #set (STATE_MACHINE_NAME "M3Chai")
 #set (STATE_MACHINE_NAME "ExoTestMachine")
 #set (STATE_MACHINE_NAME "X2DemoMachine")
-set (STATE_MACHINE_NAME "LoggingDevice")
-#set (STATE_MACHINE_NAME "ForcePlateApp")
+#set (STATE_MACHINE_NAME "LoggingDevice")
+set (STATE_MACHINE_NAME "ForcePlateApp")
 #set (STATE_MACHINE_NAME "AlexMachine")
 
 # Set the CAN Node ID of the system
-add_definitions(-DNODEID=0x10)
+add_definitions(-DNODEID=0x51)
 
 # Comment to use actual hardware, uncomment for a nor robot (virtual) app
 set(NO_ROBOT OFF)
@@ -36,8 +36,9 @@ set(USE_ROS OFF)
 set(CORC_LOGGING_LEVEL INFO) 
 
 # For Force Plates
-add_definitions(-DFP_BBB)
-#add_definitions(-DFP_PB)
+#add_definitions(-DFP_BBB)
+add_definitions(-DFP_PB)
+add_definitions(-DFP_STARTTPO=0x3f1)
 
 ################################################################################
 if(USE_ROS)

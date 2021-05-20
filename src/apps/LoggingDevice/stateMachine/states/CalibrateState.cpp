@@ -48,7 +48,7 @@ void CalibrateState::exit(void) {
 
     for (int i = 0; i < readings.cols()/6; i++){
         if (offsets.segment(i*6, 6).isApprox(Eigen::VectorXd::Zero(6))){
-            spdlog::warning("Crutches may not be connected");
+            spdlog::warn("Crutches may not be connected");
         }
     }
 

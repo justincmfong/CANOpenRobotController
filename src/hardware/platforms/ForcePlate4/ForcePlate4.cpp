@@ -121,7 +121,7 @@ bool ForcePlate4::configureMasterPDOs(){
     UNSIGNED16 dataSize[2] = {4, 4};
 
 
-    UNSIGNED16 TPDOStart = 0x3f5;
+    UNSIGNED16 TPDOStart = FP_STARTTPO;
 
     // Create TPODs for the measurements
     for (int i = 0; i < strainGauges.size()*2; i++){
