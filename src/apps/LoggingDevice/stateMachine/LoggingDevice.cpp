@@ -9,6 +9,7 @@ LoggingDevice::LoggingDevice() {
     // Events
     isAPressed = new IsAPressed(this);
     isSPressed = new IsSPressed(this);
+    isWPressed = new IsWPressed(this);
     isCalibrationFinished = new IsCalibrationFinished(this);
 
     // States
@@ -20,6 +21,7 @@ LoggingDevice::LoggingDevice() {
     // Transitions
     NewTransition(initState, isAPressed, idleState);
     NewTransition(idleState, isAPressed, calibrateState);
+    NewTransition(idleState, isWPressed, idleState);
     NewTransition(calibrateState, isCalibrationFinished, idleState);
     NewTransition(idleState, isSPressed, recordState);
     NewTransition(recordState, isSPressed, idleState);
@@ -72,6 +74,14 @@ bool LoggingDevice::IsAPressed::check(void) {
 }
 bool LoggingDevice::IsSPressed::check(void) {
     if (OWNER->robot->keyboard->getS() == true) {
+        return true;
+    }
+    return false;
+}
+
+bool LoggingDevice::IsWPressed::check(void) {
+    if (OWNER->robot->keyboard->getW() == true) {
+        OWNER->robot->zeroForcePlate();
         return true;
     }
     return false;

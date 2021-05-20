@@ -197,6 +197,7 @@ bool LoggingRobot::stopSensors() {
             fp->stopStream();
         }
         crutchReadings = Eigen::VectorXd::Zero(6 * crutchSensors.size());
+        forcePlateForces =Eigen::VectorXi::Zero(forcePlates.size() * 4); 
         sensorsOn = false;
         return true;
     } else {

@@ -11,32 +11,42 @@ bool ForcePlate4::initialiseInputs() {
     // Useful for testing, not really required but doesn't hurt to have it, even without a keyboard
     inputs.push_back(keyboard = new Keyboard());
 
-    // Force Plate 1
     Eigen::Matrix<int, 4, 2> inputPins;
+    Eigen::Matrix<int, 4, 2> inputPins2;
 
-    inputPins(0,0) = 8; // Sensor 1
-    inputPins(0,1) = 10;
-    inputPins(1,0) = 8; // Sensor 2
-    inputPins(1,1) = 12;
-    inputPins(2, 0) = 8;  // Sensor 3
-    inputPins(2, 1) = 14;
-    inputPins(3, 0) = 8;  // Sensor 4
-    inputPins(3, 1) = 16;
+    ////// For BeagleBone Black //////
+    #ifdef FP_BBB
+    // Force Plate 1
+    inputPins << 8, 10,
+                8, 12,
+                8, 14,
+                8, 16;
     Eigen::Vector2i clock = {8,8}; // Clock Pin
 
 
     // Force Plate 2
-    Eigen::Matrix<int, 4, 2> inputPins2;
-    inputPins2(0, 0) = 8;  // Sensor 1
-    inputPins2(0, 1) = 9;
-    inputPins2(1, 0) = 8;  // Sensor 2
-    inputPins2(1, 1) = 11;
-    inputPins2(2, 0) = 8;  // Sensor 3
-    inputPins2(2, 1) = 15;
-    inputPins2(3, 0) = 8;  // Sensor 4
-    inputPins2(3, 1) = 17;
-
+    inputPins2 <<   8, 9, 
+                    8, 11,
+                    8, 15, 
+                    8, 17;
     Eigen::Vector2i clock2 = {8, 7};  // Clock Pin
+    #endif
+    #ifdef FP_PB
+    // Force Plate 1
+    inputPins << 2, 4,
+                2, 6,
+                2, 8,
+                2, 10;
+    Eigen::Vector2i clock = {2,2}; // Clock Pin
+
+
+    // Force Plate 2
+    inputPins2 <<   2, 18, 
+                    2, 20,
+                    2, 22, 
+                    2, 24;
+    Eigen::Vector2i clock2 = {2, 17};  // Clock Pin  
+    #endif
 
     strainGauges.push_back(new HX711(inputPins, clock));
     strainGauges.push_back(new HX711(inputPins2, clock2));
