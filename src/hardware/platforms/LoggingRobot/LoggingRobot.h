@@ -29,7 +29,10 @@ class LoggingRobot : public Robot {
     Eigen::VectorXd crutchReadings;  //6xN Vector containing all crutch readings
 
     std::vector<ForcePlateSensor*> forcePlates;
-    Eigen::VectorXi forcePlateForces;  // Should be a vector of size 4
+    Eigen::VectorXi forcePlateForces;  // Should be a vector of size 4xN
+
+    std::vector<ForcePlateSensor *> footSensors;
+    Eigen::VectorXi footSensorForces;  // Should be a vector of size 4xN
 
     // -- Variables assoacited with parameters already transmitted from the robot -- // 
     std::vector<RPDO *> rpdos;
@@ -76,6 +79,8 @@ class LoggingRobot : public Robot {
      */
     Eigen::VectorXd &getCrutchReadings();
     Eigen::VectorXi &getForcePlateReadings();
+    Eigen::VectorXi &getFootSensorReadings();
+
     Eigen::Matrix<INTEGER32, Eigen::Dynamic, 1> &getMotorPositions();
     Eigen::Matrix<INTEGER32, Eigen::Dynamic, 1> &getMotorVelocities();
     Eigen::Matrix<INTEGER16, Eigen::Dynamic, 1> &getMotorTorques();
@@ -93,6 +98,8 @@ class LoggingRobot : public Robot {
 
     void setCrutchOffsets(Eigen::VectorXd offsets);
     void zeroForcePlate();
+    void zeroLeftFoot();
+    void zeroRightFoot();
 
     bool startSensors();
     bool stopSensors();

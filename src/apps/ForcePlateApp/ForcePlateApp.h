@@ -19,7 +19,8 @@
 #include <iostream>
 #include <string>
 
-#include "ForcePlate4.h"
+#include "ForcePlate.h"
+//#include "ForcePlate4.h"
 #include "StateMachine.h"
 
 // State Classes
@@ -68,7 +69,7 @@ class ForcePlateApp : public StateMachine {
     RecordState *recordState;
 
    protected:
-    ForcePlate4 *robot;   /*<!Pointer to the Robot*/
+    ForcePlate *robot;   /*<!Pointer to the Robot*/
     LogHelper dataLogger;  // Logger
 
    private:

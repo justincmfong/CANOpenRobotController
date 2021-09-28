@@ -20,6 +20,7 @@ class RecordState : public State {
     int ticker = 0;
     Eigen::VectorXd lastCrutchForce;
     Eigen::VectorXi lastForcePlateForce;
+    Eigen::VectorXi lastFootSensorForce;
 
    public:
     LoggingRobot *robot;

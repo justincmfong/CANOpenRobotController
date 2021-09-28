@@ -12,13 +12,14 @@
 #ifndef FORCEPLATE_IDLESTATE_H
 #define FORCEPLATE_IDLESTATE_H
 
-#include "ForcePlate4.h"
+#include "ForcePlate.h"
+//#include "ForcePlate4.h"
 #include "State.h"
 
 class IdleState : public State {
    public:
-    ForcePlate4 *robot;
-    IdleState(StateMachine *m, ForcePlate4 *robot, const char *name = NULL);
+    ForcePlate *robot;
+    IdleState(StateMachine *m, ForcePlate *robot, const char *name = NULL);
 
     void entry(void);
     void during(void);

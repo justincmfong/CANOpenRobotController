@@ -12,13 +12,14 @@
 #ifndef FORCEPLATE_RECORDSTATE_H
 #define FORCEPLATE_RECORDSTATE_H
 
-#include "ForcePlate4.h"
+#include "ForcePlate.h"
+//#include "ForcePlate4.h"
 #include "State.h"
 
 class RecordState : public State {
    public:
-    ForcePlate4 *robot;
-    RecordState(StateMachine *m, ForcePlate4 *robot, const char *name = NULL);
+    ForcePlate *robot;
+    RecordState(StateMachine *m, ForcePlate *robot, const char *name = NULL);
 
     void entry(void);
     void during(void);

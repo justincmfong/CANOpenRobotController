@@ -16,7 +16,8 @@ IdleState::IdleState(StateMachine *m, LoggingRobot *robot, const char *name) : S
 };
 void IdleState::entry(void) {
     spdlog::info("IdleState entry");
-    spdlog::info("Press A to Zero Crutches, W to Zero Force Plates, or S to start logging");
+    spdlog::info("To Zero: A = Crutches, W = Force Plates, X = Left Foot, D = Right Foot");
+    spdlog::info("S to start logging");
 };
 
 void IdleState::during(void){

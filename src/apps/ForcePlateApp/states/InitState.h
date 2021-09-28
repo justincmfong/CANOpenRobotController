@@ -12,15 +12,16 @@
 #ifndef FORCEPLATE_INITSTATE_H
 #define FORCEPLATE_INITSTATE_H
 
-#include "ForcePlate4.h"
+#include "ForcePlate.h"
+//#include "ForcePlate4.h"
 #include "State.h"
 
 extern CO_NMT_reset_cmd_t reset_local;
 
 class InitState : public State {
    public:
-    ForcePlate4 *robot;
-    InitState(StateMachine *m, ForcePlate4 *robot, const char *name = NULL);
+    ForcePlate *robot;
+    InitState(StateMachine *m, ForcePlate *robot, const char *name = NULL);
 
     void entry(void);
     void during(void);

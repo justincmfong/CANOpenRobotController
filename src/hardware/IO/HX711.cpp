@@ -29,7 +29,7 @@ HX711::HX711(Eigen::Matrix<int, Eigen::Dynamic, 2> inputPins, Eigen::Vector2i cl
 
 
     clock_digitalWrite(HIGH);
-    usleep(1000);
+    usleep(10000);
 
     clock_digitalWrite(LOW);
 }
@@ -44,73 +44,74 @@ void HX711::begin(int gain) {
 
 void HX711::updateInput() {
     //spdlog::info("HX711::updateInput(), {}.{}", clockPin[0],clockPin[1]);
-
-    //timespec startTime;
-    //timespec currTime;
-
-//    clock_gettime(CLOCK_MONOTONIC, &startTime);
-
+    // Wait for the chip to become ready.
+    timespec startTime;
+    timespec currTime;
     // Wait for the chip to become ready.
     wait_ready(1000);
-  //  clock_gettime(CLOCK_MONOTONIC, &currTime);
-   // double elapsedSec1 = currTime.tv_sec - startTime.tv_sec + (currTime.tv_nsec - startTime.tv_nsec) / 1e6;
+
     // Define structures for reading data into.
-
-    usleep(10);
     unsigned long data[inputPins.rows()] = {0};
+
+    double elapsedMS =0;
+
+    bool goodReading = true;
+
     for (int i = 0; i < 24; i++) {
-
+        clock_gettime(CLOCK_MONOTONIC, &startTime);
         clock_digitalWrite(HIGH);
-        usleep(1);
-
-        //clock_gettime(CLOCK_MONOTONIC, &startTime);
-        for (int j = 0; j < inputPins.rows(); j++)
-            data[j] |= digitalRead(j) << (24 - i);
-
+       // usleep(1);
         clock_digitalWrite(LOW);
-        usleep(1);
+        clock_gettime(CLOCK_MONOTONIC, &currTime);
+        elapsedMS = (currTime.tv_sec - startTime.tv_sec) * 1e6 + (currTime.tv_nsec - startTime.tv_nsec) / 1e3;
+        if (elapsedMS > 50){
+            spdlog::warn("Possible Mistime, skipping reading");
+            goodReading = true;
+        }
 
+        for (int j = 0; j < inputPins.rows(); j++){
+            data[j] |= digitalRead(j) << (24 - i);
+        }
+
+        usleep(1);
     }
 
     // First Pulse
     clock_digitalWrite(HIGH);
-    usleep(1);
+    //usleep(1);
     clock_digitalWrite(LOW);
     usleep(1);
 
     // At this point, everything should be high
-    for (int j = 0; j < inputPins.rows(); j++)
-        if(digitalRead(j) != 1){spdlog::warn("Problems with {}", j);};
+    for (int j = 0; j < inputPins.rows(); j++){
+        if(digitalRead(j) != 1){spdlog::warn("Problems with {}", j);}
+    }
 
     // Set the channel and the gain factor for the next reading using the clock pin.
     for (int i = 0; i < GAIN-1; i++) {
         clock_digitalWrite(HIGH);
-        usleep(1);
+        //usleep(2);
         clock_digitalWrite(LOW);
-        usleep(1);
+        usleep(2);
     }
     // Replicate the most significant bit to pad out a 32-bit signed integer
-    for (int j = 0; j < inputPins.rows(); j++) {
-        if (data[j] & 0x800000) {
-            data[j] |= 0xFF000000;
-        }
+    if(goodReading){
+        for (int j = 0; j < inputPins.rows(); j++) {
+            if (data[j] & 0x800000) {
+                data[j] |= 0xFF000000;
+            }
 
-        // Sometimes errorneous data comes in. Usually 0xFFFFFFFE or 0xFFFFE. Ignore if this is the case
-        // TODO: Better comparison might be if all of them are equal
-        if((data[j] & 0xFE) == 0xFE){  
-            spdlog::warn("Possible Error on {0}, {1:x}", j, data[j]);
-            rawData(j) = 0;
-            force(j) =0;
-        } else{
-            rawData(j) = static_cast<INTEGER32>(data[j]);
-            force(j) = (rawData(j) - OFFSET(j))*SCALE(j);
+            // Sometimes errorneous data comes in. Usually 0xFFFFFFFE or 0xFFFFE. Ignore if this is the case
+            // TODO: Better comparison might be if all of them are equal
+            if ((data[j] & 0xFFE) == 0xFFE) {
+                spdlog::warn("Possible Error on {0}, {1:x}", j, data[j]);
+                // Do not update values
+            } else {
+                rawData(j) = static_cast<INTEGER32>(data[j]);
+                force(j) = (rawData(j) - OFFSET(j))*SCALE(j);
+            }
         }
     }
-
-  //  clock_gettime(CLOCK_MONOTONIC, &currTime);
-   // double elapsedSec = currTime.tv_sec - startTime.tv_sec + (currTime.tv_nsec - startTime.tv_nsec) / 1e6;
-   // spdlog::info("{}, {}, {}", elapsedSec0, elapsedSec1, elapsedSec);
-
 }
 
 

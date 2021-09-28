@@ -12,7 +12,8 @@
 #ifndef FORCEPLATE_CALIBRATESTATE_H
 #define FORCEPLATE_CALIBRATESTATE_H
 
-#include "ForcePlate4.h"
+#include "ForcePlate.h"
+//#include "ForcePlate4.h"
 #include "State.h"
 
 #define NUM_CALIBRATE_READINGS 100
@@ -24,9 +25,9 @@ class CalibrateState : public State {
         int currReading = 0;
 
     public :
-     ForcePlate4 *robot;
+     ForcePlate *robot;
 
-     CalibrateState(StateMachine *m, ForcePlate4 *robot, const char *name = NULL);
+     CalibrateState(StateMachine *m, ForcePlate *robot, const char *name = NULL);
 
      void entry(void);
      void during(void);

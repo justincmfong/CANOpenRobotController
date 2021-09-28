@@ -31,8 +31,7 @@ class ForcePlate : public Robot {
     bool sensorsOn =  false;
     ForcePlateCommand currCommand = NONE;
 
-    TPDO* tpdo1;
-    TPDO* tpdo2;
+    std::vector<TPDO*> tpdos;
 
     RPDO* rpdoCmd;
     void updatePDOs();

@@ -120,8 +120,8 @@ bool ForcePlate4::configureMasterPDOs(){
     strainForcesTPDO = Eigen::VectorXi(4*strainGauges.size());
     UNSIGNED16 dataSize[2] = {4, 4};
 
-
-    UNSIGNED16 TPDOStart = FP_STARTTPO;
+    UNSIGNED16 RPDO_CMD = FP_CMDRPDO;
+    UNSIGNED16 TPDOStart = FP_STARTTPDO;
 
     // Create TPODs for the measurements
     for (int i = 0; i < strainGauges.size()*2; i++){
@@ -131,7 +131,7 @@ bool ForcePlate4::configureMasterPDOs(){
 
     UNSIGNED16 dataCmdSize[2] = {4};
     void *cmdPointer[] = {(void *)&currCommand};
-    rpdoCmd = new RPDO(0x3f0, 0xff, cmdPointer, dataCmdSize, 1);
+    rpdoCmd = new RPDO(RPDO_CMD, 0xff, cmdPointer, dataCmdSize, 1);
 
     return true;
 }
