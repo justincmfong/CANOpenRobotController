@@ -5,15 +5,17 @@ The following instructions detail the building and testing of a simple test stat
 At the end of these instructions, you should be to compile and run this example CORC application, verifying that all development tools have been installed correctly. 
 
 ## Program Overview 
-This example produces a simple state machine with 4 states 
+This example produces a simple state machine with 5 states, representing an exoskeleton which moves between sitting and standing states:
 
-[IMAGE OF STATE MACHINE REQUIRED HERE]
+![Flow Chart](../img/GSExoSimSD.png)
+
+As can be seen in the state diagram, the program begins in the initState, requiring the startExo transition to the standing state (that is, the state representing the exoskeleton in a standing posture). From there, a startSitting event is required to transition to the SittingDown state (i.e. a state in which a trajectory representing a sitting down motion is executed), which ends with the EndTraj event and a transition to the Sitting state. From there, a similar startStanding event triggers a transition to the StandingUp state, which transitions back to the Standing state with an EndTraj event. 
 
 This example will produce CAN messages on a virtual CANbus, which you can monitor and view. It will also produce text in a terminal window, with keybaord presses used to navigate between the states. 
 
-### Before you start - Installation Instructions
+## Installation Instructions
 
-These instructions assume that you have a suitable test platform (i.e. a Target), and a workbench environment (i.e. a Host). It is suggested that the Target and Host you use for his guide are the platforms you intend to develop on for your own application.
+These instructions assume that you have a suitable test platform (i.e. a Target), and a workbench environment (i.e. a Host) --- see (GettingStarted.md). It is suggested that the Target and Host you use for his guide are the platforms you intend to develop on for your own application.
 
 #### Host Installation
 The host is your development computer --- generally running a desktop operating system. Recommended instructions for Windows and Linux systems can be found here:
