@@ -15,64 +15,64 @@ This example will produce CAN messages on a virtual CANbus, which you can monito
 
 ## Installation Instructions
 
-These instructions assume that you have a suitable test platform (i.e. a Target), and a workbench environment (i.e. a Host) --- see (GettingStarted.md). It is suggested that the Target and Host you use for his guide are the platforms you intend to develop on for your own application.
+These instructions assume that you have a suitable development machine and a suitable deployment machine --- see (GettingStarted.md). It is suggested that the machines you use for his guide are the platforms you intend to develop on for your own application.
 
-#### Host Installation
-The host is your development computer --- generally running a desktop operating system. Recommended instructions for Windows and Linux systems can be found here:
+#### Development Machine Setup {#devsetup}
+The development machine is the machine on which you write and compile the code. This is generally a machine running a desktop operating system, and can be either a Windows or Linux machine --- setup instructions for each can be found below:
 
-- [Windows Workbench Setup](doc/1.GettingStarted/InstallWindows.md)
-- [Linux Workbench Setup](doc/1.GettingStarted/InstallLinux.md)
+- [Windows Workbench Setup](InstallWindows.md) - Instructions specific to  are tagged with **[DEV-WINDOWS]** 
+- [Linux Workbench Setup](InstallLinux.md)
 
-An alternate option would be to use a Virtual Machine as your development enviroment. Instructions can be found in Option B [here](https://exoembedded.readthedocs.io/en/latest/workbench/), but this is not currently maintained. 
+#### Deployment Machine Setup {#deploysetup}
+The deployment machine is the computer which is runs the compiled code. This can be either a desktop computer running Linux (or even your development computer if you are running Linux), or an embedded computer. 
 
-#### Target Setup
-The target chosen will ultimately depend on the specific hardware that you are using. CORC was primarily developed to be run on a Beaglebone Black, thus these instructions primarily focus on a BeagleBone Black running Debian Stretch 9.5 [Firmware](http://beagleboard.org/latest-images). Instructions for setting up the Beaglbone Black can be found on [here](http://beagleboard.org/getting-started) on the Beaglebone Website.
+**[DEPLOY-LOCAL]** If your deployment machine is your Linux-based development machine, no additional setup is necessary. Please note that from this point, instructions specific to this setup are tagged with **[DEPLOY-LOCAL]**.
 
-> Note: if you use a Beagle Bone AI see instructions [here](doc/2.Hardware/BBAISetup.md) to setup the CAN device.
+**[DEPLOY-REMOTE]** If you wish to run an embedded machine, the CORC development team primarily developed and tested on [Beaglebones](https://beagleboard.org/bone), and thus recommend this platform. Specifically, CORC has been most tested on a BeagleBone Black running Debian Stretch 9.5 [Firmware](http://beagleboard.org/latest-images). Instructions for setting up the Beaglebone Black can be found on [here](http://beagleboard.org/getting-started) on the Beaglebone Website.
 
-If you are running a Linux-based machine, and wish to execute your CORC application on that machine, no additional setup is necessary (instructions specific to this setup are tagged with **[DEPLOY-LOCAL]** - mostly, this will mean that you do not have to complete some steps.).
+> Note: if you use a Beagle Bone AI see instructions [here](../2.Hardware/BBAISetup.md) to setup the CAN device.
 
-### How to get the Project
-
-On the host, clone the project from git repository:
+### Getting the Project
+On your development computer, clone the project from git repository. You can do this using the command line by first navigating to an appropriate folder, and typing the command:
 ```bash
-$ git clone --recursive -j8 https://github.com/UniMelb-Human-Robotics-Lab/CANOpenRobotController
+$ git clone --recursive -j8 https://github.com/UniMelbHumanRoboticsLab/CANOpenRobotController
 ```
+**[DEV-WINDOWS]** Alternatively, if you are using Github Desktop for Windows, go to `File` -> `Clone Repository...`, enter `UniMelbHumanRoboticsLab/CANOpenRobotController` and select an appropriate folder to place your files. 
 
-This repository includes all the sources files required for this example. (If you are running Github Desktop, you can simply clone by using File > Clone Repository...)
+This repository includes all the sources files required for this example.
 
 > Note: the `--recursive option` is required as external libraries (Eigen, spdlog...) are installed as git submodule (directly from their own repository).
 
 ### Building ExoTestMachine
-CMake is used to generate an appropriate makefile for CORC framework. By default, the generated makefile is configured to compile an executable `ExoTestMachine_APP` using the default C/C++ compilers. To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
+CMake is used to generate an appropriate makefile for CORC framework. By default, the generated makefile is configured to compile an executable `ExoTestMachine_APP` using the default C/C++ compilers. 
+
+**[DEPLOY-REMOTE]** To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
 ```bash
 $ mkdir build
 $ cd build
 $ cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..
 $ make
 ```
-**[WINDOWS]** If running on Windows, you will also need to add the `-G "Unix Makefiles"` flag to the `cmake` command (i.e. `cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..`). This forces the Unix Makefile format, rather than the default `nmake` behaviour on Windows. 
-
-**[DEPLOY-LOCAL]** If you are intending to execute the application on your (Linux) development computer, you can remove the `-DCMAKE_TOOLCHAIN_FILE=../armhf.cmake` alltogether (i.e. just run `cmake ..`). This will use the default C++ compilers on your Linux distribution.
+**[DEV-WINDOWS]** If running on Windows, you will also need to add the `-G "Unix Makefiles"` flag to the `cmake` command (i.e. `cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..`). This forces the Unix Makefile format, rather than the default `nmake` behaviour on Windows. 
 
 You can alternatively shorten everything to a single line:
 ```bash
 $ mkdir build && cd build/ && cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..
 ```
-> Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See "Before you start" to setup an appropriate workbench if required.
+> Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See [Development Machine Setup](##devsetup) to setup an appropriate workbench if required.
 
-> Note there are also some additional build rules to build additional tests, which are still to be completed (these do not impact the compilation of ExoTestMachine_APP)
+**[DEPLOY-LOCAL]** If you are intending to execute the application on your (Linux) development computer, you can remove the `-DCMAKE_TOOLCHAIN_FILE=../armhf.cmake` alltogether (i.e. just run `cmake ..`). This will use the default C++ compilers on your Linux distribution.
 
+### Transferring files to the Deployment Machine
+**[DEPLOY-LOCAL]** This entire step is not required if you are running on your development machine - just note the location of your `ExoTestMachine_APP` and `script` folder. 
 
-### Transferring files to the Linux platform
-
-The recommended method of transferring files to the BeagleBone is FTP.
+**[DEPLOY-REMOTE]** If you are deploying to a remote machine, you will need to transfer the compiled executable to the deployment machine. If you are using a BeagleBone, the recommended method of transferring files is FTP.
 
 Using an FTP Client on the Host (if you do not have one - or a preferred client, [FileZilla](https://filezilla-project.org/) is reasonable), connect to the target (the BeagleBone). By default, when the BeagleBone is connected to a computer using USB, it is configured to:
 
-- **IP Address:** 192.168.7.2 (Windows) or 192.168.6.2 (OSX and Linux)
-- **Username:** debian
-- **Password:** temppwd
+> **IP Address:** 192.168.7.2 (Windows) or 192.168.6.2 (OSX and Linux)
+> **Username:** debian
+> **Password:** temppwd
 
 On the host, using the FTP client, transfer the build executable in `build/ExoTestMachine_APP`, along with the contents of the `script` folder, to the Beaglebone.
 
@@ -82,13 +82,11 @@ Alternatively, you can use the [script/uploadBB.sh](../../script/uploadBB.sh) to
 
 In addition, copy the `config` folder to the same directory as the executable - this is used to set some parameters in the X2Robot. 
 
-**[DEPLOY-LOCAL]** This entire step is not required if you are running on your development machine - just note the location of your `ExoTestMachine_APP` and `script` folder. 
 
 ## Run Virtual ExoTestMachine
 
 ### Connect to the Target and Modify Run Permissions
-To run the ExoTestMachine, open your preferred terminal window and SSH into the the BeagleBone. This will provide terminal access to the target, on the host. This can be done using the same username and password, e.g:
-
+**[DEPLOY-REMOTE]**  To run the ExoTestMachine, open your preferred terminal window and SSH into the the BeagleBone. This will provide terminal access to the target, on the host. This can be done using the same username and password, e.g:
 ```bash
 $ ssh debian@192.168.7.2
 ```
@@ -98,10 +96,10 @@ At this point, you will need to change the permissions of the executables to all
 ```bash
 $ chmod +x ExoTestMachine_APP
 ```
-
 This must be repeated for the `.sh` scripts as well.
 
 **[DEPLOY-LOCAL]**  If you are deploying to a local machine, these steps are not required are not required, you will just need to open a terminal window for the next steps.
+-----CHECK IF YOU NEED TO CHANGE PERMISSIONS ON LINUX -----
 
 ### Initialise Virtual CAN Device
 The CORC Application requires the a CAN device to send commands to. For this test, we create a virtual CAN device (so no hardware is required). To do this, initialise the Virtual CAN device to set up, bind to and run candump ([candump manpage](https://manpages.debian.org/testing/can-utils/candump.1.en.html)) on the VCAN interface using the `initVCAN` script. 
