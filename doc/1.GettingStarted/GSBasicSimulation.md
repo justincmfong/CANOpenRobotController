@@ -17,13 +17,13 @@ This example will produce CAN messages on a virtual CANbus, which you can monito
 
 These instructions assume that you have a suitable development machine and a suitable deployment machine --- see (GettingStarted.md). It is suggested that the machines you use for his guide are the platforms you intend to develop on for your own application.
 
-#### Development Machine Setup {#devsetup}
+#### Development Machine Setup
 The development machine is the machine on which you write and compile the code. This is generally a machine running a desktop operating system, and can be either a Windows or Linux machine --- setup instructions for each can be found below:
 
 - [Windows Workbench Setup](InstallWindows.md) - Instructions specific to  are tagged with **[DEV-WINDOWS]** 
 - [Linux Workbench Setup](InstallLinux.md)
 
-#### Deployment Machine Setup {#deploysetup}
+#### Deployment Machine Setup
 The deployment machine is the computer which is runs the compiled code. This can be either a desktop computer running Linux (or even your development computer if you are running Linux), or an embedded computer. 
 
 **[DEPLOY-LOCAL]** If your deployment machine is your Linux-based development machine, no additional setup is necessary. Please note that from this point, instructions specific to this setup are tagged with **[DEPLOY-LOCAL]**.
@@ -59,7 +59,7 @@ You can alternatively shorten everything to a single line:
 ```bash
 $ mkdir build && cd build/ && cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..
 ```
-> Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See [Development Machine Setup](#devsetup) to setup an appropriate workbench if required.
+> Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See Development Machine Setup to setup an appropriate workbench if required.
 
 **[DEPLOY-LOCAL]** If you are intending to execute the application on your (Linux) development computer, you can remove the `-DCMAKE_TOOLCHAIN_FILE=../armhf.cmake` alltogether (i.e. just run `cmake ..`). This will use the default C++ compilers on your Linux distribution.
 
