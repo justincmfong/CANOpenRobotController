@@ -13,7 +13,7 @@ As can be seen in the state diagram, the program begins in the initState, requir
 
 This example will produce CAN messages on a virtual CANbus, which you can monitor and view. It will also produce text in a terminal window, with keybaord presses used to navigate between the states. 
 
-## Installation Instructions
+## Setup Instructions
 
 These instructions assume that you have a suitable development machine and a suitable deployment machine --- see (GettingStarted.md). It is suggested that the machines you use for his guide are the platforms you intend to develop on for your own application.
 
@@ -32,7 +32,7 @@ The deployment machine is the computer which is runs the compiled code. This can
 
 > Note: if you use a Beagle Bone AI see instructions [here](../2.Hardware/BBAISetup.md) to setup the CAN device.
 
-### Getting the Project
+## Getting the Project
 On your development computer, clone the project from git repository. You can do this using the command line by first navigating to an appropriate folder, and typing the command:
 ```bash
 $ git clone --recursive -j8 https://github.com/UniMelbHumanRoboticsLab/CANOpenRobotController
@@ -46,7 +46,9 @@ This repository includes all the sources files required for this example.
 ## Building ExoTestMachine
 CMake is used to generate an appropriate makefile for CORC framework. By default, the generated makefile is configured to compile an executable `ExoTestMachine_APP` using the default C/C++ compilers. 
 
-**[DEPLOY-REMOTE]** To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
+
+### Remote Deployment **[DEPLOY-REMOTE]**
+To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
 ```bash
 $ mkdir build
 $ cd build
@@ -61,7 +63,8 @@ $ mkdir build && cd build/ && cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..
 ```
 > Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See Development Machine Setup to setup an appropriate workbench if required.
 
-**[DEPLOY-LOCAL]** If you are intending to execute the application on your (Linux) development computer, you can remove the `-DCMAKE_TOOLCHAIN_FILE=../armhf.cmake` alltogether (i.e. just run `cmake ..`). This will use the default C++ compilers on your Linux distribution.
+### Local Deployment **[DEPLOY-LOCAL]**
+ If you are intending to execute the application on your (Linux) development computer, you can remove the `-DCMAKE_TOOLCHAIN_FILE=../armhf.cmake` alltogether (i.e. just run `cmake ..`). This will use the default C++ compilers on your Linux distribution.
 
 ### Transferring files to the Deployment Machine
 **[DEPLOY-LOCAL]** This entire step is not required if you are running on your development machine - just note the location of your `ExoTestMachine_APP` and `script` folder. 
