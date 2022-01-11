@@ -43,7 +43,7 @@ This repository includes all the sources files required for this example.
 
 > Note: the `--recursive option` is required as external libraries (Eigen, spdlog...) are installed as git submodule (directly from their own repository).
 
-### Building ExoTestMachine
+## Building ExoTestMachine
 CMake is used to generate an appropriate makefile for CORC framework. By default, the generated makefile is configured to compile an executable `ExoTestMachine_APP` using the default C/C++ compilers. 
 
 **[DEPLOY-REMOTE]** To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
@@ -83,7 +83,7 @@ Alternatively, you can use the [script/uploadBB.sh](../../script/uploadBB.sh) to
 In addition, copy the `config` folder to the same directory as the executable - this is used to set some parameters in the X2Robot. 
 
 
-## Run Virtual ExoTestMachine
+## Executing ExoTestMachine
 
 ### Connect to the Target and Modify Run Permissions
 **[DEPLOY-REMOTE]**  To run the ExoTestMachine, open your preferred terminal window and SSH into the the BeagleBone. This will provide terminal access to the target, on the host. This can be done using the same username and password, e.g:
