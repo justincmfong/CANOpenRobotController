@@ -47,7 +47,7 @@ This repository includes all the sources files required for this example.
 CMake is used to generate an appropriate makefile for CORC framework. By default, the generated makefile is configured to compile an executable `ExoTestMachine_APP` using the default C/C++ compilers. 
 
 ### Remote Deployment
-> Follow these steps ONLY if you are deploying remotely **[DEPLOY-REMOTE]**
+==Follow these steps ONLY if you are deploying remotely **[DEPLOY-REMOTE]**==
 
 #### Compiling
 To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
@@ -83,7 +83,7 @@ Alternatively, you can use the [script/uploadBB.sh](../../script/uploadBB.sh) to
 In addition, copy the `config` folder to the same directory as the executable - this is used to set some parameters in the X2Robot. 
 
 ### Local Deployment
-> Follow these steps ONLY if you are deploying locally **[DEPLOY-LOCAL]**
+==Follow these steps ONLY if you are deploying locally **[DEPLOY-LOCAL]**==
 
 ```bash
 $ mkdir build
