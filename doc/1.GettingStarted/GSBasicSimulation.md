@@ -46,8 +46,8 @@ This repository includes all the sources files required for this example.
 ## Building ExoTestMachine
 CMake is used to generate an appropriate makefile for CORC framework. By default, the generated makefile is configured to compile an executable `ExoTestMachine_APP` using the default C/C++ compilers. 
 
-
 ### Remote Deployment **[DEPLOY-REMOTE]**
+#### Compiling
 To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
 ```bash
 $ mkdir build
@@ -63,10 +63,7 @@ $ mkdir build && cd build/ && cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..
 ```
 > Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See Development Machine Setup to setup an appropriate workbench if required.
 
-### Local Deployment **[DEPLOY-LOCAL]**
- If you are intending to execute the application on your (Linux) development computer, you can remove the `-DCMAKE_TOOLCHAIN_FILE=../armhf.cmake` alltogether (i.e. just run `cmake ..`). This will use the default C++ compilers on your Linux distribution.
-
-### Transferring files to the Deployment Machine
+#### Transferring files to the Deployment Machine
 **[DEPLOY-LOCAL]** This entire step is not required if you are running on your development machine - just note the location of your `ExoTestMachine_APP` and `script` folder. 
 
 **[DEPLOY-REMOTE]** If you are deploying to a remote machine, you will need to transfer the compiled executable to the deployment machine. If you are using a BeagleBone, the recommended method of transferring files is FTP.
@@ -84,6 +81,11 @@ Alternatively, you can use the [script/uploadBB.sh](../../script/uploadBB.sh) to
 > Note: The `script` folder contains scripts for setting up the CAN interfaces that CORC uses for communication. In case you use a PEAK CAN USB device, make sure to either use the `initPCAN` script or to manually setup the CAN queue length to 1000 (`ifconfig can0 txqueuelen 1000`).
 
 In addition, copy the `config` folder to the same directory as the executable - this is used to set some parameters in the X2Robot. 
+
+
+### Local Deployment **[DEPLOY-LOCAL]**
+ If you are intending to execute the application on your (Linux) development computer, you can remove the `-DCMAKE_TOOLCHAIN_FILE=../armhf.cmake` alltogether (i.e. just run `cmake ..`). This will use the default C++ compilers on your Linux distribution.
+
 
 
 ## Executing ExoTestMachine
