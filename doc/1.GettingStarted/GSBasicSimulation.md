@@ -55,24 +55,11 @@ $ make
 ```
 **[DEV-WINDOWS]** If running on Windows, you will also need to add the `-G "Unix Makefiles"` flag to the `cmake` command (i.e. `cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..`). This forces the Unix Makefile format, rather than the default `nmake` behaviour on Windows. 
 
-
-[DEPLOY-REMOTE]
-: To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
-```bash
-$ mkdir build
-$ cd build
-$ cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..
-$ make
-```
-[DEV-WINDOWS]
-: If running on Windows, you will also need to add the `-G "Unix Makefiles"` flag to the `cmake` command (i.e. `cmake -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..`). This forces the Unix Makefile format, rather than the default `nmake` behaviour on Windows. 
-
-
 You can alternatively shorten everything to a single line:
 ```bash
 $ mkdir build && cd build/ && cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..
 ```
-> Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See [Development Machine Setup](##devsetup) to setup an appropriate workbench if required.
+> Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See [Development Machine Setup](#devsetup) to setup an appropriate workbench if required.
 
 **[DEPLOY-LOCAL]** If you are intending to execute the application on your (Linux) development computer, you can remove the `-DCMAKE_TOOLCHAIN_FILE=../armhf.cmake` alltogether (i.e. just run `cmake ..`). This will use the default C++ compilers on your Linux distribution.
 
