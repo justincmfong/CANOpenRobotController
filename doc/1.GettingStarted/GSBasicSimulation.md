@@ -46,7 +46,9 @@ This repository includes all the sources files required for this example.
 ## Building ExoTestMachine
 CMake is used to generate an appropriate makefile for CORC framework. By default, the generated makefile is configured to compile an executable `ExoTestMachine_APP` using the default C/C++ compilers. 
 
-### Remote Deployment **[DEPLOY-REMOTE]**
+### Remote Deployment
+> Follow these steps ONLY if you are deploying remotely **[DEPLOY-REMOTE]**
+
 #### Compiling
 To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
 ```bash
@@ -64,9 +66,7 @@ $ mkdir build && cd build/ && cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..
 > Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See Development Machine Setup to setup an appropriate workbench if required.
 
 #### Transferring files to the Deployment Machine
-**[DEPLOY-LOCAL]** This entire step is not required if you are running on your development machine - just note the location of your `ExoTestMachine_APP` and `script` folder. 
-
-**[DEPLOY-REMOTE]** If you are deploying to a remote machine, you will need to transfer the compiled executable to the deployment machine. If you are using a BeagleBone, the recommended method of transferring files is FTP.
+If you are deploying to a remote machine, you will need to transfer the compiled executable to the deployment machine. If you are using a BeagleBone, the recommended method of transferring files is FTP.
 
 Using an FTP Client on the Host (if you do not have one - or a preferred client, [FileZilla](https://filezilla-project.org/) is reasonable), connect to the target (the BeagleBone). By default, when the BeagleBone is connected to a computer using USB, it is configured to:
 
@@ -82,9 +82,16 @@ Alternatively, you can use the [script/uploadBB.sh](../../script/uploadBB.sh) to
 
 In addition, copy the `config` folder to the same directory as the executable - this is used to set some parameters in the X2Robot. 
 
+### Local Deployment
+> Follow these steps ONLY if you are deploying locally **[DEPLOY-LOCAL]**
 
-### Local Deployment **[DEPLOY-LOCAL]**
- If you are intending to execute the application on your (Linux) development computer, you can remove the `-DCMAKE_TOOLCHAIN_FILE=../armhf.cmake` alltogether (i.e. just run `cmake ..`). This will use the default C++ compilers on your Linux distribution.
+```bash
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+```
+This will use the default C++ compilers on your Linux distribution.
 
 
 
