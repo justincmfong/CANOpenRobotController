@@ -127,8 +127,10 @@ $  ./initVCAN.sh
 
 Next, we wish to print the contents of the CAN interface to the terminal window, so that we can monitor the progress of the program. To do this run candump ([candump manpage](https://manpages.debian.org/testing/can-utils/candump.1.en.html)) as follows:
 ```bash
-$  candump vcan0
+$  candump vcan0,080~FFF
 ```
+> Note: The `080~FFF` part of the command above filters out all messages with COB-ID of 080. This COB-ID represents a SYNC message which is sent many times a second, which is usually used as a trigger signal by other CAN devices. In this example, there are no other devices to respond, and thus we filter these messages out for clarity. 
+
 
 ### Starting the program 
 Open a second terminal window. If you are following the **[DEPLOY-REMOTE]** instructions, SSH into the BeagleBone in a second terminal window. Then navigate to the appropriate folder and run the program as follows:
