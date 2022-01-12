@@ -46,8 +46,8 @@ This repository includes all the sources files required for this example.
 ## Building ExoTestMachine
 CMake is used to generate an appropriate makefile for CORC framework. By default, the generated makefile is configured to compile an executable `ExoTestMachine_APP` using the default C/C++ compilers. 
 
-### Remote Deployment
-==Follow these steps ONLY if you are deploying remotely **[DEPLOY-REMOTE]**==
+### Option 1. Remote Deployment
+> **[DEPLOY-REMOTE]** Follow these steps ONLY if you are deploying remotely , otherwise, skip to Option 2.
 
 #### Compiling
 To generate a cross-compiled executable (suitable for running on a Beaglebone Black) use the following commands on the host:
@@ -61,9 +61,11 @@ $ make
 
 You can alternatively shorten everything to a single line:
 ```bash
-$ mkdir build && cd build/ && cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake ..
+$ mkdir build && cd build/ && cmake -DCMAKE_TOOLCHAIN_FILE=../armhf.cmake .. && make
 ```
 > Note that this requires an appropriately configured toolchain (`arm-linux-gnueabihf-` toolchain). See Development Machine Setup to setup an appropriate workbench if required.
+
+This build process will take some time to complete (upwards of 3-5 minutes, depending on the speed of your development machine). 
 
 #### Transferring files to the Deployment Machine
 If you are deploying to a remote machine, you will need to transfer the compiled executable to the deployment machine. If you are using a BeagleBone, the recommended method of transferring files is FTP.
@@ -74,7 +76,7 @@ Using an FTP Client on the Host (if you do not have one - or a preferred client,
 > **Username:** debian
 > **Password:** temppwd
 
-On the host, using the FTP client, transfer the build executable in `build/ExoTestMachine_APP`, along with the contents of the `script` folder, to the Beaglebone.
+On the host, using the FTP client, transfer the build executable in `build/ExoTestMachine_APP_NOROBOT`, along with the contents of the `script` folder, to the Beaglebone.
 
 Alternatively, you can use the [script/uploadBB.sh](../../script/uploadBB.sh) to automatically upload the content of the script folder and the build/\*APP to the BeagleBone through ssh. 
 
@@ -82,77 +84,76 @@ Alternatively, you can use the [script/uploadBB.sh](../../script/uploadBB.sh) to
 
 In addition, copy the `config` folder to the same directory as the executable - this is used to set some parameters in the X2Robot. 
 
-### Local Deployment
-==Follow these steps ONLY if you are deploying locally **[DEPLOY-LOCAL]**==
+#### Modify Run Permissions
+As these files have been transferred to the remote computer, the permissions of any executable must be modified to allow for execution. To do this, we need to run commands on the deployment machine. The easiest way to do this is to SSH into the device. Open your preferred terminal program and SSH into the the BeagleBone. 
+```bash
+$ ssh debian@192.168.7.2
+```
+You will be promoted for a password, which is the same as previous. 
 
+At this point, you will have control of your remote computer through the terminal window.  To change the permissions to allow exeuction, you must do this by navigating to the appropriate file location, and running the `chmod +x` command on the target. e.g.
+```bash
+$ chmod +x ExoTestMachine_APP_NOROBOT
+```
+This must be repeated for the `.sh` scripts as well, in this case `initVCAN.sh`. 
+
+### Option 2. Local Deployment
+> **[DEPLOY-LOCAL]** Follow these steps ONLY if you are deploying locally
+
+To compile the code for your local machine, you can take advantage of the default C++ compilers on your Linux distribution. Therefore, the build command is:
 ```bash
 $ mkdir build
 $ cd build
 $ cmake ..
 $ make
 ```
-This will use the default C++ compilers on your Linux distribution.
-
-
+You can alternatively shorten everything to a single line:
+```bash
+$ mkdir build && cd build/ && cmake .. && make
+```
+This build process will take some time to complete (upwards of 3-5 minutes, depending on the speed of your development machine). 
 
 ## Executing ExoTestMachine
-
-### Connect to the Target and Modify Run Permissions
-**[DEPLOY-REMOTE]**  To run the ExoTestMachine, open your preferred terminal window and SSH into the the BeagleBone. This will provide terminal access to the target, on the host. This can be done using the same username and password, e.g:
-```bash
-$ ssh debian@192.168.7.2
-```
-
-At this point, you will need to change the permissions of the executables to allow execution. You can do this using the the `chmod +x` command on the target. e.g.
-
-```bash
-$ chmod +x ExoTestMachine_APP
-```
-This must be repeated for the `.sh` scripts as well.
-
-**[DEPLOY-LOCAL]**  If you are deploying to a local machine, these steps are not required are not required, you will just need to open a terminal window for the next steps.
------CHECK IF YOU NEED TO CHANGE PERMISSIONS ON LINUX -----
+We are now ready to run the program. To do this, we must open two terminal windows, one which will monitor the data on the CAN device, and one which will execute the code itself. If you are following the **[DEPLOY-REMOTE]** instructions, you will need to open a new SSH session in each terminal window. 
 
 ### Initialise Virtual CAN Device
-The CORC Application requires the a CAN device to send commands to. For this test, we create a virtual CAN device (so no hardware is required). To do this, initialise the Virtual CAN device to set up, bind to and run candump ([candump manpage](https://manpages.debian.org/testing/can-utils/candump.1.en.html)) on the VCAN interface using the `initVCAN` script. 
+The CORC Application requires the a CAN device to send commands to. For this test, we create a virtual CAN device (so no hardware is required). To do this, initialise the Virtual CAN device to set up, and bind to the VCAN interface using the `initVCAN.sh` script. 
 
 ```bash
 $  cd script
 $  ./initVCAN.sh
 ```
-This initialises a virtual CAN interface, and prints the contents of the bus to the terminal window.
+> Note: This can be changed to use a non-virtual CAN interface, but this requires some minor changes to the code before compilation, and the use of the `initCAN0.sh` script (or `initPCAN.sh` if you use a PEAK CAN USB device) instead. (See other getting started example)
 
-> Note: This can be changed to use a non-virtual CAN interface, but this requires some minor changes to the code before compilation, and the use of the `initCAN0.sh` script (or `initPCAN.sh` if you use a PEAK CAN USB device) instead.
-
-SSH into the BeagleBone in a second terminal window (**[DEPLOY-LOCAL]** or launch a second terminal) to launch the application:
-
+Next, we wish to print the contents of the CAN interface to the terminal window, so that we can monitor the progress of the program. To do this run candump ([candump manpage](https://manpages.debian.org/testing/can-utils/candump.1.en.html)) as follows:
 ```bash
-$  cd build
-$  sudo ./ExoTestMachine_APP
+$  candump vcan0
 ```
 
+### Starting the program 
+Open a second terminal window. If you are following the **[DEPLOY-REMOTE]** instructions, SSH into the BeagleBone in a second terminal window. Then navigate to the appropriate folder and run the program as follows:
+```bash
+$  cd build
+$  sudo ./ExoTestMachine_APP_NOROBOT
+```
 > Note: Superuser privileges (`sudo`) are required due to the use of real time threads in the application.
 
-The first terminal one should display CAN messages on VCAN from the `EXOTestMachine_APP` application output. On startup init PDO messaging should be sent and appear as follows:
-​
-
+### Monitoring the program
+The first terminal window should display CAN messages on VCAN from the `EXOTestMachine_APP_NOROBOT` application output. On startup init PDO messaging should be sent and appear as follows:
 ```bash
 vcan0 704 [1] 00
 vcan0 184 [2] 00 00 # PDO message
 vcan0 704 [1] 05
 ```
 
-​
-Follow terminal instructions using your keyboard in the second terminal instance to run through test stateMachine.​
-
+In the second terminal window, the ExoTestMachine program will provide status and instructions to work through the program. 
 ```bash
 ==================================
  WELCOME TO THE TEST STATE MACHINE
 ==================================
 ==================================
  PRESS S to start program
-==================================
-​
+==================================​
 ```
 
 The first terminal instance (running candump) should display PDO messages corresponding to changes to the commanded motor positions as follows:
