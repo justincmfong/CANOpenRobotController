@@ -174,7 +174,7 @@ As the simulated device is in position control, these messages should print when
 If these messages are present, this indicates that the workbench and CORC toolbox have been installed successfully. You can close the program by pressing `ctrl+c`.
 
 ## Next Steps
-Congratulations! You have just run your first CORC program. At this point, if you are interested in writing more complex code in simulation, we recommend you look at the [Custom Application](../3.Software/CustomApplication.md) page. Otherwise, if you wish to try running some examples on hardware that you already have, head back to the [Getting Started](GettingStarted.md) page for other examples. 
+Congratulations! You have just run your first CORC program. At this point, if you are interested in writing more complex code in simulation, we recommend you look at the [Custom Application](../3.Software/CustomApplication.md) page. Otherwise, if you wish to try running some examples on hardware that you already have, head back to the [Getting Started](GettingStarted.md) page for other examples, including testing on the Fourier Intelligence ExoMotus X2 or ArmMotus M2 systems. 
 
 ​<!-- ## Run ExoTestMachine on X2
 Running on the X2 Robot is very similar to the virutal CAN set up, with one adjustment and -->
