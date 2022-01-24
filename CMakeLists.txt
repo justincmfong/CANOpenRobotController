@@ -30,7 +30,6 @@ set(NO_ROBOT OFF)
 
 # ROS Flag. set ON if you want to use ROS. Else, set OFF.
 set(USE_ROS OFF)
-
 # Select desired logging level (Options: TRACE, DEBUG, INFO, WARN, ERROR, CRITICAL OFF)
 # INFO is the recommended level in normal operation
 set(CORC_LOGGING_LEVEL INFO) 
@@ -54,14 +53,21 @@ endif()
 
 add_definitions(-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_${CORC_LOGGING_LEVEL})
 
+# For Force Plates
+#add_definitions(-DFP_BBB)
+add_definitions(-DFP_PB)
+add_definitions(-DFP_CMDRPDO=0x3E0)
+add_definitions(-DFP_STARTTPDO=0x3E1)
+
+#######################
 
 ## Compile as C++11
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(USE_ROS)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall " )
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-int-in-bool-context" )
 else()
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -static-libstdc++ -static-libgcc" )
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-int-in-bool-context -static-libstdc++ -static-libgcc" )
 endif()
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(THREADS_PREFER_PTHREAD_FLAG TRUE)
@@ -75,16 +81,19 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 ## Current state machine (APP) to be build
-add_definitions(-DSTATE_MACHINE_TYPE=${STATE_MACHINE_NAME})
-add_definitions(-DSTATE_MACHINE_INCLUDE="${STATE_MACHINE_NAME}.h")
+if(NOT STATE_MACHINE_NAME)
+	message(FATAL_ERROR "ERROR: No state machine (APP) selected: Abort.")
+else()
+	add_definitions(-DSTATE_MACHINE_TYPE=${STATE_MACHINE_NAME})
+	add_definitions(-DSTATE_MACHINE_INCLUDE="${STATE_MACHINE_NAME}.h")
+endif()
 if(NO_ROBOT)
 	add_definitions(-DNOROBOT=1)
 endif()
 
-
 ## Get all source and header files (only the target app folder is included)
-file(GLOB_RECURSE SOURCES "src/core/*.cpp" "src/core/*.c" "src/hardware/*.cpp" "src/hardware/*.c" "src/apps/${STATE_MACHINE_NAME}/*.c" "src/apps/${STATE_MACHINE_NAME}/*.cpp" "lib/FLNL/*.cpp")
-file(GLOB_RECURSE HEADERS "src/core/*.h" "src/hardware/*.h" "src/apps/${STATE_MACHINE_NAME}/*.h")
+file(GLOB_RECURSE SOURCES "src/core/*.cpp" "src/core/*.c" "src/hardware/*.cpp" "src/hardware/*.c" "src/apps/${STATE_MACHINE_NAME}/*.c" "src/apps/${STATE_MACHINE_NAME}/*.cpp" "lib/FLNL/src/*.cpp")
+file(GLOB_RECURSE HEADERS "src/core/*.h" "src/hardware/*.h" "src/apps/${STATE_MACHINE_NAME}/*.h" )
 
 ## Set every folder containing .h file as include directory
 set (INCLUDE_DIRS "")
@@ -95,6 +104,9 @@ endforeach()
 list(REMOVE_DUPLICATES INCLUDE_DIRS)
 ## Add libraries headers
 list (APPEND INCLUDE_DIRS lib/)
+list (APPEND INCLUDE_DIRS lib/Eigen/)
+list (APPEND INCLUDE_DIRS lib/FLNL/include/)
+list (APPEND INCLUDE_DIRS lib/spdlog/include/)
 
 add_subdirectory(lib/yaml-cpp/)
 

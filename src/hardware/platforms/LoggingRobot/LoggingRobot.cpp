@@ -1,7 +1,10 @@
 #include "LoggingRobot.h"
 
-LoggingRobot::LoggingRobot() {
+LoggingRobot::LoggingRobot(std::string robot_name, std::string yaml_config_file) :  Robot(robot_name, yaml_config_file) {
     spdlog::info("New Logging Robot");
+
+    //Check if YAML file exists and contain robot parameters
+    initialiseFromYAML(yaml_config_file);
 
     initialiseJoints();
     initialiseInputs();
@@ -18,7 +21,7 @@ bool LoggingRobot::initialiseInputs() {
     forcePlates.push_back(new ForcePlateSensor(0x3f0, 0x3f7, 0x3f8));
 
     // Add to input stack
-    for (int i = 0; i < forcePlates.size(); i++) {
+    for (uint i = 0; i < forcePlates.size(); i++) {
         inputs.push_back(forcePlates[i]);
     }
 
@@ -27,7 +30,7 @@ bool LoggingRobot::initialiseInputs() {
     footSensors.push_back(new ForcePlateSensor(0x3e3, 0x3e4, 0x3e5));
 
     // Add to input stack
-    for (int i = 0; i < footSensors.size(); i++) {
+    for (uint i = 0; i < footSensors.size(); i++) {
         inputs.push_back(footSensors[i]);
     }
 
@@ -36,7 +39,7 @@ bool LoggingRobot::initialiseInputs() {
     crutchSensors.push_back(new RobotousRFT(0xf0, 0xf1, 0xf2));
 
     // Add to input stack
-    for (int i = 0; i < crutchSensors.size(); i++) {
+    for (uint i = 0; i < crutchSensors.size(); i++) {
         inputs.push_back(crutchSensors[i]);
     }
 
@@ -219,7 +222,7 @@ bool LoggingRobot::startSensors() {
             fs->startStream();
             spdlog::info("{}", (void*)fs);
         }
-        sensorsOn = true; 
+        sensorsOn = true;
         return true;
     }
 }

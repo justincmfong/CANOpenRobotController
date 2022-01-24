@@ -226,7 +226,10 @@ typedef domain_t CO_DOMAIN;
     CO_DOMAIN plot;
     UNSIGNED32 triggerTime;
 } OD_trace_t;
+<<<<<<< HEAD
 
+=======
+>>>>>>> UniMelbHumanRoboticsLab-master
 
 /*******************************************************************************
    TYPE DEFINITIONS FOR OBJECT DICTIONARY INDEXES
@@ -843,21 +846,16 @@ extern struct sCO_OD_EEPROM CO_OD_EEPROM;
 /*1280, Data Type: SDOClientParameter_t */
 #define OD_SDOClientParameter CO_OD_RAM.SDOClientParameter
 
-/*1400, Data Type: RPDOCommunicationParameter_t */
-
 // Change to store the parameters in a dedicated array
 // #define OD_RPDOCommunicationParameter CO_OD_RAM.RPDOCommunicationParameter
 extern OD_RPDOCommunicationParameter_t *OD_RPDOCommunicationParameter[CO_NO_RPDO];
 /*1600, Data Type: RPDOMappingParameter_t */
-//#define OD_RPDOMappingParameter CO_OD_RAM.RPDOMappingParameter
 extern OD_RPDOMappingParameter_t *OD_RPDOMappingParameter[CO_NO_RPDO];
 
 /*1800, Data Type: TPDOCommunicationParameter_t */
-//#define OD_TPDOCommunicationParameter CO_OD_RAM.TPDOCommunicationParameter
 extern OD_TPDOCommunicationParameter_t *OD_TPDOCommunicationParameter[CO_NO_TPDO];
 
 /*1a00, Data Type: TPDOMappingParameter_t */
-//#define OD_TPDOMappingParameter CO_OD_RAM.TPDOMappingParameter
 extern OD_TPDOMappingParameter_t *OD_TPDOMappingParameter[CO_NO_TPDO];
 
 /*1f80, Data Type: UNSIGNED32 */

@@ -1,15 +1,21 @@
-/*
- * Application interface for Alex Exoskeleton Software
+ /**
  *
- * @file        application.c
- * @author      William Campbell
+ * \file application.c
+ * \author William Campbell, Justin Fong
+ * \version 0.2
+ * \date 2021-02-15
+ * \copyright Copyright (c) 2020 - 2021
  *
-
+ * \breif  Application interface of CORC. Based on CANopenSocket.
+ *
  */
 #include "application.h"
 
+<<<<<<< HEAD
 #include "RobotousRFT.h"
 
+=======
+>>>>>>> UniMelbHumanRoboticsLab-master
 #ifdef TIMING_LOG
 #include "LoopTiming.h"
 LoopTiming loopTimer;
@@ -21,12 +27,6 @@ LoopTiming loopTimer;
 #endif
 
 STATE_MACHINE_TYPE *stateMachine;
-/*For master-> node SDO message sending*/
-#define CO_COMMAND_SDO_BUFFER_SIZE 100000
-#define STRING_BUFFER_SIZE (CO_COMMAND_SDO_BUFFER_SIZE * 4 + 100)
-
-char buf[STRING_BUFFER_SIZE];
-char ret[STRING_BUFFER_SIZE];
 
 /******************** RUNS BEFORE CO_init() ********************/
 void app_communicationReset(int argc, char *argv[]) {
@@ -50,7 +50,6 @@ void app_programStart(void) {
 }
 
 /******************** Runs in low priority thread ********************/
-
 void app_programAsync(uint16_t timer1msDiffy) {
 }
 
@@ -70,7 +69,6 @@ void app_programEnd(void) {
     stateMachine->end();
     delete stateMachine;
     spdlog::info("CORC End application");
-
 #ifdef TIMING_LOG
     loopTimer.end();
 #endif

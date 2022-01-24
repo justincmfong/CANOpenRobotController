@@ -52,7 +52,7 @@ static int rtControlPriority = 80; /*!< priority of application thread */
 static void *rt_control_thread(void *arg);
 static pthread_t rt_control_thread_id;
 const float controlLoopPeriodInms = 10;   /*!< Define the control loop period (in ms): the period of rt_control_thread loop. */
-const float CANUpdateLoopPeriodInms = 0; /*!< Define the CAN PDO sync message period (and so PDO update rate). In ms. Less than 3 can lead to unstable communication  */
+const float CANUpdateLoopPeriodInms = 10; /*!< Define the CAN PDO sync message period (and so PDO update rate). In ms. Less than 3 can lead to unstable communication  */
 CO_NMT_reset_cmd_t reset_local = CO_RESET_NOT;
 
 /** @brief Task Timer used for the Control Loop*/
@@ -82,12 +82,44 @@ static void sigHandler(int sig) {
     endProgram = 1;
 }
 
+
+/* Privileges management */
+static uid_t uid, gid; //Saved uid and gid
+void save_privileges() {
+    uid = getuid();
+    gid = getgid();
+}
+int drop_privileges() {
+    if (uid == 0) {
+        //Drop group privileges first
+        if( setegid(1000)<0 || seteuid(1000)<0 ) {
+            CO_errExit("Failed to drop privileges.");
+            return -1;
+        }
+    }
+    return 0;
+}
+int restore_privileges() {
+    if( setreuid(uid, gid)<0 ) {
+        CO_errExit("Failed to restore privileges.");
+        return -1;
+    }
+    return 0;
+}
+/* --------------------- */
+
 /******************************************************************************/
 /** Mainline and threads                                                     **/
 /******************************************************************************/
 int main(int argc, char *argv[]) {
+
+    //Drop privileges to create log
+    save_privileges();
+    drop_privileges();
+
     //Initialise console and file logging. Name file can be specified if required (see logging.h)
     init_logging();
+    restore_privileges();
 
     //Check if running with root privilege
     if (getuid() != 0) {
@@ -107,7 +139,7 @@ int main(int argc, char *argv[]) {
 
     int can_dev_number = 6;
     char CANdeviceList[can_dev_number][10] = {"vcan0\0", "can0\0", "can1\0", "can2\0", "can3\0", "can4\0"}; /*!< linux CAN device interface for app to bind to: change to can1 for bbb, can0 for BBAI vcan0 for virtual can*/
-    for (int i = 1; i < argc; i++) {                                                               // skip index 0 because it gives the executable address
+    for (int i = 1; i < argc - 1; i++) {                                                               // skip index 0 because it gives the executable address
         std::string arg = argv[i];
         if (arg.find("-can") != std::string::npos) {  // if there is a -can argument
             spdlog::info("CAN argument found: {}", argv[i + 1]);
@@ -178,7 +210,6 @@ int main(int argc, char *argv[]) {
         app_communicationReset(argc, argv);
 
 
-
         /* initialize CANopen with CAN interface and nodeID */
         if (CO_init(CANdevice0Index, nodeId, 0) != CO_ERROR_NO) {
             char s[120];
@@ -233,6 +264,10 @@ int main(int argc, char *argv[]) {
                     CO_errExit("Program init - rt_thread set scheduler failed (are you root?)");
                 }
             }
+
+            //Privileges not required anymore
+            drop_privileges();
+
             /* start CAN */
             CO_CANsetNormalMode(CO->CANmodule[0]);
             pthread_mutex_unlock(&CO_CAN_VALID_mtx);

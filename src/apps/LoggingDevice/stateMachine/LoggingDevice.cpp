@@ -73,6 +73,7 @@ void LoggingDevice::end() {
      */
 
 bool LoggingDevice::IsAPressed::check(void) {
+    spdlog::trace("IsAPressed");
     if (OWNER->robot->keyboard->getA() == true) {
 
         return true;
@@ -84,6 +85,13 @@ bool LoggingDevice::IsSPressed::check(void) {
         return true;
     }
     return false;
+}
+
+bool LoggingDevice::IsCalibrationFinished::check(void) {
+    if (OWNER->calibrateState->getCurrReading() < NUM_CALIBRATE_READINGS) {
+        return false;
+    }
+    return true;
 }
 
 bool LoggingDevice::IsWPressed::check(void) {

@@ -168,7 +168,7 @@ bool Drive::configureMasterPDOs(){
         generateEquivalentMasterTPDO(RPDO_MappedObjects[RPDO_Num], RPDO_COBID[RPDO_Num] + NodeID, 0xff);
     }
 
-    return true; 
+    return true;
 }
 
 bool Drive::initPDOs() {
@@ -462,7 +462,7 @@ std::vector<std::string> Drive::generateVelControlConfigSDO() {
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
     //enable profile Velocity mode
-    sstream << "[1] " << NodeID << " write 0x6060 0 i8 0xFD";
+    sstream << "[1] " << NodeID << " write 0x6060 0 i8 3";
     CANCommands.push_back(sstream.str());
     sstream.str(std::string());
 
@@ -494,8 +494,8 @@ int Drive::sendSDOMessages(std::vector<std::string> messages) {
 #ifndef NOROBOT
         // explicitly cast c++ string to from const char* to char* for use by cancomm function
         char *SDO_Message = (char *)(strCommand.c_str());
-        char *returnMessage;
-        cancomm_socketFree(SDO_Message, &returnMessage);
+        char returnMessage[STRING_BUFFER_SIZE];
+        cancomm_socketFree(SDO_Message, returnMessage);
         std::string retMsg = returnMessage;
 
         // Because returnMessage includes sequence it is possible value is "[1] OK".

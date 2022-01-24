@@ -1,6 +1,8 @@
 
 /**
- *
+ * @brief 
+ * 
+ */
  * \file X2Robot.h
  * \author Justin Fong
  * \version 0.1
@@ -24,18 +26,12 @@
 #include "CopleyDrive.h"
 #include "Keyboard.h"
 #include "Robot.h"
-#include "X2ForceSensor.h"
+#include "FourierForceSensor.h"
 #include "X2Joint.h"
+#include "TechnaidIMU.h"
 
 // Logger
-#include "spdlog/helper/LogHelper.h"
-// yaml-parser
-#include <fstream>
-#include "yaml-cpp/yaml.h"
-
-// These are used to access the MACRO: BASE_DIRECTORY
-#define XSTR(x) STR(x)
-#define STR(x) #x
+#include "LogHelper.h"
 
 #ifdef SIM
 #include "controller_manager_msgs/SwitchController.h"
@@ -52,7 +48,7 @@
 #define X2_NUM_FORCE_SENSORS 4
 
 // robot name is used to access the properties of the correct robot version
-#define X2_NAME X2_MELB_A
+#define X2_NAME_DEFAULT X2_MELB_A
 
 // Macros
 #define deg2rad(deg) ((deg)*M_PI / 180.0)
@@ -79,6 +75,7 @@ struct RobotParameters {
     Eigen::VectorXd c2; // friction const related to sqrt of vel
     Eigen::VectorXd cuffWeights; // cuff Weights [N]
     Eigen::VectorXd forceSensorScaleFactor; // scale factor of force sensors [N/sensor output]
+    IMUParameters imuParameters;
 };
 
 /**
@@ -99,12 +96,40 @@ class X2Robot : public Robot {
 
     //Todo: generalise sensors
     Eigen::VectorXd interactionForces_;
+    Eigen::VectorXd backpackAccelerations_; // x y z
+    Eigen::VectorXd backpackQuaternions_; // x y z w
+    Eigen::MatrixXd contactAccelerations_; // rows are x y z, columns are different contact points
+    Eigen::MatrixXd contactQuaternions_; // rows are x y z, w columns are different contact points
+    double backPackAngleOnMedianPlane_; // backpack angle wrt gravity vector. leaning front is positive [rad]
 
-    std::string robotName_;
+    int numberOfIMUs_;
 
-    bool initializeRobotParams(std::string robotName);
+    /**
+    * \brief Load parameters from YAML file if valid one specified in constructor.
+    * If absent or incomplete (some parameters only) default parameters are used instead (0).
+    * \params params a valid YAML robot parameters node loaded by initialiseFromYAML() method.
+    * \return true
+    */
+    bool loadParametersFromYAML(YAML::Node params);
 
     static void signalHandler(int signum);
+
+    /**
+    * \brief Get backpack quaternion
+    *
+    * \return Eigen::VectorXd qx, qy, qz, qw
+    */
+    Eigen::VectorXd getBackpackQuaternions();
+
+    /**
+    * \brief updates the angle of back pack with respect to - gravity vector on median plane. leaning front is positive
+    */
+    void updateBackpackAngleOnMedianPlane();
+
+    /**
+    * \brief updates the interaction force measurements
+    */
+    void updateInteractionForce();
 
 #ifdef SIM
     ros::NodeHandle* nodeHandle_;
@@ -126,6 +151,8 @@ class X2Robot : public Robot {
     Eigen::VectorXd simJointPositions_;
     Eigen::VectorXd simJointVelocities_;
     Eigen::VectorXd simJointTorques_;
+    Eigen::VectorXd simInteractionForces_;
+    double simBackPackAngleOnMedianPlane_;
 #endif
 
    public:
@@ -134,11 +161,17 @@ class X2Robot : public Robot {
       * Initialize memory for the Exoskelton <code>Joint</code> + sensors.
       * Load in exoskeleton paramaters to  <code>TrajectoryGenerator.</code>.
       */
-    X2Robot(std::string robotName = XSTR(X2_NAME));
+
+#ifdef SIM
+    X2Robot(ros::NodeHandle &nodeHandle, std::string robotName = XSTR(X2_NAME_DEFAULT), std::string yaml_config_file="x2_params.yaml");
+#else
+    X2Robot(std::string robotName = XSTR(X2_NAME_DEFAULT), std::string yaml_config_file="x2_params.yaml");
+#endif
     ~X2Robot();
     Keyboard* keyboard;
     std::vector<Drive*> motorDrives;
-    std::vector<X2ForceSensor*> forceSensors;
+    std::vector<FourierForceSensor*> forceSensors;
+    TechnaidIMU* technaidIMUs;
 
     // /**
     //  * \brief Timer Variables for moving through trajectories
@@ -237,6 +270,13 @@ class X2Robot : public Robot {
     Eigen::VectorXd& getInteractionForce();
 
     /**
+    * \brief Get the backpack angle on median plane with respect to - gravity axes
+    *
+    * \return double& reference to backpack angle
+    */
+    double& getBackPackAngleOnMedianPlane();
+
+    /**
     * \brief Calibrate force sensors
     *
     * \return bool success of calibration
@@ -256,11 +296,13 @@ class X2Robot : public Robot {
     bool homing(std::vector<int> homingDirection = std::vector<int>(X2_NUM_JOINTS, 1), float thresholdTorque = 50.0,
                 float delayTime = 0.2, float homingSpeed = 5 * M_PI / 180.0, float maxTime = 30.0);
 
+
     /**
-   * Determine if the currently generated trajectory is complete.
-   * \return bool
-   */
-    bool isTrajFinished();
+    * \brief Set the backpack IMU Mode
+    *
+    */
+    bool setBackpackIMUMode(IMUOutputMode imuOutputMode);
+
 
     /**
        * \brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
@@ -294,7 +336,7 @@ class X2Robot : public Robot {
 
     /**
        * \brief Sets the position control profile to be continuous (i.e. movements do not to complete before a new command is issued) or not
-       * 
+       *
        * \return true if successful
        * \return false if not (joints/drive not enabled or in correct mode)
        */
@@ -331,7 +373,7 @@ class X2Robot : public Robot {
     /**
        * \brief Initialize ROS services, publisher ans subscribers
       */
-    void initialiseROS();
+    void initialiseROS(ros::NodeHandle &nodeHandle);
 #endif
 };
 #endif /*EXOROBOT_H*/

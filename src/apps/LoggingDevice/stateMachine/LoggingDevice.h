@@ -46,7 +46,7 @@
 #include "RecordState.h"
 
 // Logger
-#include "spdlog/helper/LogHelper.h"
+#include "LogHelper.h"
 
 /**
  * @brief Example implementation of a StateMachine for the ExoRobot class. States should implemented ExoTestState
@@ -73,7 +73,6 @@ class LoggingDevice : public StateMachine {
 
     State *gettCurState();
     bool trajComplete;
-
 
     /**
      * Pointers to the relevant states - initialised in init

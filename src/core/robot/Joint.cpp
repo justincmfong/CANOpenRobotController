@@ -207,7 +207,12 @@ bool Joint::start() {
     else{
         return false;
     }
+}
 
+void Joint::resetErrors() {
+    if (actuated) {
+        drive->resetErrors();
+    }
 }
 
 void Joint::resetErrors() {
@@ -237,6 +242,7 @@ bool Joint::disable() {
         drive->readyToSwitchOn();  //Ready to switch on is also power off state
         return true;
     }
+    spdlog::error("SetPosControlContinuous: Drive is not enabled, in incorrect mode or not actuated");
     return false;
 }
 
