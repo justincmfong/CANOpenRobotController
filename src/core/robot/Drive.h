@@ -147,7 +147,6 @@ class Drive {
         */
     void generateEquivalentMasterRPDO(std::vector<OD_Entry_t> items,  int COB_ID, int RPDOSyncRate);
 
-
     /**
         * \brief Generates the list of commands required to configure RPDOs on the drives
         *

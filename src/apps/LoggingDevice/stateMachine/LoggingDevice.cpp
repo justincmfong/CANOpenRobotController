@@ -87,6 +87,7 @@ bool LoggingDevice::IsSPressed::check(void) {
     return false;
 }
 
+
 bool LoggingDevice::IsCalibrationFinished::check(void) {
     if (OWNER->calibrateState->getCurrReading() < NUM_CALIBRATE_READINGS) {
         return false;

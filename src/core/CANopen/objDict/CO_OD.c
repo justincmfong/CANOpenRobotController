@@ -204,7 +204,6 @@ OD_TPDOMappingParameter_t *OD_TPDOMappingParameter[CO_NO_TPDO] = {&TPDOMapParamO
     {(void *)&TPDOMapParamOff.mappedObject8, 0x8e, 0x4},
 };
 
-
 /*0x2130*/ const CO_OD_entryRecord_t OD_record2130[4] = {
     {(void *)&CO_OD_RAM.time.maxSubIndex, 0x06, 0x1},
     {(void *)&CO_OD_RAM.time.string, 0x06, 0x1},

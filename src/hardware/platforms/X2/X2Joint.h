@@ -1,5 +1,4 @@
 /**
- * \file X2Joint.h
  * \author Justin Fong
  * \brief A class presenting the hip or knee joints of the X2 Exoskeleton Robot
  * \version 0.1

@@ -10,7 +10,6 @@ Robot::~Robot() {
     spdlog::debug("Robot object deleted");
 }
 
-
 bool Robot::initialiseFromYAML(std::string yaml_config_file) {
     if(yaml_config_file.size()>0) {
         // need to use address of base directory because when run with ROS, working directory is ~/.ros

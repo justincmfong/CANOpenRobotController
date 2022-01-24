@@ -10,7 +10,6 @@ LoggingRobot::LoggingRobot(std::string robot_name, std::string yaml_config_file)
     initialiseInputs();
 }
 
-
 bool LoggingRobot::initialiseInputs() {
 
     inputs.push_back(keyboard = new Keyboard());

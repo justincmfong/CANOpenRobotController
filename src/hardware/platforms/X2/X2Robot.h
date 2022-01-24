@@ -1,13 +1,12 @@
-
 /**
- *
+ * 
  * \file X2Robot.h
- * \author Justin Fong
+ *  \author Justin Fong
  * \version 0.1
  * \date 2020-05-17
  * \copyright Copyright (c) 2020
  *
- * \breif  The<code> X2Robot</ code> class is defined to interface with Fourier Intelligence's X2 (or H4)
+ * \brief  The<code> X2Robot</ code> class is defined to interface with Fourier Intelligence's X2 (or H4)
  * ExoMotus products.
  *
  */
@@ -87,6 +86,7 @@ class X2Robot : public Robot {
      *
      */
     motorProfile posControlMotorProfile{4000000, 240000, 240000};
+    
     motorProfile velControlMotorProfile{0, 240000, 240000};
 
     RobotParameters x2Parameters;
@@ -313,7 +313,7 @@ class X2Robot : public Robot {
        * Initialize each <code>Drive</code> Objects underlying CANOpen Networking.
 
       */
-    bool initialiseNetwork();
+        bool initialiseNetwork();
     /**
        * \brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
        * Initialize each <code>Input</code> Object.
