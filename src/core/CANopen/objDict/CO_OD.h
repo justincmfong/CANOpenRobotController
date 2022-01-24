@@ -226,10 +226,6 @@ typedef domain_t CO_DOMAIN;
     CO_DOMAIN plot;
     UNSIGNED32 triggerTime;
 } OD_trace_t;
-<<<<<<< HEAD
-
-=======
->>>>>>> UniMelbHumanRoboticsLab-master
 
 /*******************************************************************************
    TYPE DEFINITIONS FOR OBJECT DICTIONARY INDEXES

@@ -11,11 +11,6 @@
  */
 #include "application.h"
 
-<<<<<<< HEAD
-#include "RobotousRFT.h"
-
-=======
->>>>>>> UniMelbHumanRoboticsLab-master
 #ifdef TIMING_LOG
 #include "LoopTiming.h"
 LoopTiming loopTimer;

@@ -1,15 +1,12 @@
-
 /**
- * @brief 
  * 
- */
  * \file X2Robot.h
- * \author Justin Fong
+ *  \author Justin Fong
  * \version 0.1
  * \date 2020-05-17
  * \copyright Copyright (c) 2020
  *
- * \breif  The<code> X2Robot</ code> class is defined to interface with Fourier Intelligence's X2 (or H4)
+ * \brief  The<code> X2Robot</ code> class is defined to interface with Fourier Intelligence's X2 (or H4)
  * ExoMotus products.
  *
  */

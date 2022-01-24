@@ -215,11 +215,6 @@ void Joint::resetErrors() {
     }
 }
 
-void Joint::resetErrors() {
-    if (actuated) {
-        drive->resetErrors();
-    }
-}
 
 void Joint::readyToSwitchOn() {
     if (actuated) {

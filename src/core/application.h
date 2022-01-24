@@ -66,7 +66,6 @@ extern "C" {
 #define TMR_TASK_INTERVAL_NS (1000000) /* Interval of taskTmr in nanoseconds */
 #define TMR_TASK_OVERFLOW_US (5000)    /* Overflow detect limit for taskTmr in microseconds */
 #define INCREMENT_1MS(var) (var++)     /* Increment 1ms variable in taskTmr */
-#define NODEID (80)
 /**
  * /brief Function is called on program startup.
  */
@@ -95,6 +94,5 @@ void app_programAsync(uint16_t timer1msDiff);
  * Code inside this function must be executed fast. Take care on race conditions.
  */
 void app_programControlLoop(void);
-
 
 #endif /*APP_H*/

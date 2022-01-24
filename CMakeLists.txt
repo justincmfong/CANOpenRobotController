@@ -18,12 +18,12 @@ project(CORC C CXX)
 #set (STATE_MACHINE_NAME "M3Chai")
 #set (STATE_MACHINE_NAME "ExoTestMachine")
 #set (STATE_MACHINE_NAME "X2DemoMachine")
-set (STATE_MACHINE_NAME "LoggingDevice")
+#set (STATE_MACHINE_NAME "LoggingDevice")
 #set (STATE_MACHINE_NAME "ForcePlateApp")
-#set (STATE_MACHINE_NAME "AlexMachine")
+set (STATE_MACHINE_NAME "AlexMachine")
 
 # Set the CAN Node ID of the system
-add_definitions(-DNODEID=0x10)
+add_definitions(-DNODEID=0x64)
 
 # Comment to use actual hardware, uncomment for a nor robot (virtual) app
 set(NO_ROBOT OFF)
