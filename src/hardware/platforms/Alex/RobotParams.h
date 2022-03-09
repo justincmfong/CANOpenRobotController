@@ -20,8 +20,10 @@
 #define ALEX_NUM_JOINTS 6
 #define ALEX_ACTUAL_NUM_JOINTS 4
 
-/**
- * An enum type.
+/**/**
+ * @brief 
+ * 
+ */
  * Joint Index for the 4 joints (note, CANopen NODEID = this + 1)
  */
 enum X2Joints {

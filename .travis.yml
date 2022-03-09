@@ -6,6 +6,11 @@ branches:
   only:
     - master
 
+# Environment variables
+env:
+  global:
+    - PROJ_SRC_DIR=CANOpenRobotController/src
+
 # Install dependencies
 addons:
   apt:
@@ -15,13 +20,13 @@ addons:
 
 # Build your code e.g. by calling make
 script:
-  - doxygen Doxyfile
+- doxygen Doxyfile
 
 # Generate and deploy documentation
 deploy:
   provider: pages
   skip_cleanup: true
-  local_dir: html
+  local_dir: CANOpenRobotController/doc/html
   github_token: $GH_REPO_TOKEN
   on:
     branch: master

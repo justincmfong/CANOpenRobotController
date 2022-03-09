@@ -30,7 +30,7 @@ void Keyboard::updateInput() {
     setKeyboardActive(kbhit());
     if (getKeyboardActive() != 0) {
         setKeys();
-        printPressed();
+        //printPressed();
     }
 }
 void Keyboard::setKeys() {
@@ -50,6 +50,10 @@ void Keyboard::setKeys() {
         case 's':
         case 'S':
             currentKeyStates.s = true;
+            break;
+        case 'e':
+        case 'E':
+            currentKeyStates.e = true;
             break;
         case 'd':
         case 'D':
@@ -79,7 +83,6 @@ void Keyboard::setKeys() {
     currentKeyStates.key_code = ch;
 }
 
-
 void Keyboard::printPressed() {
     if (getNb()>=0) {
         spdlog::info("PRESSED #{}", getNb());
@@ -91,6 +94,7 @@ void Keyboard::printPressed() {
 void Keyboard::clearCurrentStates() {
     currentKeyStates.a = false;
     currentKeyStates.s = false;
+    currentKeyStates.e = false;
     currentKeyStates.d = false;
     currentKeyStates.w = false;
     currentKeyStates.x = false;
@@ -105,7 +109,10 @@ bool Keyboard::getA() {
 }
 bool Keyboard::getS() {
     return currentKeyStates.s;
-}
+};
+bool Keyboard::getE() {
+    return currentKeyStates.e;
+};
 bool Keyboard::getD() {
     return currentKeyStates.d;
 }

@@ -81,5 +81,7 @@ class DummyTrajectoryGenerator {
      * \return false if trajectory has not been completed
      */
     bool isTrajectoryFinished();
+    /*derieved clone to provide ABC pointer reference to this class*/
+    virtual AlexTrajectoryGenerator *clone() const;
 };
 #endif

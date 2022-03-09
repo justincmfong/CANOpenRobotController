@@ -1,6 +1,4 @@
 /**
- * \file Drive.h
- * \author Justin Fong
  * \brief  The <code>Drive</code> class is used to interface with a CANOpen motor drive. According to the CiA402 standard
  *
  * This class enables low level functions to the system. It does limited error
@@ -15,7 +13,6 @@
 
 #ifndef DRIVE_H_INCLUDED
 #define DRIVE_H_INCLUDED
-
 #include <CANopen.h>
 #include <CO_command.h>
 #include <string.h>
@@ -58,8 +55,8 @@ static std::map<std::string, std::string> SDO_Standard_Error = {
     {"0x08000022", "Access not possible due to current device status"}};
 
 /**
- * An enum type.
- * Constants representing the control mode of the drive
+ * \brief Supported drive control modes
+ * 
  */
 enum ControlMode {
     CM_UNCONFIGURED = 0,
@@ -69,14 +66,15 @@ enum ControlMode {
     CM_ERROR = -1,
     CM_UNACTUATED_JOINT = -2
 };
+
 /**
- * An enum type.
- * Constants representing the Drives State
+ * \brief Supported drive states
+ * 
  */
 enum DriveState {
-    DISABLED = 0,
-    READY_TO_SWITCH_ON = 1,
-    ENABLED = 2,
+    DISABLED = 0,           /**< 0 */
+    READY_TO_SWITCH_ON = 1, /**< 1 */
+    ENABLED = 2,            /**< 2 */
 };
 
 /**
@@ -105,9 +103,17 @@ struct motorProfile {
     int profileAcceleration;
     int profileDeceleration;
 };
+/**
+ * The sdoReturnCode_t is used to determine whether the correct number of SDO messages
+ * were recieved succesfully by nodes on the network.  
+ */
+enum sdoReturnCode_t {
+    CORRECT_NUM_CONFIRMATION = 1,
+    INCORRECT_NUM_CONFIRMATION = 0,
+};
 
 /**
- * @ingroup Robot
+ * \ingroup Robot
  * \brief Abstract class describing a Drive used to communicate with a CANbus device. Note that many functions are implemented according to the CiA 402 Standard (but can be overridden)
  *
  */
@@ -497,17 +503,19 @@ class Drive {
     virtual int getPos();
 
     /**
-           * Returns the current velocity from the motor drive (0x606C)
-           * Returns 0 if NODEID is 5 or 6: ankles. They have no OD entry.
-           * \return Velocity from the motor drive
-           */
+     * \brief Gets the current velocity from the motor drive (0x606C)
+     * 
+     * \return int representing the current velocity of the drive. 
+     * Returns 0 if Node ID is 5 or 6 as these have no OD entry.
+     */
     virtual int getVel();
 
     /**
-           * Returns the current torque from the motor drive (0x6077)
-           * Returns 0 if NODEID is 5 or 6: ankles. They have no OD entry.
-           * \return Torque from the motor drive
-           */
+     * \brief Gets the current torque from the motor drive (0x6077)
+     * 
+     * \return int representing the current torque of the drive
+     * Returns 0 if Node ID is 5 or 6 as these have no OD entry.
+     */
     virtual int getTorque();
 
     // Drive State Modifiers
@@ -586,13 +594,21 @@ class Drive {
         */
     virtual ControlMode getControlMode() { return controlMode; };
 
-    // CANOpen
+    //CANopen
     /**
            * \brief Get returns the CanNode ID
            *
            * \return int the Node ID
            */
     int getNodeID();
+    /**
+        * \brief changes whether the set point is immediate changed, or the drive waits for the last set point to complete.
+        *     Drive must be in the ENABLED state. 
+        * 
+        *  \return true if successful
+        *  \return false if unsuccessful (drive not in the ENABLED State)
+        */
+    virtual bool changeSetPointImmediately(bool immediate);
 };
 
 #endif

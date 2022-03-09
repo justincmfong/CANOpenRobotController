@@ -32,6 +32,7 @@
 typedef struct keys {
     bool a;
     bool s;
+    bool e;
     bool d;
     bool w;
     bool x;
@@ -91,6 +92,11 @@ class Keyboard : public InputDevice {
  *
  */
     bool getS();
+    /**
+ * \brief Getter method for private E key state
+ * 
+ */
+    bool getE();
     /**
  * \brief Getter method for private D key state
  *

@@ -15,6 +15,7 @@
 #ifndef COPLEYDRIVE_H_INCLUDED
 #define COPLEYDRIVE_H_INCLUDED
 #include "Drive.h"
+#include "RobotParams.h"
 
 /**
  * \brief An implementation of the Drive Object, specifically for Copley-branded devices (currently used on the X2 Exoskeleton)
