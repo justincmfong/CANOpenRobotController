@@ -454,6 +454,7 @@ bool AlexRobot::moveThroughTraj() {
     double elapsedSec = currTime.tv_sec - prevTime.tv_sec + (currTime.tv_nsec - prevTime.tv_nsec) / 1e9;
     double trajTimeUS = trajectoryGenerator->getStepDuration();
     prevTime = currTime;
+
     // This should check to make sure that the "GO" button is pressed.
     if (getGo()) {
         currTrajProgress += elapsedSec;
