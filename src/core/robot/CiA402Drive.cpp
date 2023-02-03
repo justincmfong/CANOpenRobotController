@@ -1,19 +1,19 @@
-#include "Drive.h"
+#include "CiA402Drive.h"
 
-Drive::Drive() {
+CiA402Drive::CiA402Drive() {
     statusWord = 0;
     error = 0;
     this->NodeID = -1;
 }
 
-Drive::Drive(int node_id) {
+CiA402Drive::CiA402Drive(int node_id) {
     statusWord = 0;
     error = 0;
     NodeID = node_id;
 
 }
 
-Drive::~Drive() {
+CiA402Drive::~CiA402Drive() {
     // Needs to undo PDOS
     for (auto p : rpdos) {
         spdlog::debug("Deleting RPDO (COB-ID: 0x{0:x})", p->getCOBID());
@@ -26,11 +26,11 @@ Drive::~Drive() {
 }
 
 
-int Drive::getNodeID() {
+int CiA402Drive::getNodeID() {
     return NodeID;
 }
 
-int Drive::preop() {
+int CiA402Drive::preop() {
     // start drive (Node)
     std::stringstream sstream;
     std::vector<std::string> CANCommands;
@@ -40,7 +40,7 @@ int Drive::preop() {
     return sendSDOMessages(CANCommands);
 }
 
-int Drive::start() {
+int CiA402Drive::start() {
     // start drive (Node)
     std::stringstream sstream;
     std::vector<std::string> CANCommands;
@@ -50,7 +50,7 @@ int Drive::start() {
     return sendSDOMessages(CANCommands);
 }
 
-int Drive::stop() {
+int CiA402Drive::stop() {
     // stop drive (Node)
     std::stringstream sstream;
     std::vector<std::string> CANCommands;
@@ -61,43 +61,43 @@ int Drive::stop() {
 }
 
 
-bool Drive::setPos(int position) {
-    spdlog::trace("Drive {} Writing {} to 0x607A", NodeID, position);
+bool CiA402Drive::setPos(int position) {
+    spdlog::trace("CiA402Drive {} Writing {} to 0x607A", NodeID, position);
     targetPos = position;
     return true;
 }
 
-bool Drive::setVel(int velocity) {
-    spdlog::trace("Drive {} Writing {} to 0x60FF", NodeID, velocity);
+bool CiA402Drive::setVel(int velocity) {
+    spdlog::trace("CiA402Drive {} Writing {} to 0x60FF", NodeID, velocity);
     targetVel = velocity;
     return true;
 }
 
-bool Drive::setTorque(int torque) {
+bool CiA402Drive::setTorque(int torque) {
     /**
     * \todo add setTorque to object dictionary for all drives
     *
     */
-    spdlog::trace("Drive {} Writing {} to 0x{0:x}", NodeID, (short int)torque, OD_Addresses[TARGET_TOR][0]);
+    spdlog::trace("CiA402Drive {} Writing {} to 0x{0:x}", NodeID, (short int)torque, OD_Addresses[TARGET_TOR][0]);
     targetTor = torque;
     return true;
 }
 
-bool Drive::setDigitalOut(int digital_out) {
-    spdlog::trace("Drive {} Writing {} to 0x{0:x}", NodeID, (short int)digitalOut, OD_Addresses[DIGITAL_OUT][0]);
+bool CiA402Drive::setDigitalOut(int digital_out) {
+    spdlog::trace("CiA402Drive {} Writing {} to 0x{0:x}", NodeID, (short int)digitalOut, OD_Addresses[DIGITAL_OUT][0]);
     digitalOut = digital_out;
     return true;
 }
 
-int Drive::getPos() {
+int CiA402Drive::getPos() {
     return actualPos;
 }
 
-int Drive::getVel() {
+int CiA402Drive::getVel() {
     return actualVel;
 }
 
-int Drive::getTorque() {
+int CiA402Drive::getTorque() {
     /**
     *  \todo Remove assumption that only drives 1-4 have access to the motor torques
     *
@@ -109,44 +109,44 @@ int Drive::getTorque() {
     }
 }
 
-int Drive::getDigitalIn() {
+int CiA402Drive::getDigitalIn() {
     return digitalIn;
 }
 
-DriveState Drive::resetErrors() {
+DriveState CiA402Drive::resetErrors() {
     controlWord = 0x80;
     driveState = DISABLED;
     return driveState;
 }
 
 
-DriveState Drive::readyToSwitchOn() {
+DriveState CiA402Drive::readyToSwitchOn() {
     controlWord = 0x06;
     driveState = READY_TO_SWITCH_ON;
     return driveState;
 }
 
-DriveState Drive::enable() {
+DriveState CiA402Drive::enable() {
     controlWord = 0x0F;
     driveState = ENABLED;
     return driveState;
 }
 
-DriveState Drive::disable() {
+DriveState CiA402Drive::disable() {
     controlWord = 0x00;
     driveState = DISABLED;
     return driveState;
 }
 
-DriveState Drive::getState() {
+DriveState CiA402Drive::getState() {
     return driveState;
 }
 
-int Drive::getStatus() {
+int CiA402Drive::getStatus() {
     return statusWord;
 }
 
-bool Drive::posControlConfirmSP() {
+bool CiA402Drive::posControlConfirmSP() {
     controlWord = controlWord ^ 0x10;
     if (((controlWord ^ 0x10 )& 0x10) > 0) {
         return false;
@@ -155,7 +155,7 @@ bool Drive::posControlConfirmSP() {
     }
 }
 
-bool Drive::posControlSetContinuousProfile(bool continuous) {
+bool CiA402Drive::posControlSetContinuousProfile(bool continuous) {
     if (driveState == ENABLED){
         if (continuous){
             controlWord = controlWord | 0x20;
@@ -168,7 +168,7 @@ bool Drive::posControlSetContinuousProfile(bool continuous) {
     }
 }
 
-bool Drive::configureMasterPDOs(){
+bool CiA402Drive::configureMasterPDOs(){
     // Set up the PDOs in the OD here
     for (unsigned int TPDO_Num = 1; TPDO_Num <= TPDO_MappedObjects.size(); TPDO_Num++) {
         generateEquivalentMasterRPDO(TPDO_MappedObjects[TPDO_Num], TPDO_COBID[TPDO_Num] + NodeID, 0xff);
@@ -180,8 +180,8 @@ bool Drive::configureMasterPDOs(){
     return true;
 }
 
-bool Drive::initPDOs() {
-    spdlog::debug("Drive::initPDOs");
+bool CiA402Drive::initPDOs() {
+    spdlog::debug("CiA402Drive::initPDOs");
 
     // Calculate COB_ID. If TPDO:
     //int COB_ID = 0x100 * PDO_Num + 0x80 + NodeID;
@@ -235,8 +235,8 @@ bool Drive::initPDOs() {
     return true;
     }
 
-bool Drive::setMotorProfile(motorProfile profile) {
-    spdlog::debug("Drive::initMotorProfile");
+bool CiA402Drive::setMotorProfile(motorProfile profile) {
+    spdlog::debug("CiA402Drive::initMotorProfile");
 
     // Define Vector to be returned as part of this method
     std::vector<std::string> CANCommands;
@@ -266,7 +266,7 @@ bool Drive::setMotorProfile(motorProfile profile) {
     return true;
 }
 
-std::vector<std::string> Drive::generateTPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int COB_ID, int SyncRate) {
+std::vector<std::string> CiA402Drive::generateTPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int COB_ID, int SyncRate) {
     // TODO: Do a check to make sure that the OD_Entry_t items can be transmitted.
 
     // Calculate COB_ID. If TPDO:
@@ -313,7 +313,7 @@ std::vector<std::string> Drive::generateTPDOConfigSDO(std::vector<OD_Entry_t> it
     return CANCommands;
 }
 
-void Drive::generateEquivalentMasterRPDO(std::vector<OD_Entry_t> items, int COB_ID, int RPDOSyncRate) {
+void CiA402Drive::generateEquivalentMasterRPDO(std::vector<OD_Entry_t> items, int COB_ID, int RPDOSyncRate) {
     void *variables[items.size()];
     UNSIGNED16 variableSize[items.size()];
     for (uint i = 0; i < items.size(); i++) {
@@ -326,7 +326,7 @@ void Drive::generateEquivalentMasterRPDO(std::vector<OD_Entry_t> items, int COB_
     //spdlog::debug("Master RPDO (COB-ID 0x{0:x}) Setup for Node {}", COB_ID, NodeID);
 }
 
-std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int COB_ID, int UpdateTiming) {
+std::vector<std::string> CiA402Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> items, int PDO_Num, int COB_ID, int UpdateTiming) {
     /**
      *  \todo Do a check to make sure that the OD_Entry_t items can be Received
      *
@@ -374,7 +374,7 @@ std::vector<std::string> Drive::generateRPDOConfigSDO(std::vector<OD_Entry_t> it
     return CANCommands;
 }
 
-void Drive::generateEquivalentMasterTPDO(std::vector<OD_Entry_t> items, int COB_ID, int TPDOSyncRate) {
+void CiA402Drive::generateEquivalentMasterTPDO(std::vector<OD_Entry_t> items, int COB_ID, int TPDOSyncRate) {
     void *variables[items.size()];
     UNSIGNED16 variableSize[items.size()];
     for (uint i = 0; i < items.size(); i++) {
@@ -386,7 +386,7 @@ void Drive::generateEquivalentMasterTPDO(std::vector<OD_Entry_t> items, int COB_
     //spdlog::debug("Master TPDO (COB-ID 0x{0:x}) Setup for Node {}", COB_ID, NodeID);
 }
 
-std::vector<std::string> Drive::generatePosControlConfigSDO(motorProfile positionProfile) {
+std::vector<std::string> CiA402Drive::generatePosControlConfigSDO(motorProfile positionProfile) {
     // Define Vector to be returned as part of this method
     std::vector<std::string> CANCommands;
     // Define stringstream for ease of constructing hex strings
@@ -417,7 +417,7 @@ std::vector<std::string> Drive::generatePosControlConfigSDO(motorProfile positio
 
     return CANCommands;
 }
-std::vector<std::string> Drive::generatePosControlConfigSDO() {
+std::vector<std::string> CiA402Drive::generatePosControlConfigSDO() {
     // Define Vector to be returned as part of this method
     std::vector<std::string> CANCommands;
     // Define stringstream for ease of constructing hex strings
@@ -434,7 +434,7 @@ std::vector<std::string> Drive::generatePosControlConfigSDO() {
     return CANCommands;
 }
 
-std::vector<std::string> Drive::generateVelControlConfigSDO(motorProfile velocityProfile) {
+std::vector<std::string> CiA402Drive::generateVelControlConfigSDO(motorProfile velocityProfile) {
     // Define Vector to be returned as part of this method
     std::vector<std::string> CANCommands;
     // Define stringstream for ease of constructing hex strings
@@ -460,7 +460,7 @@ std::vector<std::string> Drive::generateVelControlConfigSDO(motorProfile velocit
 
     return CANCommands;
 }
-std::vector<std::string> Drive::generateVelControlConfigSDO() {
+std::vector<std::string> CiA402Drive::generateVelControlConfigSDO() {
     // Define Vector to be returned as part of this method
     std::vector<std::string> CANCommands;
     // Define stringstream for ease of constructing hex strings
@@ -477,7 +477,7 @@ std::vector<std::string> Drive::generateVelControlConfigSDO() {
     return CANCommands;
 }
 
-std::vector<std::string> Drive::generateTorqueControlConfigSDO() {
+std::vector<std::string> CiA402Drive::generateTorqueControlConfigSDO() {
     // Define Vector to be returned as part of this method
     std::vector<std::string> CANCommands;
     // Define stringstream for ease of constructing hex strings
@@ -494,7 +494,7 @@ std::vector<std::string> Drive::generateTorqueControlConfigSDO() {
     return CANCommands;
 }
 
-int Drive::sendSDOMessages(std::vector<std::string> messages) {
+int CiA402Drive::sendSDOMessages(std::vector<std::string> messages) {
     int successfulMessages = 0;
     for (auto strCommand : messages) {
         spdlog::trace(strCommand);

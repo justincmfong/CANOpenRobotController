@@ -283,7 +283,7 @@ public:
 #endif
     ~X2Robot();
     Keyboard* keyboard;
-    std::vector<Drive*> motorDrives;
+    //std::vector<CopleyDrives*> motorDrives;
     std::vector<FourierForceSensor*> forceSensors;
     FourierHandle* buttons;
     TechnaidIMU* technaidIMUs;

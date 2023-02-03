@@ -608,12 +608,12 @@ bool X2Robot::setContactIMUMode(IMUOutputMode imuOutputMode) {
 
 bool X2Robot::initialiseJoints() {
     for (int id = 0; id < X2_NUM_JOINTS; id++) {
-        motorDrives.push_back(new CopleyDrive(id + 1));
-        // The X2 has 2 Hips and 2 Knees, by default configured as 2 hips, then 2 legs int jointID, double jointMin, double jointMax, JointDrivePairs jdp, Drive *drive
+        //motorDrives.push_back();
+        // The X2 has 2 Hips and 2 Knees, by default configured as 2 hips, then 2 legs int jointID, double jointMin, double jointMax, JointDrivePairs jdp, CiA402Drive *drive
         if (id == X2_LEFT_HIP || id == X2_RIGHT_HIP) {
-            joints.push_back(new X2Joint(id, x2Parameters.jointPositionLimits.hipMin, x2Parameters.jointPositionLimits.hipMax, hipJDP, motorDrives[id]));
+            joints.push_back(new X2Joint(id, x2Parameters.jointPositionLimits.hipMin, x2Parameters.jointPositionLimits.hipMax, hipJDP, new CopleyDrive(id + 1)));
         } else if (id == X2_LEFT_KNEE || id == X2_RIGHT_KNEE) {
-            joints.push_back(new X2Joint(id, x2Parameters.jointPositionLimits.kneeMin, x2Parameters.jointPositionLimits.kneeMax, kneeJDP, motorDrives[id]));
+            joints.push_back(new X2Joint(id, x2Parameters.jointPositionLimits.kneeMin, x2Parameters.jointPositionLimits.kneeMax, kneeJDP, new CopleyDrive(id + 1)));
         }
         spdlog::debug("X2Robot::initialiseJoints() loop");
     }
@@ -797,10 +797,10 @@ void X2Robot::freeMemory() {
         spdlog::debug("Delete Joint ID: {}", p->getId());
         delete p;
     }
-    for (auto p : motorDrives) {
-        spdlog::debug("Delete Drive Node: {}", p->getNodeID());
+ /*   for (auto p : motorDrives) {
+        spdlog::debug("Delete CiA402Drive Node: {}", p->getNodeID());
         delete p;
-    }
+    }*/
     for (auto p : inputs) {
         spdlog::debug("Deleting Input");
         delete p;

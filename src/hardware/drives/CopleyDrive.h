@@ -2,7 +2,7 @@
 /**
  * \file CopleyDrive.h
  * \author Justin Fong
- * \brief  An implementation of the Drive Object, specifically for the Copley Drive
+ * \brief  An implementation of the CiA402Drive Object, specifically for the Copley CiA402Drive
  *
  * This class enables low level functions to the system. It does limited error
  * checking.
@@ -14,23 +14,23 @@
  */
 #ifndef COPLEYDRIVE_H_INCLUDED
 #define COPLEYDRIVE_H_INCLUDED
-#include "Drive.h"
+#include "CiA402Drive.h"
 
 /**
- * \brief An implementation of the Drive Object, specifically for Copley-branded devices (currently used on the X2 Exoskeleton)
+ * \brief An implementation of the CiA402Drive Object, specifically for Copley-branded devices (currently used on the X2 Exoskeleton)
  *
  */
-class CopleyDrive : public Drive {
+class CopleyDrive : public CiA402Drive {
    public:
     /**
-         * \brief Construct a new Copley Drive object
+         * \brief Construct a new Copley CiA402Drive object
          *
          * \param NodeID CANopen Node ID
          */
     CopleyDrive(int NodeID);
 
     /**
-         * \brief Destroy the Copley Drive object
+         * \brief Destroy the Copley CiA402Drive object
          *
          */
     ~CopleyDrive();
@@ -73,7 +73,7 @@ class CopleyDrive : public Drive {
          */
     bool initTorqueControl();
     /**
-          * \brief Overloaded method from Drive, specifically for Copley Drive implementation.
+          * \brief Overloaded method from CiA402Drive, specifically for Copley CiA402Drive implementation.
           *     Generates the list of commands required to configure Position control in CANopen motor drive
           *
           * /param Profile Velocity, value used by position mode motor trajectory generator.
@@ -94,7 +94,7 @@ class CopleyDrive : public Drive {
 
     std::vector<std::string> generatePosControlConfigSDO(motorProfile positionProfile);
     /**
-          * \brief Overloaded method from Drive, specifically for Copley Drive implementation.
+          * \brief Overloaded method from CiA402Drive, specifically for Copley CiA402Drive implementation.
           *     Generates the list of commands required to configure Velocity control in CANopen motor drive
           *
           * /param Profile Acceleration, value Velocity mode motor trajectory generator will attempt to achieve.
@@ -111,7 +111,7 @@ class CopleyDrive : public Drive {
           */
     std::vector<std::string> generateVelControlConfigSDO(motorProfile velocityProfile);
     /**
-          * \brief Overloaded method from Drive, specifically for Copley Drive implementation.
+          * \brief Overloaded method from CiA402Drive, specifically for Copley CiA402Drive implementation.
           *     Generates the list of commands required to configure Torque control in CANopen motor drive
           *
           *    NOTE: More details on params and profiles can be found in the CANopne CiA 402 series specifications:

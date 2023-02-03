@@ -21,16 +21,16 @@ JointM1::JointM1(int jointID, double q_min, double q_max, short int sign_, doubl
     double correctionFactor = 1875./512;   //magic number
     encoderCounts = 10000;          //Encoder counts per turn
     reductionRatio = 69;            // Reduction ratio due to gear head, seems right, but not sure yet
-    d2j_Pos = round2radian * sign / (double)encoderCounts / reductionRatio;   // Drive to Joint unit conversion for position, in radian
-    j2d_Pos = sign * (double)encoderCounts * reductionRatio / round2radian;   // Joint to Drive unit conversion for position, in encoder count
+    d2j_Pos = round2radian * sign / (double)encoderCounts / reductionRatio;   // CiA402Drive to Joint unit conversion for position, in radian
+    j2d_Pos = sign * (double)encoderCounts * reductionRatio / round2radian;   // Joint to CiA402Drive unit conversion for position, in encoder count
 
-    d2j_Vel = round2radian * sign / 60. / (double)encoderCounts / reductionRatio * correctionFactor;   // Drive to Joint unit conversion for velocity, reading is encoder count per minutes
-    j2d_Vel = sign * 60. * (double)encoderCounts * reductionRatio/round2radian / correctionFactor;   // Joint to Drive unit conversion for velocity, command input is round per second
+    d2j_Vel = round2radian * sign / 60. / (double)encoderCounts / reductionRatio * correctionFactor;   // CiA402Drive to Joint unit conversion for velocity, reading is encoder count per minutes
+    j2d_Vel = sign * 60. * (double)encoderCounts * reductionRatio/round2radian / correctionFactor;   // Joint to CiA402Drive unit conversion for velocity, command input is round per second
 
     Ipeak = 45.0;                   //Kinco FD123 peak current
     motorTorqueConstant = 0.132;    //SMC60S-0020 motor torque constant
-    d2j_Trq = sign / Ipeak / 1.414 * motorTorqueConstant * reductionRatio;   // Drive to Joint unit conversion for torque
-    j2d_Trq = sign * Ipeak * 1.414 / motorTorqueConstant / reductionRatio;   // Joint to Drive unit conversion for torque
+    d2j_Trq = sign / Ipeak / 1.414 * motorTorqueConstant * reductionRatio;   // CiA402Drive to Joint unit conversion for torque
+    j2d_Trq = sign * Ipeak * 1.414 / motorTorqueConstant / reductionRatio;   // Joint to CiA402Drive unit conversion for torque
 
     spdlog::debug("Joint ID {} Created", this->id);
 }
@@ -173,9 +173,9 @@ void JointM1::errorMessage(setMovementReturnCode_t errorCode){
 }
 
 bool JointM1::setDigitalOut(int digital_out) {
-    return drive->setDigitalOut(digital_out);
+    return ((KincoDrive *)drive)->setDigitalOut(digital_out);
 }
 
 int JointM1::getDigitalIn() {
-    return drive->getDigitalIn();
+    return ((KincoDrive *)drive)->getDigitalIn();
 }

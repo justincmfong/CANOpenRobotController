@@ -1,7 +1,7 @@
 /**
  * \file KincoDrive.h
  * \author Justin Fong
- * \brief  An implementation of the Drive Object, specifically for the Kinco Drive
+ * \brief  An implementation of the CiA402Drive Object, specifically for the Kinco CiA402Drive
  *
  * This class enables low level functions to the system. It does limited error
  * checking.
@@ -13,23 +13,23 @@
  */
 #ifndef KINCODRIVE_H_INCLUDED
 #define KINCODRIVE_H_INCLUDED
-#include "Drive.h"
+#include "CiA402Drive.h"
 
 /**
- * \brief An implementation of the Drive Object, specifically for Kinco-branded devices (currently used on the X2 Exoskeleton)
+ * \brief An implementation of the CiA402Drive Object, specifically for Kinco-branded devices (currently used on the X2 Exoskeleton)
  *
  */
-class KincoDrive : public Drive {
+class KincoDrive : public CiA402Drive {
    public:
     /**
-         * \brief Construct a new Kinco Drive object
+         * \brief Construct a new Kinco CiA402Drive object
          *
          * \param NodeID CANopen Node ID
          */
     KincoDrive(int NodeID);
 
     /**
-         * \brief Destroy the Kinco Drive object
+         * \brief Destroy the Kinco CiA402Drive object
          *
          */
     ~KincoDrive();
@@ -82,7 +82,7 @@ class KincoDrive : public Drive {
          */
     bool initTorqueControl();
     /**
-          * \brief Overloaded method from Drive, specifically for Kinco Drive implementation.
+          * \brief Overloaded method from CiA402Drive, specifically for Kinco CiA402Drive implementation.
           *     Generates the list of commands required to configure Position control in CANopen motor drive
           *
           * /param Profile Velocity, value used by position mode motor trajectory generator.

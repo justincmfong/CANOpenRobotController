@@ -120,7 +120,7 @@ class RobotM2: public Robot {
     bool initialiseJoints();
     /**
        * \brief Implementation of Pure Virtual function from <code>Robot</code> Base class.
-       * Initialize each <code>Drive</code> Objects underlying CANOpen Networking.
+       * Initialize each <code>CiA402Drive</code> Objects underlying CANOpen Networking.
 
       */
     bool initialiseNetwork();

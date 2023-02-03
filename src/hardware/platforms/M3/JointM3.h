@@ -28,7 +28,7 @@ class JointM3 : public Joint {
     int encoderCounts = 10000;  //Encoder counts per turn
     double reductionRatio = 22.;
 
-    double Ipeak;               //!< Drive max current (used in troque conversion)
+    double Ipeak;               //!< CiA402Drive max current (used in troque conversion)
     double motorTorqueConstant; //!< Motor torque constant
 
     double driveUnitToJointPosition(int driveValue) { return sign * driveValue * (2. * M_PI) / (double)encoderCounts / reductionRatio; };

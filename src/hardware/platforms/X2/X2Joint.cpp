@@ -13,7 +13,7 @@
 #include <iostream>
 
 
-X2Joint::X2Joint(int jointID, double jointMin, double jointMax, JointDrivePairs jdp, Drive *drive) : Joint(jointID, jointMin, jointMax, drive) {
+X2Joint::X2Joint(int jointID, double jointMin, double jointMax, JointDrivePairs jdp, CopleyDrive *drive) : Joint(jointID, jointMin, jointMax, drive) {
     spdlog::debug("Joint Created, JOINT ID: {}", this->id);
     // Do nothing else
     JDSlope = (jdp.drivePosB - jdp.drivePosA) / (jdp.jointPosB - jdp.jointPosA);
@@ -48,8 +48,8 @@ double X2Joint::driveUnitToJointTorque(int driveValue) {
 
 bool X2Joint::initNetwork() {
     spdlog::debug("Joint::initNetwork()");
-    drive->start();
-    if (drive->initPDOs()) {
+    ((CopleyDrive *)drive)->start();
+    if (((CopleyDrive *)drive)->initPDOs()) {
         return true;
     } else {
         return false;

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-KincoDrive::KincoDrive(int NodeID) : Drive::Drive(NodeID) {
+KincoDrive::KincoDrive(int NodeID) : CiA402Drive::CiA402Drive(NodeID) {
     //Remap torque reading and writting registers
     OD_Addresses[ACTUAL_TOR] = {0x6078, 0x00};
     OD_Addresses[TARGET_TOR] = {0x60F6, 0x08};
@@ -40,7 +40,7 @@ bool KincoDrive::init(motorProfile profile) {
 bool KincoDrive::posControlConfirmSP() {
     // for kinco driver, there is no need to set postion control confirm
 //    DEBUG_OUT("NodeID " << NodeID << " Kinco::posControlConfirmSP")
-//    Drive::posControlConfirmSP();
+//    CiA402Drive::posControlConfirmSP();
     return true;
 }
 
@@ -57,7 +57,7 @@ bool KincoDrive::initPosControl(motorProfile posControlMotorProfile) {
 bool KincoDrive::initPosControl() {
     spdlog::debug("NodeID {} Initialising Position Control", NodeID);
 
-    sendSDOMessages(Drive::generatePosControlConfigSDO());
+    sendSDOMessages(CiA402Drive::generatePosControlConfigSDO());
     return true;
 }
 bool KincoDrive::initVelControl(motorProfile velControlMotorProfile) {
@@ -80,7 +80,7 @@ bool KincoDrive::initVelControl() {
      * \todo Tune velocity loop gain index 0x2381 to optimize V control
      *
     */
-    sendSDOMessages(Drive::generateVelControlConfigSDO());
+    sendSDOMessages(CiA402Drive::generateVelControlConfigSDO());
     return true;
 }
 

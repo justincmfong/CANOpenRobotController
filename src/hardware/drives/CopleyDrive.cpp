@@ -1,12 +1,12 @@
 /**
- * @brief An implementation of the Drive Object, specifically for the Copley Drive
+ * @brief An implementation of the CiA402Drive Object, specifically for the Copley CiA402Drive
  *
  */
 #include "CopleyDrive.h"
 
 #include <iostream>
 
-CopleyDrive::CopleyDrive(int NodeID) : Drive::Drive(NodeID) {
+CopleyDrive::CopleyDrive(int NodeID) : CiA402Drive::CiA402Drive(NodeID) {
     OD_Addresses[DIGITAL_IN] = {0x219A, 0x00}; //Use INPUT PIN STATE instead of standard DI. Not tested.
     OD_Addresses[DIGITAL_OUT] = {0X2194, 0x00}; //Not tested. Need dedicated configuration before use. See Copley doc.
 }
@@ -48,15 +48,15 @@ bool CopleyDrive::initTorqueControl() {
 }
 
 std::vector<std::string> CopleyDrive::generatePosControlConfigSDO(motorProfile positionProfile) {
-    return Drive::generatePosControlConfigSDO(positionProfile); /*<!execute base class function*/
+    return CiA402Drive::generatePosControlConfigSDO(positionProfile); /*<!execute base class function*/
 };
 
 std::vector<std::string> CopleyDrive::generateVelControlConfigSDO(motorProfile velocityProfile) {
-    return Drive::generateVelControlConfigSDO(velocityProfile); /*<!execute base class function*/
+    return CiA402Drive::generateVelControlConfigSDO(velocityProfile); /*<!execute base class function*/
 };
 
 std::vector<std::string> CopleyDrive::generateTorqueControlConfigSDO() {
-    return Drive::generateTorqueControlConfigSDO(); /*<!execute base class function*/
+    return CiA402Drive::generateTorqueControlConfigSDO(); /*<!execute base class function*/
 }
 
 std::vector<std::string> CopleyDrive::generatePositionOffsetSDO(int offset) {

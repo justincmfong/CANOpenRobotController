@@ -80,8 +80,11 @@ class X2Joint : public Joint {
          */
     double driveUnitToJointTorque(int driveValue);
 
+
+
+
    public:
-    X2Joint(int jointID, double jointMin, double jointMax, JointDrivePairs jdp, Drive *drive);
+    X2Joint(int jointID, double jointMin, double jointMax, JointDrivePairs jdp, CopleyDrive *drive);
     ~X2Joint(){};
 
     bool initNetwork();
