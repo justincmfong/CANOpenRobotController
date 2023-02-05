@@ -80,16 +80,16 @@ class Drive {
        */
     virtual int stop() = 0;
 
-        virtual bool configureMasterPDOs();
- /**
+        virtual bool configureMasterPDOs() {return false;};
+       /**
            * \brief Initialises velocity and acceleration profiles (used by position and velocity controls) through SDOs write
            *
            * \return true if sucessfull
            * \return false otherwise
            */
-    virtual bool setMotorProfile(motorProfile profile);
+    virtual bool setMotorProfile(motorProfile profile) =0;
 
-    /**
+       /**
            * Sets the drive to Position control with set parameters (through SDO messages)
            *
            * Note: Should be overloaded to allow parameters to be set
@@ -99,8 +99,8 @@ class Drive {
            * \return true if successful
            * \return false if not
            */
-    virtual bool initPosControl(motorProfile posControlMotorProfile) { return false; };
-    virtual bool initPosControl() { return false; };
+    virtual bool initPosControl(motorProfile posControlMotorProfile) = 0;
+    virtual bool initPosControl() = 0;
 
     /**
            * Sets the drive to Velocity control with default parameters (through SDO messages)
@@ -110,8 +110,8 @@ class Drive {
            * \return true if successful
            * \return false if not
            */
-    virtual bool initVelControl(motorProfile velControlMotorProfile) { return false; };
-    virtual bool initVelControl() { return false; };
+    virtual bool initVelControl(motorProfile velControlMotorProfile) = 0;
+    virtual bool initVelControl() = 0;
 
     /**
            * Sets the drive to Torque control with default parameters (through SDO messages)
@@ -121,14 +121,14 @@ class Drive {
            * \return true if successful
            * \return false if not
            */
-    virtual bool initTorqueControl() { return false; };
+    virtual bool initTorqueControl() = 0;
 
     /**
            * Updates the internal representation of the state of the drive
            *
            * \return The current value of the status word (0x6041)
            */
-    virtual int getStatus();
+    virtual int getStatus() = 0;
 
     /**
            * Writes the desired position to the Target Position of the motor drive (0x607A)
@@ -136,7 +136,7 @@ class Drive {
            * \return true if successful
            * \return false if not
            */
-    virtual bool setPos(int position);
+    virtual bool setPos(int position) = 0 ;
 
     /**
            * Writes the desired velocity to the Target Velocity of the motor drive (0x60FF)
@@ -144,7 +144,7 @@ class Drive {
            * \return true if successful
            * \return false if not
            */
-    virtual bool setVel(int velocity);
+    virtual bool setVel(int velocity) = 0;
 
     /**
            * Writes the desired torque to the Target Torque of the motor drive (0x6071)
@@ -152,34 +152,32 @@ class Drive {
            * \return true if successful
            * \return false if not
            */
-    virtual bool setTorque(int torque);
+    virtual bool setTorque(int torque) = 0;
 
     /**
-           * Returns the current position from the motor drive (0x6064)
+           * Returns the current position from the motor drive
            *
            * \return Position from the motor drive
            */
-    virtual int getPos();
+    virtual int getPos() = 0;
 
     /**
-           * Returns the current velocity from the motor drive (0x606C)
-           * Returns 0 if NODEID is 5 or 6: ankles. They have no OD entry.
-           * \return Velocity from the motor drive
+           * Returns the current velocity from the motor drive 
            */
-    virtual int getVel();
+    virtual int getVel() = 0;
 
     /**
            * Returns the current torque from the motor drive (0x6077)
            * Returns 0 if NODEID is 5 or 6: ankles. They have no OD entry.
            * \return Torque from the motor drive
            */
-    virtual int getTorque();
+    virtual int getTorque() = 0;
 
     /**
            * Returns the value of digital IN
            * \return Digital in state from the motor drive
            */
-    virtual int getDigitalIn();
+    virtual int getDigitalIn() = 0;
 
     // CiA402Drive State Modifiers
     /**
@@ -191,7 +189,7 @@ class Drive {
            * \return true if operation successful
            * \return false if operation unsuccessful
            */
-    virtual DriveState resetErrors();
+    virtual DriveState resetErrors() = 0;
 
     /**
            * \brief Changes the state of the drive to "ready to switch on".
@@ -202,7 +200,7 @@ class Drive {
            * \return true if operation successful
            * \return false if operation unsuccessful
            */
-    virtual DriveState readyToSwitchOn();
+    virtual DriveState readyToSwitchOn() = 0;
 
     /**
            * \brief Sets the state of the drive to "enabled"
@@ -213,7 +211,7 @@ class Drive {
            * \return true if operation successful
            * \return false if operation unsuccessful
            */
-    virtual DriveState enable();
+    virtual DriveState enable() =0;
 
     /**
            * \brief sets the state of the drive to "disabled"
@@ -224,7 +222,7 @@ class Drive {
            * \return true if operation successful
            * \return false if operation unsuccessful
            */
-    virtual DriveState disable();
+    virtual DriveState disable() =0;
 
     /**
         * \brief Flips Bit 4 of Control Word (0x6041) - A new set point is only confirmed if the transition is from 0 to 1
@@ -232,7 +230,7 @@ class Drive {
         * \return true The control word was previously 0 (i.e. successful set point confirm)
         * \return false The control word was previously 1 (i.e. unsuccessful set point confirm)
         */
-    virtual bool posControlConfirmSP();
+    virtual bool posControlConfirmSP() = 0;
 
     /**
         * \brief Sets the continous/not continous profile bit
@@ -241,21 +239,21 @@ class Drive {
         * \return true If change is successful
         * \return false If drive was not in position control mode
         */
-    virtual bool posControlSetContinuousProfile(bool continuous);
+    virtual bool posControlSetContinuousProfile(bool continuous) =0;
 
     /**
         * \brief Get the current state of the drive
         *
         * \return DriveState
         */
-    virtual DriveState getState();
+    virtual DriveState getState() =0;
 
     /**
         * \brief Get the current control mode of the drive
         *
         * \return controlMode
         */
-    virtual ControlMode getControlMode() { return controlMode; };
+    virtual ControlMode getControlMode() { return controlMode; } ;
 
 };
 
