@@ -23,7 +23,7 @@ The code is structured into 3 levels:
 Whilst the code can be modified at any level, this structure is designed to provide a degree of modularity. The CANopen Communications level should not need to be changed. The Robot level should only change with respect if the robot to be controlled changes. This is loosely enforced by the source code folder structure - the files which should not need modification are placed in the `src/core` folder, and the remainder are placed in the `src/apps` and `src/hardware` folders. Note that in addition to the CANopen Communication code, the `src/core` folder also includes base classes which are derived from in the `src/apps` and `src/hardware` folders. 
 
 ## Getting started with CORC
-See the detailed document [here](doc/1.GettingStarted/GettingStarted.md) 
+See the detailed document [here](doc/1.GettingStarted/GettingStarted.md).
 
 ## Next Steps
 ### Building a custom application with a custom state machine
@@ -31,13 +31,13 @@ See [this detailed explanation](doc/3.Software/CustomApplication.md) for instruc
 
 ### Logging system (spdlog)
 CORC relies on [spdlog](https://github.com/gabime/spdlog) for both general logging (terminal and in file) and for data logging.
-See [here](doc/3.Software/Logging.md) for more info on using the logging system.
+See [this page](doc/3.Software/Logging.md) for more info on using the logging system.
 
 ### ROS Support
-See [here](doc/1.GettingStarted/AdvancedSimulationAndHardwareTesting.md) for instructions on how to build and run a CORC app with ROS support.
+See [this page](doc/1.GettingStarted/AdvancedSimulationAndHardwareTesting.md) for instructions on how to build and run a CORC app with ROS 1 support and [this page](doc/1.GettingStarted/ROS2Application.md) for ROS 2 support.
 
 ### Network communication
-See [here](doc/3.Software/NetworkCommunication.md) for instructions on using libFLNL for communication.
+See [this page](doc/3.Software/NetworkCommunication.md) for instructions on using libFLNL for communication.
 
 ### CAN-USB adapters
 See [this page](doc/2.Hardware/USBCANadapters.md) for notes on tested USB-CAN adapters.
@@ -56,7 +56,7 @@ The following individuals have made contributions to CORC:
 
 - William Campbell
 - Vincent Crocher
-- Emek Barış Küçüktabak 
+- Emek Barış Küçüktabak
 - Justin Fong
 - Yue Wen
 - Tim Haswell

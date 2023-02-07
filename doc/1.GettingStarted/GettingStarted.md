@@ -13,21 +13,21 @@ Examples of use of a dedicated embedded computer are when the robotic device is 
 > Note that cross-compiling a ROS app is theoretically possible but not described in this documentation (contibutions are welcome!).
 
 ## Choice of Development Environment
-Independent of the deployment environment, a choice may also be made regarding the development environment. If the deployment environment is Linux-based, this can be the same device as your deployment computer (although, development will typically require more computational power than deployment). Alternatively, you may develop on a different computer to the deployment computer. In this case, you have the choice of using either Windows or Linux based environments*, and you will need to cross compile for your deployment environment (i.e. compile on a system which is not used to run the executable). This requires an appropriate toolchain to be installed. 
+Independent of the deployment environment, a choice may also be made regarding the development environment. If the deployment environment is Linux-based, this can be the same device as your deployment computer (although, development will typically require more computational power than deployment). Alternatively, you may develop on a different computer to the deployment computer. In this case, you have the choice of using either Windows or Linux based environments*, and you will need to cross compile for your deployment environment (i.e. compile on a system which is not used to run the executable). This requires an appropriate toolchain to be installed.
 
-> *Note, in theory it should be possible to develop on MacOS devices, however, toolchains for compiling are not readily available. As such, it may be better to dual boot, or run a virtual machine. 
+> *Note, in theory it should be possible to develop on MacOS devices, however, toolchains for compiling are not readily available. As such, it may be better to dual boot, or run a virtual machine.
 
 ## Choice of Hardware
-This choice is likely related to the application. CORC is designed for any robotic device which uses CANOpen components, however, due to the resources and researchers of the initial developers, the examples and templates are based on assistive and rehabilitative robotic devices from Fourier Intelligence. As such, if the user has access to such devices, it would be logical to take an example which uses this hardware. 
+This choice is likely related to the application. CORC is designed for any robotic device which uses CANOpen components, however, due to the resources and researchers of the initial developers, the examples and templates are based on assistive and rehabilitative robotic devices from Fourier Intelligence. As such, if the user has access to such devices, it would be logical to take an example which uses this hardware.
 
 # First Example: Basic Simulation - Exoskeleton
-With this in mind, CORC by default contains a number of example programs, which a new user can choose from to get hands-on with the toolbox for their first application. However, we first recommend you run the Basic Simulation- Exoskeleton example program to gain familiarity with the CORC Environment.  
+With this in mind, CORC by default contains a number of example programs, which a new user can choose from to get hands-on with the toolbox for their first application. However, we first recommend you run the Basic Simulation- Exoskeleton example program to gain familiarity with the CORC Environment.
 
 This example is the most simple of those offered, requiringly access only to a Linux-based computer. Development can occur either on a computer running either Windows or Linux (although the executeable must run on a Linux Machine).
 
-The functionality of this example is limited to transitioning between sitting and standing with an exoskeleton. 
+The functionality of this example is limited to transitioning between sitting and standing with an exoskeleton.
 
-This example does not include any visualisation of the robot, with feedback to the user only occuring through command line print statements. 
+This example does not include any visualisation of the robot, with feedback to the user only occuring through command line print statements.
 
 ### Requirements
 1. A development machine running Windows or Linux
@@ -35,15 +35,17 @@ This example does not include any visualisation of the robot, with feedback to t
 
 ### Suggested for
 1. A good introduction to CORC, its StateMachine structure and compilation process
-2. Initial testing of software for applications not using ROS (e.g. some embedded )
-3. Users seeking the simplest possible runnable example 
+2. Initial testing of software for applications not using ROS (e.g. some embedded)
+3. Users seeking the simplest possible runnable example
 
-### [Basic Simulation - Instructions](GSBasicSimulation.md) 
+### Ressources
+[Basic Simulation - Instructions](GSBasicSimulation.md)
+
 See also the code example in `src/apps/ExoTestMachine`.
 
 
 # Additional Example Programs
-After you have run the Basic Simulation Program, CORC offers a number of additional "Getting Started" programs. It is suggested that you choose one which aligns with your final intended goals. 
+After you have run the Basic Simulation Program, CORC offers a number of additional "Getting Started" programs. It is suggested that you choose one which aligns with your final intended goals.
 
 
 ## Advanced Simulation and Hardware Testing using ROS - Exoskeleton
@@ -55,11 +57,13 @@ It leverages the ExoMotus X2 Exoskeleton from Fourier Intelligence, using ROS an
 
 ### Suggested for
 1. Users looking to develop advanced user interfaces for their applications
-2. Users who want to pre test their development on a physics simulation 
+2. Users who want to pre test their development on a physics simulation
 3. Users who wants to benefit from the advatanges of ROS
 4. Users with sufficiently powerful computers to generate the 3d visualisations
 
-### [Advanced Simulation and Hardware Testing using ROS - Instructions](AdvancedSimulationAndHardwareTesting.md) 
+### Ressources
+[Advanced Simulation and Hardware Testing using ROS - Instructions](AdvancedSimulationAndHardwareTesting.md)
+
 See also the code example in `src/apps/X2DemoMachine`.
 
 
@@ -75,7 +79,9 @@ This example enables simple movements with the ArmMotus M2 System. It use of the
 1. Users looking to develop for the ArmMotus M2
 2. Users looking to develop systems with a separate user interface
 
-### [M2DemoMachine - Instructions](GSM2DemoMachine.md)
+### Ressources
+[M2DemoMachine - Instructions](GSM2DemoMachine.md)
+
 See also the code example in `src/apps/M2DemoMachine`.
 
 
@@ -90,7 +96,9 @@ This example enables simple functionalities of ArmMotus M3/EMU System. It shows 
 1. Users looking to develop for the ArmMotus M3
 2. Users looking to develop systems with a separate user interface
 
-### [M3DemoMachine - Instructions](GSM3DemoMachine.md)
+### Ressources
+[M3DemoMachine - Instructions](GSM3DemoMachine.md)
+
 See also the code example in `src/apps/M3DemoMachine`.
 
 
@@ -104,7 +112,9 @@ This example enables simple movements with the AnkleMotus M1 System.
 ### Suggested for
 1. Users looking to develop for the AnkleMotus M1
 
-### [M1DemoMachine - Instructions](GSM1DemoMachine.md)
+### Ressources
+[M1DemoMachine - Instructions](GSM1DemoMachine.md)
+
 See also the code example in `src/apps/M1DemoMachine`.
 
 
@@ -118,7 +128,9 @@ It leverages the ExoMotus X2 Exoskeleton from Fourier Intelligence, and creates 
 ### Suggested for
 1. Users looking to develop a ROS2 CORC application
 
-### [ROS2 Application - Instructions](ROS2Application.md)
+### Ressources
+[ROS2 Application - Instructions](ROS2Application.md)
+
 See also the code example in `src/apps/X2ROS2DemoMachine`.
 
 

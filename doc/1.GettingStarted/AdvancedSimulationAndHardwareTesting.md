@@ -139,12 +139,12 @@ Choose the zero torque controller and move the joints by hand. Rviz reprensentat
 
 Choose the zero velocity controller and try to move the joints. Joints should be fixed at their current position.
 
-Test controller 4 and controller 5 carefully by slowly increasing the amplitude of the command through gui. 
-Note that you should be pressing the green button for those controllers to work (see ```X2DemoState.cpp``` for the implementation details). 
+Test controller 4 and controller 5 carefully by slowly increasing the amplitude of the command through gui.
+Note that you should be pressing the green button for those controllers to work (see ```X2DemoState.cpp``` for the implementation details).
 If anything dangerous happens, releasing the green button should send zero torque commands to all joints.
 
 #### Homing
-By using the service caller on the right side of the gui you can command the homing procedure. 
+By using the service caller on the right side of the gui you can command the homing procedure.
 This should be done when there is no user in the exoskeleton.
 
 There is no need to do homing again even if you restart the program (unless you do not turn off the robot).
@@ -153,7 +153,7 @@ There is no need to do homing again even if you restart the program (unless you 
 
 ## Customizing the Demo State and GUI
 
-Developers and users are encouraged to follow [here](../3.Software/CustomApplication), read through and modify the  ```X2DemoState``` class and ```config/x2_dynamic_params.cfg``` accordingly based on their needs. 
+Developers and users are encouraged to follow [here](../3.Software/CustomApplication.md), read through and modify the  ```X2DemoState``` class and ```config/x2_dynamic_params.cfg``` accordingly based on their needs.
 
 
 
