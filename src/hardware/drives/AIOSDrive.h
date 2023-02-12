@@ -12,36 +12,61 @@
  *
  */
 
+#ifndef AIOSDRIVE_H
+#define AIOSDRIVE_H
+
+#include <string.h>
+
+#include <vector>
+
+#include "Drive.h"
+#include "aios.h"
 
 // NOTE: Should implement a generic drive, not a DRIVE here which is CANOpen
 
-class AOISDrive : public Drive {
-   // Things should exist here to enable stuff from happening
-   virtual bool init() = 0;
+class AIOSDrive : public Drive {
+   private:
+    /**
+     * \brief Current status word of the drive
+     *
+     */
+    UNSIGNED16 statusWord = 0;
+    UNSIGNED16 errorWord = 0;
+    INTEGER32 actualPos = 0;
+    INTEGER32 actualVel = 0;
+    INTEGER16 actualTor = 0;
+    INTEGER32 targetPos = 0;
+    INTEGER32 targetVel = 0;
+    INTEGER16 targetTor = 0;
+
+    DriveState driveState = DISABLED;
+    ControlMode controlMode = CM_UNCONFIGURED;
+       // Things should exist here to enable stuff from happening
+        virtual bool init();
 
     /**
        * \brief 
        *
        * \return 0 if unsuccesfull
        */
-    virtual int preop() = 0; //TODO: CAN THIS JUST BE NOTHING?
+    virtual int preop(); //TODO: CAN THIS JUST BE NOTHING?
 
     /**
        * \brief 
        *
        * \return 0 if unsuccesfull
        */
-    virtual int start() = 0;
+    virtual int start();
 
     /**
        * \brief 
        *
        * \return 0 if unsuccesfull
        */
-    virtual int stop() = 0;
+       virtual int stop();
 
-        virtual bool configureMasterPDOs();
- /**
+       virtual bool configureMasterPDOs();
+       /**
            * \brief Initialises velocity and acceleration profiles (used by position and velocity controls) through SDOs write
            *
            * \return true if sucessfull
@@ -217,3 +242,4 @@ class AOISDrive : public Drive {
         */
     virtual ControlMode getControlMode() { return controlMode; };
 }
+#endif  // AIOSDRIVE_H
