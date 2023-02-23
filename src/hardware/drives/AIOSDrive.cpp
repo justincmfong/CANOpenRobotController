@@ -93,10 +93,20 @@ int AIOSDrive::getDigitalIn(){
     return 0; 
 };  // Feedback command // TODO
 
-DriveState AIOSDrive::resetErrors();                   // Reset Errors
-DriveState AIOSDrive::readyToSwitchOn();               // No equivalent
-DriveState AIOSDrive::enable();                        // Enable  (true)
-DriveState AIOSDrive::disable();                       // Enable (false)
+DriveState AIOSDrive::resetErrors(){
+    return driveState;
+};                   // Reset Errors
+DriveState AIOSDrive::readyToSwitchOn(){
+    return driveState;
+};               // No equivalent
+DriveState AIOSDrive::enable(){
+    driveState = DriveState::ENABLED;
+    return driveState;
+};                              // Enable  (true)
+DriveState AIOSDrive::disable(){
+    driveState = DriveState::DISABLED;
+    return driveState;
+};                       // Enable (false)
 bool AIOSDrive::posControlConfirmSP(){
     spdlog::error("No such method posControlConfirmSP() in AIOSDrive");
     return false;
@@ -106,6 +116,7 @@ bool AIOSDrive::posControlSetContinuousProfile(bool continuous){
     spdlog::error("No such method posControlSetContinuousProfile() in AIOSDrive");
     return false;
 }  // No equivalent (should check behaviour)
+
 DriveState AIOSDrive::getState(){
         // Should only return DISABLED or ENABLED?
         // DISABLED = 0,

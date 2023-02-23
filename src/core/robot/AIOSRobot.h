@@ -29,10 +29,15 @@
 #include "InputDevice.h"
 #include "Joint.h"
 #include "AIOSDrive.h"
-#include "group.hpp"
-#include "groupCommand.hpp"
-#include "groupFeedback.hpp"
+#include "Robot.h"
 
+namespace aios{
+    #include "aios.h"
+    #include "lookup.hpp"
+    #include "group.hpp"
+    #include "groupCommand.hpp"
+    #include "groupFeedback.hpp"
+}
 short int sign(double val);
 
 /**
@@ -58,44 +63,37 @@ class AIOSRobot : public Robot {
     Eigen::VectorXd jointVelocities_;
     Eigen::VectorXd jointTorques_;
 
-    // Need
-    std::shared_ptr<Fourier::Group> group;
-    Fourier::GroupFeedback feedback; // Not sure if need this here or to instantiate in each method
-    Fourier::GroupCommand group_command; // Not sure if need this here or to instantiate in each method
+    // References to Fourier motors
+    std::shared_ptr<aios::Fourier::Group> group;
+   // aios::Fourier::GroupFeedback feedback = aios::Fourier::GroupFeedback((size_t) 0);  // Not sure if need this here or to instantiate in each method
+   // aios::Fourier::GroupCommand group_command = aios::Fourier::GroupCommand((size_t) 0);  // Not sure if need this here or to instantiate in each method
 
-    public :
-        /** @name Constructors and Destructors */
-        //@{
-        /**
-         * \brief Default Robot constructor.
-         * \param robot_name a name of the robot. If a yaml_config_file is also provided, the name will be used to seek parameters in this file (and so should match robot name in the YAML file).
-         * \param yaml_config_file the name of a valide YAML file describing kinematic and dynamic parameters of the M3. If absent or incomplete default parameters are used instead.
-         */
-        AIOSRobot(std::string robot_name = "", std::string yaml_config_file = "");
-        virtual ~AIOSRobot();
-        //@}
+   public:
+    /** @name Constructors and Destructors */
+    //@{
+    /**
+     * \brief Default Robot constructor.
+     * \param robot_name a name of the robot. If a yaml_config_file is also provided, the name will be used to seek parameters in this file (and so should match robot name in the YAML file).
+     * \param yaml_config_file the name of a valide YAML file describing kinematic and dynamic parameters of the M3. If absent or incomplete default parameters are used instead.
+     */
+    AIOSRobot(std::string robot_name = "", std::string yaml_config_file = "");
+    virtual ~AIOSRobot();
+    //@}
 
-        /** @name Initialisation Methods */
-        //@{
-        /**
-         * \brief Initialize memory for the designed <code>Robot</code> classes specific
-         * <code>Joint</code> objects + sensors (if available) using the pure virtual initialiseJoints()
-         * implemented by the robot designer. Based on the given Joints, initNetwork() will configure
-         * these joints for CAN PDO messaging and Load the specififed Controller, by default set to Positio.
-         *
-         * \return true if successful
-         * \return false if unsuccessful
-         */
-        bool initialise();
+    /** @name Initialisation Methods */
+    //@{
+    /**
+     * \brief Initialize memory for the designed <code>Robot</code> classes specific
+     * <code>Joint</code> objects + sensors (if available) using the pure virtual initialiseJoints()
+     * implemented by the robot designer. Based on the given Joints, initNetwork() will configure
+     * these joints for CAN PDO messaging and Load the specififed Controller, by default set to Positio.
+     *
+     * \return true if successful
+     * \return false if unsuccessful
+     */
+    bool initialise();
 
    protected:
-    /**
-    * \brief Attempts to read specified parameters YAML file (in config folder) if a filename is specified.
-    * Load configuration associated with RobotName (if specified) and pass it to specialised initialiseFromYAML.
-    * \param yaml_config_file a YAML filename (assume located in config folder)
-    * \return true if succesfully open the YAML file and a robot with RobotName exists. false otherwise
-    */
-    virtual bool initialiseFromYAML(std::string yaml_config_file) final;
     /**
     * \brief Load parameters from YAML file if valid one specified in constructor.
     * Default base version not doing anything. See derived class for implementation.

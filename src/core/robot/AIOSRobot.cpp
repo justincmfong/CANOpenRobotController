@@ -2,41 +2,26 @@
 
 AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : robotName(robot_name) {
     spdlog::debug("Robot ({}) object created", robotName);
+
+    // Look for the motors on the network
+    std::string str("10.10.10.255");
+    aios::Fourier::Lookup lookup(&str);
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    lookup.setLookupFrequencyHz(0);
+    group = lookup.getGroupFromFamily("Default");
+    if (!group) {
+        std::cout << "No group found!" << std::endl;
+        spdlog::error("Cannot find any AIOS Motors on the specified network.");
+    }
+
+    // Set up the feedback?
+   // feedback = aios::Fourier::GroupFeedback((size_t) group->size());
+    //group_command = aios::Fourier::GroupCommand((size_t) group->size());
 }
 
 AIOSRobot::~AIOSRobot() {
     spdlog::debug("Robot object deleted");
-}
-
-bool AIOSRobot::initialiseFromYAML(std::string yaml_config_file) {
-    if(yaml_config_file.size()>0) {
-        // need to use address of base directory because when run with ROS, working directory is ~/.ros
-        std::string baseDirectory = XSTR(BASE_DIRECTORY);
-        std::string relativeFilePath = "/config/";
-        try {
-            YAML::Node params = YAML::LoadFile(baseDirectory + relativeFilePath + yaml_config_file);
-
-            if(!params[robotName]){
-                spdlog::error("Parameters of {} couldn't be found in {} !", robotName, baseDirectory + relativeFilePath + yaml_config_file);
-                spdlog::error("Default parameters used !");
-
-                return false;
-            }
-            else {
-                spdlog::info("Loading robot parameters from {}.", baseDirectory + relativeFilePath + yaml_config_file);
-                //Attempt to load parameters from YAML file (delegated to each custom robot implementation)
-                return loadParametersFromYAML(params);
-            }
-
-        } catch (...) {
-            spdlog::error("Failed loading parameters from {}. Using default parameters instead.", baseDirectory + relativeFilePath + yaml_config_file);
-            return false;
-        }
-    }
-    else {
-        spdlog::info("Using default robot parameters (no YAML file specified).");
-        return false;
-    }
 }
 
 bool AIOSRobot::initialise() {
@@ -50,15 +35,14 @@ bool AIOSRobot::initialise() {
 bool AIOSRobot::disable() {
     spdlog::info("Disabling robot...");
 
-
     // Create a Group command to disable the robot
     std::vector<float> enable_status(group->size(),
                                      std::numeric_limits<float>::quiet_NaN());
     for (int i = 0; i < group->size(); ++i) {
         enable_status[i] = 0;
     }
-    group_command.enable(enable_status);
-    group->sendCommand(group_command);  // Send the command
+    //group_command->enable(enable_status);
+    //group->sendCommand(group_command);  // Send the command
 
     for (auto p : joints) {
         p->disable(); // Reflect this in all the joints (will update the status)
@@ -68,11 +52,11 @@ bool AIOSRobot::disable() {
 
 void AIOSRobot::updateRobot() {
     //Retrieve latest values from hardware
-    Fourier::GroupFeedback feedback(group->size());
-    group->getNextFeedback(feedback, 2);
+    //Fourier::GroupFeedback feedback(group->size());
+    //group->getNextFeedback(feedback, 2);
 
     // Need to create a feedback object here and update all the joints
-    group->getNextFeedback(feedback, 2);
+    //group->getNextFeedback(feedback, 2);
 
     for (auto joint : joints)
         joint->updateValue();

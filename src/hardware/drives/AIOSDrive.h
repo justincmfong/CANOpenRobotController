@@ -20,8 +20,10 @@
 #include <vector>
 
 #include "Drive.h"
-#include "aios.h"
-
+#include "CO_OD.h"
+namespace aios{
+       #include "aios.h"
+}
 // NOTE: Should implement a generic drive, not a DRIVE here which is CANOpen
 
 class AIOSDrive : public Drive {
@@ -84,8 +86,8 @@ class AIOSDrive : public Drive {
            * \return true if successful
            * \return false if not
            */
-    virtual bool initPosControl(motorProfile posControlMotorProfile) { return false; };
-    virtual bool initPosControl() { return false; };
+    virtual bool initPosControl(motorProfile posControlMotorProfile);
+    virtual bool initPosControl();
 
     /**
            * Sets the drive to Velocity control with default parameters (through SDO messages)
@@ -95,8 +97,8 @@ class AIOSDrive : public Drive {
            * \return true if successful
            * \return false if not
            */
-    virtual bool initVelControl(motorProfile velControlMotorProfile) { return false; };
-    virtual bool initVelControl() { return false; };
+    virtual bool initVelControl(motorProfile velControlMotorProfile);
+    virtual bool initVelControl();
 
     /**
            * Sets the drive to Torque control with default parameters (through SDO messages)
@@ -106,7 +108,7 @@ class AIOSDrive : public Drive {
            * \return true if successful
            * \return false if not
            */
-    virtual bool initTorqueControl() { return false; };
+    virtual bool initTorqueControl();
 
     /**
            * Updates the internal representation of the state of the drive
@@ -240,6 +242,6 @@ class AIOSDrive : public Drive {
         *
         * \return controlMode
         */
-    virtual ControlMode getControlMode() { return controlMode; };
-}
+    virtual ControlMode getControlMode();
+};
 #endif  // AIOSDRIVE_H

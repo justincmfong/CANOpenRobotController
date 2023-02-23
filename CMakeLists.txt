@@ -108,16 +108,20 @@ foreach (_headerFile ${HEADERS})
     list (APPEND INCLUDE_DIRS ${_dir})
 endforeach()
 list(REMOVE_DUPLICATES INCLUDE_DIRS)
-## Add libraries headers
+## Add libraries' headers
 list (APPEND INCLUDE_DIRS lib/)
 list (APPEND INCLUDE_DIRS lib/Eigen/)
 list (APPEND INCLUDE_DIRS lib/FLNL/include/)
 list (APPEND INCLUDE_DIRS lib/spdlog/include/)
+list (APPEND INCLUDE_DIRS lib/fourier-cpp-sdk/fourier/include/)
+list (APPEND INCLUDE_DIRS lib/fourier-cpp-sdk/src/)
 
 add_subdirectory(lib/yaml-cpp/)
+add_subdirectory(lib/fourier-cpp-sdk/)
 
 ## Hack for Yaml files path (absolute path required for ROS use, see X2Robot::initializeRobotParams)
 if(CMAKE_CROSSCOMPILING)
+
     add_definitions(-DBASE_DIRECTORY=.)
 else()
     add_definitions(-DBASE_DIRECTORY=${CMAKE_SOURCE_DIR})
@@ -194,6 +198,24 @@ elseif(ROS EQUAL 2)
 endif()
 
 
+# Fourier STUFF 
+#set(fourier_cpp_build_dir fourier-cpp-${CMAKE_BUILD_TYPE})
+#string(TOLOWER ${fourier_cpp_build_dir} fourier_cpp_build_dir)
+#get_filename_component(fourier_cpp_build_dir "${CMAKE_CURRENT_BINARY_DIR}/${fourier_cpp_build_dir}" REALPATH)
+
+#add_subdirectory(${FOURIER_DIR} ${fourier_cpp_build_dir})
+
+# 添加库目录
+include_directories($lib/fourier-cpp-sdk/src)
+include_directories($lib/fourier-cpp-sdk/fourier/include)
+
+link_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fourier-cpp-sdk/fourier/lib/win_x64
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fourier-cpp-sdk/fourier/lib/mac_x86_64
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fourier-cpp-sdk/fourier/lib/linux_armv7l
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fourier-cpp-sdk/fourier/lib/linux_x86_64
+)
+
 
 ## Executable name: {STATEMACHINENAME}_APP
 set (APP_NAME ${STATE_MACHINE_NAME}_APP)
@@ -214,6 +236,9 @@ find_package(Threads REQUIRED)
 target_link_libraries(${APP_NAME}
         ${CMAKE_THREAD_LIBS_INIT}
         yaml-cpp)
+
+target_link_libraries(${APP_NAME}
+        fourier)
 
 ## Link ROS libraries
 if(ROS EQUAL 1)
