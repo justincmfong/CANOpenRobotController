@@ -5,7 +5,7 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : rob
 
     // Look for the motors on the network
     std::string str("10.10.10.255");
-    aios::Fourier::Lookup lookup(&str);
+    Fourier::Lookup lookup(&str);
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
     lookup.setLookupFrequencyHz(0);
@@ -31,6 +31,17 @@ bool AIOSRobot::initialise() {
     return false;
 }
 
+bool AIOSRobot::initialiseJoints(){
+    return true;
+}
+
+bool AIOSRobot::initialiseInputs(){
+    return true;
+}
+
+bool AIOSRobot::initialiseNetwork(){
+    return true;
+}
 
 bool AIOSRobot::disable() {
     spdlog::info("Disabling robot...");

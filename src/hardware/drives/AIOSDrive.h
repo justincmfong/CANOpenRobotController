@@ -21,9 +21,10 @@
 
 #include "Drive.h"
 #include "CO_OD.h"
-namespace aios{
-       #include "aios.h"
-}
+
+
+#include "aios.h"
+
 // NOTE: Should implement a generic drive, not a DRIVE here which is CANOpen
 
 class AIOSDrive : public Drive {

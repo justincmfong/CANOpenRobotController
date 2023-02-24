@@ -31,13 +31,13 @@
 #include "AIOSDrive.h"
 #include "Robot.h"
 
-namespace aios{
-    #include "aios.h"
-    #include "lookup.hpp"
-    #include "group.hpp"
-    #include "groupCommand.hpp"
-    #include "groupFeedback.hpp"
-}
+
+#include "aios.h"
+#include "lookup.hpp"
+#include "group.hpp"
+#include "groupCommand.hpp"
+#include "groupFeedback.hpp"
+
 short int sign(double val);
 
 /**
@@ -64,7 +64,7 @@ class AIOSRobot : public Robot {
     Eigen::VectorXd jointTorques_;
 
     // References to Fourier motors
-    std::shared_ptr<aios::Fourier::Group> group;
+    std::shared_ptr<Fourier::Group> group;
    // aios::Fourier::GroupFeedback feedback = aios::Fourier::GroupFeedback((size_t) 0);  // Not sure if need this here or to instantiate in each method
    // aios::Fourier::GroupCommand group_command = aios::Fourier::GroupCommand((size_t) 0);  // Not sure if need this here or to instantiate in each method
 

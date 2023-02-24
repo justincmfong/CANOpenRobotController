@@ -98,7 +98,7 @@ if(NO_ROBOT)
 endif()
 
 ## Get all source and header files (only the target app folder is included)
-file(GLOB_RECURSE SOURCES "src/core/*.cpp" "src/core/*.c" "src/hardware/*.cpp" "src/hardware/*.c" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.c" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.cpp" "lib/FLNL/src/*.cpp")
+file(GLOB_RECURSE SOURCES "src/core/*.cpp" "src/core/*.c" "src/hardware/*.cpp" "src/hardware/*.c" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.c" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.cpp" "lib/FLNL/src/*.cpp" "lib/fourier-cpp-sdk/src/*.cpp")
 file(GLOB_RECURSE HEADERS "src/core/*.h" "src/hardware/*.h" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.h" )
 
 ## Set every folder containing .h file as include directory

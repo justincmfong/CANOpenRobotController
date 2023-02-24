@@ -37,6 +37,7 @@ bool AIOSDrive::configureMasterPDOs() {
 bool AIOSDrive::setMotorProfile(motorProfile profile){
     // Should take this and store a copy locally
     // The set command should send through the the next motor command
+    return false;
 }                                                                            // Set TraPTraj (includes acc_lim, dec_lim, vel_lim)
 bool AIOSDrive::initPosControl(motorProfile posControlMotorProfile) { 
     // Should set the TrapTraj to have posControlMotorProfile
