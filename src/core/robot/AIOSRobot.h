@@ -32,7 +32,6 @@
 #include "Robot.h"
 
 
-#include "aios.h"
 #include "lookup.hpp"
 #include "group.hpp"
 #include "groupCommand.hpp"

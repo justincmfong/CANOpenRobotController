@@ -35,8 +35,6 @@ set(CORC_LOGGING_LEVEL INFO)
 
 ################################################################################
 
-
-
 #Default path if not set
 if(NOT STATE_MACHINE_PATH)
     set (STATE_MACHINE_PATH "src/apps")
@@ -55,11 +53,8 @@ endif()
 
 add_definitions(-DSPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_${CORC_LOGGING_LEVEL})
 
-# For Force Plates
-#add_definitions(-DFP_BBB)
-add_definitions(-DFP_PB)
-add_definitions(-DFP_CMDRPDO=0x3E0)
-add_definitions(-DFP_STARTTPDO=0x3E1)
+## Conditional use of Fourier AIOS actuators library
+set(WITH_FOURIER_AIOS TRUE)
 
 #######################
 
@@ -97,9 +92,14 @@ if(NO_ROBOT)
     add_definitions(-DNOROBOT=1)
 endif()
 
+
 ## Get all source and header files (only the target app folder is included)
-file(GLOB_RECURSE SOURCES "src/core/*.cpp" "src/core/*.c" "src/hardware/*.cpp" "src/hardware/*.c" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.c" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.cpp" "lib/FLNL/src/*.cpp" "lib/fourier-cpp-sdk/src/*.cpp")
-file(GLOB_RECURSE HEADERS "src/core/*.h" "src/hardware/*.h" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.h" )
+file(GLOB_RECURSE SOURCES "src/core/*.cpp" "src/core/*.c" "src/hardware/*.cpp" "src/hardware/*.c" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.c" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.cpp" "lib/FLNL/src/*.cpp")
+if(WITH_FOURIER_AIOS)
+	file(GLOB_RECURSE SOURCES_FOURIER "lib/fourier-cpp-sdk/src/*.cpp")
+	list(APPEND SOURCES ${SOURCES_FOURIER})
+endif()
+file(GLOB_RECURSE HEADERS "src/core/*.h" "src/hardware/*.h" "${STATE_MACHINE_PATH}/${STATE_MACHINE_NAME}/*.h")
 
 ## Set every folder containing .h file as include directory
 set (INCLUDE_DIRS "")
@@ -113,15 +113,21 @@ list (APPEND INCLUDE_DIRS lib/)
 list (APPEND INCLUDE_DIRS lib/Eigen/)
 list (APPEND INCLUDE_DIRS lib/FLNL/include/)
 list (APPEND INCLUDE_DIRS lib/spdlog/include/)
-list (APPEND INCLUDE_DIRS lib/fourier-cpp-sdk/fourier/include/)
-list (APPEND INCLUDE_DIRS lib/fourier-cpp-sdk/src/)
+if(WITH_FOURIER_AIOS)
+	list (APPEND INCLUDE_DIRS lib/fourier-cpp-sdk/src/)
+	list (APPEND INCLUDE_DIRS lib/fourier-cpp-sdk/fourier/include/)
+endif()
 
 add_subdirectory(lib/yaml-cpp/)
-add_subdirectory(lib/fourier-cpp-sdk/)
+if(WITH_FOURIER_AIOS)
+	add_subdirectory(lib/fourier-cpp-sdk/)
+	## TODO: enforce static library (when available) and ensure underlying cpp also enforce static one (use full name with .a)
+	## TODO: switch on cross-compile version
+	find_library(FOURIER_LIB fourier HINTS lib/fourier-cpp-sdk/fourier/lib/linux_x86_64)
+endif()
 
 ## Hack for Yaml files path (absolute path required for ROS use, see X2Robot::initializeRobotParams)
 if(CMAKE_CROSSCOMPILING)
-
     add_definitions(-DBASE_DIRECTORY=.)
 else()
     add_definitions(-DBASE_DIRECTORY=${CMAKE_SOURCE_DIR})
@@ -198,25 +204,6 @@ elseif(ROS EQUAL 2)
 endif()
 
 
-# Fourier STUFF 
-#set(fourier_cpp_build_dir fourier-cpp-${CMAKE_BUILD_TYPE})
-#string(TOLOWER ${fourier_cpp_build_dir} fourier_cpp_build_dir)
-#get_filename_component(fourier_cpp_build_dir "${CMAKE_CURRENT_BINARY_DIR}/${fourier_cpp_build_dir}" REALPATH)
-
-#add_subdirectory(${FOURIER_DIR} ${fourier_cpp_build_dir})
-
-# 添加库目录
-include_directories($lib/fourier-cpp-sdk/src)
-include_directories($lib/fourier-cpp-sdk/fourier/include)
-
-link_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fourier-cpp-sdk/fourier/lib/win_x64
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fourier-cpp-sdk/fourier/lib/mac_x86_64
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fourier-cpp-sdk/fourier/lib/linux_armv7l
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib/fourier-cpp-sdk/fourier/lib/linux_x86_64
-)
-
-
 ## Executable name: {STATEMACHINENAME}_APP
 set (APP_NAME ${STATE_MACHINE_NAME}_APP)
 if(NO_ROBOT)
@@ -237,8 +224,9 @@ target_link_libraries(${APP_NAME}
         ${CMAKE_THREAD_LIBS_INIT}
         yaml-cpp)
 
-target_link_libraries(${APP_NAME}
-        fourier)
+if(WITH_FOURIER_AIOS)
+	target_link_libraries(${APP_NAME} ${FOURIER_LIB})
+endif()
 
 ## Link ROS libraries
 if(ROS EQUAL 1)
