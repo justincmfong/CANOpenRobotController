@@ -95,7 +95,7 @@ class Joint {
       * \brief The current mode of the drive (if actuated joint)
       *
       */
-    ControlMode driveMode = CM_UNCONFIGURED;
+    DriveControlMode driveMode = CM_UNCONFIGURED;
 
     /**
      * @brief Indicates whether a calibration has been performed on this joint yet.
@@ -354,17 +354,17 @@ class Joint {
       *
       * \param driveMode The mode to be used if possible
       * \param motorProfile variables for desired mode, e.g. postion: v,a and deceleration. Not used in torque control
-      * \return ControlMode Configured Drive Mode, -1 if unsuccessful
+      * \return DriveControlMode Configured Drive Mode, -1 if unsuccessful
       */
-    virtual ControlMode setMode(ControlMode driveMode_, motorProfile);
+    virtual DriveControlMode setMode(DriveControlMode driveMode_, motorProfile);
 
     /**
          * \brief Set the mode of the device (nominally, position, velocity or torque control)
          *
          * \param driveMode The mode to be used if possible
-         * \return ControlMode Configured Drive Mode, -1 if unsuccessful
+         * \return DriveControlMode Configured Drive Mode, -1 if unsuccessful
          */
-    virtual ControlMode setMode(ControlMode driveMode_);
+    virtual DriveControlMode setMode(DriveControlMode driveMode_);
 
     /**
       * \brief Set the Position object

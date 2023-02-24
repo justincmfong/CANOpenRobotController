@@ -72,7 +72,7 @@ bool Joint::updateValue() {
     return true;
 }
 
-ControlMode Joint::setMode(ControlMode driveMode_, motorProfile profile) {
+DriveControlMode Joint::setMode(DriveControlMode driveMode_, motorProfile profile) {
     if (actuated) {
         if (driveMode_ == CM_POSITION_CONTROL) {
             if (drive->initPosControl(profile)) {
@@ -94,7 +94,7 @@ ControlMode Joint::setMode(ControlMode driveMode_, motorProfile profile) {
     return CM_UNACTUATED_JOINT;
 }
 
-ControlMode Joint::setMode(ControlMode driveMode_) {
+DriveControlMode Joint::setMode(DriveControlMode driveMode_) {
     if (actuated) {
         if (driveMode_ == CM_POSITION_CONTROL) {
             if (drive->initPosControl()) {

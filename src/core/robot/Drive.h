@@ -12,7 +12,7 @@
  * An enum type.
  * Constants representing the control mode of the drive
  */
-enum ControlMode {
+enum DriveControlMode {
     CM_UNCONFIGURED = 0,
     CM_POSITION_CONTROL = 1,
     CM_VELOCITY_CONTROL = 2,
@@ -48,7 +48,7 @@ class Drive {
             * \brief The mode in which the drive is currently configured
             *
             */
-        ControlMode controlMode = CM_UNCONFIGURED;
+        DriveControlMode controlMode = CM_UNCONFIGURED;
 
     public:
 
@@ -253,7 +253,7 @@ class Drive {
         *
         * \return controlMode
         */
-    virtual ControlMode getControlMode() { return controlMode; } ;
+    virtual DriveControlMode getControlMode() { return controlMode; } ;
 
 };
 

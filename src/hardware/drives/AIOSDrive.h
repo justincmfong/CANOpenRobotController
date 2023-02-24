@@ -43,7 +43,7 @@ class AIOSDrive : public Drive {
     INTEGER16 targetTor = 0;
 
     DriveState driveState = DISABLED;
-    ControlMode controlMode = CM_UNCONFIGURED;
+    DriveControlMode controlMode = CM_UNCONFIGURED;
        // Things should exist here to enable stuff from happening
         virtual bool init();
 
@@ -243,6 +243,6 @@ class AIOSDrive : public Drive {
         *
         * \return controlMode
         */
-    virtual ControlMode getControlMode();
+    virtual DriveControlMode getControlMode();
 };
 #endif  // AIOSDRIVE_H

@@ -125,4 +125,4 @@ DriveState AIOSDrive::getState(){
         // ENABLED = 2,
     return driveState;
 }
-ControlMode AIOSDrive::getControlMode() { return controlMode; };  // No equivalent
+DriveControlMode AIOSDrive::getControlMode() { return controlMode; };  // No equivalent

@@ -139,7 +139,7 @@ private:
     motorProfile velControlMotorProfile{0, 240000, 240000};
 
     RobotParameters x2Parameters;
-    ControlMode controlMode;
+    DriveControlMode controlMode;
 
     double dt_ = 0.003; // 0.003 todo: pass this information from main
 
@@ -481,7 +481,7 @@ public:
     * Returns the control mode
     *
     */
-    ControlMode& getControlMode();
+    DriveControlMode& getControlMode();
 
     /**
     * \brief Get the variables related to the acceleration merge

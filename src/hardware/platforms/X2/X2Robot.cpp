@@ -53,7 +53,7 @@ X2Robot::X2Robot(std::string robot_name, std::string yaml_config_file):Robot(rob
     simContactAnglesOnMedianPlane_ = Eigen::VectorXd::Zero(X2_NUM_JOINTS);
 #endif
 
-    controlMode = ControlMode::CM_UNCONFIGURED;
+    controlMode = DriveControlMode::CM_UNCONFIGURED;
 
     // Initializing the parameters to zero
     x2Parameters.m = Eigen::VectorXd::Zero(X2_NUM_JOINTS+2);
@@ -190,7 +190,7 @@ bool X2Robot::initPositionControl() {
     }
 #endif
 
-    if(returnValue) controlMode = ControlMode::CM_POSITION_CONTROL;
+    if(returnValue) controlMode = DriveControlMode::CM_POSITION_CONTROL;
 
     return returnValue;
 }
@@ -229,7 +229,7 @@ bool X2Robot::initVelocityControl() {
     }
 #endif
 
-    if(returnValue) controlMode = ControlMode::CM_VELOCITY_CONTROL;
+    if(returnValue) controlMode = DriveControlMode::CM_VELOCITY_CONTROL;
 
     return returnValue;
 }
@@ -268,7 +268,7 @@ bool X2Robot::initTorqueControl() {
     }
 #endif
 
-    if(returnValue) controlMode = ControlMode::CM_TORQUE_CONTROL;
+    if(returnValue) controlMode = DriveControlMode::CM_TORQUE_CONTROL;
 
     return returnValue;
 }
@@ -1046,7 +1046,7 @@ Eigen::MatrixXd X2Robot::getPseudoInverseOfSelectionMatrixTranspose() {
     return pseudoInverseOfSelectionMatrixTranspose_;
 }
 
-ControlMode & X2Robot::getControlMode() {
+DriveControlMode & X2Robot::getControlMode() {
     return controlMode;
 }
 
