@@ -65,8 +65,8 @@ class AIOSRobot : public Robot {
 
     // References to Fourier motors
     std::shared_ptr<Fourier::Group> group;
-   // aios::Fourier::GroupFeedback feedback = aios::Fourier::GroupFeedback((size_t) 0);  // Not sure if need this here or to instantiate in each method
-   // aios::Fourier::GroupCommand group_command = aios::Fourier::GroupCommand((size_t) 0);  // Not sure if need this here or to instantiate in each method
+    std::shared_ptr<Fourier::GroupFeedback> feedback; // Fourier::GroupFeedback((size_t) 0);  // Not sure if need this here or to instantiate in each method
+    std::shared_ptr<Fourier::GroupCommand> group_command; // = Fourier::GroupCommand((size_t) 0);  // Not sure if need this here or to instantiate in each method
 
    public:
     /** @name Constructors and Destructors */

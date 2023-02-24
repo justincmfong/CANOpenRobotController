@@ -14,10 +14,6 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : rob
         std::cout << "No group found!" << std::endl;
         spdlog::error("Cannot find any AIOS Motors on the specified network.");
     }
-
-    // Set up the feedback?
-   // feedback = aios::Fourier::GroupFeedback((size_t) group->size());
-    //group_command = aios::Fourier::GroupCommand((size_t) group->size());
 }
 
 AIOSRobot::~AIOSRobot() {
@@ -32,6 +28,12 @@ bool AIOSRobot::initialise() {
 }
 
 bool AIOSRobot::initialiseJoints(){
+    // Creates some joints
+    // In Robot this is a pure virtual function
+    // Normally populates the joints vector... might not need to do this now
+        
+    feedback = std::make_shared<Fourier::GroupFeedback>((size_t) group->size());
+
     return true;
 }
 
@@ -52,8 +54,8 @@ bool AIOSRobot::disable() {
     for (int i = 0; i < group->size(); ++i) {
         enable_status[i] = 0;
     }
-    //group_command->enable(enable_status);
-    //group->sendCommand(group_command);  // Send the command
+    group_command->enable(enable_status);
+    //group->sendCommand(std::const_pointer_cast<Fourier::GroupCommand>(group_command));  // Send the command
 
     for (auto p : joints) {
         p->disable(); // Reflect this in all the joints (will update the status)
@@ -63,7 +65,6 @@ bool AIOSRobot::disable() {
 
 void AIOSRobot::updateRobot() {
     //Retrieve latest values from hardware
-    //Fourier::GroupFeedback feedback(group->size());
     //group->getNextFeedback(feedback, 2);
 
     // Need to create a feedback object here and update all the joints
