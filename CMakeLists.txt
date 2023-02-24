@@ -120,7 +120,6 @@ endif()
 
 add_subdirectory(lib/yaml-cpp/)
 if(WITH_FOURIER_AIOS)
-	add_subdirectory(lib/fourier-cpp-sdk/)
 	## TODO: enforce static library (when available) and ensure underlying cpp also enforce static one (use full name with .a)
 	## TODO: switch on cross-compile version
 	find_library(FOURIER_LIB fourier HINTS lib/fourier-cpp-sdk/fourier/lib/linux_x86_64)
