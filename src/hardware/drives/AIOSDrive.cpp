@@ -40,15 +40,33 @@ bool AIOSDrive::setMotorProfile(motorProfile profile){
     return false;
 }                                                                            // Set TraPTraj (includes acc_lim, dec_lim, vel_lim)
 bool AIOSDrive::initPosControl(motorProfile posControlMotorProfile) { 
+    // Should only be called from within an AIOSRobot
     // Should set the TrapTraj to have posControlMotorProfile
-    // Should set controlMode to Position_Control
+    // Should set DriveControlMode to Position_Control
     // Should return things
     // Should ensure drive is in correct state
-    return false; };  // Set TraPTraj (includes acc_lim, dec_lim, vel_lim)
-bool AIOSDrive::initPosControl() { return false; };                                     // No equivalent - maybe set to enable?
-bool AIOSDrive::initVelControl(motorProfile velControlMotorProfile) { return false; };  // // Set TraPTraj (includes acc_lim, dec_lim, vel_lim)
-bool AIOSDrive::initVelControl() { return false; };                                     //  No equivalent - maybe set to enable?
-bool AIOSDrive::initTorqueControl() { return false; };                                  //  No equivalent - maybe set to enable?
+    return false;
+};  // Set TraPTraj (includes acc_lim, dec_lim, vel_lim)
+bool AIOSDrive::initPosControl() {
+    // Should only be called from within an AIOSRobot
+    // Update DriveControlMode
+    return false;
+};                                     // No equivalent - maybe set to enable?
+bool AIOSDrive::initVelControl(motorProfile velControlMotorProfile) {
+    // Should only be called from within an AIOSRobot
+    // Update DriveControlMode
+    return true;
+}  // // Set TraPTraj (includes acc_lim, dec_lim, vel_lim)
+bool AIOSDrive::initVelControl() {
+    // Should only be called from within an AIOSRobot
+    // Update drive control mode
+    return true;
+};                                     //  No equivalent - maybe set to enable?
+bool AIOSDrive::initTorqueControl() {
+    // Should only be called from within an AIOSRobot
+    // Update drive control mode
+    return true; 
+};                                  //  No equivalent - maybe set to enable?
 
 int AIOSDrive::getStatus(){
     return 0; // TODO: Need to figure out what to return here..
@@ -98,17 +116,23 @@ DriveState AIOSDrive::resetErrors(){
     return driveState;
 };                   // Reset Errors
 DriveState AIOSDrive::readyToSwitchOn(){
+    spdlog::debug("ReadyToSwitchOn in AIOSDrive does not do anything (no equivalent)");
     return driveState;
-};               // No equivalent
+}; 
 DriveState AIOSDrive::enable(){
+    // Should only be called from AIOSRObot 
     driveState = DriveState::ENABLED;
     return driveState;
 };                              // Enable  (true)
 DriveState AIOSDrive::disable(){
+    // Should only be called from AIOSRObot 
     driveState = DriveState::DISABLED;
     return driveState;
 };                       // Enable (false)
 bool AIOSDrive::posControlConfirmSP(){
+    // Throws an error as this should not be called on AIOSDrive
+    // (Or shouldn't throw an error?)
+    // Needs a check with the 
     spdlog::error("No such method posControlConfirmSP() in AIOSDrive");
     return false;
 }                 // No equivalent
@@ -125,4 +149,7 @@ DriveState AIOSDrive::getState(){
         // ENABLED = 2,
     return driveState;
 }
-DriveControlMode AIOSDrive::getControlMode() { return controlMode; };  // No equivalent
+DriveControlMode AIOSDrive::getControlMode() {
+    // Should 
+    return controlMode;    
+};  

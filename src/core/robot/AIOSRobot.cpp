@@ -31,9 +31,7 @@ bool AIOSRobot::initialiseJoints(){
     // Creates some joints
     // In Robot this is a pure virtual function
     // Normally populates the joints vector... might not need to do this now
-        
     feedback = std::make_shared<Fourier::GroupFeedback>((size_t) group->size());
-
     return true;
 }
 
@@ -65,10 +63,9 @@ bool AIOSRobot::disable() {
 
 void AIOSRobot::updateRobot() {
     //Retrieve latest values from hardware
-    //group->getNextFeedback(feedback, 2);
+    group->getNextFeedback(*feedback, 2);
 
-    // Need to create a feedback object here and update all the joints
-    //group->getNextFeedback(feedback, 2);
+    // Take feedback and copy into AIOSDrive objects
 
     for (auto joint : joints)
         joint->updateValue();
