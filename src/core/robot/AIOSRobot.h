@@ -21,6 +21,7 @@
 // yaml-parser
 #include <fstream>
 #include "yaml-cpp/yaml.h"
+#include "Keyboard.h"
 
 // These are used to access the MACRO: BASE_DIRECTORY
 #define XSTR(x) STR(x)
@@ -67,7 +68,10 @@ class AIOSRobot : public Robot {
     std::shared_ptr<Fourier::GroupFeedback> feedback; // Fourier::GroupFeedback((size_t) 0);  // Not sure if need this here or to instantiate in each method
     std::shared_ptr<Fourier::GroupCommand> group_command; // = Fourier::GroupCommand((size_t) 0);  // Not sure if need this here or to instantiate in each method
 
+
    public:
+    Keyboard* keyboard;
+
     /** @name Constructors and Destructors */
     //@{
     /**
@@ -210,7 +214,10 @@ class AIOSRobot : public Robot {
     * @return true If successful
     * @return false If unsuccesful
     */
-    virtual bool initTorqueControl() { return false; };
+    virtual bool initTorqueControl() {
+        std::cout << " initTorqueControl";
+
+        return false; };
 
     /**
     * @brief Set the target positions for each of the joints

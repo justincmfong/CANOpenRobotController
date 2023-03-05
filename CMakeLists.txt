@@ -9,7 +9,7 @@ project(CORC C CXX)
 #(it should be the class name and have corresponding header naming in a corresponding folder)
 # If your application use ROS, don't forget to change the flag bellow too.
 
-set (STATE_MACHINE_NAME "ExoTestMachine")
+set (STATE_MACHINE_NAME "AIOSTestMachine")
 #set (STATE_MACHINE_NAME "M1DemoMachine")
 #set (STATE_MACHINE_NAME "M1DemoMachineROS")
 #set (STATE_MACHINE_NAME "M2DemoMachine")
@@ -31,7 +31,7 @@ set(ROS 0)
 
 # Select desired logging level (Options: TRACE, DEBUG, INFO, WARN, ERROR, CRITICAL, OFF)
 # INFO is the recommended level in normal operation
-set(CORC_LOGGING_LEVEL INFO)
+set(CORC_LOGGING_LEVEL TRACE)
 
 ################################################################################
 
@@ -76,7 +76,7 @@ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 
 ## Flags (Release is the default)
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_BUILD_TYPE Debug)
 endif()
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")

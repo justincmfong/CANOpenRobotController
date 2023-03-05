@@ -14,6 +14,8 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : rob
         std::cout << "No group found!" << std::endl;
         spdlog::error("Cannot find any AIOS Motors on the specified network.");
     }
+
+    inputs.push_back(keyboard = new Keyboard());
 }
 
 AIOSRobot::~AIOSRobot() {
@@ -22,7 +24,9 @@ AIOSRobot::~AIOSRobot() {
 
 bool AIOSRobot::initialise() {
     if (initialiseNetwork()) {
-        return true;
+        if (initialiseJoints()) {
+            return true;
+        }
     }
     return false;
 }
@@ -62,11 +66,12 @@ bool AIOSRobot::disable() {
 }
 
 void AIOSRobot::updateRobot() {
+    spdlog::trace("AIOSRobot::updateRobot");
+
     //Retrieve latest values from hardware
     group->getNextFeedback(*feedback, 2);
 
     // Take feedback and copy into AIOSDrive objects
-
     for (auto joint : joints)
         joint->updateValue();
     for (auto input : inputs ){
