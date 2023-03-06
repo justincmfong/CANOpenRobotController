@@ -4,7 +4,7 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : rob
     spdlog::debug("Robot ({}) object created", robotName);
 
     // Look for the motors on the network
-    std::string str("10.10.10.255");
+    std::string str("192.168.86.255");
     Fourier::Lookup lookup(&str);
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
@@ -14,7 +14,6 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : rob
         std::cout << "No group found!" << std::endl;
         spdlog::error("Cannot find any AIOS Motors on the specified network.");
     }
-
     inputs.push_back(keyboard = new Keyboard());
 }
 
@@ -69,7 +68,10 @@ void AIOSRobot::updateRobot() {
     spdlog::trace("AIOSRobot::updateRobot");
 
     //Retrieve latest values from hardware
+    group->sendFeedbackRequest(FourierFeedbackCVP);
     group->getNextFeedback(*feedback, 2);
+
+    std::cout << (*feedback)[0]->position << std::endl;
 
     // Take feedback and copy into AIOSDrive objects
     for (auto joint : joints)
