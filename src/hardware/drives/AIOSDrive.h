@@ -44,6 +44,9 @@ class AIOSDrive : public Drive {
 
     DriveState driveState = DISABLED;
     DriveControlMode controlMode = CM_UNCONFIGURED;
+
+    double posMultiplier = 100000.0f;
+    public:
        // Things should exist here to enable stuff from happening
         virtual bool init();
 
@@ -68,6 +71,8 @@ class AIOSDrive : public Drive {
        */
        virtual int stop();
 
+       bool updateValues(FourierFeedbackPtr fb);
+
        virtual bool configureMasterPDOs();
        /**
            * \brief Initialises velocity and acceleration profiles (used by position and velocity controls) through SDOs write
@@ -76,6 +81,7 @@ class AIOSDrive : public Drive {
            * \return false otherwise
            */
     virtual bool setMotorProfile(motorProfile profile);
+
 
     /**
            * Sets the drive to Position control with set parameters (through SDO messages)
@@ -244,5 +250,6 @@ class AIOSDrive : public Drive {
         * \return controlMode
         */
     virtual DriveControlMode getControlMode();
+
 };
 #endif  // AIOSDRIVE_H

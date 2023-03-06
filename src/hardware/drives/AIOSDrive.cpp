@@ -14,6 +14,7 @@
  *
  */
 #include "AIOSDrive.h"
+#include <iostream>
 
 bool AIOSDrive::init() { return true; }  // No equivalent here here I think
 int AIOSDrive::preop() {
@@ -28,6 +29,14 @@ int AIOSDrive::stop()  {
     spdlog::error("No such method preop() in AIOSDrive");
     return 1; 
 }      // No equivalent
+
+bool AIOSDrive::updateValues(FourierFeedbackPtr fb) {
+    spdlog::trace("AIOSDrive::updateValues");
+    actualPos = fb->position * posMultiplier;
+    actualVel = fb->velocity * posMultiplier;
+    actualTor = fb->current * posMultiplier;
+    return true;
+}
 
 bool AIOSDrive::configureMasterPDOs() {
     spdlog::info("No such method configureMasterPDOs() in AIOSDrive");
