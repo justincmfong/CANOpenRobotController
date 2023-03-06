@@ -18,6 +18,17 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : rob
     //Check if YAML file exists and contain robot parameters
     initialiseFromYAML(yaml_config_file);
 
+    for (int i = 0; i < group->size(); i++) {
+        drives.push_back(new AIOSDrive());
+    }
+
+    double jointMin = 0;
+    double jointMax= 100;
+
+    for (int i = 0; i < group->size(); i++){
+        joints.push_back(new AIOSJoint(i, jointMin, jointMax, drives[i], "Joint Name"));
+    }
+
     inputs.push_back(keyboard = new Keyboard());
 }
 
@@ -95,6 +106,7 @@ bool AIOSRobot::initialiseJoints(){
     if(feedback->size()==group->size() && group->size()>0) {
         return true;
     }
+
     return false;
 }
 
@@ -128,11 +140,12 @@ void AIOSRobot::updateRobot() {
     spdlog::trace("AIOSRobot::updateRobot");
 
     //Retrieve latest values from hardware
-    group->sendFeedbackRequest(FourierFeedbackCVP);
+    group->sendFeedbackRequest(FourierFeedbackAll);
     group->getNextFeedback(*feedback, 2);
 
-    std::cout << (*feedback)[0]->position << std::endl;
-
+    for (int i = 0; i < group->size(); i++){
+        drives[i]->updateValues((*feedback)[i]);
+    }
     // Take feedback and copy into AIOSDrive objects
     for (auto joint : joints)
         joint->updateValue();
@@ -173,13 +186,6 @@ Eigen::VectorXd& AIOSRobot::getTorque() {
     return Robot::getTorque();
 }
 
-void AIOSRobot::printStatus() {
-    std::cout << "q=[ " << jointPositions_.transpose() * 180 / M_PI << " ]\t";
-    //std::cout << "dq=[ " << jointVelocities_.transpose() * 180 / M_PI << " ]\t";
-    //std::cout << "tau=[ " << jointTorques_.transpose() << " ]\t";
-    std::cout << std::endl;
-}
-
 void AIOSRobot::printJointStatus(int J_i) {
     joints[J_i]->printStatus();
 }
@@ -193,3 +199,10 @@ bool AIOSRobot::configureMasterPDOs() {
     }
     return true;
 }
+
+bool AIOSRobot::initPositionControl() {
+    return false;
+};
+setMovementReturnCode_t AIOS::setPosition(std::vector<double> positions) {
+    return INCORRECT_MODE;
+};

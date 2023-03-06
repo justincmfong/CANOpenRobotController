@@ -30,6 +30,7 @@
 #include "InputDevice.h"
 #include "Joint.h"
 #include "AIOSDrive.h"
+#include "AIOSJoint.h"
 #include "Robot.h"
 
 
@@ -56,6 +57,7 @@ class AIOSRobot : public Robot {
     */
     std::string robotName;
 
+    std::vector<AIOSDrive*> drives;
     std::vector<Joint *> joints;
     std::vector<InputDevice *> inputs;
 
@@ -184,11 +186,6 @@ class AIOSRobot : public Robot {
     Eigen::VectorXd& getTorque();
 
     /**
-    * \brief print out status of robot and all of its joints
-    *
-    */
-    void printStatus();
-    /**
     * \brief print out status of <code>Joint<code> J_i
     *
     */
@@ -204,7 +201,7 @@ class AIOSRobot : public Robot {
     * @return true If successful
     * @return false If unsuccesful
     */
-    virtual bool initPositionControl() { return false; };
+    virtual bool initPositionControl();
 
     /**
     * @brief Initialises position control on this robot. Default function is to report failure
@@ -231,7 +228,7 @@ class AIOSRobot : public Robot {
     * @param positions a vector of target positions - applicable for each of the actauted joints
     * @return MovementCode representing success or failure of the application
     */
-    virtual setMovementReturnCode_t setPosition(std::vector<double> positions) { return INCORRECT_MODE; };
+    virtual setMovementReturnCode_t setPosition(std::vector<double> positions);
 
     /**
     * @brief Set the target velocities for each of the joints
