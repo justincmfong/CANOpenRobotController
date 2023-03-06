@@ -31,7 +31,7 @@ set(ROS 0)
 
 # Select desired logging level (Options: TRACE, DEBUG, INFO, WARN, ERROR, CRITICAL, OFF)
 # INFO is the recommended level in normal operation
-set(CORC_LOGGING_LEVEL TRACE)
+set(CORC_LOGGING_LEVEL DEBUG)
 
 ################################################################################
 

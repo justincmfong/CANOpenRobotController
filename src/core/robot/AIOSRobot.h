@@ -97,13 +97,19 @@ class AIOSRobot : public Robot {
     bool initialise();
 
    protected:
+
+    /**
+    * \brief Utility method filling vec with the values loaded from the YAML node. Expect same vector lengths.
+    *
+    */
+    void fillParamVectorFromYaml(YAML::Node node, std::vector<double> &vec);
+
     /**
     * \brief Load parameters from YAML file if valid one specified in constructor.
-    * Default base version not doing anything. See derived class for implementation.
     * \param params a valid YAML robot parameters node loaded by initialiseFromYAML() method.
     * \return true
     */
-    virtual bool loadParametersFromYAML(YAML::Node params) { spdlog::info("Robot does not support YAML: using default robot parameters."); return false; };
+    virtual bool loadParametersFromYAML(YAML::Node params);
 
    public:
 

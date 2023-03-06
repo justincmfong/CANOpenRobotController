@@ -14,12 +14,71 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : rob
         std::cout << "No group found!" << std::endl;
         spdlog::error("Cannot find any AIOS Motors on the specified network.");
     }
+
+    //Check if YAML file exists and contain robot parameters
+    initialiseFromYAML(yaml_config_file);
+
     inputs.push_back(keyboard = new Keyboard());
 }
 
 AIOSRobot::~AIOSRobot() {
     spdlog::debug("Robot object deleted");
 }
+
+void AIOSRobot::fillParamVectorFromYaml(YAML::Node node, std::vector<double> &vec) {
+    if(node){
+        for(unsigned int i=0; i<vec.size(); i++)
+            vec[i]=node[i].as<double>();
+    }
+}
+
+bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
+    YAML::Node params_r=params[robotName]; //Specific node corresponding to the robot
+
+    //TODO: load YAMl including actuators ids and map[ping to joint numbers and total joint numbers
+
+/*
+    if(params_r["dqMax"]){
+        dqMax = fmin(fmax(0., params_r["dqMax"].as<double>()), 360.) * M_PI / 180.; //Hard constrained for safety
+    }
+
+    if(params["tauMax"]){
+        tauMax = fmin(fmax(0., params_r["tauMax"].as<double>()), 80.); //Hard constrained for safety
+    }
+
+    fillParamVectorFromYaml(params_r["iPeakDrives"], iPeakDrives);
+    fillParamVectorFromYaml(params_r["motorCstt"], motorCstt);
+    fillParamVectorFromYaml(params_r["linkLengths"], linkLengths);
+    fillParamVectorFromYaml(params_r["massCoeff"], massCoeff);
+    fillParamVectorFromYaml(params_r["qSpringK"], springK);
+    fillParamVectorFromYaml(params_r["qSpringKo"], springKo);
+    fillParamVectorFromYaml(params_r["frictionVis"], frictionVis);
+    fillParamVectorFromYaml(params_r["frictionCoul"], frictionCoul);
+
+    if(params_r["qLimits"]){
+        for(unsigned int i=0; i<qLimits.size(); i++)
+            qLimits[i]=params_r["qLimits"][i].as<double>() * M_PI / 180.;
+    }
+
+    fillParamVectorFromYaml(params_r["qSigns"], qSigns);
+
+    if(params_r["qCalibration"]){
+        for(unsigned int i=0; i<qCalibration.size(); i++)
+            qCalibration[i]=params_r["qCalibration"][i].as<double>() * M_PI / 180.;
+    }
+
+    //Create and replace existing tool if one specified
+    if(params_r["tool"]){
+        if(params_r["tool"]["name"] && params_r["tool"]["length"] && params_r["tool"]["mass"]) {
+            M3Tool *t = new M3Tool(params_r["tool"]["length"].as<double>(), params_r["tool"]["mass"].as<double>(), params_r["tool"]["name"].as<string>()); //Will be destroyed at end of app
+            endEffTool = t;
+        }
+    }*/
+
+    spdlog::info("Using YAML parameters of {}.", robotName);
+    return true;
+}
+
 
 bool AIOSRobot::initialise() {
     if (initialiseNetwork()) {
@@ -31,11 +90,12 @@ bool AIOSRobot::initialise() {
 }
 
 bool AIOSRobot::initialiseJoints(){
-    // Creates some joints
-    // In Robot this is a pure virtual function
-    // Normally populates the joints vector... might not need to do this now
+    // Creates group feedback for joints
     feedback = std::make_shared<Fourier::GroupFeedback>((size_t) group->size());
-    return true;
+    if(feedback->size()==group->size() && group->size()>0) {
+        return true;
+    }
+    return false;
 }
 
 bool AIOSRobot::initialiseInputs(){
