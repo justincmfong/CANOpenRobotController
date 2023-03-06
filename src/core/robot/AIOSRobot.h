@@ -15,23 +15,10 @@
  */
 #ifndef AIOSROBOT_H_INCLUDED
 #define AIOSROBOT_H_INCLUDED
-#include <vector>
-#define EIGEN_RUNTIME_NO_MALLOC //! Flag preventing Eigen to do dynaic allocation (can be bad in RT). See https://github.com/stulp/tutorials/blob/master/test.md for details.
-#include <Eigen/Dense>
-// yaml-parser
-#include <fstream>
-#include "yaml-cpp/yaml.h"
-#include "Keyboard.h"
 
-// These are used to access the MACRO: BASE_DIRECTORY
-#define XSTR(x) STR(x)
-#define STR(x) #x
-
-#include "InputDevice.h"
-#include "Joint.h"
-#include "AIOSDrive.h"
 #include "Robot.h"
-
+#include "AIOSDrive.h"
+#include "Keyboard.h"
 
 #include "lookup.hpp"
 #include "group.hpp"
@@ -47,21 +34,6 @@ short int sign(double val);
  */
 class AIOSRobot : public Robot {
    protected:
-    /**
-    * \brief Vector of pointers to Abstract <class>Joint<class> Objects, number and type must be specified by
-    * Software design in <class>Robot<class> Implementation.
-    * Note: Use pointers to the joint objects here, so that the derived objects are not cast to Joint, truncating
-    * any of their explicit implementations.
-    *
-    */
-    std::string robotName;
-
-    std::vector<Joint *> joints;
-    std::vector<InputDevice *> inputs;
-
-    Eigen::VectorXd jointPositions_;
-    Eigen::VectorXd jointVelocities_;
-    Eigen::VectorXd jointTorques_;
 
     // References to Fourier motors
     std::shared_ptr<Fourier::Group> group;

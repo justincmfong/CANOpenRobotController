@@ -1,22 +1,29 @@
 #include "AIOSRobot.h"
 
-AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : robotName(robot_name) {
+AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Robot(robot_name, yaml_config_file) {
     spdlog::debug("Robot ({}) object created", robotName);
 
+    //Check if YAML file exists and contain robot parameters: retrieve expected robot structure (IP, actuators IDs...)
+    initialiseFromYAML(yaml_config_file);
+
     // Look for the motors on the network
-    std::string str("192.168.86.255");
+    std::string str("192.168.86.255"); //TODO: this should come from the YAML
     Fourier::Lookup lookup(&str);
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
     lookup.setLookupFrequencyHz(0);
     group = lookup.getGroupFromFamily("Default");
-    if (!group) {
-        std::cout << "No group found!" << std::endl;
+    if (group->size()<1) {
         spdlog::error("Cannot find any AIOS Motors on the specified network.");
     }
-
-    //Check if YAML file exists and contain robot parameters
-    initialiseFromYAML(yaml_config_file);
+    else
+    {
+        auto entry_list = lookup.getEntryList();
+        for (const auto &entry : *entry_list) {
+            std::cout << "SerialNb: " << entry.serial_number_ << std::endl;
+        }
+        //Define mapping between Fourier actuators group and expected robot structure
+    }
 
     inputs.push_back(keyboard = new Keyboard());
 }
