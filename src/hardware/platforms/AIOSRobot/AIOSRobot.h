@@ -37,9 +37,9 @@ class AIOSRobot : public Robot {
 
     // References to Fourier motors
     std::shared_ptr<Fourier::Group> group;
-    std::shared_ptr<Fourier::GroupFeedback> gfeedback; // Fourier::GroupFeedback((size_t) 0);  // Not sure if need this here or to instantiate in each method
-    std::shared_ptr<Fourier::GroupCommand> group_command; // = Fourier::GroupCommand((size_t) 0);  // Not sure if need this here or to instantiate in each method
-
+    std::shared_ptr<Fourier::GroupFeedback> gfeedback; 
+    std::shared_ptr<Fourier::GroupCommand> gcommand; 
+    
     std::string networkIP;
 
     /** @name Utils to convert expected AIOS network (actuator) vectors order to CORC robot structure one (and vice-versa) */

@@ -21,7 +21,7 @@
  *
  */
 class AIOSJoint : public Joint {
-   private:
+   public:
     short int sign;
 
     /**

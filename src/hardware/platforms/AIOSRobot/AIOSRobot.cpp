@@ -148,7 +148,7 @@ bool AIOSRobot::initialiseJoints() {
     if(gfeedback->size()==group->size() && group->size()>0) {
         return true;
     }
-
+    gcommand = std::make_shared<Fourier::GroupCommand>((size_t)group->size());
     return false;
 }
 
@@ -173,7 +173,7 @@ bool AIOSRobot::disable() {
     for (int i = 0; i < group->size(); ++i) {
         enable_status[i] = 0;
     }
-    group_command->enable(enable_status);
+    gcommand->enable(enable_status);
     //group->sendCommand(std::const_pointer_cast<Fourier::GroupCommand>(group_command));  // Send the command
 
     for (auto p : joints) {
@@ -199,7 +199,7 @@ void AIOSRobot::updateRobot() {
     }
     // Take feedback and copy into AIOSDrive objects
     for (auto joint : joints)
-        joint->updateValue();
+        joint->updateValue(); // This should take from the AIOS drives and put into Joint objects for later use
     for (auto input : inputs ){
         input->updateInput();
     }
@@ -223,6 +223,7 @@ void AIOSRobot::updateRobot() {
     }
 }
 
+// No change here with AIOS --- should just pull values from the Joint objects
 Eigen::VectorXd& AIOSRobot::getPosition() {
     //Initialise vector if not already done
     return Robot::getPosition();
@@ -230,6 +231,7 @@ Eigen::VectorXd& AIOSRobot::getPosition() {
 
 Eigen::VectorXd& AIOSRobot::getVelocity() {
     //Initialise vector if not already done
+
     return Robot::getVelocity();
 }
 
@@ -251,9 +253,42 @@ bool AIOSRobot::configureMasterPDOs() {
     return true;
 }
 
+
 bool AIOSRobot::initPositionControl() {
-    return false;
+    // Need to send a couple of commands to the drives
+    // First enable the drives (copied from Fourier's example code)
+    std::vector<float> enable_status(group->size(),
+                                     std::numeric_limits<float>::quiet_NaN());
+    for (int i = 0; i < group->size(); ++i) {
+        enable_status[i] = 1;
+    }
+    gcommand->enable(enable_status);
+
+    // If the enabling is successful, update the drives values also
+    if (group->sendCommand(*gcommand)) {
+        for (auto j : joints) {
+            j->setMode(CM_POSITION_CONTROL);
+            j->enable(); // Should cascade down to the drive level
+        }
+    } else {
+        // Include some additional error handling here
+        return false;
+    }
+    return true;
 };
+
 setMovementReturnCode_t AIOSRobot::setPosition(std::vector<double> positions) {
+    // Only add to the vector if the joints are in the right mode
+    std::vector<PosPtInfo> pos_pt_infos(joints.size(), {0});
+    for (int i = 0; i < joints.size(); i++) {
+        if (joints[i]->setPosition(positions[i]) == SUCCESS) {
+            // We can add this to the group command
+            PosPtInfo info = {0};
+            info.pos = ((AIOSJoint*)joints[i])->jointPositionToDriveUnit(positions[i]);  // Need a conversion which is accessible
+            pos_pt_infos[cv.aios(i)] = info;
+        }
+    }
+    gcommand->setInputPositionPt(pos_pt_infos);
+    group->sendCommand(*gcommand);
     return INCORRECT_MODE;
 };
