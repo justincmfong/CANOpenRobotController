@@ -9,14 +9,8 @@
  * @copyright Copyright (c) 2023
  *
  */
-/**
- *  @defgroup Robot Robot Module
- *  A group of abstract classes, acting as the software representation of a robot.
- */
 #ifndef AIOSROBOT_H_INCLUDED
 #define AIOSROBOT_H_INCLUDED
-
-#include <algorithm>
 
 #include "Robot.h"
 #include "AIOSJoint.h"
@@ -170,12 +164,6 @@ class AIOSRobot : public Robot {
     *
     */
     void fillParamVectorFromYaml(YAML::Node node, std::vector<double> &vec);
-
-    /**
-    * \brief Utility method filling vec with the string values loaded from the YAML node. Expect same vector lengths.
-    *
-    */
-    void fillParamVectorFromYaml(YAML::Node node, std::vector<std::string> &vec);
 
     /**
     * \brief Load parameters from YAML file if valid one specified in constructor.
