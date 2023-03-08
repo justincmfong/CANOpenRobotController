@@ -3,32 +3,55 @@
 AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Robot(robot_name, yaml_config_file) {
     spdlog::debug("Robot ({}) object created", robotName);
 
-    //Check if YAML file exists and contain robot parameters: retrieve expected robot structure (IP, actuators IDs...)
+    //Check if YAML file exists and contain robot parameters: retrieve expected robot structure (IP, nb of joints, actuators IDs...)
     initialiseFromYAML(yaml_config_file);
 
-    // Look for the motors on the network
-    std::string str("192.168.86.255"); //TODO: this should come from the YAML
-    Fourier::Lookup lookup(&str);
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    //Map AIOS library log level to general one
+    switch(SPDLOG_ACTIVE_LEVEL)
+    {
+        case SPDLOG_LEVEL_TRACE:
+            fourierSetLogLevel("DEBUG");
+            break;
+        case SPDLOG_LEVEL_DEBUG:
+            fourierSetLogLevel("DEBUG");
+            break;
+         case SPDLOG_LEVEL_INFO:
+            fourierSetLogLevel("INFO");
+            break;
+        case SPDLOG_LEVEL_WARN:
+            fourierSetLogLevel("WARN");
+            break;
+        case SPDLOG_LEVEL_ERROR:
+            fourierSetLogLevel("ERROR");
+            break;
+        case SPDLOG_LEVEL_CRITICAL:
+            fourierSetLogLevel("ERROR");
+            break;
+        default:
+            fourierSetLogLevel("ERROR");
+    }
 
+    // Look for the motors on the network
+    Fourier::Lookup lookup(&networkIP);
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     lookup.setLookupFrequencyHz(0);
     group = lookup.getGroupFromFamily("Default");
-    if (group->size()<1) {
-        spdlog::error("Cannot find any AIOS Motors on the specified network.");
+
+    //Check presence and map
+    if (group->size()>0) {
+        //Define mapping between Fourier actuators group and expected robot structure and apply check on expected structure from YAML (nb joints, IPS...)
+        auto entry_list = lookup.getEntryList(); //List of actuators actually connected
+        cv.initialise(entry_list, expected_aios_ids); //Init mapping
     }
-    else
-    {
-        auto entry_list = lookup.getEntryList();
-        for (const auto &entry : *entry_list) {
-            std::cout << "SerialNb: " << entry.serial_number_ << std::endl;
-        }
-        //Define mapping between Fourier actuators group and expected robot structure
+    else {
+        spdlog::error("Cannot find any AIOS Motors on the specified network.");
     }
 
     for (int i = 0; i < group->size(); i++) {
         drives.push_back(new AIOSDrive());
     }
 
+    //TODO: define limits properly and load from YAML if they exist or default otherwise (see loadParam from YAML)
     double jointMin = 0;
     double jointMax= 100;
 
@@ -53,14 +76,31 @@ void AIOSRobot::fillParamVectorFromYaml(YAML::Node node, std::vector<double> &ve
 bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
     YAML::Node params_r=params[robotName]; //Specific node corresponding to the robot
 
-    //TODO: load YAMl including actuators ids and map[ping to joint numbers and total joint numbers
+    if(params_r["networkIP"]) {
+        networkIP = params_r["networkIP"].as<std::string>();
+    }
+    else {
+        spdlog::error("YAML does not specify a network ip address for {}.", robotName);
+        return false;
+    }
 
-/*
-    if(params_r["dqMax"]){
+    expected_aios_ids.clear();
+    for(const auto &el: params_r["jointIDs"]) {
+        expected_aios_ids.push_back(el.as<std::string>());
+    }
+    if(expected_aios_ids.size()==0) {
+        spdlog::error("YAML does not list any joint (actuator).");
+        return false;
+    }
+
+    //TODO: optional joints names??
+
+    /*
+    if(params_r["dqMax"]) {
         dqMax = fmin(fmax(0., params_r["dqMax"].as<double>()), 360.) * M_PI / 180.; //Hard constrained for safety
     }
 
-    if(params["tauMax"]){
+    if(params["tauMax"]) {
         tauMax = fmin(fmax(0., params_r["tauMax"].as<double>()), 80.); //Hard constrained for safety
     }
 
@@ -84,14 +124,7 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
         for(unsigned int i=0; i<qCalibration.size(); i++)
             qCalibration[i]=params_r["qCalibration"][i].as<double>() * M_PI / 180.;
     }
-
-    //Create and replace existing tool if one specified
-    if(params_r["tool"]){
-        if(params_r["tool"]["name"] && params_r["tool"]["length"] && params_r["tool"]["mass"]) {
-            M3Tool *t = new M3Tool(params_r["tool"]["length"].as<double>(), params_r["tool"]["mass"].as<double>(), params_r["tool"]["name"].as<string>()); //Will be destroyed at end of app
-            endEffTool = t;
-        }
-    }*/
+    */
 
     spdlog::info("Using YAML parameters of {}.", robotName);
     return true;
@@ -101,28 +134,34 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
 bool AIOSRobot::initialise() {
     if (initialiseNetwork()) {
         if (initialiseJoints()) {
-            return true;
+            if(initialiseInputs()) {
+                return true;
+            }
         }
     }
     return false;
 }
 
-bool AIOSRobot::initialiseJoints(){
+bool AIOSRobot::initialiseJoints() {
     // Creates group feedback for joints
-    feedback = std::make_shared<Fourier::GroupFeedback>((size_t) group->size());
-    if(feedback->size()==group->size() && group->size()>0) {
+    gfeedback = std::make_shared<Fourier::GroupFeedback>((size_t) group->size());
+    if(gfeedback->size()==group->size() && group->size()>0) {
         return true;
     }
 
     return false;
 }
 
-bool AIOSRobot::initialiseInputs(){
+bool AIOSRobot::initialiseInputs() {
     return true;
 }
 
-bool AIOSRobot::initialiseNetwork(){
-    return true;
+bool AIOSRobot::initialiseNetwork() {
+    //First ensure that we actually have the proper list of actuators on the network
+    if(cv.isInitialised()) {
+        return true;
+    }
+    return false;
 }
 
 bool AIOSRobot::disable() {
@@ -148,10 +187,15 @@ void AIOSRobot::updateRobot() {
 
     //Retrieve latest values from hardware
     group->sendFeedbackRequest(FourierFeedbackAll);
-    group->getNextFeedback(*feedback, 2);
+    group->getNextFeedback(*gfeedback, 2);
+
+    //Test example of assignment:
+    for (int i = 0; i < group->size(); i++){
+        drives[cv.aios(i)]->updateValues((*gfeedback)[i]);
+    }
 
     for (int i = 0; i < group->size(); i++){
-        drives[i]->updateValues((*feedback)[i]);
+        drives[i]->updateValues((*gfeedback)[i]);
     }
     // Take feedback and copy into AIOSDrive objects
     for (auto joint : joints)

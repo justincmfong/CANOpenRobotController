@@ -16,6 +16,8 @@
 #ifndef AIOSROBOT_H_INCLUDED
 #define AIOSROBOT_H_INCLUDED
 
+#include <algorithm>
+
 #include "Robot.h"
 #include "AIOSJoint.h"
 #include "Keyboard.h"
@@ -34,13 +36,105 @@ short int sign(double val);
  */
 class AIOSRobot : public Robot {
    protected:
+    //Expected AIOS IDs in CORC order, loaded from YAML config
+    std::vector<std::string> expected_aios_ids;
+
     std::vector<AIOSDrive*> drives;
 
     // References to Fourier motors
     std::shared_ptr<Fourier::Group> group;
-    std::shared_ptr<Fourier::GroupFeedback> feedback; // Fourier::GroupFeedback((size_t) 0);  // Not sure if need this here or to instantiate in each method
+    std::shared_ptr<Fourier::GroupFeedback> gfeedback; // Fourier::GroupFeedback((size_t) 0);  // Not sure if need this here or to instantiate in each method
     std::shared_ptr<Fourier::GroupCommand> group_command; // = Fourier::GroupCommand((size_t) 0);  // Not sure if need this here or to instantiate in each method
 
+    std::string networkIP;
+
+    /** @name Utils to convert expected AIOS network (actuator) vectors order to CORC robot structure one (and vice-versa) */
+    //@{
+    /**
+
+    **/
+    class Convert {
+        public:
+
+            Convert() {};
+
+            bool initialise(std::shared_ptr<Fourier::Lookup::EntryList> current_aios_order, std::vector<std::string> expected_aios_ids) {
+                initialised = false;
+                if(current_aios_order->size()==N) {
+                    N = expected_aios_ids.size();
+                    aios_ids.resize(N);
+                    for(unsigned int i=0; i<expected_aios_ids.size(); i++) {
+                        int aios_nb=0;
+                        bool found=false;
+                        for (const auto &entry : *current_aios_order) {
+                            if(entry.serial_number_==expected_aios_ids[i]) {
+                                if(push(aios_nb, i, entry.serial_number_)) {
+                                    found = true;
+                                    break;
+                                }
+                                else {
+                                    return false;
+                                }
+                            }
+                            aios_nb++;
+                        }
+                        if(!found) {
+                            spdlog::error("AIOSRobot Convert: Expected actuator ID {} not found.", expected_aios_ids[i]);
+                            return false;
+                        }
+                    }
+                    spdlog::info("AIOSRobot actuators:");
+                    for(unsigned int i=0; i<N; i++) {
+                        spdlog::info("AIOSRobot: {} -> {} ({})", i, corc(i),  aios_ids[aios(i)] );
+                    }
+                    initialised = true;
+                    return true;
+                }
+                else {
+                    spdlog::error("AIOSRobot Convert: can't initialise. expected_aios_ids vector of wrong size.");
+                }
+                return false;
+            }
+
+
+            unsigned int aios(unsigned int n) {if(initialised) {return aios_corc[n];} else {spdlog::error("AIOSRobot Convert: Not initialised."); return 0;}} //!< AIOS index to CORC index convertion
+            unsigned int corc(unsigned int n) {if(initialised) {return corc_aios[n];}  else {spdlog::error("AIOSRobot Convert: Not initialised."); return 0;}} //!< CORC index to AIOS index convertion
+
+            bool isInitialised() {return initialised;}
+
+        protected:
+            bool push(unsigned int aios_nb, unsigned int corc_nb, std::string aios_id) {
+                if(corc_aios.count(corc_nb)==0 && aios_corc.count(aios_nb)==0 && aios_nb<N) {
+                    corc_aios.insert(std::pair<unsigned int, unsigned int> (corc_nb, aios_nb));
+                    aios_corc.insert(std::pair<unsigned int, unsigned int> (aios_nb, corc_nb));
+                    aios_ids[aios_nb] = aios_id;
+                    return true;
+                }
+
+                spdlog::error("AIOSRobot Convert: can't add new entry for AIOS ID {} ({} <-> {}). Already exists.", aios_id, aios_nb, corc_nb);
+                return false;
+            }
+
+            /*TODO
+            std::vector<double> to_corc(std::vector<double> &v_aios) {}
+            std::vector<double> to_aios(std::vector<double> &v_corc) {}*/
+
+        private:
+            bool initialised = false;
+
+            //Simplified bimap storing actuators order on both sides
+            std::map<unsigned int, unsigned int> corc_aios;
+            std::map<unsigned int, unsigned int> aios_corc;
+
+            //Storing list of aios IDs for reference (in aios order)
+            std::vector<std::string> aios_ids;
+
+            unsigned int N=0; //!<< Nb of joints
+    };
+
+    Convert cv;
+
+    //@}
 
    public:
     Keyboard* keyboard;
@@ -76,6 +170,12 @@ class AIOSRobot : public Robot {
     *
     */
     void fillParamVectorFromYaml(YAML::Node node, std::vector<double> &vec);
+
+    /**
+    * \brief Utility method filling vec with the string values loaded from the YAML node. Expect same vector lengths.
+    *
+    */
+    void fillParamVectorFromYaml(YAML::Node node, std::vector<std::string> &vec);
 
     /**
     * \brief Load parameters from YAML file if valid one specified in constructor.

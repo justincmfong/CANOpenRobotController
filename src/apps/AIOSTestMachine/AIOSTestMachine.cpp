@@ -15,7 +15,7 @@ bool goToNextState(StateMachine & SM) {
 
 AIOSTestMachine::AIOSTestMachine() {
     //Create an M2 Robot and set it to generic state machine
-    setRobot(std::make_unique<AIOSRobot>("AIOSTest"));
+    setRobot(std::make_unique<AIOSRobot>("AIOSDEMO", "AIOSRobot_params.yaml"));
 
     //Create state instances and add to the State Machine
     addState("TestState", std::make_shared<AIOSDemoState>(robot()));
@@ -63,5 +63,4 @@ void AIOSTestMachine::end() {
  */
 void AIOSTestMachine::hwStateUpdate(void) {
     StateMachine::hwStateUpdate();
-    //Also send robot state over network}
 }
