@@ -55,9 +55,9 @@ int AIOSJoint::jointTorqueToDriveUnit(double jointValue) {
 }
 
 bool AIOSJoint::updateValue() {
-    position = driveUnitToJointPosition(drive->getPos());
-    velocity = driveUnitToJointVelocity(drive->getVel());
-    torque = driveUnitToJointTorque(drive->getTorque());
+    position = driveUnitToJointPosition(drive->getPos() / ((AIOSDrive*) drive)->posMultiplier);
+    velocity = driveUnitToJointVelocity(drive->getVel() / ((AIOSDrive*)drive)->posMultiplier);
+    torque = driveUnitToJointTorque(drive->getTorque() / ((AIOSDrive*)drive)->posMultiplier);
     return true;
 }
 

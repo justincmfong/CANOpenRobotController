@@ -66,9 +66,9 @@ class AIOSTimedState : public State {
     virtual void exitCode(){};
 };
 
-class AIOSDemoState : public AIOSTimedState {
+class AIOSStationaryState : public AIOSTimedState {
    public:
-    AIOSDemoState(AIOSRobot *AIOS, const char *name = "AIOS Test State"):AIOSTimedState(AIOS, name){};
+    AIOSStationaryState(AIOSRobot *AIOS, const char *name = "AIOS Stationary State"):AIOSTimedState(AIOS, name){};
 
     void entryCode(void);
     void duringCode(void);
@@ -76,17 +76,61 @@ class AIOSDemoState : public AIOSTimedState {
 };
 
 /**
- * \brief Provide end-effector mass compensation on M2. Mass is controllable through keyboard inputs.
+ * \brief A state in which the Robot is running in Position Control
  *
  */
-class AIOSTransparent : public AIOSTimedState {
+class AIOSPosControlState : public AIOSTimedState {
+   private:
+    Eigen::VectorXd targetPos;
+
    public:
-    AIOSTransparent(AIOSRobot *AIOS, const char *name = "AIOS Transparent") : AIOSTimedState(AIOS, name){};
+    AIOSPosControlState(AIOSRobot *AIOS, const char *name = "AIOS Position Control State") : AIOSTimedState(AIOS, name){};
 
     void entryCode(void);
     void duringCode(void);
     void exitCode(void);
 };
 
+/**
+ * \brief A state in which the Robot is running in Velocity Control
+ *
+ */
+class AIOSVelControlState : public AIOSTimedState {
+    private:
+     Eigen::VectorXd targetVel;
+    public : AIOSVelControlState(AIOSRobot *AIOS, const char *name = "AIOS Velocity Control State") : AIOSTimedState(AIOS, name){};
+
+     void entryCode(void);
+     void duringCode(void);
+     void exitCode(void);
+};
+
+/**
+ * \brief A state in which the Robot is running in Torque Control
+ *
+ */
+class AIOSTorqControlState : public AIOSTimedState {
+    private:
+    Eigen::VectorXd targetTorq;
+   public:
+    AIOSTorqControlState(AIOSRobot *AIOS, const char *name = "AIOS Torque Control State") : AIOSTimedState(AIOS, name){};
+
+    void entryCode(void);
+    void duringCode(void);
+    void exitCode(void);
+};
+
+/**
+ * @brief A state that send the check error command to the robot. 
+ * 
+ */
+class AIOSCheckErrorState : public AIOSTimedState {
+   public:
+    AIOSCheckErrorState(AIOSRobot *AIOS, const char *name = "AIOS Check Error State") : AIOSTimedState(AIOS, name){};
+
+    void entryCode(void);
+    void duringCode(void);
+    void exitCode(void);
+};
 
 #endif

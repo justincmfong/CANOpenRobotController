@@ -54,26 +54,32 @@ bool AIOSDrive::initPosControl(motorProfile posControlMotorProfile) {
     // Should set DriveControlMode to Position_Control
     // Should return things
     // Should ensure drive is in correct state
+    spdlog::error("AIOSDrive::initPosControl(motorProfile velControlMotorProfile) not implemented");
     return false;
 };  // Set TraPTraj (includes acc_lim, dec_lim, vel_lim)
 bool AIOSDrive::initPosControl() {
     // Should only be called from within an AIOSRobot
     // Update DriveControlMode
-    return false;
+    controlMode = CM_POSITION_CONTROL;
+    return true;
 };                                     // No equivalent - maybe set to enable?
 bool AIOSDrive::initVelControl(motorProfile velControlMotorProfile) {
     // Should only be called from within an AIOSRobot
     // Update DriveControlMode
-    return true;
+    spdlog::error("AIOSDrive::initVelControl(motorProfile velControlMotorProfile) not implemented");
+    return false;
 }  // // Set TraPTraj (includes acc_lim, dec_lim, vel_lim)
 bool AIOSDrive::initVelControl() {
     // Should only be called from within an AIOSRobot
     // Update drive control mode
+    controlMode = CM_VELOCITY_CONTROL;
+
     return true;
 };                                     //  No equivalent - maybe set to enable?
 bool AIOSDrive::initTorqueControl() {
     // Should only be called from within an AIOSRobot
     // Update drive control mode
+    controlMode = CM_TORQUE_CONTROL;
     return true; 
 };                                  //  No equivalent - maybe set to enable?
 
@@ -162,3 +168,8 @@ DriveControlMode AIOSDrive::getControlMode() {
     // Should 
     return controlMode;    
 };  
+
+bool AIOSDrive::setErrorPointer(FourierFeedbackErrorPtr errorP){
+    ffErrorPtr = errorP;
+    return true;
+}

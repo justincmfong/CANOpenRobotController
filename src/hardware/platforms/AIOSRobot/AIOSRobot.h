@@ -123,7 +123,7 @@ class AIOSRobot : public Robot {
             //Storing list of aios IDs for reference (in aios order)
             std::vector<std::string> aios_ids;
 
-            unsigned int N=0; //!<< Nb of joints
+            unsigned int N=1; //!<< Nb of joints
     };
 
     Convert cv;
@@ -251,7 +251,6 @@ class AIOSRobot : public Robot {
     void printJointStatus(int J_i);
     //@}
 
-
     /** @name Core Control Methods */
     //@{
     /**
@@ -268,7 +267,7 @@ class AIOSRobot : public Robot {
     * @return true If successful
     * @return false If unsuccesful
     */
-    virtual bool initVelocityControl() { return false; };
+    virtual bool initVelocityControl();
 
     /**
     * @brief Initialises position control on this robot. Default function is to report failure
@@ -276,10 +275,7 @@ class AIOSRobot : public Robot {
     * @return true If successful
     * @return false If unsuccesful
     */
-    virtual bool initTorqueControl() {
-        std::cout << " initTorqueControl";
-
-        return false; };
+    virtual bool initTorqueControl();
 
     /**
     * @brief Set the target positions for each of the joints
@@ -287,7 +283,7 @@ class AIOSRobot : public Robot {
     * @param positions a vector of target positions - applicable for each of the actauted joints
     * @return MovementCode representing success or failure of the application
     */
-    virtual setMovementReturnCode_t setPosition(std::vector<double> positions);
+    virtual setMovementReturnCode_t setPosition(Eigen::VectorXd positions);
 
     /**
     * @brief Set the target velocities for each of the joints
@@ -295,7 +291,7 @@ class AIOSRobot : public Robot {
     * @param positions a vector of target velocities - applicable for each of the actauted joints
     * @return MovementCode representing success or failure of the application
     */
-    virtual setMovementReturnCode_t setVelocity(std::vector<double> velocities) { return INCORRECT_MODE; };
+    virtual setMovementReturnCode_t setVelocity(Eigen::VectorXd velocities);
 
     /**
     * @brief Set the target torques for each of the joints
@@ -303,8 +299,10 @@ class AIOSRobot : public Robot {
     * @param positions a vector of target torques - applicable for each of the actauted joints
     * @return MovementCode representing success or failure of the application
     */
-    virtual setMovementReturnCode_t setTorque(std::vector<double> torques) { return INCORRECT_MODE; };
+    virtual setMovementReturnCode_t setTorque(Eigen::VectorXd torques);
     //@}
+
+    bool getErrors();
 };
 
 #endif  //ROBOT_H

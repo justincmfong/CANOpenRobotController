@@ -95,6 +95,7 @@ DriveControlMode Joint::setMode(DriveControlMode driveMode_, motorProfile profil
 }
 
 DriveControlMode Joint::setMode(DriveControlMode driveMode_) {
+    spdlog::trace("Joint::SetMode");
     if (actuated) {
         if (driveMode_ == CM_POSITION_CONTROL) {
             if (drive->initPosControl()) {
@@ -124,6 +125,7 @@ setMovementReturnCode_t Joint::setPosition(double desQ) {
                 drive->posControlConfirmSP();
                 return SUCCESS;
             } else {
+                spdlog::error("Joint {} is not in Position Control Mode.", id);
                 return INCORRECT_MODE;
             }
         }

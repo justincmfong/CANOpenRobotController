@@ -45,10 +45,13 @@ class AIOSDrive : public Drive {
     DriveState driveState = DISABLED;
     DriveControlMode controlMode = CM_UNCONFIGURED;
 
+    FourierFeedbackErrorPtr ffErrorPtr;
+
+   public:
     double posMultiplier = 100000.0f;
-    public:
-       // Things should exist here to enable stuff from happening
-        virtual bool init();
+
+    // Things should exist here to enable stuff from happening
+    virtual bool init();
 
     /**
        * \brief 
@@ -250,6 +253,8 @@ class AIOSDrive : public Drive {
         * \return controlMode
         */
     virtual DriveControlMode getControlMode();
+
+    bool setErrorPointer(FourierFeedbackErrorPtr errorP);
 
 };
 #endif  // AIOSDRIVE_H

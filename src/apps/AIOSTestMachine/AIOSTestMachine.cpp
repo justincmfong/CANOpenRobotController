@@ -1,7 +1,7 @@
 #include "AIOSTestMachine.h"
 
 
-bool goToNextState(StateMachine & SM) {
+bool posTransition(StateMachine & SM) {
     AIOSTestMachine & sm = static_cast<AIOSTestMachine &>(SM); //Cast to specific StateMachine type
 
     //keyboard press
@@ -12,21 +12,61 @@ bool goToNextState(StateMachine & SM) {
     return false;
 }
 
+bool velTransition(StateMachine &SM) {
+    AIOSTestMachine &sm = static_cast<AIOSTestMachine &>(SM);  // Cast to specific StateMachine type
+
+    // keyboard press
+    if (sm.robot()->keyboard->getNb() == 2)
+        return true;
+
+    // Otherwise false
+    return false;
+}
+bool TorqTransition(StateMachine &SM) {
+    AIOSTestMachine &sm = static_cast<AIOSTestMachine &>(SM);  // Cast to specific StateMachine type
+
+    // keyboard press
+    if (sm.robot()->keyboard->getNb() == 3)
+        return true;
+
+    // Otherwise false
+    return false;
+}
+
+bool ErrorTransition(StateMachine &SM) {
+    AIOSTestMachine &sm = static_cast<AIOSTestMachine &>(SM);  // Cast to specific StateMachine type
+
+    // keyboard press
+    if (sm.robot()->keyboard->getNb() == 0)
+        return true;
+
+    // Otherwise false
+    return false;
+}
 
 AIOSTestMachine::AIOSTestMachine() {
     //Create an M2 Robot and set it to generic state machine
     setRobot(std::make_unique<AIOSRobot>("AIOSDEMO", "AIOSRobot_params.yaml"));
 
     //Create state instances and add to the State Machine
-    addState("TestState", std::make_shared<AIOSDemoState>(robot()));
-    addState("StandbyState", std::make_shared<AIOSTransparent>(robot()));
+    addState("StationaryState", std::make_shared<AIOSStationaryState>(robot()));
+    addState("PositionControl", std::make_shared<AIOSPosControlState>(robot()));
+    addState("VelocityControl", std::make_shared<AIOSVelControlState>(robot()));
+    addState("TorqueControl", std::make_shared<AIOSTorqControlState>(robot()));
+    addState("ErrorCheck", std::make_shared<AIOSCheckErrorState>(robot()));
 
     //Define transitions between states
-    addTransition("TestState", &goToNextState, "StandbyState");
-    addTransition("StandbyState", &goToNextState, "TestState");
+    addTransition("StationaryState", &posTransition, "PositionControl");
+    addTransition("PositionControl", &posTransition, "StationaryState");
+    addTransition("StationaryState", &velTransition, "VelocityControl");
+    addTransition("VelocityControl", &velTransition, "StationaryState");
+    addTransition("StationaryState", &TorqTransition, "TorqueControl");
+    addTransition("TorqueControl", &TorqTransition, "StationaryState");
+    addTransitionFromAny(&ErrorTransition, "ErrorCheck");
+    addTransition("ErrorCheck", &ErrorTransition, "StationaryState");
 
     //Initialize the state machine with first state of the designed state machine
-    setInitState("TestState");
+    setInitState("StationaryState");
 }
 AIOSTestMachine::~AIOSTestMachine() {
 }

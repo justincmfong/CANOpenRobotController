@@ -52,8 +52,8 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Rob
     }
 
     //TODO: define limits properly and load from YAML if they exist or default otherwise (see loadParam from YAML)
-    double jointMin = 0;
-    double jointMax= 100;
+    double jointMin = -1e8;
+    double jointMax= 1e8;
 
     for (int i = 0; i < group->size(); i++){
         joints.push_back(new AIOSJoint(i, jointMin, jointMax, drives[i], "Joint Name"));
@@ -143,12 +143,19 @@ bool AIOSRobot::initialise() {
 }
 
 bool AIOSRobot::initialiseJoints() {
+    spdlog::debug("initialiseJoints");
     // Creates group feedback for joints
     gfeedback = std::make_shared<Fourier::GroupFeedback>((size_t) group->size());
-    if(gfeedback->size()==group->size() && group->size()>0) {
+    gcommand = std::make_shared<Fourier::GroupCommand>((size_t)group->size());
+
+    // Should do a proper calibration here - maybe to do with reading absolute encoders or something...
+    for (auto j : joints) {
+        j->setPositionOffset(0);
+    }
+
+    if(gfeedback->size()==group->size() && group->size()>0 && gcommand->size() == group->size()) {
         return true;
     }
-    gcommand = std::make_shared<Fourier::GroupCommand>((size_t)group->size());
     return false;
 }
 
@@ -166,7 +173,6 @@ bool AIOSRobot::initialiseNetwork() {
 
 bool AIOSRobot::disable() {
     spdlog::info("Disabling robot...");
-
     // Create a Group command to disable the robot
     std::vector<float> enable_status(group->size(),
                                      std::numeric_limits<float>::quiet_NaN());
@@ -174,10 +180,13 @@ bool AIOSRobot::disable() {
         enable_status[i] = 0;
     }
     gcommand->enable(enable_status);
-    //group->sendCommand(std::const_pointer_cast<Fourier::GroupCommand>(group_command));  // Send the command
-
-    for (auto p : joints) {
-        p->disable(); // Reflect this in all the joints (will update the status)
+    if (group->sendCommand(*gcommand)) {
+        for (auto j : joints) {
+            j->disable(); 
+        }
+    } else {
+        // Include some additional error handling here
+        return false;
     }
     return true;
 }
@@ -192,10 +201,6 @@ void AIOSRobot::updateRobot() {
     //Test example of assignment:
     for (int i = 0; i < group->size(); i++){
         drives[cv.aios(i)]->updateValues((*gfeedback)[i]);
-    }
-
-    for (int i = 0; i < group->size(); i++){
-        drives[i]->updateValues((*gfeedback)[i]);
     }
     // Take feedback and copy into AIOSDrive objects
     for (auto joint : joints)
@@ -231,7 +236,6 @@ Eigen::VectorXd& AIOSRobot::getPosition() {
 
 Eigen::VectorXd& AIOSRobot::getVelocity() {
     //Initialise vector if not already done
-
     return Robot::getVelocity();
 }
 
@@ -257,13 +261,13 @@ bool AIOSRobot::configureMasterPDOs() {
 bool AIOSRobot::initPositionControl() {
     // Need to send a couple of commands to the drives
     // First enable the drives (copied from Fourier's example code)
+    spdlog::trace("AIOSRobot::InitPositionControl");
     std::vector<float> enable_status(group->size(),
                                      std::numeric_limits<float>::quiet_NaN());
     for (int i = 0; i < group->size(); ++i) {
         enable_status[i] = 1;
     }
     gcommand->enable(enable_status);
-
     // If the enabling is successful, update the drives values also
     if (group->sendCommand(*gcommand)) {
         for (auto j : joints) {
@@ -277,7 +281,54 @@ bool AIOSRobot::initPositionControl() {
     return true;
 };
 
-setMovementReturnCode_t AIOSRobot::setPosition(std::vector<double> positions) {
+bool AIOSRobot::initVelocityControl() {
+    // Need to send a couple of commands to the drives
+    // First enable the drives (copied from Fourier's example code)
+    spdlog::trace("AIOSRobot::InitVelocityControl");
+    std::vector<float> enable_status(group->size(),
+                                     std::numeric_limits<float>::quiet_NaN());
+    for (int i = 0; i < group->size(); ++i) {
+        enable_status[i] = 1;
+    }
+    gcommand->enable(enable_status);
+    // If the enabling is successful, update the drives values also
+    if (group->sendCommand(*gcommand)) {
+        for (auto j : joints) {
+            j->setMode(CM_VELOCITY_CONTROL);
+            j->enable();  // Should cascade down to the drive level
+        }
+    } else {
+        // Include some additional error handling here
+        return false;
+    }
+    return true;
+};
+
+
+bool AIOSRobot::initTorqueControl() {
+    // Need to send a couple of commands to the drives
+    // First enable the drives (copied from Fourier's example code)
+    spdlog::trace("AIOSRobot::initTorqueControl");
+    std::vector<float> enable_status(group->size(),
+                                     std::numeric_limits<float>::quiet_NaN());
+    for (int i = 0; i < group->size(); ++i) {
+        enable_status[i] = 1;
+    }
+    gcommand->enable(enable_status);
+    // If the enabling is successful, update the drives values also
+    if (group->sendCommand(*gcommand)) {
+        for (auto j : joints) {
+            j->setMode(CM_TORQUE_CONTROL);
+            j->enable();  // Should cascade down to the drive level
+        }
+    } else {
+        // Include some additional error handling here
+        return false;
+    }
+    return true;
+};
+
+setMovementReturnCode_t AIOSRobot::setPosition(Eigen::VectorXd positions) {
     // Only add to the vector if the joints are in the right mode
     std::vector<PosPtInfo> pos_pt_infos(joints.size(), {0});
     for (int i = 0; i < joints.size(); i++) {
@@ -289,6 +340,52 @@ setMovementReturnCode_t AIOSRobot::setPosition(std::vector<double> positions) {
         }
     }
     gcommand->setInputPositionPt(pos_pt_infos);
-    group->sendCommand(*gcommand);
-    return INCORRECT_MODE;
+    if (group->sendCommand(*gcommand)) {
+        return SUCCESS;
+    }
+    return UNKNOWN_ERROR;
 };
+
+setMovementReturnCode_t AIOSRobot::setVelocity(Eigen::VectorXd velocities) {
+    // Only add to the vector if the joints are in the right mode
+    std::vector<float> driveVels(joints.size(), 0);
+    for (int i = 0; i < joints.size(); i++) {
+        if (joints[i]->setVelocity(velocities[i]) == SUCCESS) {
+            // We can add this to the group command
+                driveVels[cv.aios(i)] = ((AIOSJoint*)joints[i])->jointPositionToDriveUnit(velocities[i]);
+        }
+    }
+    gcommand->setInputVelocityPt(driveVels);
+    if (group->sendCommand(*gcommand)) {
+        return SUCCESS;
+    }
+    return UNKNOWN_ERROR;
+};
+
+setMovementReturnCode_t AIOSRobot::setTorque(Eigen::VectorXd torques) {
+    // Only add to the vector if the joints are in the right mode
+    std::vector<float> driveTorques(joints.size(), 0);
+    for (int i = 0; i < joints.size(); i++) {
+        if (joints[i]->setTorque(torques[i]) == SUCCESS) {
+            // We can add this to the group command
+                driveTorques[cv.aios(i)] = ((AIOSJoint*)joints[i])->jointTorqueToDriveUnit(torques[i]);
+        }
+    }
+    gcommand->setInputTorquePt(driveTorques);
+    if (group->sendCommand(*gcommand)){
+        return SUCCESS;
+    }
+    return UNKNOWN_ERROR;
+};
+
+bool AIOSRobot::getErrors(){
+    std::vector<bool> errors(joints.size(), true);
+    gcommand->getError(errors);
+    group->sendCommand(*gcommand);
+
+    for (int i = 0; i < joints.size(); i++){
+        drives[i]->setErrorPointer(group->getError(cv.corc(i)));
+    }
+    return true;
+}
+
