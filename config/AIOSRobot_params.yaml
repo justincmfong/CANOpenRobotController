@@ -1,6 +1,7 @@
 
 ## A demo robot with a few AIOS actuators. Listed parameters are mandatory for an AIOS robot.
 AIOSDEMO:
-  networkIP: "192.168.86.255" #Brodacast IP of AIOS actuators network
-  jointIDs: ["4090D5549434"] #Expected actuators IDs IN CORC EXPECTED ORDER
+  networkIP: "10.10.10.255" #Brodacast IP of AIOS actuators network
+  nbJoints: 2 #Should match number of entries in the following list
+  jointIDs: ["C012D5549434", "2C76D5549434"] #Expected actuators IDs IN CORC EXPECTED ORDER
   

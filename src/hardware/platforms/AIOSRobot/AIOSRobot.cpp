@@ -83,13 +83,23 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
         spdlog::error("YAML does not specify a network ip address for {}.", robotName);
         return false;
     }
+    
+    int nb_joints=-1;
+    if(params_r["nbJoints"]) {
+        nb_joints = params_r["nbJoints"].as<int>();
+        
+    }
+    if(nb_joints<0 || nb_joints>99) {
+        spdlog::error("YAML incorrect nb of joints (nbJoints: {}) for {}.", nb_joints, robotName);
+        return false;
+    }
 
     expected_aios_ids.clear();
     for(const auto &el: params_r["jointIDs"]) {
         expected_aios_ids.push_back(el.as<std::string>());
     }
-    if(expected_aios_ids.size()==0) {
-        spdlog::error("YAML does not list any joint (actuator).");
+    if(expected_aios_ids.size()!=nb_joints) {
+        spdlog::error("YAML does not list proper number of joints (actuators) IDs for {}.", robotName);
         return false;
     }
 

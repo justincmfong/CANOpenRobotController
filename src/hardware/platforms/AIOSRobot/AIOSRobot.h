@@ -54,7 +54,7 @@ class AIOSRobot : public Robot {
 
             bool initialise(std::shared_ptr<Fourier::Lookup::EntryList> current_aios_order, std::vector<std::string> expected_aios_ids) {
                 initialised = false;
-                if(current_aios_order->size()==N) {
+                if(current_aios_order->size()==expected_aios_ids.size()) {
                     N = expected_aios_ids.size();
                     aios_ids.resize(N);
                     for(unsigned int i=0; i<expected_aios_ids.size(); i++) {
@@ -77,11 +77,11 @@ class AIOSRobot : public Robot {
                             return false;
                         }
                     }
-                    spdlog::info("AIOSRobot actuators:");
-                    for(unsigned int i=0; i<N; i++) {
-                        spdlog::info("AIOSRobot: {} -> {} ({})", i, corc(i),  aios_ids[aios(i)] );
-                    }
                     initialised = true;
+                    spdlog::info("AIOSRobot actuators\tcorc\t->\taios\t(ID)");
+                    for(unsigned int i=0; i<N; i++) {
+                        spdlog::info("AIOSRobot:\t\t{}\t->\t{}\t({})", i, corc(i),  aios_ids[corc(i)] );
+                    }
                     return true;
                 }
                 else {
@@ -123,7 +123,7 @@ class AIOSRobot : public Robot {
             //Storing list of aios IDs for reference (in aios order)
             std::vector<std::string> aios_ids;
 
-            unsigned int N=1; //!<< Nb of joints
+            unsigned int N=0; //!<< Nb of joints
     };
 
     Convert cv;
