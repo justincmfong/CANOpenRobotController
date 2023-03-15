@@ -83,11 +83,11 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
         spdlog::error("YAML does not specify a network ip address for {}.", robotName);
         return false;
     }
-    
+
     int nb_joints=-1;
     if(params_r["nbJoints"]) {
         nb_joints = params_r["nbJoints"].as<int>();
-        
+
     }
     if(nb_joints<0 || nb_joints>99) {
         spdlog::error("YAML incorrect nb of joints (nbJoints: {}) for {}.", nb_joints, robotName);
@@ -192,7 +192,7 @@ bool AIOSRobot::disable() {
     gcommand->enable(enable_status);
     if (group->sendCommand(*gcommand)) {
         for (auto j : joints) {
-            j->disable(); 
+            j->disable();
         }
     } else {
         // Include some additional error handling here
@@ -209,8 +209,8 @@ void AIOSRobot::updateRobot() {
     group->getNextFeedback(*gfeedback, 2);
 
     //Test example of assignment:
-    for (int i = 0; i < group->size(); i++){
-        drives[cv.aios(i)]->updateValues((*gfeedback)[i]);
+    for (int i = 0; i < group->size(); i++) {
+        drives[cv.tocorc(i)]->updateValues((*gfeedback)[i]);
     }
     // Take feedback and copy into AIOSDrive objects
     for (auto joint : joints)
@@ -346,7 +346,7 @@ setMovementReturnCode_t AIOSRobot::setPosition(Eigen::VectorXd positions) {
             // We can add this to the group command
             PosPtInfo info = {0};
             info.pos = ((AIOSJoint*)joints[i])->jointPositionToDriveUnit(positions[i]);  // Need a conversion which is accessible
-            pos_pt_infos[cv.aios(i)] = info;
+            pos_pt_infos[cv.toaios(i)] = info;
         }
     }
     gcommand->setInputPositionPt(pos_pt_infos);
@@ -362,7 +362,7 @@ setMovementReturnCode_t AIOSRobot::setVelocity(Eigen::VectorXd velocities) {
     for (int i = 0; i < joints.size(); i++) {
         if (joints[i]->setVelocity(velocities[i]) == SUCCESS) {
             // We can add this to the group command
-                driveVels[cv.aios(i)] = ((AIOSJoint*)joints[i])->jointPositionToDriveUnit(velocities[i]);
+                driveVels[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointPositionToDriveUnit(velocities[i]);
         }
     }
     gcommand->setInputVelocityPt(driveVels);
@@ -378,7 +378,7 @@ setMovementReturnCode_t AIOSRobot::setTorque(Eigen::VectorXd torques) {
     for (int i = 0; i < joints.size(); i++) {
         if (joints[i]->setTorque(torques[i]) == SUCCESS) {
             // We can add this to the group command
-                driveTorques[cv.aios(i)] = ((AIOSJoint*)joints[i])->jointTorqueToDriveUnit(torques[i]);
+                driveTorques[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointTorqueToDriveUnit(torques[i]);
         }
     }
     gcommand->setInputTorquePt(driveTorques);
@@ -394,7 +394,7 @@ bool AIOSRobot::getErrors(){
     group->sendCommand(*gcommand);
 
     for (int i = 0; i < joints.size(); i++){
-        drives[i]->setErrorPointer(group->getError(cv.corc(i)));
+        drives[i]->setErrorPointer(group->getError(cv.tocorc(i)));
     }
     return true;
 }

@@ -37,9 +37,9 @@ class AIOSRobot : public Robot {
 
     // References to Fourier motors
     std::shared_ptr<Fourier::Group> group;
-    std::shared_ptr<Fourier::GroupFeedback> gfeedback; 
-    std::shared_ptr<Fourier::GroupCommand> gcommand; 
-    
+    std::shared_ptr<Fourier::GroupFeedback> gfeedback;
+    std::shared_ptr<Fourier::GroupCommand> gcommand;
+
     std::string networkIP;
 
     /** @name Utils to convert expected AIOS network (actuator) vectors order to CORC robot structure one (and vice-versa) */
@@ -80,7 +80,7 @@ class AIOSRobot : public Robot {
                     initialised = true;
                     spdlog::info("AIOSRobot actuators\tcorc\t->\taios\t(ID)");
                     for(unsigned int i=0; i<N; i++) {
-                        spdlog::info("AIOSRobot:\t\t{}\t->\t{}\t({})", i, corc(i),  aios_ids[corc(i)] );
+                        spdlog::info("AIOSRobot:\t\t{}\t->\t{}\t({})", i, toaios(i),  aios_ids[toaios(i)] );
                     }
                     return true;
                 }
@@ -91,8 +91,8 @@ class AIOSRobot : public Robot {
             }
 
 
-            unsigned int aios(unsigned int n) {if(initialised) {return aios_corc[n];} else {spdlog::error("AIOSRobot Convert: Not initialised."); return 0;}} //!< AIOS index to CORC index convertion
-            unsigned int corc(unsigned int n) {if(initialised) {return corc_aios[n];}  else {spdlog::error("AIOSRobot Convert: Not initialised."); return 0;}} //!< CORC index to AIOS index convertion
+            unsigned int tocorc(unsigned int n) {if(initialised) {return aios_corc[n];} else {spdlog::error("AIOSRobot Convert: Not initialised."); return 0;}} //!< AIOS index to CORC index convertion
+            unsigned int toaios(unsigned int n) {if(initialised) {return corc_aios[n];}  else {spdlog::error("AIOSRobot Convert: Not initialised."); return 0;}} //!< CORC index to AIOS index convertion
 
             bool isInitialised() {return initialised;}
 
