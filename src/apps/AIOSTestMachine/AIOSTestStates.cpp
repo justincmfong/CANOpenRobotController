@@ -1,7 +1,5 @@
 #include "AIOSTestMachine.h"
 
-#define OWNER ((AIOSTestMachine *)owner)
-
 double timeval_to_sec(struct timespec *ts)
 {
     return (double)(ts->tv_sec + ts->tv_nsec / 1000000000.0);
@@ -52,26 +50,30 @@ void AIOSVelControlState::entryCode(void) {
     for (int i = 0; i < targetVel.size(); i++) {
         targetVel[i] = 0;
     }
+    robot->setVelocity(targetVel);
 }
 void AIOSVelControlState::duringCode(void) {
+    double vel_inc = 10/180.*M_PI;
     if (robot->keyboard->getKeyUC() == 'S') {
-        for (int i = 0; i < targetVel.size(); i++) {
-            targetVel[i] = targetVel[i] + 1;
-        }
+        /*for (int i = 0; i < targetVel.size(); i++) {
+            targetVel[i] += +vel_inc;
+        }*/
+        targetVel[0] += +vel_inc;
         robot->setVelocity(targetVel);
     } else if (robot->keyboard->getKeyUC() == 'D') {
-        for (int i = 0; i < targetVel.size(); i++) {
-            targetVel[i] = targetVel[i] - 1;
-        }
+        /*for (int i = 0; i < targetVel.size(); i++) {
+            targetVel[i] += -vel_inc;
+        }*/
+        targetVel[0] += -vel_inc;
         robot->setVelocity(targetVel);
+    }
+
+    if(iterations()%50) {
+        std::cout<< "CORC: " << robot->getPosition().transpose()*180/M_PI << "(deg)   " << robot->getVelocity().transpose()*180/M_PI << "(deg/s)\n";
     }
 }
 void AIOSVelControlState::exitCode(void) {
-    Eigen::VectorXd vel = robot->getVelocity();
-    for (int i = 0; i < vel.size(); i++) {
-        vel[i] = 0;
-    }
-    robot->setVelocity(vel);
+    robot->setVelocity(robot->getVelocity()*0.0);
     robot->disable();
 }
 
@@ -81,26 +83,22 @@ void AIOSTorqControlState::entryCode(void) {
     for (int i = 0; i < targetTorq.size(); i++) {
         targetTorq[i] = 0;
     }
+    robot->setTorque(targetTorq);
 }
 void AIOSTorqControlState::duringCode(void) {
     if (robot->keyboard->getKeyUC() == 'S') {
         for (int i = 0; i < targetTorq.size(); i++) {
             targetTorq[i] = targetTorq[i] + 1;
         }
-        robot->setTorque(targetTorq);
     } else if (robot->keyboard->getKeyUC() == 'D') {
         for (int i = 0; i < targetTorq.size(); i++) {
             targetTorq[i] = targetTorq[i] - 1;
         }
-        robot->setTorque(targetTorq);
     }
+    robot->setTorque(targetTorq);
 }
 void AIOSTorqControlState::exitCode(void) {
-    Eigen::VectorXd torq = robot->getTorque();
-    for (int i = 0; i < torq.size(); i++) {
-        torq[i] = 0;
-    }
-    robot->setTorque(torq);
+    robot->setTorque(robot->getTorque()*0.0);
     robot->disable();
 }
 

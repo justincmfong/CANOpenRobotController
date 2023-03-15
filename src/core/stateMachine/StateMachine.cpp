@@ -142,6 +142,7 @@ void StateMachine::hwStateUpdate() {
 }
 
 void StateMachine::end() {
+    spdlog::trace("StateMachine::end()");
     if(running()) {
         if(logHelper.isInitialised())
             logHelper.endLog();
@@ -149,4 +150,5 @@ void StateMachine::end() {
         _robot->disable();
     }
     _running=false;
+    spdlog::trace("StateMachine::end() finished");
 }

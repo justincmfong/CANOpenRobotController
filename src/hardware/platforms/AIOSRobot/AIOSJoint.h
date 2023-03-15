@@ -1,11 +1,11 @@
 /**
  * \file JointM1.h
- * \author Yue Wen, Tim Haswell borrowing heavily from Vincent Crocher
- * \brief An M1 actuated joint
+ * \author Justin Fong
+ * \brief An AIOS actuated joint
  * \version 0.1
- * \date 2020-07-08
+ * \date 2023-03-10
  *
- * \copyright Copyright (c) 2020
+ * \copyright Copyright (c) 2023
  *
  */
 #ifndef AIOSJoint_H_INCLUDED
@@ -22,7 +22,9 @@
  */
 class AIOSJoint : public Joint {
    public:
-    short int sign;
+    const short int sign;
+    const double driveToJointPos = 3.0/180.*M_PI; //!< Conversion multiplier used for both position and velocity conversions
+    const double driveToJointTorque = 1.0;
 
     /**
      * \brief Conversion between drive unit (encoder count) and joint unit (radian).
@@ -38,7 +40,7 @@ class AIOSJoint : public Joint {
     int jointTorqueToDriveUnit(double jointValue);
 
    public:
-    AIOSJoint(int jointID, double q_min, double q_max, AIOSDrive* drive = NULL, const std::string& name = "");
+    AIOSJoint(int jointID, double q_min, double q_max, short int _sign, AIOSDrive* drive = NULL, const std::string& name = "");
     ~AIOSJoint();
 
     bool updateValue();

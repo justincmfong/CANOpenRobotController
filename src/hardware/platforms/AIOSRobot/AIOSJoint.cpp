@@ -12,7 +12,8 @@
 
 #include "AIOSJoint.h"
 
-AIOSJoint::AIOSJoint(int jointID, double q_min, double q_max, AIOSDrive* drive, const std::string& name) : Joint(jointID, q_min, q_max, drive, name) {
+AIOSJoint::AIOSJoint(int jointID, double q_min, double q_max, short int _sign, AIOSDrive* drive, const std::string& name) : Joint(jointID, q_min, q_max, drive, name),
+                                                                                                                            sign(_sign) {
     spdlog::debug("Joint ID {} Created", this->id);
 }
 
@@ -29,35 +30,34 @@ bool AIOSJoint::initNetwork() {
 /***************************************************************************************/
 // convert from driver unit to joint unit for reading command
 double AIOSJoint::driveUnitToJointPosition(int driveValue) {
-    return 1.0f * (double)driveValue;
+    return sign * driveToJointPos * driveValue / ((AIOSDrive*) drive)->posMultiplier;
 }
 
 double AIOSJoint::driveUnitToJointVelocity(int driveValue) {
-    return 1.0f * driveValue;
+    return sign * driveToJointPos * driveValue / ((AIOSDrive*) drive)->posMultiplier;
 }
 
 double AIOSJoint::driveUnitToJointTorque(int driveValue) {
-    return 1.0f * driveValue;
+    return sign * driveToJointTorque * driveValue / ((AIOSDrive*) drive)->posMultiplier;
 }
 
 // covert from joint unit to driver unit for control command
 int AIOSJoint::jointPositionToDriveUnit(double jointValue) {
-    //    DEBUG_OUT("jointPositionToDriveUnit " << count);
-    return int(round(jointValue));
+    return int(sign*round(jointValue/driveToJointPos));
 }
 
 int AIOSJoint::jointVelocityToDriveUnit(double jointValue) {
-    return int(round(jointValue));
+    return int(sign*round(jointValue/driveToJointPos));
 }
 
 int AIOSJoint::jointTorqueToDriveUnit(double jointValue) {
-    return int(round(jointValue));
+    return int(sign*round(jointValue/driveToJointTorque));
 }
 
 bool AIOSJoint::updateValue() {
-    position = driveUnitToJointPosition(drive->getPos() / ((AIOSDrive*) drive)->posMultiplier);
-    velocity = driveUnitToJointVelocity(drive->getVel() / ((AIOSDrive*)drive)->posMultiplier);
-    torque = driveUnitToJointTorque(drive->getTorque() / ((AIOSDrive*)drive)->posMultiplier);
+    position = driveUnitToJointPosition(drive->getPos());
+    velocity = driveUnitToJointVelocity(drive->getVel());
+    torque = driveUnitToJointTorque(drive->getTorque());
     return true;
 }
 

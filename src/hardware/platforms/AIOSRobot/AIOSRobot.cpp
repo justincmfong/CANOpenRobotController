@@ -53,10 +53,11 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Rob
 
     //TODO: define limits properly and load from YAML if they exist or default otherwise (see loadParam from YAML)
     double jointMin = -1e8;
-    double jointMax= 1e8;
+    double jointMax = 1e8;
+    short int sign = 1;
 
     for (int i = 0; i < group->size(); i++){
-        joints.push_back(new AIOSJoint(i, jointMin, jointMax, drives[i], "Joint Name"));
+        joints.push_back(new AIOSJoint(i, jointMin, jointMax, sign, drives[i], "Joint Name"));
     }
 
     inputs.push_back(keyboard = new Keyboard());
