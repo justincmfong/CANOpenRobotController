@@ -1,12 +1,12 @@
 /**
  * \file AOISDrive.cpp
  * \author  Justin Fong
- * \brief A class implementing an AIOS drive. This is used to interface CORC with any 
- * AIOS drives from Fourier Dynamics. Any implementation which uses these drives (and 
+ * \brief A class implementing an AIOS drive. This is used to interface CORC with any
+ * AIOS drives from Fourier Dynamics. Any implementation which uses these drives (and
  * thus this class) must derive from the AIOSRobot.h class, to manage the communications
- * with these drives. Note that they are significantly different from the CiA402 CANopen 
+ * with these drives. Note that they are significantly different from the CiA402 CANopen
  * drives, due to the mechanisms of communication.
- * 
+ *
  * @version 0.1
  * @date 2023-02-10
  *
@@ -19,7 +19,7 @@
 bool AIOSDrive::init() { return true; }  // No equivalent here here I think
 int AIOSDrive::preop() {
     spdlog::error("No such method preop() in AIOSDrive");
-    return 1; 
+    return 1;
 }     // No equivalent
 int AIOSDrive::start() {
     spdlog::error("No such method preop() in AIOSDrive");
@@ -27,7 +27,7 @@ int AIOSDrive::start() {
 }  // No equivalent
 int AIOSDrive::stop()  {
     spdlog::error("No such method preop() in AIOSDrive");
-    return 1; 
+    return 1;
 }      // No equivalent
 
 bool AIOSDrive::updateValues(FourierFeedbackPtr fb) {
@@ -48,7 +48,7 @@ bool AIOSDrive::setMotorProfile(motorProfile profile){
     // The set command should send through the the next motor command
     return false;
 }                                                                            // Set TraPTraj (includes acc_lim, dec_lim, vel_lim)
-bool AIOSDrive::initPosControl(motorProfile posControlMotorProfile) { 
+bool AIOSDrive::initPosControl(motorProfile posControlMotorProfile) {
     // Should only be called from within an AIOSRobot
     // Should set the TrapTraj to have posControlMotorProfile
     // Should set DriveControlMode to Position_Control
@@ -80,7 +80,7 @@ bool AIOSDrive::initTorqueControl() {
     // Should only be called from within an AIOSRobot
     // Update drive control mode
     controlMode = CM_TORQUE_CONTROL;
-    return true; 
+    return true;
 };                                  //  No equivalent - maybe set to enable?
 
 int AIOSDrive::getStatus(){
@@ -124,7 +124,7 @@ int AIOSDrive::getTorque() {
 
 int AIOSDrive::getDigitalIn(){
     spdlog::error("No Digital Inputs in AIOS Drive");
-    return 0; 
+    return 0;
 };  // Feedback command // TODO
 
 DriveState AIOSDrive::resetErrors(){
@@ -133,22 +133,18 @@ DriveState AIOSDrive::resetErrors(){
 DriveState AIOSDrive::readyToSwitchOn(){
     spdlog::debug("ReadyToSwitchOn in AIOSDrive does not do anything (no equivalent)");
     return driveState;
-}; 
+};
 DriveState AIOSDrive::enable(){
-    // Should only be called from AIOSRObot 
+    // Should only be called from AIOSRObot
     driveState = DriveState::ENABLED;
     return driveState;
 };                              // Enable  (true)
 DriveState AIOSDrive::disable(){
-    // Should only be called from AIOSRObot 
+    // Should only be called from AIOSRObot
     driveState = DriveState::DISABLED;
     return driveState;
 };                       // Enable (false)
 bool AIOSDrive::posControlConfirmSP(){
-    // Throws an error as this should not be called on AIOSDrive
-    // (Or shouldn't throw an error?)
-    // Needs a check with the 
-    spdlog::error("No such method posControlConfirmSP() in AIOSDrive");
     return false;
 }                 // No equivalent
 
@@ -165,9 +161,9 @@ DriveState AIOSDrive::getState(){
     return driveState;
 }
 DriveControlMode AIOSDrive::getControlMode() {
-    // Should 
-    return controlMode;    
-};  
+    // Should
+    return controlMode;
+};
 
 bool AIOSDrive::setErrorPointer(FourierFeedbackErrorPtr errorP){
     ffErrorPtr = errorP;

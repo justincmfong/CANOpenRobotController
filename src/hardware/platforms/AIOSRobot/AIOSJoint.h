@@ -33,13 +33,13 @@ class AIOSJoint : public Joint {
      * \return joint unit for high-level control purpose
      */
     double driveUnitToJointPosition(int driveValue);
-//    int jointPositionToDriveUnit(double jointValue);
+    int jointPositionToDriveUnit(double jointValue);
     double jointPositionToDriveUnitDouble(double jointValue);
     double driveUnitToJointVelocity(int driveValue);
-//    int jointVelocityToDriveUnit(double jointValue);
+    int jointVelocityToDriveUnit(double jointValue);
     double jointVelocityToDriveUnitDouble(double jointValue);
     double driveUnitToJointTorque(int driveValue);
-//    int jointTorqueToDriveUnit(double jointValue);
+    int jointTorqueToDriveUnit(double jointValue);
     double jointTorqueToDriveUnitDouble(double jointValue);
 
    public:

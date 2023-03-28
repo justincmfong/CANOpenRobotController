@@ -42,23 +42,23 @@ double AIOSJoint::driveUnitToJointTorque(int driveValue) {
 }
 
 // covert from joint unit to driver unit for control command
-/*int AIOSJoint::jointPositionToDriveUnit(double jointValue) {
-    return int(sign*round(jointValue/driveToJointPos));
-}*/
+int AIOSJoint::jointPositionToDriveUnit(double jointValue) {
+    return (int) sign*round(jointValue/driveToJointPos)*((AIOSDrive*) drive)->posMultiplier;
+}
 double AIOSJoint::jointPositionToDriveUnitDouble(double jointValue) {
     return sign*jointValue/driveToJointPos;
 }
 
-/*int AIOSJoint::jointVelocityToDriveUnit(double jointValue) {
-    return int(sign*round(jointValue/driveToJointPos));
-}*/
+int AIOSJoint::jointVelocityToDriveUnit(double jointValue) {
+    return (int) sign*round(jointValue/driveToJointPos*((AIOSDrive*) drive)->posMultiplier);
+}
 double AIOSJoint::jointVelocityToDriveUnitDouble(double jointValue) {
     return sign*jointValue/driveToJointPos;
 }
 
-/*int AIOSJoint::jointTorqueToDriveUnit(double jointValue) {
-    return int(sign*round(jointValue/driveToJointTorque));
-}*/
+int AIOSJoint::jointTorqueToDriveUnit(double jointValue) {
+    return (int) sign*round(jointValue/driveToJointTorque*((AIOSDrive*) drive)->posMultiplier);
+}
 double AIOSJoint::jointTorqueToDriveUnitDouble(double jointValue) {
     return sign*jointValue/driveToJointTorque;
 }

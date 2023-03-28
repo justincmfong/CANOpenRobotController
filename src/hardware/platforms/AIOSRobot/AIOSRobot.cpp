@@ -362,7 +362,7 @@ setMovementReturnCode_t AIOSRobot::setVelocity(Eigen::VectorXd velocities) {
     for (int i = 0; i < joints.size(); i++) {
         if (joints[i]->setVelocity(velocities[i]) == SUCCESS) {
             // We can add this to the group command
-                driveVels[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointVelocityToDriveUnitDouble(velocities[i]);
+            driveVels[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointVelocityToDriveUnitDouble(velocities[i]);
         }
     }
     gcommand->setInputVelocityPt(driveVels);
@@ -378,7 +378,7 @@ setMovementReturnCode_t AIOSRobot::setTorque(Eigen::VectorXd torques) {
     for (int i = 0; i < joints.size(); i++) {
         if (joints[i]->setTorque(torques[i]) == SUCCESS) {
             // We can add this to the group command
-                driveTorques[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointTorqueToDriveUnitDouble(torques[i]);
+            driveTorques[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointTorqueToDriveUnitDouble(torques[i]);
         }
     }
     gcommand->setInputTorquePt(driveTorques);

@@ -18,6 +18,8 @@ void AIOSStationaryState::duringCode(void) {
 void AIOSStationaryState::exitCode(void) {
 }
 
+
+
 void AIOSPosControlState::entryCode(void) {
     robot->initPositionControl();
     targetPos = robot->getPosition();
@@ -37,14 +39,18 @@ void AIOSPosControlState::duringCode(void) {
         }
         robot->setPosition(targetPos);
     }
-    std::cout << targetPos.transpose() << "  => ";
-    robot->printStatus();
+
+    if(iterations()%50) {
+        std::cout<< "CORC: " << targetPos.transpose()*180/M_PI  << "=>" << robot->getPosition().transpose()*180/M_PI << "(deg)   " << robot->getVelocity().transpose()*180/M_PI << "(deg/s)\n";
+    }
 }
 void AIOSPosControlState::exitCode(void) {
     Eigen::VectorXd pos = robot->getPosition();
     robot->setPosition(pos);
     robot->disable();
 }
+
+
 
 void AIOSVelControlState::entryCode(void) {
     robot->initVelocityControl();
@@ -57,27 +63,26 @@ void AIOSVelControlState::entryCode(void) {
 void AIOSVelControlState::duringCode(void) {
     double vel_inc = 10/180.*M_PI;
     if (robot->keyboard->getKeyUC() == 'S') {
-        /*for (int i = 0; i < targetVel.size(); i++) {
+        for (int i = 0; i < targetVel.size(); i++) {
             targetVel[i] += +vel_inc;
-        }*/
-        targetVel[0] += +vel_inc;
-        robot->setVelocity(targetVel);
+        }
     } else if (robot->keyboard->getKeyUC() == 'D') {
-        /*for (int i = 0; i < targetVel.size(); i++) {
+        for (int i = 0; i < targetVel.size(); i++) {
             targetVel[i] += -vel_inc;
-        }*/
-        targetVel[0] += -vel_inc;
-        robot->setVelocity(targetVel);
+        }
     }
+    robot->setVelocity(targetVel);
 
     if(iterations()%50) {
-        std::cout<< "CORC: " << robot->getPosition().transpose()*180/M_PI << "(deg)   " << robot->getVelocity().transpose()*180/M_PI << "(deg/s)\n";
+        std::cout<< "CORC: " << robot->getPosition().transpose()*180/M_PI << "(deg)   " << targetVel.transpose()*180/M_PI << " => " <<robot->getVelocity().transpose()*180/M_PI << "(deg/s)\n";
     }
 }
 void AIOSVelControlState::exitCode(void) {
     robot->setVelocity(robot->getVelocity()*0.0);
     robot->disable();
 }
+
+
 
 void AIOSTorqControlState::entryCode(void) {
     robot->initTorqueControl();
@@ -90,14 +95,18 @@ void AIOSTorqControlState::entryCode(void) {
 void AIOSTorqControlState::duringCode(void) {
     if (robot->keyboard->getKeyUC() == 'S') {
         for (int i = 0; i < targetTorq.size(); i++) {
-            targetTorq[i] = targetTorq[i] + 1;
+            targetTorq[i] = targetTorq[i] + 0.5;
         }
     } else if (robot->keyboard->getKeyUC() == 'D') {
         for (int i = 0; i < targetTorq.size(); i++) {
-            targetTorq[i] = targetTorq[i] - 1;
+            targetTorq[i] = targetTorq[i] - 0.5;
         }
     }
     robot->setTorque(targetTorq);
+
+    if(iterations()%50) {
+        std::cout<< "CORC: " <<  robot->getPosition().transpose()*180/M_PI << "(deg)   " << targetTorq.transpose() << "??  => " << robot->getTorque().transpose() << "?? \n";
+    }
 }
 void AIOSTorqControlState::exitCode(void) {
     robot->setTorque(robot->getTorque()*0.0);
