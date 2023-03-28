@@ -209,7 +209,6 @@ void AIOSRobot::updateRobot() {
     group->sendFeedbackRequest(FourierFeedbackAll);
     group->getNextFeedback(*gfeedback, 2);
 
-    //Test example of assignment:
     for (int i = 0; i < group->size(); i++) {
         drives[cv.tocorc(i)]->updateValues((*gfeedback)[i]);
     }
@@ -346,7 +345,7 @@ setMovementReturnCode_t AIOSRobot::setPosition(Eigen::VectorXd positions) {
         if (joints[i]->setPosition(positions[i]) == SUCCESS) {
             // We can add this to the group command
             PosPtInfo info = {0};
-            info.pos = ((AIOSJoint*)joints[i])->jointPositionToDriveUnit(positions[i]);  // Need a conversion which is accessible
+            info.pos = ((AIOSJoint*)joints[i])->jointPositionToDriveUnitDouble(positions[i]);  // Need a conversion which is accessible
             pos_pt_infos[cv.toaios(i)] = info;
         }
     }
@@ -363,7 +362,7 @@ setMovementReturnCode_t AIOSRobot::setVelocity(Eigen::VectorXd velocities) {
     for (int i = 0; i < joints.size(); i++) {
         if (joints[i]->setVelocity(velocities[i]) == SUCCESS) {
             // We can add this to the group command
-                driveVels[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointPositionToDriveUnit(velocities[i]);
+                driveVels[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointVelocityToDriveUnitDouble(velocities[i]);
         }
     }
     gcommand->setInputVelocityPt(driveVels);
@@ -379,7 +378,7 @@ setMovementReturnCode_t AIOSRobot::setTorque(Eigen::VectorXd torques) {
     for (int i = 0; i < joints.size(); i++) {
         if (joints[i]->setTorque(torques[i]) == SUCCESS) {
             // We can add this to the group command
-                driveTorques[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointTorqueToDriveUnit(torques[i]);
+                driveTorques[cv.toaios(i)] = ((AIOSJoint*)joints[i])->jointTorqueToDriveUnitDouble(torques[i]);
         }
     }
     gcommand->setInputTorquePt(driveTorques);

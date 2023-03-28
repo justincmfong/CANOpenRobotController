@@ -98,15 +98,7 @@ int CiA402Drive::getVel() {
 }
 
 int CiA402Drive::getTorque() {
-    /**
-    *  \todo Remove assumption that only drives 1-4 have access to the motor torques
-    *
-    */
-    if (this->NodeID < 5) {
-        return actualTor;
-    } else {
-        return 0;
-    }
+    return actualTor;
 }
 
 int CiA402Drive::getDigitalIn() {

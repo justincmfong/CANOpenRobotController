@@ -33,11 +33,14 @@ class AIOSJoint : public Joint {
      * \return joint unit for high-level control purpose
      */
     double driveUnitToJointPosition(int driveValue);
-    int jointPositionToDriveUnit(double jointValue);
+//    int jointPositionToDriveUnit(double jointValue);
+    double jointPositionToDriveUnitDouble(double jointValue);
     double driveUnitToJointVelocity(int driveValue);
-    int jointVelocityToDriveUnit(double jointValue);
+//    int jointVelocityToDriveUnit(double jointValue);
+    double jointVelocityToDriveUnitDouble(double jointValue);
     double driveUnitToJointTorque(int driveValue);
-    int jointTorqueToDriveUnit(double jointValue);
+//    int jointTorqueToDriveUnit(double jointValue);
+    double jointTorqueToDriveUnitDouble(double jointValue);
 
    public:
     AIOSJoint(int jointID, double q_min, double q_max, short int _sign, AIOSDrive* drive = NULL, const std::string& name = "");

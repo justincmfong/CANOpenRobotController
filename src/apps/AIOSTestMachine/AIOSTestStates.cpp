@@ -24,18 +24,20 @@ void AIOSPosControlState::entryCode(void) {
 }
 void AIOSPosControlState::duringCode(void) {
     // Read Values
+    double inc = 0.2*M_PI/180.;
     if (robot->keyboard->getKeyUC() == 'S') {
         for (int i = 0; i < targetPos.size(); i++) {
-            targetPos[i] = targetPos[i] + 0.1;
+            targetPos[i] = targetPos[i] + inc;
         }
         robot->setPosition(targetPos);
     }
     else if(robot->keyboard->getKeyUC() == 'D') {
         for (int i = 0; i < targetPos.size(); i++) {
-            targetPos[i] = targetPos[i] -0.1;
+            targetPos[i] = targetPos[i] - inc;
         }
         robot->setPosition(targetPos);
     }
+    std::cout << targetPos.transpose() << "  => ";
     robot->printStatus();
 }
 void AIOSPosControlState::exitCode(void) {
