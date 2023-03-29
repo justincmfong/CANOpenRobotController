@@ -1,5 +1,21 @@
 #include "AIOSTestMachine.h"
 
+bool isCalibratedTransition(StateMachine & SM) {
+    AIOSTestMachine & sm = static_cast<AIOSTestMachine &>(SM); //Cast to specific StateMachine type
+
+    return (sm.state<AIOSCalibState>("CalibState"))->isCalibDone();
+}
+
+bool calibTransition(StateMachine & SM) {
+    AIOSTestMachine & sm = static_cast<AIOSTestMachine &>(SM); //Cast to specific StateMachine type
+
+    //keyboard press
+    if (sm.robot()->keyboard->getKeyUC()=='C')
+        return true;
+
+    //Otherwise false
+    return false;
+}
 
 bool posTransition(StateMachine & SM) {
     AIOSTestMachine & sm = static_cast<AIOSTestMachine &>(SM); //Cast to specific StateMachine type
@@ -50,6 +66,7 @@ AIOSTestMachine::AIOSTestMachine() {
 
     //Create state instances and add to the State Machine
     addState("StationaryState", std::make_shared<AIOSStationaryState>(robot()));
+    addState("CalibState", std::make_shared<AIOSCalibState>(robot()));
     addState("PositionControl", std::make_shared<AIOSPosControlState>(robot()));
     addState("VelocityControl", std::make_shared<AIOSVelControlState>(robot()));
     addState("TorqueControl", std::make_shared<AIOSTorqControlState>(robot()));
@@ -57,6 +74,8 @@ AIOSTestMachine::AIOSTestMachine() {
 
     //Define transitions between states
     addTransition("StationaryState", &posTransition, "PositionControl");
+    addTransition("StationaryState", &calibTransition, "CalibState");
+    addTransition("CalibState", &isCalibratedTransition, "StationaryState");
     addTransition("PositionControl", &posTransition, "StationaryState");
     addTransition("StationaryState", &velTransition, "VelocityControl");
     addTransition("VelocityControl", &velTransition, "StationaryState");

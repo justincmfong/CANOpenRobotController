@@ -11,6 +11,8 @@
 #ifndef AIOSTestSTATE_H_DEF
 #define AIOSTestSTATE_H_DEF
 
+#include <algorithm>
+
 #include "AIOSRobot.h"
 #include "State.h"
 
@@ -76,6 +78,28 @@ class AIOSStationaryState : public AIOSTimedState {
 };
 
 /**
+ * \brief Position calibration: go to the psitive mechanical stop of each joint in torque control (damped) until zero velocity.
+ *
+ */
+class AIOSCalibState : public AIOSTimedState {
+   public:
+    AIOSCalibState(AIOSRobot * AIOS, const char *name = "AIOS Calib State"):AIOSTimedState(AIOS, name){};
+
+    void entryCode(void);
+    void duringCode(void);
+    void exitCode(void);
+
+    bool isCalibDone() {return calibDone;}
+
+   private:
+    double maxTorque=0, b=0;
+    VX stop_reached_time;
+    std::vector<bool> at_stop;
+    bool calibDone=false;
+
+};
+
+/**
  * \brief A state in which the Robot is running in Position Control
  *
  */
@@ -121,8 +145,8 @@ class AIOSTorqControlState : public AIOSTimedState {
 };
 
 /**
- * @brief A state that send the check error command to the robot. 
- * 
+ * @brief A state that send the check error command to the robot.
+ *
  */
 class AIOSCheckErrorState : public AIOSTimedState {
    public:

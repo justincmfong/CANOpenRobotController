@@ -3,9 +3,6 @@
 AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Robot(robot_name, yaml_config_file) {
     spdlog::debug("Robot ({}) object created", robotName);
 
-    //Check if YAML file exists and contain robot parameters: retrieve expected robot structure (IP, nb of joints, actuators IDs...)
-    initialiseFromYAML(yaml_config_file);
-
     //Map AIOS library log level to general one
     switch(SPDLOG_ACTIVE_LEVEL)
     {
@@ -31,36 +28,39 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Rob
             fourierSetLogLevel("ERROR");
     }
 
-    // Look for the motors on the network
-    Fourier::Lookup lookup(&networkIP);
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    lookup.setLookupFrequencyHz(0);
-    group = lookup.getGroupFromFamily("Default");
+    //Check if YAML file exists and contain robot parameters: retrieve expected robot structure (IP, nb of joints, actuators IDs...)
+    if (initialiseFromYAML(yaml_config_file)) {
 
-    //Check presence and map
-    if (group->size()>0) {
-        //Define mapping between Fourier actuators group and expected robot structure and apply check on expected structure from YAML (nb joints, IPS...)
-        auto entry_list = lookup.getEntryList(); //List of actuators actually connected
-        cv.initialise(entry_list, expected_aios_ids); //Init mapping
+        // Look for the motors on the network
+        Fourier::Lookup lookup(&networkIP);
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        lookup.setLookupFrequencyHz(0);
+        group = lookup.getGroupFromFamily("Default");
+
+        //Check presence and map
+        if (group->size()>0) {
+            //Define mapping between Fourier actuators group and expected robot structure and apply check on expected structure from YAML (nb joints, IPS...)
+            auto entry_list = lookup.getEntryList(); //List of actuators actually connected
+            cv.initialise(entry_list, expected_aios_ids); //Init mapping
+        }
+        else {
+            spdlog::error("Cannot find any AIOS Motors on the specified network.");
+        }
+
+        for (int i = 0; i < group->size(); i++) {
+            drives.push_back(new AIOSDrive());
+        }
+
+        //TODO: define limits properly and load from YAML if they exist or default otherwise (see loadParam from YAML)
+        double jointMin = -1e8;
+        double jointMax = 1e8;
+
+        for (int i = 0; i < group->size(); i++){
+            joints.push_back(new AIOSJoint(i, jointMin, jointMax, qSigns[i], drives[i], jointNames[i]));
+        }
+
+        inputs.push_back(keyboard = new Keyboard());
     }
-    else {
-        spdlog::error("Cannot find any AIOS Motors on the specified network.");
-    }
-
-    for (int i = 0; i < group->size(); i++) {
-        drives.push_back(new AIOSDrive());
-    }
-
-    //TODO: define limits properly and load from YAML if they exist or default otherwise (see loadParam from YAML)
-    double jointMin = -1e8;
-    double jointMax = 1e8;
-    short int sign = 1;
-
-    for (int i = 0; i < group->size(); i++){
-        joints.push_back(new AIOSJoint(i, jointMin, jointMax, sign, drives[i], "Joint Name"));
-    }
-
-    inputs.push_back(keyboard = new Keyboard());
 }
 
 AIOSRobot::~AIOSRobot() {
@@ -95,6 +95,7 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
         return false;
     }
 
+    //Required actual AIOS actuators IDs expected
     expected_aios_ids.clear();
     for(const auto &el: params_r["jointIDs"]) {
         expected_aios_ids.push_back(el.as<std::string>());
@@ -104,10 +105,48 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
         return false;
     }
 
-    //TODO: optional joints names??
+    //Optional joint names
+    if((params_r["jointNames"])){
+        for(const auto &el: params_r["jointNames"]) {
+            jointNames.push_back(el.as<std::string>());
+        }
+        if(jointNames.size()!=nb_joints) {
+            spdlog::error("YAML does not list proper number of joint names for {}.", robotName);
+            return false;
+        }
+    }
+    else {
+        for(unsigned int i=0; i<nb_joints; i++) {
+            jointNames.push_back("Joint name");
+        }
+    }
 
-    /*
-    if(params_r["dqMax"]) {
+    qSigns.resize(nb_joints);
+    fill(qSigns.begin(), qSigns.end(), 1);
+    if(params_r["qSigns"]){
+        if(qSigns.size() == params_r["qSigns"].size()) {
+            fillParamVectorFromYaml(params_r["qSigns"], qSigns);
+        }
+        else {
+            spdlog::error("YAML does not list proper number of joint signs for {}.", robotName);
+            return false;
+        }
+    }
+
+    qCalibration = VX::Zero(nb_joints);
+    if(params_r["qCalibration"]){
+        if(qCalibration.size() == params_r["qCalibration"].size()) {
+            for(unsigned int i=0; i<qCalibration.size(); i++)
+                qCalibration[i]=params_r["qCalibration"][i].as<double>() * M_PI / 180.;
+        }
+        else {
+            spdlog::error("YAML does not list proper number of calibration values for {}.", robotName);
+            return false;
+        }
+
+    }
+
+    /*if(params_r["dqMax"]) {
         dqMax = fmin(fmax(0., params_r["dqMax"].as<double>()), 360.) * M_PI / 180.; //Hard constrained for safety
     }
 
@@ -127,13 +166,6 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
     if(params_r["qLimits"]){
         for(unsigned int i=0; i<qLimits.size(); i++)
             qLimits[i]=params_r["qLimits"][i].as<double>() * M_PI / 180.;
-    }
-
-    fillParamVectorFromYaml(params_r["qSigns"], qSigns);
-
-    if(params_r["qCalibration"]){
-        for(unsigned int i=0; i<qCalibration.size(); i++)
-            qCalibration[i]=params_r["qCalibration"][i].as<double>() * M_PI / 180.;
     }
     */
 
@@ -180,6 +212,14 @@ bool AIOSRobot::initialiseNetwork() {
         return true;
     }
     return false;
+}
+
+void AIOSRobot::applyCalibration() {
+    spdlog::debug("AIOSRobot::ApplyCalib: {}", qCalibration[0]);
+    for (unsigned int i = 0; i < joints.size(); i++) {
+        ((AIOSJoint *)joints[i])->setPositionOffset(qCalibration[i]);
+    }
+    calibrated = true;
 }
 
 bool AIOSRobot::disable() {
@@ -316,7 +356,6 @@ bool AIOSRobot::initVelocityControl() {
     return true;
 };
 
-
 bool AIOSRobot::initTorqueControl() {
     // Need to send a couple of commands to the drives
     // First enable the drives (copied from Fourier's example code)
@@ -344,17 +383,23 @@ bool AIOSRobot::initTorqueControl() {
 setMovementReturnCode_t AIOSRobot::setPosition(Eigen::VectorXd positions) {
     // Only add to the vector if the joints are in the right mode
     std::vector<PosPtInfo> pos_pt_infos(joints.size(), {0});
-    for (int i = 0; i < joints.size(); i++) {
-        if (joints[i]->setPosition(positions[i]) == SUCCESS) {
-            // We can add this to the group command
-            PosPtInfo info = {0};
-            info.pos = ((AIOSJoint*)joints[i])->jointPositionToDriveUnitDouble(positions[i]);  // Need a conversion which is accessible
-            pos_pt_infos[cv.toaios(i)] = info;
-        }
+    if (!calibrated) {
+        spdlog::debug("AIOSRObot: not calibrated, can't apply position control.");
+        return NOT_CALIBRATED;
     }
-    gcommand->setInputPositionPt(pos_pt_infos);
-    if (group->sendCommand(*gcommand)) {
-        return SUCCESS;
+    else {
+        for (int i = 0; i < joints.size(); i++) {
+            if (joints[i]->setPosition(positions[i]) == SUCCESS) {
+                // We can add this to the group command
+                PosPtInfo info = {0};
+                info.pos = ((AIOSJoint*)joints[i])->jointPositionToDriveUnitDouble(positions[i]);  // Need a conversion which is accessible
+                pos_pt_infos[cv.toaios(i)] = info;
+            }
+        }
+        gcommand->setInputPositionPt(pos_pt_infos);
+        if (group->sendCommand(*gcommand)) {
+            return SUCCESS;
+        }
     }
     return UNKNOWN_ERROR;
 };

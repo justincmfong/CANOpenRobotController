@@ -21,6 +21,8 @@
 #include "groupCommand.hpp"
 #include "groupFeedback.hpp"
 
+typedef Eigen::VectorXd VX; //!< Generic (dynamic) size version
+
 short int sign(double val);
 
 /**
@@ -41,6 +43,12 @@ class AIOSRobot : public Robot {
     std::shared_ptr<Fourier::GroupCommand> gcommand;
 
     std::string networkIP;
+
+    std::vector<std::string> jointNames;
+    VX qCalibration;             //!< Calibration configuration: posture in which the robot is when using the calibration procedure
+    std::vector<double> qSigns;
+
+    bool calibrated;
 
     /** @name Utils to convert expected AIOS network (actuator) vectors order to CORC robot structure one (and vice-versa) */
     //@{
@@ -188,6 +196,16 @@ class AIOSRobot : public Robot {
      *
      */
     virtual bool configureMasterPDOs();
+
+    /**
+     * \brief Apply current configuration as calibration configuration using qcalibration such that:
+     *  q=qcalibration in current configuration.
+     */
+    void applyCalibration();
+
+    bool isCalibrated() {return calibrated;}
+    void decalibrate() {calibrated = false;}
+
     /**
      * \brief Pure Virtual function, implemeted by robot designer with specified number of each concrete joint classes
      * for the robot hardware desired.
