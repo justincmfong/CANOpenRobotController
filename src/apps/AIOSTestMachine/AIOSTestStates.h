@@ -144,6 +144,33 @@ class AIOSTorqControlState : public AIOSTimedState {
     void exitCode(void);
 };
 
+
+class AIOSPosTrajState : public AIOSTimedState {
+   private:
+    Eigen::VectorXd targetPos;
+
+   public:
+    AIOSPosTrajState(AIOSRobot *AIOS, const char *name = "AIOS Position Trajectory State") : AIOSTimedState(AIOS, name){};
+
+    void entryCode(void);
+    void duringCode(void);
+    void exitCode(void);
+
+    struct Pt {
+        Pt(VX p, double t) : pose(p), T(t) {};
+        VX pose;
+        double T=1.;
+    };
+
+    std::vector<Pt> Pts;
+    unsigned int TrajPtIdx=0;
+    double startTime;
+    VX q, dq;
+    VX qi, qf;
+    double T;
+};
+
+
 /**
  * @brief A state that send the check error command to the robot.
  *

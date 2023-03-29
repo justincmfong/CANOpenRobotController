@@ -5,6 +5,17 @@ double timeval_to_sec(struct timespec *ts)
     return (double)(ts->tv_sec + ts->tv_nsec / 1000000000.0);
 }
 
+double JerkIt(VX X0, VX Xf, double T, double t, VX &Xd, VX &dXd) {
+    t = std::max(std::min(t, T), .0); //Bound time
+    double tn=std::max(std::min(t/T, 1.0), .0);//Normalised time bounded 0-1
+    double tn3=pow(tn,3.);
+    double tn4=tn*tn3;
+    double tn5=tn*tn4;
+    Xd = X0 + ( (X0-Xf) * (15.*tn4-6.*tn5-10.*tn3) );
+    dXd = (X0-Xf) * (4.*15.*tn4-5.*6.*tn5-10.*3*tn3)/t;
+    return tn;
+}
+
 void AIOSCalibState::entryCode(void) {
     calibDone=false;
     VX q0=robot->getPosition();
@@ -104,6 +115,56 @@ void AIOSPosControlState::exitCode(void) {
 }
 
 
+
+void AIOSPosTrajState::entryCode(void) {
+    robot->initPositionControl();
+    Pts.push_back(Pt(Eigen::Vector2d(.0, .0), 4.));
+    Pts.push_back(Pt(Eigen::Vector2d(-0.3, 0.5), 2.));
+    q = robot->getPosition();
+    robot->setPosition(q);
+
+    TrajPtIdx=0;
+    startTime=running();
+    qi=robot->getPosition();
+    qf=Pts[TrajPtIdx].pose;
+    T=Pts[TrajPtIdx].T;
+}
+void AIOSPosTrajState::duringCode(void) {
+
+    if(q.size()!=Pts[TrajPtIdx].pose.size()) {
+        spdlog::error("Wrong trajectory vector size.");
+    }
+    else {
+        //Compute current desired interpolated point
+        VX dqd;
+        double status=JerkIt(qi, qf, T, running()-startTime, dq, dqd);
+        //Apply position control
+        robot->setPosition(dq);
+
+        //Have we reached a point?
+        if(status>=1.) {
+            //Go to next point
+            TrajPtIdx++;
+            if(TrajPtIdx>=Pts.size()){
+                TrajPtIdx=0;
+            }
+            //From where we are
+            qi=robot->getPosition();
+            //To next point
+            qf=Pts[TrajPtIdx].pose;
+            T=Pts[TrajPtIdx].T;
+            startTime=running();
+        }
+    }
+
+    if(iterations()%50) {
+        std::cout<< "CORC: " << robot->getPosition().transpose()*180/M_PI << "(deg)   " << robot->getVelocity().transpose()*180/M_PI << "(deg/s)\n";
+    }
+}
+void AIOSPosTrajState::exitCode(void) {
+    q = robot->getPosition();
+    robot->setPosition(q);
+}
 
 void AIOSVelControlState::entryCode(void) {
     robot->initVelocityControl();

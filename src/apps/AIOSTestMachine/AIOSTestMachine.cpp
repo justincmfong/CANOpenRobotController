@@ -17,6 +17,17 @@ bool calibTransition(StateMachine & SM) {
     return false;
 }
 
+bool trajTransition(StateMachine & SM) {
+    AIOSTestMachine & sm = static_cast<AIOSTestMachine &>(SM); //Cast to specific StateMachine type
+
+    //keyboard press
+    if (sm.robot()->keyboard->getKeyUC()=='T')
+        return true;
+
+    //Otherwise false
+    return false;
+}
+
 bool posTransition(StateMachine & SM) {
     AIOSTestMachine & sm = static_cast<AIOSTestMachine &>(SM); //Cast to specific StateMachine type
 
@@ -70,17 +81,20 @@ AIOSTestMachine::AIOSTestMachine() {
     addState("PositionControl", std::make_shared<AIOSPosControlState>(robot()));
     addState("VelocityControl", std::make_shared<AIOSVelControlState>(robot()));
     addState("TorqueControl", std::make_shared<AIOSTorqControlState>(robot()));
+    addState("Trajectory", std::make_shared<AIOSPosTrajState>(robot()));
     addState("ErrorCheck", std::make_shared<AIOSCheckErrorState>(robot()));
 
     //Define transitions between states
-    addTransition("StationaryState", &posTransition, "PositionControl");
     addTransition("StationaryState", &calibTransition, "CalibState");
     addTransition("CalibState", &isCalibratedTransition, "StationaryState");
+    addTransition("StationaryState", &posTransition, "PositionControl");
     addTransition("PositionControl", &posTransition, "StationaryState");
     addTransition("StationaryState", &velTransition, "VelocityControl");
     addTransition("VelocityControl", &velTransition, "StationaryState");
     addTransition("StationaryState", &TorqTransition, "TorqueControl");
     addTransition("TorqueControl", &TorqTransition, "StationaryState");
+    addTransition("StationaryState", &trajTransition, "Trajectory");
+    addTransition("Trajectory", &trajTransition, "StationaryState");
     addTransitionFromAny(&ErrorTransition, "ErrorCheck");
     addTransition("ErrorCheck", &ErrorTransition, "StationaryState");
 
