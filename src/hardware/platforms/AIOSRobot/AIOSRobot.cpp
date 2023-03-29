@@ -271,7 +271,7 @@ bool AIOSRobot::configureMasterPDOs() {
 bool AIOSRobot::initPositionControl() {
     // Need to send a couple of commands to the drives
     // First enable the drives (copied from Fourier's example code)
-    spdlog::trace("AIOSRobot::InitPositionControl");
+    spdlog::trace("AIOSRobot::initPositionControl");
     std::vector<float> enable_status(group->size(),
                                      std::numeric_limits<float>::quiet_NaN());
     for (int i = 0; i < group->size(); ++i) {
@@ -286,6 +286,7 @@ bool AIOSRobot::initPositionControl() {
         }
     } else {
         // Include some additional error handling here
+        spdlog::error("AIOSRobot::initPositionControl: failed init command.");
         return false;
     }
     return true;
@@ -294,7 +295,7 @@ bool AIOSRobot::initPositionControl() {
 bool AIOSRobot::initVelocityControl() {
     // Need to send a couple of commands to the drives
     // First enable the drives (copied from Fourier's example code)
-    spdlog::trace("AIOSRobot::InitVelocityControl");
+    spdlog::trace("AIOSRobot::initVelocityControl");
     std::vector<float> enable_status(group->size(),
                                      std::numeric_limits<float>::quiet_NaN());
     for (int i = 0; i < group->size(); ++i) {
@@ -309,6 +310,7 @@ bool AIOSRobot::initVelocityControl() {
         }
     } else {
         // Include some additional error handling here
+        spdlog::error("AIOSRobot::initVelocityControl: failed init command.");
         return false;
     }
     return true;
@@ -333,6 +335,7 @@ bool AIOSRobot::initTorqueControl() {
         }
     } else {
         // Include some additional error handling here
+        spdlog::error("AIOSRobot::initTorqueControl: failed init command.");
         return false;
     }
     return true;

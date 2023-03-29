@@ -47,7 +47,6 @@ void AIOSPosControlState::duringCode(void) {
 void AIOSPosControlState::exitCode(void) {
     Eigen::VectorXd pos = robot->getPosition();
     robot->setPosition(pos);
-    robot->disable();
 }
 
 
@@ -79,7 +78,6 @@ void AIOSVelControlState::duringCode(void) {
 }
 void AIOSVelControlState::exitCode(void) {
     robot->setVelocity(robot->getVelocity()*0.0);
-    robot->disable();
 }
 
 
@@ -110,7 +108,6 @@ void AIOSTorqControlState::duringCode(void) {
 }
 void AIOSTorqControlState::exitCode(void) {
     robot->setTorque(robot->getTorque()*0.0);
-    robot->disable();
 }
 
 void AIOSCheckErrorState::entryCode(void) {

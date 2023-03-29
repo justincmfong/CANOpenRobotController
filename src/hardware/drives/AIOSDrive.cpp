@@ -73,7 +73,6 @@ bool AIOSDrive::initVelControl() {
     // Should only be called from within an AIOSRobot
     // Update drive control mode
     controlMode = CM_VELOCITY_CONTROL;
-
     return true;
 };                                     //  No equivalent - maybe set to enable?
 bool AIOSDrive::initTorqueControl() {

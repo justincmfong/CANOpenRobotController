@@ -80,7 +80,6 @@ void AIOSTestMachine::init() {
     if(robot()->initialise()) {
         logHelper.initLogger("AIOSTestMachineLog", "logs/AIOSTestMachine.csv", LogFormat::CSV, true);
         logHelper.add(runningTime(), "Time (s)");
-        logHelper.startLogger();
     }
     else {
         spdlog::critical("Failed robot initialisation. Exiting...");
