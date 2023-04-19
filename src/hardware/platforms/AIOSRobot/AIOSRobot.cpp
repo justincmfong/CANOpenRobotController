@@ -42,6 +42,11 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Rob
             //Define mapping between Fourier actuators group and expected robot structure and apply check on expected structure from YAML (nb joints, IPS...)
             auto entry_list = lookup.getEntryList(); //List of actuators actually connected
             cv.initialise(entry_list, expected_aios_ids); //Init mapping
+
+            spdlog::debug("AIOS actuators present:");
+            for (const auto &entry : *entry_list) {
+                spdlog::debug("Found {}", entry.serial_number_);
+            }
         }
         else {
             spdlog::error("Cannot find any AIOS Motors on the specified network.");
@@ -54,9 +59,11 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Rob
         //TODO: define limits properly and load from YAML if they exist or default otherwise (see loadParam from YAML)
         double jointMin = -1e8;
         double jointMax = 1e8;
+        double jointMaxSpeed = 25/180.*M_PI;
+        double jointMaxTorque = 0.5; //!!! WARNING: this is in joint READING units from AIOS!!
 
         for (int i = 0; i < group->size(); i++){
-            joints.push_back(new AIOSJoint(i, jointMin, jointMax, qSigns[i], drives[i], jointNames[i]));
+            joints.push_back(new AIOSJoint(i, jointMin, jointMax, qSigns[i], -jointMaxSpeed, jointMaxSpeed, -jointMaxTorque, jointMaxTorque, drives[i], jointNames[i]));
         }
 
         inputs.push_back(keyboard = new Keyboard());
@@ -64,7 +71,7 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Rob
 }
 
 AIOSRobot::~AIOSRobot() {
-    spdlog::debug("Robot object deleted");
+    spdlog::debug("AIOSRobot object deleted");
 }
 
 void AIOSRobot::fillParamVectorFromYaml(YAML::Node node, std::vector<double> &vec) {
@@ -191,11 +198,6 @@ bool AIOSRobot::initialiseJoints() {
     gfeedback = std::make_shared<Fourier::GroupFeedback>((size_t) group->size());
     gcommand = std::make_shared<Fourier::GroupCommand>((size_t)group->size());
 
-    // Should do a proper calibration here - maybe to do with reading absolute encoders or something...
-    for (auto j : joints) {
-        j->setPositionOffset(0);
-    }
-
     if(gfeedback->size()==group->size() && group->size()>0 && gcommand->size() == group->size()) {
         return true;
     }
@@ -215,7 +217,7 @@ bool AIOSRobot::initialiseNetwork() {
 }
 
 void AIOSRobot::applyCalibration() {
-    spdlog::debug("AIOSRobot::ApplyCalib: {}", qCalibration[0]);
+    spdlog::debug("AIOSRobot::ApplyCalib: {} {} => {}", getPosition()[0]*180/M_PI, qCalibration[0]*180/M_PI);
     for (unsigned int i = 0; i < joints.size(); i++) {
         ((AIOSJoint *)joints[i])->setPositionOffset(qCalibration[i]);
     }
@@ -249,9 +251,19 @@ void AIOSRobot::updateRobot() {
     group->sendFeedbackRequest(FourierFeedbackAll);
     group->getNextFeedback(*gfeedback, 2);
 
+    //apply these values to virtual 'drives'
     for (int i = 0; i < group->size(); i++) {
         drives[cv.tocorc(i)]->updateValues((*gfeedback)[i]);
     }
+
+    //Then equivalent process to generic robot
+    Robot::updateRobot();
+
+    if (safetyCheck() != SUCCESS) {
+        disable();
+    }
+
+    /*
     // Take feedback and copy into AIOSDrive objects
     for (auto joint : joints)
         joint->updateValue(); // This should take from the AIOS drives and put into Joint objects for later use
@@ -275,22 +287,7 @@ void AIOSRobot::updateRobot() {
         jointVelocities_[i] = joint->getVelocity();
         jointTorques_[i] = joint->getTorque();
         i++;
-    }
-}
-
-// No change here with AIOS --- should just pull values from the Joint objects
-Eigen::VectorXd& AIOSRobot::getPosition() {
-    //Initialise vector if not already done
-    return Robot::getPosition();
-}
-
-Eigen::VectorXd& AIOSRobot::getVelocity() {
-    //Initialise vector if not already done
-    return Robot::getVelocity();
-}
-
-Eigen::VectorXd& AIOSRobot::getTorque() {
-    return Robot::getTorque();
+    }*/
 }
 
 void AIOSRobot::printJointStatus(int J_i) {
@@ -307,6 +304,17 @@ bool AIOSRobot::configureMasterPDOs() {
     return true;
 }
 
+
+setMovementReturnCode_t AIOSRobot::safetyCheck() {
+    //Joint max speed and stops
+    for (unsigned int i = 0; i < group->size(); i++) {
+        if (((AIOSJoint *)joints[i])->safetyCheck() != SUCCESS) {
+            spdlog::error("AIOS Robot: Joint {} safety triggered!", i);
+            return OUTSIDE_LIMITS;
+        }
+    }
+    return SUCCESS;
+}
 
 bool AIOSRobot::initPositionControl() {
     // Need to send a couple of commands to the drives
@@ -392,7 +400,7 @@ setMovementReturnCode_t AIOSRobot::setPosition(Eigen::VectorXd positions) {
             if (joints[i]->setPosition(positions[i]) == SUCCESS) {
                 // We can add this to the group command
                 PosPtInfo info = {0};
-                info.pos = ((AIOSJoint*)joints[i])->jointPositionToDriveUnitDouble(positions[i]);  // Need a conversion which is accessible
+                info.pos = ((AIOSJoint*)joints[i])->jointPositionToDriveUnitDoubleWithOffset(positions[i]);  // Need a conversion which is accessible
                 pos_pt_infos[cv.toaios(i)] = info;
             }
         }

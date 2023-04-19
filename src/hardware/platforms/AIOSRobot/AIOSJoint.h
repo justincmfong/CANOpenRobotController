@@ -25,6 +25,7 @@ class AIOSJoint : public Joint {
     const short int sign;
     const double driveToJointPos = 3.0/180.*M_PI; //!< Conversion multiplier used for both position and velocity conversions
     const double driveToJointTorque = 1.0;
+    const double dqMin, dqMax, tauMin, tauMax;
 
     /**
      * \brief Conversion between drive unit (encoder count) and joint unit (radian).
@@ -41,18 +42,19 @@ class AIOSJoint : public Joint {
     double driveUnitToJointTorque(int driveValue);
     int jointTorqueToDriveUnit(double jointValue);
     double jointTorqueToDriveUnitDouble(double jointValue);
+    double jointPositionToDriveUnitDoubleWithOffset(double jointValue);
 
    public:
-    AIOSJoint(int jointID, double q_min, double q_max, short int _sign, AIOSDrive* drive = NULL, const std::string& name = "");
+    AIOSJoint(int jointID, double q_min, double q_max, short int _sign, double dq_min = 0, double dq_max = 0, double tau_min = 0, double tau_max = 0, AIOSDrive* drive = NULL, const std::string& name = "");
     ~AIOSJoint();
-
-    bool updateValue();
 
     /**
      * \brief Check if current velocity and torque are within limits.
      *
      * \return OUTSIDE_LIMITS if outside the limits (!), SUCCESS otherwise
      */
+    setMovementReturnCode_t safetyCheck();
+
     setMovementReturnCode_t setPosition(double qd);
     setMovementReturnCode_t setVelocity(double dqd);
     setMovementReturnCode_t setTorque(double taud);

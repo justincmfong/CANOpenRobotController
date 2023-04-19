@@ -49,7 +49,7 @@ bool velTransition(StateMachine &SM) {
     // Otherwise false
     return false;
 }
-bool TorqTransition(StateMachine &SM) {
+bool torqTransition(StateMachine &SM) {
     AIOSTestMachine &sm = static_cast<AIOSTestMachine &>(SM);  // Cast to specific StateMachine type
 
     // keyboard press
@@ -73,7 +73,7 @@ bool ErrorTransition(StateMachine &SM) {
 
 AIOSTestMachine::AIOSTestMachine() {
     //Create an M2 Robot and set it to generic state machine
-    setRobot(std::make_unique<AIOSRobot>("AIOSDEMO", "AIOSRobot_params.yaml"));
+    setRobot(std::make_unique<AIOSRobot>("AIOS1DOF", "AIOSRobot_params.yaml"));
 
     //Create state instances and add to the State Machine
     addState("StationaryState", std::make_shared<AIOSStationaryState>(robot()));
@@ -91,8 +91,8 @@ AIOSTestMachine::AIOSTestMachine() {
     addTransition("PositionControl", &posTransition, "StationaryState");
     addTransition("StationaryState", &velTransition, "VelocityControl");
     addTransition("VelocityControl", &velTransition, "StationaryState");
-    addTransition("StationaryState", &TorqTransition, "TorqueControl");
-    addTransition("TorqueControl", &TorqTransition, "StationaryState");
+    addTransition("StationaryState", &torqTransition, "TorqueControl");
+    addTransition("TorqueControl", &torqTransition, "StationaryState");
     addTransition("StationaryState", &trajTransition, "Trajectory");
     addTransition("Trajectory", &trajTransition, "StationaryState");
     addTransitionFromAny(&ErrorTransition, "ErrorCheck");
