@@ -9,6 +9,7 @@ project(CORC C CXX)
 #(it should be the class name and have corresponding header naming in a corresponding folder)
 # If your application use ROS, don't forget to change the flag bellow too.
 
+#set (STATE_MACHINE_NAME "EXO22Machine")
 set (STATE_MACHINE_NAME "AIOSTestMachine")
 #set (STATE_MACHINE_NAME "M1DemoMachine")
 #set (STATE_MACHINE_NAME "M1DemoMachineROS")
