@@ -49,7 +49,7 @@ bool velTransition(StateMachine &SM) {
     // Otherwise false
     return false;
 }
-bool TorqTransition(StateMachine &SM) {
+bool torqTransition(StateMachine &SM) {
     AIOSTestMachine &sm = static_cast<AIOSTestMachine &>(SM);  // Cast to specific StateMachine type
 
     // keyboard press
@@ -60,7 +60,7 @@ bool TorqTransition(StateMachine &SM) {
     return false;
 }
 
-bool ErrorTransition(StateMachine &SM) {
+bool errorTransition(StateMachine &SM) {
     AIOSTestMachine &sm = static_cast<AIOSTestMachine &>(SM);  // Cast to specific StateMachine type
 
     // keyboard press
@@ -91,12 +91,12 @@ AIOSTestMachine::AIOSTestMachine() {
     addTransition("PositionControl", &posTransition, "StationaryState");
     addTransition("StationaryState", &velTransition, "VelocityControl");
     addTransition("VelocityControl", &velTransition, "StationaryState");
-    addTransition("StationaryState", &TorqTransition, "TorqueControl");
-    addTransition("TorqueControl", &TorqTransition, "StationaryState");
+    addTransition("StationaryState", &torqTransition, "TorqueControl");
+    addTransition("TorqueControl", &torqTransition, "StationaryState");
     addTransition("StationaryState", &trajTransition, "Trajectory");
     addTransition("Trajectory", &trajTransition, "StationaryState");
-    addTransitionFromAny(&ErrorTransition, "ErrorCheck");
-    addTransition("ErrorCheck", &ErrorTransition, "StationaryState");
+    addTransitionFromAny(&errorTransition, "ErrorCheck");
+    addTransition("ErrorCheck", &errorTransition, "StationaryState");
 
     //Initialize the state machine with first state of the designed state machine
     setInitState("StationaryState");
@@ -118,21 +118,4 @@ void AIOSTestMachine::init() {
         spdlog::critical("Failed robot initialisation. Exiting...");
         std::raise(SIGTERM); //Clean exit
     }
-}
-
-void AIOSTestMachine::end() {
-    StateMachine::end();
-}
-
-
-////////////////////////////////////////////////////////////////
-// Events ------------------------------------------------------
-///////////////////////////////////////////////////////////////
-
-/**
- * \brief Statemachine to hardware interface method.
- *
- */
-void AIOSTestMachine::hwStateUpdate(void) {
-    StateMachine::hwStateUpdate();
 }

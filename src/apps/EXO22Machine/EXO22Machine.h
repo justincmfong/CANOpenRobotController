@@ -8,27 +8,27 @@
  * \copyright Copyright (c) 2020 - 2021
  *
  */
-#ifndef AIOS_SM_H
-#define AIOS_SM_H
+#ifndef EXO22_SM_H
+#define EXO22_SM_H
 
 #include "AIOSRobot.h"
 #include "StateMachine.h"
 
 // State Classes
-#include "AIOSTestStates.h"
+#include "EXO22States.h"
 
 /**
  * @brief Example implementation of a StateMachine for the AIOSTest class. States should implemented M2DemoState
  *
  */
-class AIOSTestMachine : public StateMachine {
+class EXO22Machine : public StateMachine {
 
    public:
-    AIOSTestMachine();
-    ~AIOSTestMachine();
+    EXO22Machine();
+    ~EXO22Machine();
     void init();
 
     AIOSRobot *robot() { return static_cast<AIOSRobot*>(_robot.get()); } //!< Robot getter with specialised type (lifetime is managed by Base StateMachine)
 };
 
-#endif /*AIOS_SM_H*/
+#endif /*EXO22_SM_H*/
