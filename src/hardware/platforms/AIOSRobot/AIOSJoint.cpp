@@ -100,14 +100,15 @@ setMovementReturnCode_t AIOSJoint::setVelocity(double dqd) {
     if (calibrated) {
         if (position <= qMin && dqd < 0) {
             dqd = 0;
+            Joint::setVelocity(dqd);
             return OUTSIDE_LIMITS;
         }
         if (position >= qMax && dqd > 0) {
             dqd = 0;
+            Joint::setVelocity(dqd);
             return OUTSIDE_LIMITS;
         }
     }
-
     return Joint::setVelocity(dqd);
 }
 
@@ -116,10 +117,12 @@ setMovementReturnCode_t AIOSJoint::setTorque(double taud) {
     if (calibrated) {
         if (position <= qMin && taud < 0) {
             taud = 0;
+            Joint::setTorque(taud);
             return OUTSIDE_LIMITS;
         }
         if (position >= qMax && taud > 0) {
             taud = 0;
+            Joint::setTorque(taud);
             return OUTSIDE_LIMITS;
         }
     }

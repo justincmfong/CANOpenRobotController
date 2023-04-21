@@ -39,7 +39,6 @@ bool AIOSDrive::updateValues(FourierFeedbackPtr fb) {
 }
 
 bool AIOSDrive::configureMasterPDOs() {
-    spdlog::info("No such method configureMasterPDOs() in AIOSDrive");
     return true;
 }  // No equivalent
 
