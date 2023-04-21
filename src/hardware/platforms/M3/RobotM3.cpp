@@ -53,7 +53,7 @@ bool RobotM3::loadParametersFromYAML(YAML::Node params) {
         dqMax = fmin(fmax(0., params_r["dqMax"].as<double>()), 360.) * M_PI / 180.; //Hard constrained for safety
     }
 
-    if(params["tauMax"]){
+    if(params_r["tauMax"]){
         tauMax = fmin(fmax(0., params_r["tauMax"].as<double>()), 80.); //Hard constrained for safety
     }
 

@@ -46,7 +46,8 @@ class AIOSRobot : public Robot {
 
     std::vector<std::string> jointNames;
     VX qCalibration;             //!< Calibration configuration: posture in which the robot is when using the calibration procedure
-    std::vector<double> qSigns;
+    std::vector<double> qSigns, qLimits;
+    double dqMax=0, tauMax=0;
 
     bool calibrated;
 
@@ -117,9 +118,6 @@ class AIOSRobot : public Robot {
                 return false;
             }
 
-            /*TODO
-            std::vector<double> to_corc(std::vector<double> &v_aios) {}
-            std::vector<double> to_aios(std::vector<double> &v_corc) {}*/
 
         private:
             bool initialised = false;
@@ -242,25 +240,10 @@ class AIOSRobot : public Robot {
     virtual void updateRobot();
 
     /**
-    * \brief Get the latest joints position
+    * \brief Check each joint velocity, torque and position limit.
     *
-    * \return Eigen::VectorXd a reference to the vector of actual joint positions
     */
-    Eigen::VectorXd& getPosition();
-
-    /**
-    * \brief Get the latest joints velocity
-    *
-    * \return Eigen::VectorXd a reference to the vector of actual joint positions
-    */
-    Eigen::VectorXd& getVelocity();
-
-    /**
-    * \brief Get the latest joints torque
-    *
-    * \return Eigen::VectorXd a reference to the vector of actual joint positions
-    */
-    Eigen::VectorXd& getTorque();
+    setMovementReturnCode_t safetyCheck();
 
     /**
     * \brief print out status of <code>Joint<code> J_i

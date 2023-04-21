@@ -6,4 +6,16 @@ AIOSDEMO:
   jointIDs: ["C012D5549434", "2C76D5549434"] #Expected actuators IDs IN CORC EXPECTED ORDER
   jointNames: ["RHipExt", "RKnee"]
   qSigns: [-1, -1]
-  qCalibration: [30, 0] #Joint position in degree at calibration pose (i.e. on stop)
+  qCalibration: [35, 0] #Joint position in degree at calibration pose (i.e. on stop)
+  
+AIOS1DOF:
+  networkIP: "10.10.10.255" #Brodacast IP of AIOS actuators network
+  nbJoints: 1 #Should match number of entries in the following list
+  jointIDs: ["C4D9D4549434"] #Expected actuators IDs IN CORC EXPECTED ORDER
+  jointNames: ["RHipExt"]
+  qSigns: [-1]
+  qCalibration: [35] #Joint position in degree at calibration pose (i.e. on stop)
+  qLimits: [-34, 34] # Joints limits (in deg) {q1_min, q1_max, ..., qN_min, qN_max}
+  dqMax: 25 #Max allowable speed for every joint (deg/s)
+  tauMax: 0.5 #Max allowable torque for every joint (internal unit)
+  

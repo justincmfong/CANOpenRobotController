@@ -12,8 +12,10 @@
 
 #include "AIOSJoint.h"
 
-AIOSJoint::AIOSJoint(int jointID, double q_min, double q_max, short int _sign, AIOSDrive* drive, const std::string& name) : Joint(jointID, q_min, q_max, drive, name),
-                                                                                                                            sign(_sign) {
+AIOSJoint::AIOSJoint(int jointID, double q_min, double q_max, short int _sign, double dq_min, double dq_max, double tau_min, double tau_max, AIOSDrive* drive, const std::string& name) :
+            Joint(jointID, q_min, q_max, drive, name),
+            sign(_sign),
+            dqMin(dq_min), dqMax(dq_max), tauMin(tau_min), tauMax(tau_max) {
     spdlog::debug("Joint ID {} Created", this->id);
 }
 
@@ -23,6 +25,16 @@ AIOSJoint::~AIOSJoint() {
 bool AIOSJoint::initNetwork() {
     spdlog::debug("JointM1::initNetwork()");
     return drive->init();
+}
+
+setMovementReturnCode_t AIOSJoint::safetyCheck() {
+    if (velocity > dqMax || velocity < dqMin) {
+        return OUTSIDE_LIMITS;
+    }
+    if (torque > tauMax || torque < tauMin) {
+        return OUTSIDE_LIMITS;
+    }
+    return SUCCESS;
 }
 
 /***************************************************************************************/
@@ -48,6 +60,9 @@ int AIOSJoint::jointPositionToDriveUnit(double jointValue) {
 double AIOSJoint::jointPositionToDriveUnitDouble(double jointValue) {
     return sign*jointValue/driveToJointPos;
 }
+double AIOSJoint::jointPositionToDriveUnitDoubleWithOffset(double jointValue) {
+    return sign*(jointValue+q0)/driveToJointPos;
+}
 
 int AIOSJoint::jointVelocityToDriveUnit(double jointValue) {
     return (int) sign*round(jointValue/driveToJointPos*((AIOSDrive*) drive)->posMultiplier);
@@ -61,13 +76,6 @@ int AIOSJoint::jointTorqueToDriveUnit(double jointValue) {
 }
 double AIOSJoint::jointTorqueToDriveUnitDouble(double jointValue) {
     return sign*jointValue/driveToJointTorque;
-}
-
-bool AIOSJoint::updateValue() {
-    position = driveUnitToJointPosition(drive->getPos());
-    velocity = driveUnitToJointVelocity(drive->getVel());
-    torque = driveUnitToJointTorque(drive->getTorque());
-    return true;
 }
 
 /***************************************************************************************/

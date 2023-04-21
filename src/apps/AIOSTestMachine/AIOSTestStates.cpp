@@ -25,9 +25,10 @@ void AIOSCalibState::entryCode(void) {
     }
     robot->decalibrate();
     robot->initTorqueControl();
-    maxTorque = 3;
-    b = 2.;//damping coef
+    maxTorque = 2;
+    b = 3.;//damping coef
     std::cout << "Calibrating (keep clear)..." << std::flush;
+    std::cout << "CORC Pre-calibration position:" << q0.transpose()*180./M_PI << "\n";
 }
 //Move slowly on each joint until max force detected
 void AIOSCalibState::duringCode(void) {
@@ -53,6 +54,7 @@ void AIOSCalibState::duringCode(void) {
     else {
         //If all joints are calibrated
         if(std::all_of(at_stop.begin(), at_stop.end(), [](bool v) { return v; })) {
+            std::cout << "CORC Pre-calibration position:" << robot->getPosition().transpose()*180./M_PI << "\n";
             robot->applyCalibration();
             std::cout << "OK." << std::endl;
         }
@@ -65,6 +67,7 @@ void AIOSCalibState::duringCode(void) {
     }
 }
 void AIOSCalibState::exitCode(void) {
+    std::cout << "CORC Post-calibration position:" << robot->getPosition().transpose()*180./M_PI << "\n";
     robot->setTorque(robot->getTorque()*0.0);
 }
 

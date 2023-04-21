@@ -24,7 +24,7 @@ set (STATE_MACHINE_NAME "EXO22Machine")
 #set (STATE_MACHINE_PATH "../")
 
 # Comment to use actual hardware, uncomment for a nor robot (virtual) app
-set(NO_ROBOT ON)
+set(NO_ROBOT OFF)
 
 # ROS Flag: set to 0 for a no ROS stateMachine, 1 for ROS 1 (use catkin build) and 2 for ROS2 (use colcon build)
 # Remember to rename select appropriate package.xml too
