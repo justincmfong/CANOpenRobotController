@@ -56,14 +56,8 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Rob
             drives.push_back(new AIOSDrive());
         }
 
-        //TODO: define limits properly and load from YAML if they exist or default otherwise (see loadParam from YAML)
-        double jointMin = -1e8;
-        double jointMax = 1e8;
-        double jointMaxSpeed = 25/180.*M_PI;
-        double jointMaxTorque = 0.5; //!!! WARNING: this is in joint READING units from AIOS!!
-
         for (int i = 0; i < group->size(); i++){
-            joints.push_back(new AIOSJoint(i, jointMin, jointMax, qSigns[i], -jointMaxSpeed, jointMaxSpeed, -jointMaxTorque, jointMaxTorque, drives[i], jointNames[i]));
+            joints.push_back(new AIOSJoint(i, qLimits[2*i], qLimits[2*i+1], qSigns[i], -dqMax, dqMax, -tauMax, tauMax, drives[i], jointNames[i]));
         }
 
         inputs.push_back(keyboard = new Keyboard());
@@ -153,30 +147,67 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
 
     }
 
-    /*if(params_r["dqMax"]) {
+    qLimits.resize(2*nb_joints);
+    fill(qLimits.begin(), qLimits.end(), 0);
+    if(params_r["qLimits"]){
+        if(qLimits.size() == params_r["qLimits"].size()) {
+            for(unsigned int i=0; i<qLimits.size(); i++)
+                qLimits[i]=params_r["qLimits"][i].as<double>() * M_PI / 180.;
+        }
+        else {
+            spdlog::error("YAML does not list proper number of joint limits for {}.", robotName);
+            return false;
+        }
+    }
+
+    if(params_r["dqMax"]) {
         dqMax = fmin(fmax(0., params_r["dqMax"].as<double>()), 360.) * M_PI / 180.; //Hard constrained for safety
     }
 
-    if(params["tauMax"]) {
-        tauMax = fmin(fmax(0., params_r["tauMax"].as<double>()), 80.); //Hard constrained for safety
+    if(params_r["tauMax"]) {
+        tauMax = fmin(fmax(0., params_r["tauMax"].as<double>()), 10.); //Hard constrained for safety
+        std::cout << "tauMax:" << tauMax << "\n";
     }
 
-    fillParamVectorFromYaml(params_r["iPeakDrives"], iPeakDrives);
+    /*fillParamVectorFromYaml(params_r["iPeakDrives"], iPeakDrives);
     fillParamVectorFromYaml(params_r["motorCstt"], motorCstt);
     fillParamVectorFromYaml(params_r["linkLengths"], linkLengths);
     fillParamVectorFromYaml(params_r["massCoeff"], massCoeff);
     fillParamVectorFromYaml(params_r["qSpringK"], springK);
     fillParamVectorFromYaml(params_r["qSpringKo"], springKo);
     fillParamVectorFromYaml(params_r["frictionVis"], frictionVis);
-    fillParamVectorFromYaml(params_r["frictionCoul"], frictionCoul);
+    fillParamVectorFromYaml(params_r["frictionCoul"], frictionCoul);*/
 
-    if(params_r["qLimits"]){
-        for(unsigned int i=0; i<qLimits.size(); i++)
-            qLimits[i]=params_r["qLimits"][i].as<double>() * M_PI / 180.;
-    }
-    */
+
 
     spdlog::info("Using YAML parameters of {}.", robotName);
+    if(SPDLOG_ACTIVE_LEVEL<SPDLOG_LEVEL_DEBUG)
+    {
+        std::cout << "Loaded robot configuration:\n";
+        std::cout << "\tIP: " << networkIP << "\n";
+        std::cout << "\tMax joints torque: " <<  tauMax << "\n";
+        std::cout << "\tMax joints speed: " << dqMax*180./M_PI << " deg./s\n";
+        std::cout << "\tJoints: ";
+        for(unsigned int i=0; i< nb_joints; i++)
+            std::cout << "\t" << jointNames[i];
+        std::cout << "\n";
+        std::cout << "\tIDs: \t";
+        for(unsigned int i=0; i< nb_joints; i++)
+            std::cout << "\t" << expected_aios_ids[i];
+        std::cout << "\n";
+        std::cout << "\tSigns: \t";
+        for(unsigned int i=0; i< nb_joints; i++)
+            std::cout << "\t" << qSigns[i];
+        std::cout << "\n";
+        std::cout << "\tStops: \t";
+        for(unsigned int i=0; i< nb_joints; i++)
+            std::cout << "\t" << qLimits[2*i]*180./M_PI << "/"<< qLimits[2*i+1]*180./M_PI;
+        std::cout << "\n";
+        std::cout << "\tCalibration:";
+        for(unsigned int i=0; i< nb_joints; i++)
+            std::cout << "\t" << qLimits[2*i+1]*180./M_PI;
+        std::cout << "\n";
+    }
     return true;
 }
 

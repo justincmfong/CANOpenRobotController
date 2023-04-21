@@ -15,3 +15,7 @@ AIOS1DOF:
   jointNames: ["RHipExt"]
   qSigns: [-1]
   qCalibration: [35] #Joint position in degree at calibration pose (i.e. on stop)
+  qLimits: [-34, 34] # Joints limits (in deg) {q1_min, q1_max, ..., qN_min, qN_max}
+  dqMax: 25 #Max allowable speed for every joint (deg/s)
+  tauMax: 0.5 #Max allowable torque for every joint (internal unit)
+  

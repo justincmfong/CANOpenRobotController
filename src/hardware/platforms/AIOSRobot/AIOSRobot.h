@@ -46,7 +46,8 @@ class AIOSRobot : public Robot {
 
     std::vector<std::string> jointNames;
     VX qCalibration;             //!< Calibration configuration: posture in which the robot is when using the calibration procedure
-    std::vector<double> qSigns;
+    std::vector<double> qSigns, qLimits;
+    double dqMax=0, tauMax=0;
 
     bool calibrated;
 
