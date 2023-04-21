@@ -121,8 +121,8 @@ void AIOSPosControlState::exitCode(void) {
 
 void AIOSPosTrajState::entryCode(void) {
     robot->initPositionControl();
-    Pts.push_back(Pt(Eigen::Vector2d(.0, .0), 4.));
-    Pts.push_back(Pt(Eigen::Vector2d(-0.3, 0.5), 2.));
+    Pts.push_back(Pt(Eigen::Vector2d(.0, .1), 4.));
+    Pts.push_back(Pt(Eigen::Vector2d(1.0, 0.5), 2.));
     q = robot->getPosition();
     robot->setPosition(q);
 

@@ -41,11 +41,13 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Rob
         if (group->size()>0) {
             //Define mapping between Fourier actuators group and expected robot structure and apply check on expected structure from YAML (nb joints, IPS...)
             auto entry_list = lookup.getEntryList(); //List of actuators actually connected
-            cv.initialise(entry_list, expected_aios_ids); //Init mapping
-
-            spdlog::info("AIOS actuators present:");
-            for (const auto &entry : *entry_list) {
-                spdlog::info("Found {}", entry.serial_number_);
+            //Init mapping
+            if(!cv.initialise(entry_list, expected_aios_ids))
+            {
+                spdlog::error("Can't initialise. AIOS actuators actually present:");
+                for (const auto &entry : *entry_list) {
+                    spdlog::error(" \t -found {}", entry.serial_number_);
+                }
             }
         }
         else {
@@ -166,7 +168,6 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
 
     if(params_r["tauMax"]) {
         tauMax = fmin(fmax(0., params_r["tauMax"].as<double>()), 10.); //Hard constrained for safety
-        std::cout << "tauMax:" << tauMax << "\n";
     }
 
     /*fillParamVectorFromYaml(params_r["iPeakDrives"], iPeakDrives);
@@ -179,7 +180,7 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
     fillParamVectorFromYaml(params_r["frictionCoul"], frictionCoul);*/
 
     spdlog::info("Using YAML parameters of {}.", robotName);
-    if(SPDLOG_ACTIVE_LEVEL<SPDLOG_LEVEL_DEBUG)
+    if(SPDLOG_ACTIVE_LEVEL<=SPDLOG_LEVEL_DEBUG)
     {
         std::cout << "Loaded robot configuration:\n";
         std::cout << "\tIP: " << networkIP << "\n";
@@ -203,7 +204,7 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
         std::cout << "\n";
         std::cout << "\tCalibration:";
         for(unsigned int i=0; i< nb_joints; i++)
-            std::cout << "\t" << qLimits[2*i+1]*180./M_PI;
+            std::cout << "\t" << qCalibration[i]*180./M_PI;
         std::cout << "\n";
     }
     return true;
