@@ -28,54 +28,23 @@ bool trajTransition(StateMachine & SM) {
     return false;
 }
 
-bool posTransition(StateMachine & SM) {
-    EXO22Machine & sm = static_cast<EXO22Machine &>(SM); //Cast to specific StateMachine type
-
-    //keyboard press
-    if (sm.robot()->keyboard->getNb()==1)
-        return true;
-
-    //Otherwise false
-    return false;
-}
-
-bool velTransition(StateMachine &SM) {
-    EXO22Machine &sm = static_cast<EXO22Machine &>(SM);  // Cast to specific StateMachine type
-
-    // keyboard press
-    if (sm.robot()->keyboard->getNb() == 2)
-        return true;
-
-    // Otherwise false
-    return false;
-}
-bool torqTransition(StateMachine &SM) {
-    EXO22Machine &sm = static_cast<EXO22Machine &>(SM);  // Cast to specific StateMachine type
-
-    // keyboard press
-    if (sm.robot()->keyboard->getNb() == 3)
-        return true;
-
-    // Otherwise false
-    return false;
-}
-
-bool errorTransition(StateMachine &SM) {
-    EXO22Machine &sm = static_cast<EXO22Machine &>(SM);  // Cast to specific StateMachine type
-
-    // keyboard press
-    if (sm.robot()->keyboard->getNb() == 0)
-        return true;
-
-    // Otherwise false
-    return false;
-}
-
 EXO22Machine::EXO22Machine() {
     setRobot(std::make_unique<AIOSRobot>("AIOSDEMO", "AIOSRobot_params.yaml"));
 
+    std::vector<ViaPoint> sittingViaPoints;
+    sittingViaPoints.push_back({Eigen::VectorXd::Zero(6), 1}); 
+
+    std::vector<ViaPoint> standingViaPoints {
+        {Eigen::VectorXd::Zero(6), 1}
+    }; 
+
     //Create state instances and add to the State Machine
-    addState("StationaryState", std::make_shared<EXO22StationaryState>(robot()));
+    addState("InitState", std::make_shared<EXO22StationaryState>(robot()));
+    addState("CalibrationState", std::make_shared<EXO22CalibState>(robot()));
+    addState("StandingState", std::make_shared<EXO22StationaryState>(robot(), "Standing (Stationary) State"));
+    addState("M_SittingState", std::make_shared<EXO22MovingState>(robot(), sittingViaPoints, "Sitting Down (Moving) State"));
+    addState("SittingState", std::make_shared<EXO22StationaryState>(robot(), "Sitting (Stationary) State"));
+    addState("M_StandingState", std::make_shared<EXO22MovingState>(robot(), standingViaPoints, "Standing Up (Moving) State"));
 
 
     //Define transitions between states

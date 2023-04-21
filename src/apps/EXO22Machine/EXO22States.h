@@ -1,5 +1,5 @@
 /**
- * /file AIOSDemoState.h
+ * /file EXO22States.h
  * \author Justin Fong/Vincent Crocher
  * \version 0.1
  * \date 2023-04-19
@@ -12,11 +12,14 @@
 #define EXO22STATE_H_DEF
 
 #include <algorithm>
+#include <vector>
 
 #include "AIOSRobot.h"
 #include "State.h"
 
-using namespace std;
+#include "EXO22Trajectory.h"
+
+//using namespace std;
 
 /**
  * \brief Conversion from a timespec structure to seconds (double)
@@ -96,10 +99,21 @@ class EXO22CalibState : public EXO22TimedState {
  */
 class EXO22MovingState : public EXO22TimedState {
    private:
-    Eigen::VectorXd targetPos;
+    // Trajectory Definition
+    // List of viapoints for this object 
+    std::vector<ViaPoint> viaPoints; 
+
+    // Trajectory Object
+    // A trajectory object which constructs 
+    EXO22Trajectory * traj;
+    // Flag to determine whether trajectory is complete or not
+    
+    bool trajComplete = false;
 
    public:
-    EXO22MovingState(AIOSRobot *AIOS, const char *name = "AIOS Position Control State") : EXO22TimedState(AIOS, name){};
+    EXO22MovingState(AIOSRobot *AIOS, std::vector<ViaPoint> vp, const char *name = "EXO22 Moving State") : EXO22TimedState(AIOS, name){
+        viaPoints = vp;
+    };
 
     void entryCode(void);
     void duringCode(void);
@@ -112,15 +126,12 @@ class EXO22MovingState : public EXO22TimedState {
  */
 class EXO22StationaryState : public EXO22TimedState {
    public:
-    EXO22StationaryState(AIOSRobot *AIOS, const char *name = "AIOS Position Control State") : EXO22TimedState(AIOS, name){};
+    EXO22StationaryState(AIOSRobot *AIOS, const char *name = "EXO22 Stationary State") : EXO22TimedState(AIOS, name){};
 
     void entryCode(void);
     void duringCode(void);
     void exitCode(void);
 };
-
-
-
 
 
 /**
@@ -129,7 +140,7 @@ class EXO22StationaryState : public EXO22TimedState {
  */
 class EXO22CheckErrorState : public EXO22TimedState {
    public:
-    EXO22CheckErrorState(AIOSRobot *AIOS, const char *name = "AIOS Check Error State") : EXO22TimedState(AIOS, name){};
+    EXO22CheckErrorState(AIOSRobot *AIOS, const char *name = "EXO22 Check Error State") : EXO22TimedState(AIOS, name){};
 
     void entryCode(void);
     void duringCode(void);

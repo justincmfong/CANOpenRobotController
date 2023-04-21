@@ -59,45 +59,33 @@ void EXO22CalibState::exitCode(void) {
 
 
 void EXO22MovingState::entryCode(void) {
+    // Need to generate the 
     robot->initPositionControl();
-    targetPos = robot->getPosition();
+    trajComplete = false;
+
+    traj = new EXO22Trajectory(viaPoints, robot->getPosition());
 }
 void EXO22MovingState::duringCode(void) {
     // Read Values
-    double inc = 0.2*M_PI/180.;
-    if (robot->keyboard->getKeyUC() == 'S') {
-        for (int i = 0; i < targetPos.size(); i++) {
-            targetPos[i] = targetPos[i] + inc;
-        }
-        robot->setPosition(targetPos);
-    }
-    else if(robot->keyboard->getKeyUC() == 'D') {
-        for (int i = 0; i < targetPos.size(); i++) {
-            targetPos[i] = targetPos[i] - inc;
-        }
-        robot->setPosition(targetPos);
-    }
+    robot->setPosition(traj->getPoint(0));
 
-    if(iterations()%50) {
-        std::cout<< "CORC: " << targetPos.transpose()*180/M_PI  << "=>" << robot->getPosition().transpose()*180/M_PI << "(deg)   " << robot->getVelocity().transpose()*180/M_PI << "(deg/s)\n";
-    }
 }
 void EXO22MovingState::exitCode(void) {
     Eigen::VectorXd pos = robot->getPosition();
     robot->setPosition(pos);
+    traj = new EXO22Trajectory();
 }
 
 
 void EXO22StationaryState::entryCode(void) {
-
+    // Nothing should happen in these states
 }
 void EXO22StationaryState::duringCode(void) {
-
+    // Do nothing
 }
-
 void EXO22StationaryState::exitCode(void) {
+    // Do nothing
 }
-
 
 void EXO22CheckErrorState::entryCode(void) {
 }

@@ -1,5 +1,5 @@
 /**
- * \file Robot.h
+ * \file AIOSRobot.h
  * \author Justin Fong
  * \brief Extension of the Robot Class to include methods to deal with AIOS Actuators
  *

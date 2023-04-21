@@ -16,7 +16,6 @@
 #include "AIOSRobot.h"
 #include "State.h"
 
-using namespace std;
 
 /**
  * \brief Conversion from a timespec structure to seconds (double)
