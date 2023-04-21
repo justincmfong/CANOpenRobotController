@@ -123,6 +123,8 @@ class AIOSVelControlState : public AIOSTimedState {
      Eigen::VectorXd targetVel;
     public : AIOSVelControlState(AIOSRobot *AIOS, const char *name = "AIOS Velocity Control State") : AIOSTimedState(AIOS, name){};
 
+    unsigned int ctrled_idx=0;
+
      void entryCode(void);
      void duringCode(void);
      void exitCode(void);

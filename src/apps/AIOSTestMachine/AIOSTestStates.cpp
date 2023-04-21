@@ -176,19 +176,25 @@ void AIOSVelControlState::entryCode(void) {
         targetVel[i] = 0;
     }
     robot->setVelocity(targetVel);
+    ctrled_idx=0;
 }
 void AIOSVelControlState::duringCode(void) {
     double vel_inc = 10/180.*M_PI;
     if (robot->keyboard->getKeyUC() == 'S') {
         for (int i = 0; i < targetVel.size(); i++) {
-            targetVel[i] += +vel_inc;
+            targetVel[ctrled_idx] += +vel_inc;
         }
     } else if (robot->keyboard->getKeyUC() == 'D') {
         for (int i = 0; i < targetVel.size(); i++) {
-            targetVel[i] += -vel_inc;
+            targetVel[ctrled_idx] += -vel_inc;
         }
     }
     robot->setVelocity(targetVel);
+
+    if(robot->keyboard->getNb()>0) {
+        ctrled_idx = fmin(5, fmax(0, robot->keyboard->getNb()));
+        std::cout<< "CORC: CONTROLLED JOINT " << ctrled_idx << "\n";
+    }
 
     if(iterations()%50) {
         std::cout<< "CORC: " << robot->getPosition().transpose()*180/M_PI << "(deg)   " << targetVel.transpose()*180/M_PI << " => " <<robot->getVelocity().transpose()*180/M_PI << "(deg/s)\n";

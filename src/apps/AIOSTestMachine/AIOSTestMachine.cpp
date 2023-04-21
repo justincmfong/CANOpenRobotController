@@ -73,7 +73,7 @@ bool errorTransition(StateMachine &SM) {
 
 AIOSTestMachine::AIOSTestMachine() {
     //Create an M2 Robot and set it to generic state machine
-    setRobot(std::make_unique<AIOSRobot>("AIOSDEMO", "AIOSRobot_params.yaml"));
+    setRobot(std::make_unique<AIOSRobot>("EXO22", "AIOSRobot_params.yaml"));
 
     //Create state instances and add to the State Machine
     addState("StationaryState", std::make_shared<AIOSStationaryState>(robot()));
