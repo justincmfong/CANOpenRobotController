@@ -31,7 +31,7 @@ double timeval_to_sec(struct timespec *ts);
  * \brief Generic state type for used with AIOSTestMachine, providing running time and iterations number: been superseeded by default state.
  *
  */
-class EXO22TimedState : public State {
+class EXO22State : public State {
    protected:
     /**
     *  \todo Might be good to make these Const
@@ -39,15 +39,11 @@ class EXO22TimedState : public State {
     */
     AIOSRobot *robot;                               /*<!Pointer to state machines robot object*/
 
-    EXO22TimedState(AIOSRobot *AIOS, const char *name = NULL) : State(name), robot(AIOS){};
+    EXO22State(AIOSRobot *AIOS, const char *name = NULL) : State(name), robot(AIOS){};
 
    private:
     void entry(void) final {
-        std::cout
-        << "==================================" << std::endl
-        << " STARTING  " << getName() << std::endl
-        << "----------------------------------" << std::endl
-        << std::endl;
+        spdlog::debug(" === Enter State: {} ===", getName());
 
         //Actual state entry
         entryCode();
@@ -58,11 +54,7 @@ class EXO22TimedState : public State {
     };
     void exit(void) final {
         exitCode();
-        std::cout
-        << "----------------------------------" << std::endl
-        << "EXIT "<< getName() << std::endl
-        << "==================================" << std::endl
-        << std::endl;
+        spdlog::trace(" === Exit State: {} ===", getName());
     };
 
    public:
@@ -75,9 +67,9 @@ class EXO22TimedState : public State {
  * \brief Position calibration: go to the psitive mechanical stop of each joint in torque control (damped) until zero velocity.
  *
  */
-class EXO22CalibState : public EXO22TimedState {
+class EXO22CalibState : public EXO22State {
    public:
-    EXO22CalibState(AIOSRobot * AIOS, const char *name = "AIOS Calib State"):EXO22TimedState(AIOS, name){};
+    EXO22CalibState(AIOSRobot * AIOS, const char *name = "AIOS Calib State"):EXO22State(AIOS, name){};
 
     void entryCode(void);
     void duringCode(void);
@@ -97,7 +89,7 @@ class EXO22CalibState : public EXO22TimedState {
  * \brief A state in which the Robot is running in Position Control
  *
  */
-class EXO22MovingState : public EXO22TimedState {
+class EXO22MovingState : public EXO22State {
    private:
     // Trajectory Definition
     // List of viapoints for this object 
@@ -108,12 +100,17 @@ class EXO22MovingState : public EXO22TimedState {
     EXO22Trajectory * traj;
     // Flag to determine whether trajectory is complete or not
     
+    double trajProg = 0;
+
     bool trajComplete = false;
 
    public:
-    EXO22MovingState(AIOSRobot *AIOS, std::vector<ViaPoint> vp, const char *name = "EXO22 Moving State") : EXO22TimedState(AIOS, name){
+    EXO22MovingState(AIOSRobot *AIOS, std::vector<ViaPoint> vp, const char *name = "EXO22 Moving State") : EXO22State(AIOS, name){
         viaPoints = vp;
     };
+
+    bool isTrajComplete() {return trajComplete;}
+
 
     void entryCode(void);
     void duringCode(void);
@@ -124,9 +121,9 @@ class EXO22MovingState : public EXO22TimedState {
  * \brief A state in which the Robot is running in Position Control
  *
  */
-class EXO22StationaryState : public EXO22TimedState {
+class EXO22StationaryState : public EXO22State {
    public:
-    EXO22StationaryState(AIOSRobot *AIOS, const char *name = "EXO22 Stationary State") : EXO22TimedState(AIOS, name){};
+    EXO22StationaryState(AIOSRobot *AIOS, const char *name = "EXO22 Stationary State") : EXO22State(AIOS, name){};
 
     void entryCode(void);
     void duringCode(void);
@@ -138,9 +135,9 @@ class EXO22StationaryState : public EXO22TimedState {
  * @brief A state that send the check error command to the robot.
  *
  */
-class EXO22CheckErrorState : public EXO22TimedState {
+class EXO22CheckErrorState : public EXO22State {
    public:
-    EXO22CheckErrorState(AIOSRobot *AIOS, const char *name = "EXO22 Check Error State") : EXO22TimedState(AIOS, name){};
+    EXO22CheckErrorState(AIOSRobot *AIOS, const char *name = "EXO22 Check Error State") : EXO22State(AIOS, name){};
 
     void entryCode(void);
     void duringCode(void);

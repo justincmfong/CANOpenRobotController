@@ -64,10 +64,16 @@ void EXO22MovingState::entryCode(void) {
     trajComplete = false;
 
     traj = new EXO22Trajectory(viaPoints, robot->getPosition());
+    trajProg = 0;
 }
 void EXO22MovingState::duringCode(void) {
     // Read Values
-    robot->setPosition(traj->getPoint(0));
+
+    trajProg = trajProg + dt()/10;
+    robot->setPosition(traj->getPoint(trajProg));
+    if (trajProg > 1.0f){
+        trajComplete = true;
+    }
 
 }
 void EXO22MovingState::exitCode(void) {

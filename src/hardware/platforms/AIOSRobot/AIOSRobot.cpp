@@ -43,9 +43,9 @@ AIOSRobot::AIOSRobot(std::string robot_name, std::string yaml_config_file) : Rob
             auto entry_list = lookup.getEntryList(); //List of actuators actually connected
             cv.initialise(entry_list, expected_aios_ids); //Init mapping
 
-            spdlog::debug("AIOS actuators present:");
+            spdlog::info("AIOS actuators present:");
             for (const auto &entry : *entry_list) {
-                spdlog::debug("Found {}", entry.serial_number_);
+                spdlog::info("Found {}", entry.serial_number_);
             }
         }
         else {
@@ -178,8 +178,6 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
     fillParamVectorFromYaml(params_r["frictionVis"], frictionVis);
     fillParamVectorFromYaml(params_r["frictionCoul"], frictionCoul);*/
 
-
-
     spdlog::info("Using YAML parameters of {}.", robotName);
     if(SPDLOG_ACTIVE_LEVEL<SPDLOG_LEVEL_DEBUG)
     {
@@ -213,9 +211,13 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
 
 
 bool AIOSRobot::initialise() {
+    spdlog::info("Start Robot Initialise");
     if (initialiseNetwork()) {
+        spdlog::info("Network Done");
         if (initialiseJoints()) {
+            spdlog::info("Joints Done");
             if(initialiseInputs()) {
+                spdlog::info("Inputs Done");
                 return true;
             }
         }
