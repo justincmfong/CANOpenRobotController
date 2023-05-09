@@ -120,16 +120,22 @@ void AIOSPosControlState::exitCode(void) {
 
 
 void AIOSPosTrajState::entryCode(void) {
+    robot->applyCalibration(); //TODO: Vincent, for testing TO REMOVE
     robot->initPositionControl();
-    Pts.push_back(Pt(Eigen::Vector2d(.0, .1), 4.));
-    Pts.push_back(Pt(Eigen::Vector2d(1.0, 0.5), 2.));
+    Eigen::VectorXd p1(6), p2(6), p3(6);
+    p1 << .0, .0, .0, .0, .0, .0;
+    p2 << 10.0, 10.0, .0, .0, .0, .0;
+    p3 << 10.0, 10.0, 10.0, .0, 10.0, .0;
+    Pts.push_back(Pt(p1 , 4.));
+    Pts.push_back(Pt(p2 , 4.));
+    Pts.push_back(Pt(p3 , 4.));
     q = robot->getPosition();
     robot->setPosition(q);
 
     TrajPtIdx=0;
     startTime=running();
     qi=robot->getPosition();
-    qf=Pts[TrajPtIdx].pose;
+    qf=Pts[TrajPtIdx].pose*M_PI/180.;
     T=Pts[TrajPtIdx].T;
 }
 void AIOSPosTrajState::duringCode(void) {
@@ -154,7 +160,7 @@ void AIOSPosTrajState::duringCode(void) {
             //From where we are
             qi=robot->getPosition();
             //To next point
-            qf=Pts[TrajPtIdx].pose;
+            qf=Pts[TrajPtIdx].pose*M_PI/180.;
             T=Pts[TrajPtIdx].T;
             startTime=running();
         }
