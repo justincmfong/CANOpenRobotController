@@ -25,30 +25,33 @@ void AIOSCalibState::entryCode(void) {
     }
     robot->decalibrate();
     robot->initTorqueControl();
-    maxTorque = 2;
-    b = 3.;//damping coef
+    maxTorque = 6;
+    b = 10.;//damping coef
+    calibDir = robot->getCalibrationDirection();
     std::cout << "Calibrating (keep clear)..." << std::flush;
     std::cout << "CORC Pre-calibration position:" << q0.transpose()*180./M_PI << "\n";
 }
+
 //Move slowly on each joint until max force detected
 void AIOSCalibState::duringCode(void) {
     VX tau=robot->getTorque()*0.0;
 
     //Apply constant torque (with damping) unless stop has been detected for more than 0.5s
     VX vel=robot->getVelocity();
-    for(unsigned int i=0; i<vel.size(); i++) {
-        tau(i) = std::min(std::max(maxTorque - b * vel(i), .0), maxTorque);
-        if(stop_reached_time(i)>0.5) {
+    for(unsigned int i=0; i< vel.size(); i++) {
+        tau(i) = std::min(std::max(maxTorque - b * abs(vel(i)), .0), maxTorque)*sign(calibDir(i));
+        spdlog::info("{}", tau(i));
+        if(stop_reached_time(i)>2) {
             at_stop[i]=true;
         }
-        if(vel(i)<0.01) {
+        if(vel(i)<0.002) {
             stop_reached_time(i) += dt();
         }
     }
 
     //Switch torque control when done
     if(robot->isCalibrated()) {
-        robot->setTorque(robot->getTorque()*0.0);
+        //robot->setTorque(robot->getTorque()*0.0);
         calibDone=true; //Trigger event
     }
     else {
@@ -65,17 +68,21 @@ void AIOSCalibState::duringCode(void) {
             }
         }
     }
+    //robot->applyCalibration(); //TODO: Vincent, for testing TO REMOVE
+    //calibDone=true; //Trigger event
+
 }
 void AIOSCalibState::exitCode(void) {
     std::cout << "CORC Post-calibration position:" << robot->getPosition().transpose()*180./M_PI << "\n";
-    robot->setTorque(robot->getTorque()*0.0);
+    //robot->initPositionControl();
+    //VX q << {}; // robot->getPosition();
+    robot->setPosition( robot->getPosition());
 }
-
-
 
 void AIOSStationaryState::entryCode(void) {
 }
 void AIOSStationaryState::duringCode(void) {
+    std::cout << "StationaryState During" << std::endl;
 
     if(iterations()%100==1) {
         //std::cout << "Doing nothing for "<< elapsedTime << "s..." << std::endl;
@@ -86,13 +93,13 @@ void AIOSStationaryState::duringCode(void) {
 void AIOSStationaryState::exitCode(void) {
 }
 
-
-
 void AIOSPosControlState::entryCode(void) {
     robot->initPositionControl();
     targetPos = robot->getPosition();
 }
 void AIOSPosControlState::duringCode(void) {
+    spdlog::debug("AIOSPosControlState During");
+
     // Read Values
     double inc = 0.2*M_PI/180.;
     if (robot->keyboard->getKeyUC() == 'S') {
@@ -117,20 +124,30 @@ void AIOSPosControlState::exitCode(void) {
     robot->setPosition(pos);
 }
 
-
-
 void AIOSPosTrajState::entryCode(void) {
-    robot->applyCalibration(); //TODO: Vincent, for testing TO REMOVE
+    spdlog::debug("AIOSPosTrajState Entry");
+
     robot->initPositionControl();
-    Eigen::VectorXd p1(6), p2(6), p3(6);
+    Eigen::VectorXd p1(6), p2(6), p3(6), p4(6), p5(6), p6(6), p7(6);
     p1 << .0, .0, .0, .0, .0, .0;
-    p2 << 10.0, 10.0, .0, .0, .0, .0;
-    p3 << 10.0, 10.0, 10.0, .0, 10.0, .0;
+    p2 << 5.0, 0.0, .0, .0, .0, .0;
+    p3 << 5.0, 5.0, 0.0, .0, 0.0, .0;
+    p4 << 5.0, 5.0, 5.0, .0, 0.0, .0;
+    p5 << 5.0, 5.0, 5.0, 5.0, 0.0, .0;
+    p6 << 5.0, 5.0, 5.0, 5.0, 5.0, .0;
+    p7 << 5.0, 5.0, 5.0, 5.0, 5.0, 5.0;
+
+
     Pts.push_back(Pt(p1 , 4.));
     Pts.push_back(Pt(p2 , 4.));
     Pts.push_back(Pt(p3 , 4.));
+    Pts.push_back(Pt(p4 , 4.));
+    Pts.push_back(Pt(p5 , 4.));
+    Pts.push_back(Pt(p6 , 4.));
+    Pts.push_back(Pt(p7 , 4.));
     q = robot->getPosition();
     robot->setPosition(q);
+    std::cout<< "CORC: " << q.transpose()*180/M_PI << "(deg)\n";
 
     TrajPtIdx=0;
     startTime=running();
@@ -139,7 +156,7 @@ void AIOSPosTrajState::entryCode(void) {
     T=Pts[TrajPtIdx].T;
 }
 void AIOSPosTrajState::duringCode(void) {
-
+    spdlog::debug("AIOSPosTrajState During");
     if(q.size()!=Pts[TrajPtIdx].pose.size()) {
         spdlog::error("Wrong trajectory vector size.");
     }
@@ -148,6 +165,8 @@ void AIOSPosTrajState::duringCode(void) {
         VX dqd;
         double status=JerkIt(qi, qf, T, running()-startTime, dq, dqd);
         //Apply position control
+        std::cout<< "CORC: " << dq.transpose() << "(deg)\n";
+
         robot->setPosition(dq);
 
         //Have we reached a point?
@@ -166,7 +185,7 @@ void AIOSPosTrajState::duringCode(void) {
         }
     }
 
-    if(iterations()%50) {
+    if(iterations()%10) {
         std::cout<< "CORC: " << robot->getPosition().transpose()*180/M_PI << "(deg)   " << robot->getVelocity().transpose()*180/M_PI << "(deg/s)\n";
     }
 }
@@ -176,6 +195,8 @@ void AIOSPosTrajState::exitCode(void) {
 }
 
 void AIOSVelControlState::entryCode(void) {
+    spdlog::debug("AIOSVelControlState During");
+
     robot->initVelocityControl();
     targetVel = robot->getVelocity();
     for (int i = 0; i < targetVel.size(); i++) {

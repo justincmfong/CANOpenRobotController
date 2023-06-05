@@ -95,6 +95,7 @@ class AIOSCalibState : public AIOSTimedState {
     VX stop_reached_time;
     std::vector<bool> at_stop;
     bool calibDone=false;
+    VX calibDir;
 
 };
 

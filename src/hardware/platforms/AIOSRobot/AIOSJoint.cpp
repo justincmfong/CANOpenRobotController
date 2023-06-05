@@ -29,9 +29,11 @@ bool AIOSJoint::initNetwork() {
 
 setMovementReturnCode_t AIOSJoint::safetyCheck() {
     if (velocity > dqMax || velocity < dqMin) {
+        spdlog::error("Velocity Limit {} min: {} max: {} ", velocity, dqMin, dqMax);
         return OUTSIDE_LIMITS;
     }
     if (torque > tauMax || torque < tauMin) {
+        spdlog::error("Torque Limit");
         return OUTSIDE_LIMITS;
     }
     return SUCCESS;
@@ -87,7 +89,7 @@ setMovementReturnCode_t AIOSJoint::setPosition(double qd) {
         if (qd >= qMin && qd <= qMax) {
             return Joint::setPosition(qd);
         } else {
-            spdlog::debug("Position out of bound: {}", qd);
+            spdlog::debug("Position out of bound: {}<{}<{}", qMin, qd, qMax);
             return OUTSIDE_LIMITS;
         }
     } else {

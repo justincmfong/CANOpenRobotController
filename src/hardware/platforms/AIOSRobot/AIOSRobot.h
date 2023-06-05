@@ -46,6 +46,8 @@ class AIOSRobot : public Robot {
 
     std::vector<std::string> jointNames;
     VX qCalibration;             //!< Calibration configuration: posture in which the robot is when using the calibration procedure
+    VX calibrationDirection;     //!< Direction to move during calibration process
+
     std::vector<double> qSigns, qLimits;
     double dqMax=0, tauMax=0;
 
@@ -63,6 +65,9 @@ class AIOSRobot : public Robot {
 
             bool initialise(std::shared_ptr<Fourier::Lookup::EntryList> current_aios_order, std::vector<std::string> expected_aios_ids) {
                 initialised = false;
+                spdlog::info("Number of Motors found: {} ", current_aios_order->size());
+                spdlog::info("Expected Motors: {} ", expected_aios_ids.size());
+
                 if(current_aios_order->size()==expected_aios_ids.size()) {
                     N = expected_aios_ids.size();
                     aios_ids.resize(N);
@@ -162,6 +167,8 @@ class AIOSRobot : public Robot {
      * \return false if unsuccessful
      */
     bool initialise();
+
+    const VX& getCalibrationDirection(){ return calibrationDirection;};
 
    protected:
 

@@ -149,6 +149,19 @@ bool AIOSRobot::loadParametersFromYAML(YAML::Node params) {
 
     }
 
+    calibrationDirection = VX::Zero(nb_joints);
+    if(params_r["calibrationDirection"]){
+        if(calibrationDirection.size() == params_r["calibrationDirection"].size()) {
+            for(unsigned int i=0; i<calibrationDirection.size(); i++)
+                calibrationDirection[i]=params_r["calibrationDirection"][i].as<double>();
+        }
+        else {
+            spdlog::error("YAML does not list proper number of calibration direction values for {}.", robotName);
+            return false;
+        }
+
+    }
+
     qLimits.resize(2*nb_joints);
     fill(qLimits.begin(), qLimits.end(), 0);
     if(params_r["qLimits"]){
@@ -251,7 +264,6 @@ bool AIOSRobot::initialiseNetwork() {
 }
 
 void AIOSRobot::applyCalibration() {
-    spdlog::debug("AIOSRobot::ApplyCalib: {} {} => {}", getPosition()[0]*180/M_PI, qCalibration[0]*180/M_PI);
     for (unsigned int i = 0; i < joints.size(); i++) {
         ((AIOSJoint *)joints[i])->setPositionOffset(qCalibration[i]);
     }
@@ -413,6 +425,7 @@ bool AIOSRobot::initTorqueControl() {
         for (auto j : joints) {
             j->setMode(CM_TORQUE_CONTROL);
             j->enable();  // Should cascade down to the drive level
+            spdlog::info("{}->{}", j->getId(), j->getDriveStatus());
         }
     } else {
         // Include some additional error handling here
